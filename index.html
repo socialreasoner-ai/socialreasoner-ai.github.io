@@ -1,1 +1,130 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="SocialReasoner: Learning a Foundation Model of Human Social Reasoning from Heterogeneous Experts. Open release coming soon."><title>SocialReasoner — Coming soon</title><style>*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;background:#080d12;color:#eef6f3;font-family:system-ui,sans-serif;padding:clamp(20px,4vw,48px);background-image:radial-gradient(ellipse at 70% 30%,#143b33,transparent 60%)}main{width:100%;max-width:1000px;min-width:0}small{color:#97eacb;letter-spacing:.18em;text-transform:uppercase}h1{font-size:clamp(28px,8.5vw,110px);letter-spacing:-.07em;margin:22px 0}p{font-size:clamp(20px,3vw,30px);line-height:1.5;max-width:810px;color:#b7c9c3}a{display:inline-block;margin-top:24px;color:#a8f4d3;text-decoration:none;border-bottom:1px solid;padding-bottom:6px}footer{font-size:14px;color:#81988e;margin-top:80px}</style></head><body><main><small>Human behavior. Deeper understanding.</small><h1>SocialReasoner<span style="color:#97eacb">.</span></h1><p>Learning a Foundation Model of Human Social Reasoning from Heterogeneous Experts</p><a href="https://github.com/socialreasoner-ai">Open release coming soon ↗</a><footer>Our research, code, and models. All in one place. Coming soon.</footer></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071018">
+  <meta name="description" content="SocialReasoner explores a foundation model of human social reasoning distilled from heterogeneous experts. Research preview; open release coming soon.">
+  <meta property="og:title" content="SocialReasoner — Human reasoning, in context">
+  <meta property="og:description" content="Learning a foundation model of human social reasoning from heterogeneous experts. Research preview.">
+  <meta property="og:type" content="website">
+  <title>SocialReasoner — Human reasoning, in context</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="SocialReasoner, back to top">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span>socialreasoner<span class="brand-dot">.</span></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary">
+      <a href="#idea">The idea</a>
+      <a href="#approach">Approach</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#release">Release</a>
+    </nav>
+    <a class="header-cta" href="#release">Explore resources <span aria-hidden="true">↗</span></a>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile primary" hidden>
+      <a href="#idea">The idea</a><a href="#approach">Approach</a><a href="#evidence">Evidence</a><a href="#release">Release</a>
+      <a href="#release">Resources ↗</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero section-shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow hero-eyebrow"><span class="status-pulse" aria-hidden="true"></span> RESEARCH PREVIEW <span class="eyebrow-sep">/</span> OPEN RELEASE COMING SOON</div>
+        <h1 id="hero-title"><span class="hero-line">Social</span><span class="hero-line hero-line-em">Reasoner<span class="title-period">.</span></span></h1>
+        <p class="hero-subtitle">Learning a Foundation Model of Human Social Reasoning from Heterogeneous Experts</p>
+        <p class="hero-description">People rarely make choices from demographics alone. SocialReasoner brings together diverse predictive perspectives to model how context, perceptions, and choices connect.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#approach">Explore the method <span aria-hidden="true">↘</span></a>
+          <a class="button button-quiet" href="#evidence">See the evidence <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-resource-links" aria-label="Upcoming resources"><div data-release-mini="data"><span>01</span> Data <em>Hugging Face · Coming soon</em></div><div data-release-mini="code"><span>02</span> Code <em>GitHub · Coming soon</em></div><div data-release-mini="model"><span>03</span> Model <em>Hugging Face · Coming soon</em></div></div>
+      </div>
+      <div class="hero-visual" aria-label="Conceptual visualization of many individual contexts connecting to a shared reasoning model">
+        <div class="visual-halo" aria-hidden="true"></div>
+        <canvas id="reasoning-canvas" aria-hidden="true"></canvas>
+        <div class="visual-core" aria-hidden="true"><span class="core-spark">✳</span><span>shared model</span></div>
+        <div class="visual-chip chip-one" aria-hidden="true"><span class="chip-index">01</span> experience</div>
+        <div class="visual-chip chip-two" aria-hidden="true"><span class="chip-index">02</span> perception</div>
+        <div class="visual-chip chip-three" aria-hidden="true"><span class="chip-index">03</span> choice</div>
+        <div class="visual-caption">CONCEPTUAL VISUALIZATION <span aria-hidden="true">·</span> NOT LIVE INFERENCE</div>
+      </div>
+      <div class="hero-bottom"><span>SCROLL TO EXPLORE</span><span class="hero-scroll-line" aria-hidden="true"></span><span>01 / 05</span></div>
+    </section>
+
+    <section class="stats-strip" aria-label="Study scale">
+      <div class="section-shell stats-inner">
+        <div class="stat"><strong>9</strong><span>datasets</span></div>
+        <div class="stat"><strong>281,995</strong><span>respondents</span></div>
+        <div class="stat"><strong>8.7M<span class="stat-plus">+</span></strong><span>responses</span></div>
+        <div class="stat"><strong>365</strong><span>questions</span></div>
+        <div class="stat"><strong>13</strong><span>thematic areas</span></div>
+      </div>
+    </section>
+
+    <section class="idea section-shell section-pad reveal" id="idea" aria-labelledby="idea-title">
+      <div class="section-number"><span class="num-ring">01</span><span>THE QUESTION</span></div>
+      <div class="idea-grid">
+        <div class="idea-heading"><p class="kicker">BEYOND A PROFILE</p><h2 id="idea-title">To understand a choice,<br><em>see the world around it.</em></h2></div>
+        <div class="idea-body"><p class="lede">Social decisions emerge from more than who someone is. What they believe, perceive, and experience can change the meaning of the same question.</p><p>The research asks whether a single language model can learn useful reasoning patterns from heterogeneous experts: interpretable additive models, tree ensembles, and neural networks.</p></div>
+      </div>
+      <div class="idea-map" aria-label="Conceptual illustration: a person's context and perceptions shape a choice">
+        <div class="map-column map-input"><span class="map-label">INPUT / THE PERSON</span><span class="map-head">A lived context</span><span class="map-item">Demographics</span><span class="map-item">Perceptions</span><span class="map-item">Question</span></div>
+        <div class="map-link" aria-hidden="true"><span></span><span class="map-arrow">→</span></div>
+        <div class="map-column map-model"><span class="map-label">PROCESS / THE MODEL</span><span class="map-head">Multiple lenses</span><div class="map-lenses" aria-hidden="true"><span>A</span><span>T</span><span>N</span></div><span class="map-detail">Additive · Tree · Neural</span></div>
+        <div class="map-link" aria-hidden="true"><span></span><span class="map-arrow">→</span></div>
+        <div class="map-column map-output"><span class="map-label">OUTPUT / THE TASK</span><span class="map-head">A predicted response</span><span class="map-outcome">Choice <span aria-hidden="true">↗</span></span><span class="map-detail">Question-level prediction</span></div>
+      </div>
+      <p class="figure-caveat">Conceptual overview. Generated reasoning is model-based evidence for prediction, not a verified account of any individual’s internal thought process.</p>
+    </section>
+
+    <section class="statement section-pad reveal" aria-label="Research thesis"><div class="section-shell statement-inner"><span class="statement-asterisk" aria-hidden="true">✳</span><p>Many perspectives.<br><span>One foundation model.</span></p><span class="statement-side">DIVERSE EXPERTS<br>SHARED REASONING</span></div></section>
+
+    <section class="approach section-shell section-pad reveal" id="approach" aria-labelledby="approach-title">
+      <div class="section-number"><span class="num-ring">02</span><span>THE APPROACH</span></div>
+      <div class="section-heading-row"><div><p class="kicker">FROM SIGNAL TO LANGUAGE</p><h2 id="approach-title">A different kind<br>of supervision<span class="accent-punct">.</span></h2></div><p>Three model families surface complementary evidence. SocialReasoner distills their decision signals into language model training data.</p></div>
+      <div class="pipeline" role="tablist" aria-label="Method stages">
+        <button type="button" class="stage active" id="stage-tab-0" role="tab" aria-selected="true" aria-controls="stage-panel" data-stage="0"><span class="stage-num">01</span><span class="stage-title">Gather experts</span><span class="stage-arrow" aria-hidden="true">↗</span></button>
+        <button type="button" class="stage" id="stage-tab-1" role="tab" aria-selected="false" tabindex="-1" aria-controls="stage-panel" data-stage="1"><span class="stage-num">02</span><span class="stage-title">Read contributions</span><span class="stage-arrow" aria-hidden="true">↗</span></button>
+        <button type="button" class="stage" id="stage-tab-2" role="tab" aria-selected="false" tabindex="-1" aria-controls="stage-panel" data-stage="2"><span class="stage-num">03</span><span class="stage-title">Refine evidence</span><span class="stage-arrow" aria-hidden="true">↗</span></button>
+        <button type="button" class="stage" id="stage-tab-3" role="tab" aria-selected="false" tabindex="-1" aria-controls="stage-panel" data-stage="3"><span class="stage-num">04</span><span class="stage-title">Distill a model</span><span class="stage-arrow" aria-hidden="true">↗</span></button>
+      </div>
+      <div class="stage-panel" id="stage-panel" role="tabpanel" aria-labelledby="stage-tab-0" tabindex="0"><span class="panel-index">STEP 01 / 04</span><div class="panel-icon" aria-hidden="true">✳</div><div><h3 id="stage-panel-title">Experts see different structure.</h3><p id="stage-panel-body">An explainable boosting model, a LightGBM tree ensemble, and a multilayer perceptron each learn useful links between respondent context and choices.</p></div></div>
+      <details class="paper-figure"><summary><span>View the method figure from the manuscript</span><span aria-hidden="true">↗</span></summary><div class="paper-figure-inner"><img src="assets/method-from-manuscript.png" alt="Method diagram: three experts yield feature contributions, which are semantically denoised into reasoning records and combined for supervised fine-tuning." loading="lazy"><p>Figure 3 in the manuscript. The illustration shows the full expert-to-reasoning-to-SFT pipeline.</p></div></details>
+    </section>
+
+    <section class="evidence section-pad reveal" id="evidence" aria-labelledby="evidence-title">
+      <div class="section-shell">
+        <div class="section-number"><span class="num-ring">03</span><span>THE EVIDENCE</span></div>
+        <div class="section-heading-row evidence-head"><div><p class="kicker">REPORTED RESULTS</p><h2 id="evidence-title">A clearer signal<br>across surveys<span class="accent-punct">.</span></h2></div><p>Compare base instruction models with SocialReasoner on the manuscript’s eight main evaluation datasets. Every bar shows reported accuracy.</p></div>
+        <div class="benchmark-frame">
+          <div class="benchmark-top"><div><span class="overline">TABLE 1 / EIGHT DATASETS</span><h3>Respondent-level prediction</h3></div><div class="benchmark-selector" role="tablist" aria-label="Select base language model"><button type="button" class="model-tab active" role="tab" data-model="qwen3" aria-selected="true">Qwen3 · 4B</button><button type="button" class="model-tab" role="tab" data-model="qwen25" aria-selected="false" tabindex="-1">Qwen2.5 · 7B</button><button type="button" class="model-tab" role="tab" data-model="llama" aria-selected="false" tabindex="-1">Llama · 8B</button></div></div>
+          <div class="benchmark-summary" aria-live="polite"><div><span>AVERAGE RELATIVE GAIN</span><strong id="relative-gain">+34.37%</strong></div><div><span>MEAN BASE ACCURACY</span><strong id="mean-base">43.36%</strong></div><div><span>MEAN WITH SOCIALREASONER</span><strong id="mean-ours">58.27%</strong></div></div>
+          <div class="chart-header"><span>DATASET</span><span>ACCURACY (%) <i>0</i><i>70</i></span></div>
+          <div class="benchmark-chart" id="benchmark-chart" role="tabpanel" aria-live="polite" aria-label="Accuracy chart"></div>
+          <div class="chart-key"><span><i class="key-base"></i>Base</span><span><i class="key-ours"></i>With SocialReasoner</span></div>
+          <p class="chart-note">Accuracy (%) from Table 1 of the manuscript. The relative gain is reported by the paper; means above are arithmetic averages of the displayed rounded dataset values.</p>
+        </div>
+        <div class="evidence-after"><p><span class="small-kicker">OUTSIDE THE MAIN EIGHT</span><strong>Test the transfer, too.</strong></p><p>The manuscript also evaluates transfer to held-out GSS 2022 data and examines how well predicted group-level response distributions align with observed ones.</p></div>
+      </div>
+    </section>
+
+    <section class="scale section-shell section-pad reveal" aria-labelledby="scale-title"><div class="section-number"><span class="num-ring">04</span><span>THE SCOPE</span></div><div class="scale-layout"><div><p class="kicker">A WORLD OF SOCIAL QUESTIONS</p><h2 id="scale-title">One model.<br><em>Many contexts.</em></h2><p>The study draws on nine datasets spanning 13 thematic areas. Its breadth is the point: social reasoning should carry across questions and populations, rather than live in a single survey.</p></div><div class="orbit-diagram" aria-hidden="true"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit orbit-c"></div><div class="orbit-center">SR<span>✳</span></div><span class="orbit-tag orbit-tag-a">BELIEFS</span><span class="orbit-tag orbit-tag-b">VALUES</span><span class="orbit-tag orbit-tag-c">PERCEPTIONS</span><span class="orbit-tag orbit-tag-d">CHOICES</span><span class="orbit-tag orbit-tag-e">CONTEXT</span></div></div></section>
+
+    <section class="release section-pad reveal" id="release" aria-labelledby="release-title"><div class="section-shell"><div class="section-number"><span class="num-ring">05</span><span>THE RELEASE</span></div><div class="release-main"><div><p class="kicker">MORE SOON</p><h2 id="release-title">The next chapter<br>is <em>open.</em></h2><p>We are preparing the research materials for public release. The three links below will activate as each resource becomes available.</p><div class="release-orbit" aria-hidden="true"><span>✳</span><span>OPEN RESEARCH / OPEN SOURCE / OPEN MODELS</span></div></div><div class="release-list" aria-label="Release status"><div class="release-item" data-release="data"><span>01</span><strong>Data</strong><span class="release-destination">Hugging Face</span><span class="coming">Coming soon</span></div><div class="release-item" data-release="code"><span>02</span><strong>Code</strong><span class="release-destination">GitHub</span><span class="coming">Coming soon</span></div><div class="release-item" data-release="model"><span>03</span><strong>Model</strong><span class="release-destination">Hugging Face</span><span class="coming">Coming soon</span></div></div></div></div></section>
+  </main>
+  <footer class="site-footer"><div class="section-shell"><div class="footer-top"><a class="brand" href="#top" aria-label="SocialReasoner, back to top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>socialreasoner<span class="brand-dot">.</span></span></a><p>Learning a Foundation Model of Human Social Reasoning from Heterogeneous Experts</p><a href="#top" class="back-top">BACK TO TOP ↑</a></div><div class="footer-bottom"><span>© 2026 SocialReasoner</span><span>Research preview · Open release coming soon</span><a href="#release">Resources ↗</a></div></div></footer>
+</body>
+</html>
