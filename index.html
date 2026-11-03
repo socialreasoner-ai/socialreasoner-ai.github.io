@@ -3,15 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#071018">
+  <meta name="theme-color" content="#020711">
   <meta name="description" content="SocialReasoner explores a foundation model of human social reasoning distilled from heterogeneous experts. Research preview; open release coming soon.">
   <meta property="og:title" content="SocialReasoner — Human reasoning, in context">
   <meta property="og:description" content="Learning a foundation model of human social reasoning from heterogeneous experts. Research preview.">
   <meta property="og:type" content="website">
   <title>SocialReasoner — Human reasoning, in context</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="app.js"></script>
+  <link rel="icon" href="assets/favicon.svg?v=20261103-space" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=20261103-space">
+  <link rel="stylesheet" href="globe.css?v=20261103-space">
+  <script defer src="app.js?v=20261103-space"></script>
+  <script defer src="assets/vendor/d3.min.js"></script>
+  <script defer src="assets/vendor/topojson-client.min.js"></script>
+  <script defer src="globe.js?v=20261103-space"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -29,12 +33,14 @@
       <a href="#idea">The idea</a>
       <a href="#approach">Approach</a>
       <a href="#evidence">Evidence</a>
+      <a href="#coverage">Coverage</a>
       <a href="#release">Release</a>
     </nav>
     <a class="header-cta" href="#release">Explore resources <span aria-hidden="true">↗</span></a>
     <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
     <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile primary" hidden>
-      <a href="#idea">The idea</a><a href="#approach">Approach</a><a href="#evidence">Evidence</a><a href="#release">Release</a>
+      <a href="#idea">The idea</a><a href="#approach">Approach</a><a href="#evidence">Evidence</a>
+      <a href="#coverage">Coverage</a><a href="#release">Release</a>
       <a href="#release">Resources ↗</a>
     </nav>
   </header>
@@ -52,14 +58,15 @@
         </div>
         <div class="hero-resource-links" aria-label="Upcoming resources"><div data-release-mini="data"><span>01</span> Data <em>Hugging Face · Coming soon</em></div><div data-release-mini="code"><span>02</span> Code <em>GitHub · Coming soon</em></div><div data-release-mini="model"><span>03</span> Model <em>Hugging Face · Coming soon</em></div></div>
       </div>
-      <div class="hero-visual" aria-label="Conceptual visualization of many individual contexts connecting to a shared reasoning model">
-        <div class="visual-halo" aria-hidden="true"></div>
-        <canvas id="reasoning-canvas" aria-hidden="true"></canvas>
-        <div class="visual-core" aria-hidden="true"><span class="core-spark">✳</span><span>shared model</span></div>
-        <div class="visual-chip chip-one" aria-hidden="true"><span class="chip-index">01</span> experience</div>
-        <div class="visual-chip chip-two" aria-hidden="true"><span class="chip-index">02</span> perception</div>
-        <div class="visual-chip chip-three" aria-hidden="true"><span class="chip-index">03</span> choice</div>
-        <div class="visual-caption">CONCEPTUAL VISUALIZATION <span aria-hidden="true">·</span> NOT LIVE INFERENCE</div>
+      <div class="hero-visual globe-hero" aria-label="Interactive globe showing respondent counts by country or region">
+        <div class="globe-orbit globe-orbit-one" aria-hidden="true"></div><div class="globe-orbit globe-orbit-two" aria-hidden="true"></div>
+        <div class="globe-frame"><canvas id="globe-canvas" aria-label="Drag to rotate the world globe. Select a dataset or region using the controls below for keyboard access."></canvas></div>
+        <div class="globe-hero-top"><span class="globe-light" aria-hidden="true"></span><span>GEOGRAPHIC COVERAGE <em>SURVEY DATA</em></span></div>
+        <div class="globe-filter"><label for="hero-dataset">EXPLORE DATASET</label><select id="hero-dataset" aria-label="Filter globe by dataset" disabled><option value="all">Loading coverage…</option></select></div>
+        <div class="globe-hero-detail" aria-live="polite"><span id="globe-region-kicker">WORLDWIDE / ALL DATASETS</span><strong id="globe-region-name">Loading coverage</strong><span id="globe-region-count">Please wait</span></div>
+        <div class="globe-tooltip" id="globe-tooltip" role="status" hidden></div>
+        <div class="globe-actions"><button type="button" id="globe-spin" aria-label="Pause globe rotation" disabled>Ⅱ <span>PAUSE</span></button><button type="button" id="globe-reset" aria-label="Reset globe view" disabled>↺ <span>RESET</span></button></div>
+        <div class="visual-caption">COUNTRY CENTROIDS INDICATE COVERAGE <span aria-hidden="true">·</span> DRAG TO EXPLORE</div>
       </div>
       <div class="hero-bottom"><span>SCROLL TO EXPLORE</span><span class="hero-scroll-line" aria-hidden="true"></span><span>01 / 05</span></div>
     </section>
@@ -67,7 +74,7 @@
     <section class="stats-strip" aria-label="Study scale">
       <div class="section-shell stats-inner">
         <div class="stat"><strong>9</strong><span>datasets</span></div>
-        <div class="stat"><strong>281,995</strong><span>respondents</span></div>
+        <div class="stat"><strong>281,995</strong><span>respondents · manuscript</span></div>
         <div class="stat"><strong>8.7M<span class="stat-plus">+</span></strong><span>responses</span></div>
         <div class="stat"><strong>365</strong><span>questions</span></div>
         <div class="stat"><strong>13</strong><span>thematic areas</span></div>
@@ -121,7 +128,17 @@
       </div>
     </section>
 
-    <section class="scale section-shell section-pad reveal" aria-labelledby="scale-title"><div class="section-number"><span class="num-ring">04</span><span>THE SCOPE</span></div><div class="scale-layout"><div><p class="kicker">A WORLD OF SOCIAL QUESTIONS</p><h2 id="scale-title">One model.<br><em>Many contexts.</em></h2><p>The study draws on nine datasets spanning 13 thematic areas. Its breadth is the point: social reasoning should carry across questions and populations, rather than live in a single survey.</p></div><div class="orbit-diagram" aria-hidden="true"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit orbit-c"></div><div class="orbit-center">SR<span>✳</span></div><span class="orbit-tag orbit-tag-a">BELIEFS</span><span class="orbit-tag orbit-tag-b">VALUES</span><span class="orbit-tag orbit-tag-c">PERCEPTIONS</span><span class="orbit-tag orbit-tag-d">CHOICES</span><span class="orbit-tag orbit-tag-e">CONTEXT</span></div></div></section>
+    <section class="scale section-shell section-pad reveal" id="coverage" aria-labelledby="scale-title">
+      <div class="section-number"><span class="num-ring">04</span><span>THE GEOGRAPHY</span></div>
+      <div class="coverage-intro"><div><p class="kicker">EXPLORE THE SAMPLE</p><h2 id="scale-title">Social reasoning<br><em>across the world.</em></h2></div><p>Explore geographic coverage from the prepared research datasets. The globe uses country or region centers as map markers; they do not represent individual people or precise respondent locations.</p></div>
+      <div class="coverage-explorer">
+        <div class="coverage-controls"><div><label for="coverage-dataset">DATASET</label><select id="coverage-dataset" disabled><option value="all">Loading coverage…</option></select></div><div><label for="coverage-region">COUNTRY / REGION</label><select id="coverage-region" disabled><option value="">Choose a region</option></select></div></div>
+        <div class="coverage-summary" aria-live="polite"><div><span>SURVEY RESPONDENTS</span><strong id="coverage-total">—</strong></div><div><span>COUNTRIES / REGIONS</span><strong id="coverage-regions">—</strong></div><div><span>SELECTED REGION</span><strong id="coverage-selected">All regions</strong></div></div>
+        <div class="coverage-list-head"><span>REGION</span><span>RESPONDENTS</span></div><ol class="coverage-list" id="coverage-list"><li class="coverage-loading">Preparing geographic index…</li></ol>
+        <p class="coverage-audit-short" id="coverage-audit-short" hidden></p>
+        <details class="coverage-details"><summary>How coverage is counted <span aria-hidden="true">↗</span></summary><p class="coverage-method" id="coverage-method">Loading source methodology.</p><p class="coverage-audit" id="coverage-audit" hidden></p></details>
+      </div>
+    </section>
 
     <section class="release section-pad reveal" id="release" aria-labelledby="release-title"><div class="section-shell"><div class="section-number"><span class="num-ring">05</span><span>THE RELEASE</span></div><div class="release-main"><div><p class="kicker">MORE SOON</p><h2 id="release-title">The next chapter<br>is <em>open.</em></h2><p>We are preparing the research materials for public release. The three links below will activate as each resource becomes available.</p><div class="release-orbit" aria-hidden="true"><span>✳</span><span>OPEN RESEARCH / OPEN SOURCE / OPEN MODELS</span></div></div><div class="release-list" aria-label="Release status"><div class="release-item" data-release="data"><span>01</span><strong>Data</strong><span class="release-destination">Hugging Face</span><span class="coming">Coming soon</span></div><div class="release-item" data-release="code"><span>02</span><strong>Code</strong><span class="release-destination">GitHub</span><span class="coming">Coming soon</span></div><div class="release-item" data-release="model"><span>03</span><strong>Model</strong><span class="release-destination">Hugging Face</span><span class="coming">Coming soon</span></div></div></div></div></section>
   </main>

@@ -27,6 +27,23 @@ Empty values display Coming soon. Valid URLs activate both the homepage and rele
 
 ## Content
 
-The benchmark presents accuracy (%) for eight main evaluation datasets. GSS2022 is a separate held-out transfer evaluation. Animated particles are a conceptual visualization, not live inference or individual respondent records.
+The benchmark presents accuracy (%) for eight main evaluation datasets. GSS2022 is a separate held-out transfer evaluation. The interactive globe displays country/region-level aggregates from the current research data release. Background stars are decorative.
 
 The project is presented as a research preview. Release URLs and final publication metadata can be added when available.
+
+
+## Geographic coverage
+
+`assets/geography.json` contains anonymous country/region totals only: 281,977 survey-level respondents across 56 countries/regions and nine datasets. Respondents are deduplicated within each dataset across train and test; totals are not cross-survey deduplicated. Counts are unweighted sample counts.
+
+Czech Republic/Czechia and Slovak Republic/Slovakia are consolidated. Great Britain retains its source label and uses a representative marker rather than shading the whole United Kingdom. Map markers represent regions, not individual locations.
+
+The current prepared data has 18 fewer respondents than the manuscript total of 281,995 (ISSP2015: 3; ISSP2016: 4; ISSP2019: 9; ISSP2021: 2). The site discloses the difference; its cause is not established. No original respondent-level survey records are included in this repository.
+
+## Map dependencies and attribution
+
+- D3 v7.9.0 (ISC): https://github.com/d3/d3
+- topojson-client v3.1.0 (ISC): https://github.com/topojson/topojson-client
+- world-atlas v2.0.2 (ISC), Natural Earth 1:110m geometry: https://github.com/topojson/world-atlas
+
+Bundled dependency license files are retained under `assets/`. Geographic boundaries are generalized cartographic reference geometry.

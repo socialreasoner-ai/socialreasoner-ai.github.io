@@ -206,55 +206,6 @@ function setupCanvas(canvas, makePoints, draw) {
   });
 }
 
-const heroVisual = document.querySelector('.hero-visual');
-const pointer = { x: 0, y: 0, active: false };
-heroVisual.addEventListener('pointermove', event => {
-  const box = heroVisual.getBoundingClientRect();
-  pointer.x = event.clientX - box.left - box.width / 2;
-  pointer.y = event.clientY - box.top - box.height / 2;
-  pointer.active = true;
-  if (!reducedMotion.matches) {
-    heroVisual.querySelectorAll('.visual-chip').forEach((chip, index) => { chip.style.transform = `translate(${pointer.x * (index + 1) * .007}px, ${pointer.y * (index + 1) * .007}px)`; });
-  }
-});
-heroVisual.addEventListener('pointerleave', () => { pointer.active = false; heroVisual.querySelectorAll('.visual-chip').forEach(chip => { chip.style.transform = ''; }); });
-
-setupCanvas(document.querySelector('#reasoning-canvas'), (width, height) => {
-  const count = width < 500 ? 67 : 108;
-  return Array.from({ length: count }, (_, i) => {
-    const ring = (i % 3) / 3;
-    const angle = i * 2.39996;
-    const radius = 83 + Math.sqrt(i / count) * Math.min(width, height) * .36 + ring * 18;
-    return { angle, radius, size: i % 12 === 0 ? 3 : 1.2 + (i % 5) * .23, phase: i * .29, bright: i % 8 === 0 };
-  });
-}, (ctx, points, width, height, t) => {
-  ctx.clearRect(0, 0, width, height);
-  const cx = width / 2, cy = height / 2;
-  const positions = points.map((p, i) => {
-    const a = p.angle + t * (i % 2 ? 1 : -1) * .055;
-    const r = p.radius + Math.sin(t * 2 + p.phase) * 8;
-    const tug = pointer.active ? 1 - Math.min(1, Math.hypot(pointer.x, pointer.y) / 400) : 0;
-    return { x: cx + Math.cos(a) * r + pointer.x * tug * .027, y: cy + Math.sin(a) * r * .77 + pointer.y * tug * .027, size: p.size, bright: p.bright };
-  });
-  positions.forEach((p, i) => {
-    if (i % 3 !== 0) return;
-    let nearest = null, distance = 1e8;
-    for (let j = 0; j < positions.length; j++) {
-      if (i === j) continue;
-      const q = positions[j], d = (p.x - q.x) ** 2 + (p.y - q.y) ** 2;
-      if (d < distance && d < 6800) { nearest = q; distance = d; }
-    }
-    if (nearest) { ctx.strokeStyle = `rgba(131,236,199,${Math.max(.04, .14 - distance / 55000)})`; ctx.lineWidth = .8; ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(nearest.x,nearest.y);ctx.stroke(); }
-  });
-  positions.forEach((p, i) => {
-    if (i % 7 === 0) { ctx.strokeStyle = 'rgba(172,242,194,.14)';ctx.lineWidth = .6;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(cx,cy);ctx.stroke(); }
-    ctx.fillStyle = p.bright ? '#bdfc69' : i % 4 === 0 ? '#8ee2c4' : 'rgba(151,216,206,.65)';
-    ctx.shadowColor = p.bright ? '#bdfc69' : '#71dfc4';ctx.shadowBlur = p.bright ? 16 : 4;
-    ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
-  });
-  ctx.shadowBlur = 0;
-});
-
 let scrollRatio = 0;
 window.addEventListener('scroll', () => { scrollRatio = Math.min(1, window.scrollY / Math.max(1, window.innerHeight * 2)); }, { passive: true });
 setupCanvas(document.querySelector('#ambient-canvas'), (width, height) => {
@@ -266,7 +217,7 @@ setupCanvas(document.querySelector('#ambient-canvas'), (width, height) => {
     const side = i % 2 ? -1 : 1;
     const x = p.x + side * scrollRatio * Math.min(width * .22, 150) + Math.sin(t * 2 + p.phase) * 6;
     const y = (p.y + Math.cos(t + p.phase) * 4 + height) % height;
-    ctx.fillStyle = i % 7 === 0 ? 'rgba(189,252,105,.4)' : 'rgba(130,203,194,.26)';
+    ctx.fillStyle = i % 7 === 0 ? 'rgba(255,245,232,.42)' : 'rgba(157,203,242,.28)';
     ctx.beginPath();ctx.arc(x,y,p.size,0,Math.PI*2);ctx.fill();
   });
 });

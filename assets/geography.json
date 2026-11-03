@@ -1,0 +1,1912 @@
+{
+  "schemaVersion": 1,
+  "totalRespondents": 281977,
+  "totalRegions": 56,
+  "totalResponses": 8725648,
+  "paperRespondents": 281995,
+  "paperResponses": 8725666,
+  "unmappedRespondents": 0,
+  "updated": "2026-11-03",
+  "sourceVersion": "no-perception-strict, September 2026 data release",
+  "methodology": "Respondents are counted once per dataset using person_id across train and test. Totals sum dataset-level respondents; the same individual may appear in more than one survey. Counts are unweighted sample counts, not population estimates.",
+  "geographyNote": "Country/region labels come from the survey profiles. Czech Republic/Czechia and Slovak Republic/Slovakia are consolidated. Great Britain retains its survey label. Markers are representative regional centers, not individual locations.",
+  "versionNote": "The current data release contains 281,977 dataset-level respondents, 18 fewer than the 281,995 reported in the manuscript: ISSP2015 −3, ISSP2016 −4, ISSP2019 −9, and ISSP2021 −2. The reason for the difference is not established.",
+  "datasets": [
+    {
+      "id": "ATP142",
+      "label": "ATP142",
+      "respondents": 9851,
+      "responses": 330148,
+      "paperRespondents": 9851,
+      "regions": [
+        {
+          "id": "USA",
+          "count": 9851
+        }
+      ],
+      "usCensusRegions": {
+        "Midwest": 2125,
+        "Northeast": 1599,
+        "South": 3928,
+        "West": 2199
+      },
+      "heldOut": false
+    },
+    {
+      "id": "ATP152",
+      "label": "ATP152",
+      "respondents": 5227,
+      "responses": 244976,
+      "paperRespondents": 5227,
+      "regions": [
+        {
+          "id": "USA",
+          "count": 5227
+        }
+      ],
+      "usCensusRegions": {
+        "Midwest": 1053,
+        "Northeast": 906,
+        "South": 2004,
+        "West": 1264
+      },
+      "heldOut": false
+    },
+    {
+      "id": "EVS2017",
+      "label": "EVS2017",
+      "respondents": 50916,
+      "responses": 2552997,
+      "paperRespondents": 50916,
+      "regions": [
+        {
+          "id": "ALB",
+          "count": 1392
+        },
+        {
+          "id": "ARM",
+          "count": 1475
+        },
+        {
+          "id": "AUT",
+          "count": 1524
+        },
+        {
+          "id": "AZE",
+          "count": 1678
+        },
+        {
+          "id": "BGR",
+          "count": 1357
+        },
+        {
+          "id": "BIH",
+          "count": 1629
+        },
+        {
+          "id": "BLR",
+          "count": 1247
+        },
+        {
+          "id": "CHE",
+          "count": 3025
+        },
+        {
+          "id": "CZE",
+          "count": 1302
+        },
+        {
+          "id": "DEU",
+          "count": 1966
+        },
+        {
+          "id": "DNK",
+          "count": 3047
+        },
+        {
+          "id": "ESP",
+          "count": 1071
+        },
+        {
+          "id": "EST",
+          "count": 1023
+        },
+        {
+          "id": "FIN",
+          "count": 1134
+        },
+        {
+          "id": "FRA",
+          "count": 1683
+        },
+        {
+          "id": "GBR",
+          "count": 975
+        },
+        {
+          "id": "GEO",
+          "count": 2137
+        },
+        {
+          "id": "HRV",
+          "count": 1355
+        },
+        {
+          "id": "HUN",
+          "count": 1260
+        },
+        {
+          "id": "ISL",
+          "count": 1552
+        },
+        {
+          "id": "ITA",
+          "count": 1963
+        },
+        {
+          "id": "LTU",
+          "count": 1247
+        },
+        {
+          "id": "LVA",
+          "count": 1083
+        },
+        {
+          "id": "MKD",
+          "count": 901
+        },
+        {
+          "id": "MNE",
+          "count": 764
+        },
+        {
+          "id": "NLD",
+          "count": 1259
+        },
+        {
+          "id": "NOR",
+          "count": 1085
+        },
+        {
+          "id": "POL",
+          "count": 1239
+        },
+        {
+          "id": "PRT",
+          "count": 924
+        },
+        {
+          "id": "ROU",
+          "count": 1391
+        },
+        {
+          "id": "RUS",
+          "count": 1411
+        },
+        {
+          "id": "SRB",
+          "count": 1198
+        },
+        {
+          "id": "SVK",
+          "count": 1212
+        },
+        {
+          "id": "SVN",
+          "count": 956
+        },
+        {
+          "id": "SWE",
+          "count": 1132
+        },
+        {
+          "id": "UKR",
+          "count": 1319
+        }
+      ],
+      "usCensusRegions": {},
+      "heldOut": false
+    },
+    {
+      "id": "ISSP2009",
+      "label": "ISSP2009",
+      "respondents": 48822,
+      "responses": 1503093,
+      "paperRespondents": 48822,
+      "regions": [
+        {
+          "id": "ARG",
+          "count": 1116
+        },
+        {
+          "id": "AUS",
+          "count": 1348
+        },
+        {
+          "id": "AUT",
+          "count": 951
+        },
+        {
+          "id": "BEL",
+          "count": 1108
+        },
+        {
+          "id": "BGR",
+          "count": 950
+        },
+        {
+          "id": "CHE",
+          "count": 1052
+        },
+        {
+          "id": "CHL",
+          "count": 831
+        },
+        {
+          "id": "CHN",
+          "count": 2978
+        },
+        {
+          "id": "CYP",
+          "count": 828
+        },
+        {
+          "id": "CZE",
+          "count": 881
+        },
+        {
+          "id": "DEU",
+          "count": 1366
+        },
+        {
+          "id": "DNK",
+          "count": 1413
+        },
+        {
+          "id": "ESP",
+          "count": 913
+        },
+        {
+          "id": "EST",
+          "count": 990
+        },
+        {
+          "id": "FIN",
+          "count": 829
+        },
+        {
+          "id": "FRA",
+          "count": 2503
+        },
+        {
+          "id": "GBR",
+          "count": 778
+        },
+        {
+          "id": "HRV",
+          "count": 754
+        },
+        {
+          "id": "HUN",
+          "count": 939
+        },
+        {
+          "id": "ISL",
+          "count": 597
+        },
+        {
+          "id": "ISR",
+          "count": 511
+        },
+        {
+          "id": "ITA",
+          "count": 830
+        },
+        {
+          "id": "JPN",
+          "count": 1170
+        },
+        {
+          "id": "KOR",
+          "count": 1543
+        },
+        {
+          "id": "LTU",
+          "count": 978
+        },
+        {
+          "id": "LVA",
+          "count": 968
+        },
+        {
+          "id": "NOR",
+          "count": 1154
+        },
+        {
+          "id": "NZL",
+          "count": 898
+        },
+        {
+          "id": "PHL",
+          "count": 1191
+        },
+        {
+          "id": "POL",
+          "count": 1006
+        },
+        {
+          "id": "PRT",
+          "count": 473
+        },
+        {
+          "id": "RUS",
+          "count": 1410
+        },
+        {
+          "id": "SVK",
+          "count": 1059
+        },
+        {
+          "id": "SVN",
+          "count": 967
+        },
+        {
+          "id": "SWE",
+          "count": 1108
+        },
+        {
+          "id": "TUR",
+          "count": 1544
+        },
+        {
+          "id": "TWN",
+          "count": 1462
+        },
+        {
+          "id": "UKR",
+          "count": 1970
+        },
+        {
+          "id": "USA",
+          "count": 1560
+        },
+        {
+          "id": "VEN",
+          "count": 705
+        },
+        {
+          "id": "ZAF",
+          "count": 3190
+        }
+      ],
+      "usCensusRegions": {},
+      "heldOut": false
+    },
+    {
+      "id": "ISSP2015",
+      "label": "ISSP2015",
+      "respondents": 45093,
+      "responses": 682112,
+      "paperRespondents": 45096,
+      "regions": [
+        {
+          "id": "AUS",
+          "count": 987
+        },
+        {
+          "id": "AUT",
+          "count": 943
+        },
+        {
+          "id": "BEL",
+          "count": 1935
+        },
+        {
+          "id": "CHE",
+          "count": 1144
+        },
+        {
+          "id": "CHL",
+          "count": 1214
+        },
+        {
+          "id": "CHN",
+          "count": 1475
+        },
+        {
+          "id": "CZE",
+          "count": 1316
+        },
+        {
+          "id": "DEU",
+          "count": 1633
+        },
+        {
+          "id": "DNK",
+          "count": 1031
+        },
+        {
+          "id": "ESP",
+          "count": 1748
+        },
+        {
+          "id": "EST",
+          "count": 1131
+        },
+        {
+          "id": "FIN",
+          "count": 1143
+        },
+        {
+          "id": "FRA",
+          "count": 1056
+        },
+        {
+          "id": "GEO",
+          "count": 1447
+        },
+        {
+          "id": "HRV",
+          "count": 956
+        },
+        {
+          "id": "HUN",
+          "count": 940
+        },
+        {
+          "id": "IND",
+          "count": 1305
+        },
+        {
+          "id": "ISL",
+          "count": 899
+        },
+        {
+          "id": "ISR",
+          "count": 1171
+        },
+        {
+          "id": "JPN",
+          "count": 1475
+        },
+        {
+          "id": "LTU",
+          "count": 1025
+        },
+        {
+          "id": "LVA",
+          "count": 955
+        },
+        {
+          "id": "MEX",
+          "count": 1028
+        },
+        {
+          "id": "NOR",
+          "count": 1474
+        },
+        {
+          "id": "NZL",
+          "count": 304
+        },
+        {
+          "id": "PHL",
+          "count": 1169
+        },
+        {
+          "id": "POL",
+          "count": 1922
+        },
+        {
+          "id": "RUS",
+          "count": 1418
+        },
+        {
+          "id": "SUR",
+          "count": 851
+        },
+        {
+          "id": "SVK",
+          "count": 1071
+        },
+        {
+          "id": "SVN",
+          "count": 952
+        },
+        {
+          "id": "SWE",
+          "count": 1097
+        },
+        {
+          "id": "TWN",
+          "count": 1797
+        },
+        {
+          "id": "USA",
+          "count": 1440
+        },
+        {
+          "id": "VEN",
+          "count": 990
+        },
+        {
+          "id": "ZAF",
+          "count": 2651
+        }
+      ],
+      "usCensusRegions": {},
+      "heldOut": false
+    },
+    {
+      "id": "ISSP2016",
+      "label": "ISSP2016",
+      "respondents": 43435,
+      "responses": 1501830,
+      "paperRespondents": 43439,
+      "regions": [
+        {
+          "id": "AUS",
+          "count": 1117
+        },
+        {
+          "id": "BEL",
+          "count": 1741
+        },
+        {
+          "id": "CHE",
+          "count": 1007
+        },
+        {
+          "id": "CHL",
+          "count": 1175
+        },
+        {
+          "id": "CZE",
+          "count": 1235
+        },
+        {
+          "id": "DEU",
+          "count": 1640
+        },
+        {
+          "id": "DNK",
+          "count": 1010
+        },
+        {
+          "id": "ESP",
+          "count": 1747
+        },
+        {
+          "id": "FIN",
+          "count": 1125
+        },
+        {
+          "id": "FRA",
+          "count": 1351
+        },
+        {
+          "id": "GBR",
+          "count": 341
+        },
+        {
+          "id": "GEO",
+          "count": 1447
+        },
+        {
+          "id": "HRV",
+          "count": 984
+        },
+        {
+          "id": "HUN",
+          "count": 971
+        },
+        {
+          "id": "IND",
+          "count": 1448
+        },
+        {
+          "id": "ISL",
+          "count": 1152
+        },
+        {
+          "id": "ISR",
+          "count": 1182
+        },
+        {
+          "id": "JPN",
+          "count": 1474
+        },
+        {
+          "id": "KOR",
+          "count": 973
+        },
+        {
+          "id": "LTU",
+          "count": 923
+        },
+        {
+          "id": "LVA",
+          "count": 962
+        },
+        {
+          "id": "NOR",
+          "count": 1166
+        },
+        {
+          "id": "NZL",
+          "count": 1055
+        },
+        {
+          "id": "PHL",
+          "count": 1169
+        },
+        {
+          "id": "RUS",
+          "count": 1467
+        },
+        {
+          "id": "SUR",
+          "count": 792
+        },
+        {
+          "id": "SVK",
+          "count": 1087
+        },
+        {
+          "id": "SVN",
+          "count": 964
+        },
+        {
+          "id": "SWE",
+          "count": 1086
+        },
+        {
+          "id": "THA",
+          "count": 1302
+        },
+        {
+          "id": "TUR",
+          "count": 1483
+        },
+        {
+          "id": "TWN",
+          "count": 1878
+        },
+        {
+          "id": "USA",
+          "count": 1301
+        },
+        {
+          "id": "VEN",
+          "count": 988
+        },
+        {
+          "id": "ZAF",
+          "count": 2692
+        }
+      ],
+      "usCensusRegions": {},
+      "heldOut": false
+    },
+    {
+      "id": "ISSP2019",
+      "label": "ISSP2019",
+      "respondents": 40236,
+      "responses": 1044234,
+      "paperRespondents": 40245,
+      "regions": [
+        {
+          "id": "AUS",
+          "count": 968
+        },
+        {
+          "id": "AUT",
+          "count": 1228
+        },
+        {
+          "id": "BGR",
+          "count": 1056
+        },
+        {
+          "id": "CHE",
+          "count": 2865
+        },
+        {
+          "id": "CHL",
+          "count": 1274
+        },
+        {
+          "id": "CZE",
+          "count": 1848
+        },
+        {
+          "id": "DEU",
+          "count": 1272
+        },
+        {
+          "id": "DNK",
+          "count": 1005
+        },
+        {
+          "id": "FIN",
+          "count": 927
+        },
+        {
+          "id": "FRA",
+          "count": 1574
+        },
+        {
+          "id": "GBR",
+          "count": 738
+        },
+        {
+          "id": "HRV",
+          "count": 924
+        },
+        {
+          "id": "ISL",
+          "count": 1180
+        },
+        {
+          "id": "ISR",
+          "count": 1144
+        },
+        {
+          "id": "ITA",
+          "count": 1087
+        },
+        {
+          "id": "JPN",
+          "count": 1370
+        },
+        {
+          "id": "LTU",
+          "count": 1000
+        },
+        {
+          "id": "NOR",
+          "count": 1280
+        },
+        {
+          "id": "NZL",
+          "count": 1100
+        },
+        {
+          "id": "PHL",
+          "count": 4085
+        },
+        {
+          "id": "RUS",
+          "count": 1571
+        },
+        {
+          "id": "SUR",
+          "count": 770
+        },
+        {
+          "id": "SVN",
+          "count": 1127
+        },
+        {
+          "id": "SWE",
+          "count": 1591
+        },
+        {
+          "id": "THA",
+          "count": 1434
+        },
+        {
+          "id": "TWN",
+          "count": 1564
+        },
+        {
+          "id": "USA",
+          "count": 1795
+        },
+        {
+          "id": "VEN",
+          "count": 1034
+        },
+        {
+          "id": "ZAF",
+          "count": 1425
+        }
+      ],
+      "usCensusRegions": {},
+      "heldOut": false
+    },
+    {
+      "id": "ISSP2021",
+      "label": "ISSP2021",
+      "respondents": 37897,
+      "responses": 841609,
+      "paperRespondents": 37899,
+      "regions": [
+        {
+          "id": "AUS",
+          "count": 846
+        },
+        {
+          "id": "AUT",
+          "count": 1114
+        },
+        {
+          "id": "CHE",
+          "count": 2936
+        },
+        {
+          "id": "CHN",
+          "count": 974
+        },
+        {
+          "id": "CZE",
+          "count": 1105
+        },
+        {
+          "id": "DEU",
+          "count": 1604
+        },
+        {
+          "id": "DNK",
+          "count": 1455
+        },
+        {
+          "id": "FIN",
+          "count": 947
+        },
+        {
+          "id": "FRA",
+          "count": 1541
+        },
+        {
+          "id": "HRV",
+          "count": 1043
+        },
+        {
+          "id": "HUN",
+          "count": 974
+        },
+        {
+          "id": "IND",
+          "count": 1630
+        },
+        {
+          "id": "ISL",
+          "count": 905
+        },
+        {
+          "id": "ISR",
+          "count": 1122
+        },
+        {
+          "id": "ITA",
+          "count": 911
+        },
+        {
+          "id": "JPN",
+          "count": 1288
+        },
+        {
+          "id": "MEX",
+          "count": 885
+        },
+        {
+          "id": "NLD",
+          "count": 1227
+        },
+        {
+          "id": "NOR",
+          "count": 1416
+        },
+        {
+          "id": "NZL",
+          "count": 1049
+        },
+        {
+          "id": "PHL",
+          "count": 1675
+        },
+        {
+          "id": "POL",
+          "count": 1024
+        },
+        {
+          "id": "RUS",
+          "count": 1562
+        },
+        {
+          "id": "SUR",
+          "count": 975
+        },
+        {
+          "id": "SVK",
+          "count": 903
+        },
+        {
+          "id": "SVN",
+          "count": 931
+        },
+        {
+          "id": "THA",
+          "count": 1161
+        },
+        {
+          "id": "TWN",
+          "count": 1557
+        },
+        {
+          "id": "USA",
+          "count": 951
+        },
+        {
+          "id": "ZAF",
+          "count": 2186
+        }
+      ],
+      "usCensusRegions": {},
+      "heldOut": false
+    },
+    {
+      "id": "GSS2022",
+      "label": "GSS2022",
+      "respondents": 500,
+      "responses": 24649,
+      "paperRespondents": 500,
+      "regions": [
+        {
+          "id": "USA",
+          "count": 500
+        }
+      ],
+      "usCensusRegions": {
+        "Midwest": 113,
+        "Northeast": 81,
+        "South": 187,
+        "West": 119
+      },
+      "heldOut": true
+    }
+  ],
+  "regions": [
+    {
+      "id": "USA",
+      "label": "United States",
+      "numericId": "840",
+      "lon": -103.5725,
+      "lat": 44.7557,
+      "count": 22625,
+      "byDataset": {
+        "ATP142": 9851,
+        "ATP152": 5227,
+        "ISSP2009": 1560,
+        "ISSP2015": 1440,
+        "ISSP2016": 1301,
+        "ISSP2019": 1795,
+        "ISSP2021": 951,
+        "GSS2022": 500
+      },
+      "sourceLabels": [
+        "United States"
+      ]
+    },
+    {
+      "id": "ZAF",
+      "label": "South Africa",
+      "numericId": "710",
+      "lon": 25.1581,
+      "lat": -28.9233,
+      "count": 12144,
+      "byDataset": {
+        "ISSP2009": 3190,
+        "ISSP2015": 2651,
+        "ISSP2016": 2692,
+        "ISSP2019": 1425,
+        "ISSP2021": 2186
+      },
+      "sourceLabels": [
+        "South Africa"
+      ]
+    },
+    {
+      "id": "CHE",
+      "label": "Switzerland",
+      "numericId": "756",
+      "lon": 8.1158,
+      "lat": 46.7928,
+      "count": 12029,
+      "byDataset": {
+        "EVS2017": 3025,
+        "ISSP2009": 1052,
+        "ISSP2015": 1144,
+        "ISSP2016": 1007,
+        "ISSP2019": 2865,
+        "ISSP2021": 2936
+      },
+      "sourceLabels": [
+        "Switzerland"
+      ]
+    },
+    {
+      "id": "FRA",
+      "label": "France",
+      "numericId": "250",
+      "lon": -6.8016,
+      "lat": 43.1403,
+      "count": 9708,
+      "byDataset": {
+        "EVS2017": 1683,
+        "ISSP2009": 2503,
+        "ISSP2015": 1056,
+        "ISSP2016": 1351,
+        "ISSP2019": 1574,
+        "ISSP2021": 1541
+      },
+      "sourceLabels": [
+        "France"
+      ]
+    },
+    {
+      "id": "DEU",
+      "label": "Germany",
+      "numericId": "276",
+      "lon": 10.2704,
+      "lat": 51.0774,
+      "count": 9481,
+      "byDataset": {
+        "EVS2017": 1966,
+        "ISSP2009": 1366,
+        "ISSP2015": 1633,
+        "ISSP2016": 1640,
+        "ISSP2019": 1272,
+        "ISSP2021": 1604
+      },
+      "sourceLabels": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "PHL",
+      "label": "Philippines",
+      "numericId": "608",
+      "lon": 122.9376,
+      "lat": 11.7197,
+      "count": 9289,
+      "byDataset": {
+        "ISSP2009": 1191,
+        "ISSP2015": 1169,
+        "ISSP2016": 1169,
+        "ISSP2019": 4085,
+        "ISSP2021": 1675
+      },
+      "sourceLabels": [
+        "Philippines"
+      ]
+    },
+    {
+      "id": "DNK",
+      "label": "Denmark",
+      "numericId": "208",
+      "lon": 9.8855,
+      "lat": 56.0591,
+      "count": 8961,
+      "byDataset": {
+        "EVS2017": 3047,
+        "ISSP2009": 1413,
+        "ISSP2015": 1031,
+        "ISSP2016": 1010,
+        "ISSP2019": 1005,
+        "ISSP2021": 1455
+      },
+      "sourceLabels": [
+        "Denmark"
+      ]
+    },
+    {
+      "id": "RUS",
+      "label": "Russia",
+      "numericId": "643",
+      "lon": 95.7853,
+      "lat": 66.0678,
+      "count": 8839,
+      "byDataset": {
+        "EVS2017": 1411,
+        "ISSP2009": 1410,
+        "ISSP2015": 1418,
+        "ISSP2016": 1467,
+        "ISSP2019": 1571,
+        "ISSP2021": 1562
+      },
+      "sourceLabels": [
+        "Russia"
+      ]
+    },
+    {
+      "id": "TWN",
+      "label": "Taiwan",
+      "numericId": "158",
+      "lon": 120.9716,
+      "lat": 23.739,
+      "count": 8258,
+      "byDataset": {
+        "ISSP2009": 1462,
+        "ISSP2015": 1797,
+        "ISSP2016": 1878,
+        "ISSP2019": 1564,
+        "ISSP2021": 1557
+      },
+      "sourceLabels": [
+        "Taiwan"
+      ]
+    },
+    {
+      "id": "CZE",
+      "label": "Czechia",
+      "numericId": "203",
+      "lon": 15.3429,
+      "lat": 49.7798,
+      "count": 7687,
+      "byDataset": {
+        "EVS2017": 1302,
+        "ISSP2009": 881,
+        "ISSP2015": 1316,
+        "ISSP2016": 1235,
+        "ISSP2019": 1848,
+        "ISSP2021": 1105
+      },
+      "sourceLabels": [
+        "Czechia",
+        "Czech Republic"
+      ]
+    },
+    {
+      "id": "NOR",
+      "label": "Norway",
+      "numericId": "578",
+      "lon": 12.8293,
+      "lat": 66.6482,
+      "count": 7575,
+      "byDataset": {
+        "EVS2017": 1085,
+        "ISSP2009": 1154,
+        "ISSP2015": 1474,
+        "ISSP2016": 1166,
+        "ISSP2019": 1280,
+        "ISSP2021": 1416
+      },
+      "sourceLabels": [
+        "Norway"
+      ]
+    },
+    {
+      "id": "JPN",
+      "label": "Japan",
+      "numericId": "392",
+      "lon": 137.7123,
+      "lat": 37.5367,
+      "count": 6777,
+      "byDataset": {
+        "ISSP2009": 1170,
+        "ISSP2015": 1475,
+        "ISSP2016": 1474,
+        "ISSP2019": 1370,
+        "ISSP2021": 1288
+      },
+      "sourceLabels": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "ISL",
+      "label": "Iceland",
+      "numericId": "352",
+      "lon": -18.7651,
+      "lat": 65.0798,
+      "count": 6285,
+      "byDataset": {
+        "EVS2017": 1552,
+        "ISSP2009": 597,
+        "ISSP2015": 899,
+        "ISSP2016": 1152,
+        "ISSP2019": 1180,
+        "ISSP2021": 905
+      },
+      "sourceLabels": [
+        "Iceland"
+      ]
+    },
+    {
+      "id": "FIN",
+      "label": "Finland",
+      "numericId": "246",
+      "lon": 26.1416,
+      "lat": 64.261,
+      "count": 6105,
+      "byDataset": {
+        "EVS2017": 1134,
+        "ISSP2009": 829,
+        "ISSP2015": 1143,
+        "ISSP2016": 1125,
+        "ISSP2019": 927,
+        "ISSP2021": 947
+      },
+      "sourceLabels": [
+        "Finland"
+      ]
+    },
+    {
+      "id": "HRV",
+      "label": "Croatia",
+      "numericId": "191",
+      "lon": 16.5673,
+      "lat": 45.0098,
+      "count": 6016,
+      "byDataset": {
+        "EVS2017": 1355,
+        "ISSP2009": 754,
+        "ISSP2015": 956,
+        "ISSP2016": 984,
+        "ISSP2019": 924,
+        "ISSP2021": 1043
+      },
+      "sourceLabels": [
+        "Croatia"
+      ]
+    },
+    {
+      "id": "SWE",
+      "label": "Sweden",
+      "numericId": "752",
+      "lon": 16.1091,
+      "lat": 62.4185,
+      "count": 6014,
+      "byDataset": {
+        "EVS2017": 1132,
+        "ISSP2009": 1108,
+        "ISSP2015": 1097,
+        "ISSP2016": 1086,
+        "ISSP2019": 1591
+      },
+      "sourceLabels": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "SVN",
+      "label": "Slovenia",
+      "numericId": "705",
+      "lon": 14.9342,
+      "lat": 46.1259,
+      "count": 5897,
+      "byDataset": {
+        "EVS2017": 956,
+        "ISSP2009": 967,
+        "ISSP2015": 952,
+        "ISSP2016": 964,
+        "ISSP2019": 1127,
+        "ISSP2021": 931
+      },
+      "sourceLabels": [
+        "Slovenia"
+      ]
+    },
+    {
+      "id": "AUT",
+      "label": "Austria",
+      "numericId": "040",
+      "lon": 14.0602,
+      "lat": 47.621,
+      "count": 5760,
+      "byDataset": {
+        "EVS2017": 1524,
+        "ISSP2009": 951,
+        "ISSP2015": 943,
+        "ISSP2019": 1228,
+        "ISSP2021": 1114
+      },
+      "sourceLabels": [
+        "Austria"
+      ]
+    },
+    {
+      "id": "ESP",
+      "label": "Spain",
+      "numericId": "724",
+      "lon": -3.6242,
+      "lat": 40.3207,
+      "count": 5479,
+      "byDataset": {
+        "EVS2017": 1071,
+        "ISSP2009": 913,
+        "ISSP2015": 1748,
+        "ISSP2016": 1747
+      },
+      "sourceLabels": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "CHN",
+      "label": "China",
+      "numericId": "156",
+      "lon": 103.4525,
+      "lat": 36.6834,
+      "count": 5427,
+      "byDataset": {
+        "ISSP2009": 2978,
+        "ISSP2015": 1475,
+        "ISSP2021": 974
+      },
+      "sourceLabels": [
+        "China"
+      ]
+    },
+    {
+      "id": "SVK",
+      "label": "Slovakia",
+      "numericId": "703",
+      "lon": 19.4975,
+      "lat": 48.7333,
+      "count": 5332,
+      "byDataset": {
+        "EVS2017": 1212,
+        "ISSP2009": 1059,
+        "ISSP2015": 1071,
+        "ISSP2016": 1087,
+        "ISSP2021": 903
+      },
+      "sourceLabels": [
+        "Slovakia",
+        "Slovak Republic"
+      ]
+    },
+    {
+      "id": "AUS",
+      "label": "Australia",
+      "numericId": "036",
+      "lon": 134.3141,
+      "lat": -25.7631,
+      "count": 5266,
+      "byDataset": {
+        "ISSP2009": 1348,
+        "ISSP2015": 987,
+        "ISSP2016": 1117,
+        "ISSP2019": 968,
+        "ISSP2021": 846
+      },
+      "sourceLabels": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "POL",
+      "label": "Poland",
+      "numericId": "616",
+      "lon": 19.3438,
+      "lat": 52.1341,
+      "count": 5191,
+      "byDataset": {
+        "EVS2017": 1239,
+        "ISSP2009": 1006,
+        "ISSP2015": 1922,
+        "ISSP2021": 1024
+      },
+      "sourceLabels": [
+        "Poland"
+      ]
+    },
+    {
+      "id": "LTU",
+      "label": "Lithuania",
+      "numericId": "440",
+      "lon": 23.8881,
+      "lat": 55.2828,
+      "count": 5173,
+      "byDataset": {
+        "EVS2017": 1247,
+        "ISSP2009": 978,
+        "ISSP2015": 1025,
+        "ISSP2016": 923,
+        "ISSP2019": 1000
+      },
+      "sourceLabels": [
+        "Lithuania"
+      ]
+    },
+    {
+      "id": "ISR",
+      "label": "Israel",
+      "numericId": "376",
+      "lon": 35.001,
+      "lat": 31.4791,
+      "count": 5130,
+      "byDataset": {
+        "ISSP2009": 511,
+        "ISSP2015": 1171,
+        "ISSP2016": 1182,
+        "ISSP2019": 1144,
+        "ISSP2021": 1122
+      },
+      "sourceLabels": [
+        "Israel"
+      ]
+    },
+    {
+      "id": "HUN",
+      "label": "Hungary",
+      "numericId": "348",
+      "lon": 19.343,
+      "lat": 47.2035,
+      "count": 5084,
+      "byDataset": {
+        "EVS2017": 1260,
+        "ISSP2009": 939,
+        "ISSP2015": 940,
+        "ISSP2016": 971,
+        "ISSP2021": 974
+      },
+      "sourceLabels": [
+        "Hungary"
+      ]
+    },
+    {
+      "id": "GEO",
+      "label": "Georgia",
+      "numericId": "268",
+      "lon": 43.4991,
+      "lat": 42.1679,
+      "count": 5031,
+      "byDataset": {
+        "EVS2017": 2137,
+        "ISSP2015": 1447,
+        "ISSP2016": 1447
+      },
+      "sourceLabels": [
+        "Georgia"
+      ]
+    },
+    {
+      "id": "ITA",
+      "label": "Italy",
+      "numericId": "380",
+      "lon": 12.269,
+      "lat": 42.6708,
+      "count": 4791,
+      "byDataset": {
+        "EVS2017": 1963,
+        "ISSP2009": 830,
+        "ISSP2019": 1087,
+        "ISSP2021": 911
+      },
+      "sourceLabels": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "BEL",
+      "label": "Belgium",
+      "numericId": "056",
+      "lon": 4.5877,
+      "lat": 50.6526,
+      "count": 4784,
+      "byDataset": {
+        "ISSP2009": 1108,
+        "ISSP2015": 1935,
+        "ISSP2016": 1741
+      },
+      "sourceLabels": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "CHL",
+      "label": "Chile",
+      "numericId": "152",
+      "lon": -71.1779,
+      "lat": -37.3109,
+      "count": 4494,
+      "byDataset": {
+        "ISSP2009": 831,
+        "ISSP2015": 1214,
+        "ISSP2016": 1175,
+        "ISSP2019": 1274
+      },
+      "sourceLabels": [
+        "Chile"
+      ]
+    },
+    {
+      "id": "NZL",
+      "label": "New Zealand",
+      "numericId": "554",
+      "lon": 172.9514,
+      "lat": -41.5511,
+      "count": 4406,
+      "byDataset": {
+        "ISSP2009": 898,
+        "ISSP2015": 304,
+        "ISSP2016": 1055,
+        "ISSP2019": 1100,
+        "ISSP2021": 1049
+      },
+      "sourceLabels": [
+        "New Zealand"
+      ]
+    },
+    {
+      "id": "IND",
+      "label": "India",
+      "numericId": "356",
+      "lon": 79.5399,
+      "lat": 22.8192,
+      "count": 4383,
+      "byDataset": {
+        "ISSP2015": 1305,
+        "ISSP2016": 1448,
+        "ISSP2021": 1630
+      },
+      "sourceLabels": [
+        "India"
+      ]
+    },
+    {
+      "id": "LVA",
+      "label": "Latvia",
+      "numericId": "428",
+      "lon": 24.8394,
+      "lat": 56.8173,
+      "count": 3968,
+      "byDataset": {
+        "EVS2017": 1083,
+        "ISSP2009": 968,
+        "ISSP2015": 955,
+        "ISSP2016": 962
+      },
+      "sourceLabels": [
+        "Latvia"
+      ]
+    },
+    {
+      "id": "THA",
+      "label": "Thailand",
+      "numericId": "764",
+      "lon": 101.0025,
+      "lat": 14.9807,
+      "count": 3897,
+      "byDataset": {
+        "ISSP2016": 1302,
+        "ISSP2019": 1434,
+        "ISSP2021": 1161
+      },
+      "sourceLabels": [
+        "Thailand"
+      ]
+    },
+    {
+      "id": "VEN",
+      "label": "Venezuela",
+      "numericId": "862",
+      "lon": -66.1532,
+      "lat": 7.1608,
+      "count": 3717,
+      "byDataset": {
+        "ISSP2009": 705,
+        "ISSP2015": 990,
+        "ISSP2016": 988,
+        "ISSP2019": 1034
+      },
+      "sourceLabels": [
+        "Venezuela"
+      ]
+    },
+    {
+      "id": "SUR",
+      "label": "Suriname",
+      "numericId": "740",
+      "lon": -55.9115,
+      "lat": 4.1197,
+      "count": 3388,
+      "byDataset": {
+        "ISSP2015": 851,
+        "ISSP2016": 792,
+        "ISSP2019": 770,
+        "ISSP2021": 975
+      },
+      "sourceLabels": [
+        "Suriname"
+      ]
+    },
+    {
+      "id": "BGR",
+      "label": "Bulgaria",
+      "numericId": "100",
+      "lon": 25.1875,
+      "lat": 42.7559,
+      "count": 3363,
+      "byDataset": {
+        "EVS2017": 1357,
+        "ISSP2009": 950,
+        "ISSP2019": 1056
+      },
+      "sourceLabels": [
+        "Bulgaria"
+      ]
+    },
+    {
+      "id": "UKR",
+      "label": "Ukraine",
+      "numericId": "804",
+      "lon": 31.2924,
+      "lat": 49.1866,
+      "count": 3289,
+      "byDataset": {
+        "EVS2017": 1319,
+        "ISSP2009": 1970
+      },
+      "sourceLabels": [
+        "Ukraine"
+      ]
+    },
+    {
+      "id": "EST",
+      "label": "Estonia",
+      "numericId": "233",
+      "lon": 25.8306,
+      "lat": 58.6414,
+      "count": 3144,
+      "byDataset": {
+        "EVS2017": 1023,
+        "ISSP2009": 990,
+        "ISSP2015": 1131
+      },
+      "sourceLabels": [
+        "Estonia"
+      ]
+    },
+    {
+      "id": "TUR",
+      "label": "Turkey",
+      "numericId": "792",
+      "lon": 35.1172,
+      "lat": 39.1451,
+      "count": 3027,
+      "byDataset": {
+        "ISSP2009": 1544,
+        "ISSP2016": 1483
+      },
+      "sourceLabels": [
+        "Turkey"
+      ]
+    },
+    {
+      "id": "GBR",
+      "label": "Great Britain",
+      "numericId": "826",
+      "lon": -2.6,
+      "lat": 54.7,
+      "count": 2832,
+      "byDataset": {
+        "EVS2017": 975,
+        "ISSP2009": 778,
+        "ISSP2016": 341,
+        "ISSP2019": 738
+      },
+      "sourceLabels": [
+        "Great Britain"
+      ]
+    },
+    {
+      "id": "KOR",
+      "label": "South Korea",
+      "numericId": "410",
+      "lon": 127.8199,
+      "lat": 36.4187,
+      "count": 2516,
+      "byDataset": {
+        "ISSP2009": 1543,
+        "ISSP2016": 973
+      },
+      "sourceLabels": [
+        "South Korea"
+      ]
+    },
+    {
+      "id": "NLD",
+      "label": "Netherlands",
+      "numericId": "528",
+      "lon": 5.4999,
+      "lat": 52.2929,
+      "count": 2486,
+      "byDataset": {
+        "EVS2017": 1259,
+        "ISSP2021": 1227
+      },
+      "sourceLabels": [
+        "Netherlands"
+      ]
+    },
+    {
+      "id": "MEX",
+      "label": "Mexico",
+      "numericId": "484",
+      "lon": -102.2231,
+      "lat": 23.9134,
+      "count": 1913,
+      "byDataset": {
+        "ISSP2015": 1028,
+        "ISSP2021": 885
+      },
+      "sourceLabels": [
+        "Mexico"
+      ]
+    },
+    {
+      "id": "AZE",
+      "label": "Azerbaijan",
+      "numericId": "031",
+      "lon": 47.555,
+      "lat": 40.2195,
+      "count": 1678,
+      "byDataset": {
+        "EVS2017": 1678
+      },
+      "sourceLabels": [
+        "Azerbaijan"
+      ]
+    },
+    {
+      "id": "BIH",
+      "label": "Bosnia and Herzegovina",
+      "numericId": "070",
+      "lon": 17.8229,
+      "lat": 44.1788,
+      "count": 1629,
+      "byDataset": {
+        "EVS2017": 1629
+      },
+      "sourceLabels": [
+        "Bosnia and Herzegovina"
+      ]
+    },
+    {
+      "id": "ARM",
+      "label": "Armenia",
+      "numericId": "051",
+      "lon": 45.0096,
+      "lat": 40.2144,
+      "count": 1475,
+      "byDataset": {
+        "EVS2017": 1475
+      },
+      "sourceLabels": [
+        "Armenia"
+      ]
+    },
+    {
+      "id": "PRT",
+      "label": "Portugal",
+      "numericId": "620",
+      "lon": -8.0611,
+      "lat": 39.6072,
+      "count": 1397,
+      "byDataset": {
+        "EVS2017": 924,
+        "ISSP2009": 473
+      },
+      "sourceLabels": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "ALB",
+      "label": "Albania",
+      "numericId": "008",
+      "lon": 20.0338,
+      "lat": 41.1344,
+      "count": 1392,
+      "byDataset": {
+        "EVS2017": 1392
+      },
+      "sourceLabels": [
+        "Albania"
+      ]
+    },
+    {
+      "id": "ROU",
+      "label": "Romania",
+      "numericId": "642",
+      "lon": 24.9541,
+      "lat": 45.8534,
+      "count": 1391,
+      "byDataset": {
+        "EVS2017": 1391
+      },
+      "sourceLabels": [
+        "Romania"
+      ]
+    },
+    {
+      "id": "BLR",
+      "label": "Belarus",
+      "numericId": "112",
+      "lon": 27.9649,
+      "lat": 53.4952,
+      "count": 1247,
+      "byDataset": {
+        "EVS2017": 1247
+      },
+      "sourceLabels": [
+        "Belarus"
+      ]
+    },
+    {
+      "id": "SRB",
+      "label": "Serbia",
+      "numericId": "688",
+      "lon": 20.8369,
+      "lat": 44.2232,
+      "count": 1198,
+      "byDataset": {
+        "EVS2017": 1198
+      },
+      "sourceLabels": [
+        "Serbia"
+      ]
+    },
+    {
+      "id": "ARG",
+      "label": "Argentina",
+      "numericId": "032",
+      "lon": -64.7543,
+      "lat": -34.7366,
+      "count": 1116,
+      "byDataset": {
+        "ISSP2009": 1116
+      },
+      "sourceLabels": [
+        "Argentina"
+      ]
+    },
+    {
+      "id": "MKD",
+      "label": "North Macedonia",
+      "numericId": "807",
+      "lon": 21.6961,
+      "lat": 41.6058,
+      "count": 901,
+      "byDataset": {
+        "EVS2017": 901
+      },
+      "sourceLabels": [
+        "North Macedonia"
+      ]
+    },
+    {
+      "id": "CYP",
+      "label": "Cyprus",
+      "numericId": "196",
+      "lon": 33.0391,
+      "lat": 34.9075,
+      "count": 828,
+      "byDataset": {
+        "ISSP2009": 828
+      },
+      "sourceLabels": [
+        "Cyprus"
+      ]
+    },
+    {
+      "id": "MNE",
+      "label": "Montenegro",
+      "numericId": "499",
+      "lon": 19.2854,
+      "lat": 42.7878,
+      "count": 764,
+      "byDataset": {
+        "EVS2017": 764
+      },
+      "sourceLabels": [
+        "Montenegro"
+      ]
+    }
+  ]
+}
