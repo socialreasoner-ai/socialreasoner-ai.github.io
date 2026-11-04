@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "kind": "real_contribution_example",
+  "dataset": "ATP152-perceived-final-v2",
+  "target": {
+    "question_id": "Q00002",
+    "question": "Overall, would you say the increased use of artificial intelligence (AI) in daily life makes you feel...",
+    "options": {
+      "1": "More excited than concerned",
+      "2": "More concerned than excited",
+      "3": "Equally concerned and excited"
+    }
+  },
+  "default_k": 3,
+  "example_id": "anonymous-OOF-example",
+  "observed_answer": {
+    "id": "2",
+    "label": "More concerned than excited"
+  },
+  "experts": {
+    "ebm": {
+      "predicted_answer": {
+        "id": "2",
+        "label": "More concerned than excited"
+      },
+      "attribution_method": "observed-category additive term",
+      "top_three": [
+        {
+          "rank": 1,
+          "field": "perceived_AICHANGE_W152",
+          "question": "Expected overall impact of AI on the U.S. over the next 20 years",
+          "response": "Very negative",
+          "contribution": 0.19790947766087558,
+          "contribution_unit": "accepted-class raw-score contribution",
+          "selection_metric": "target_contribution",
+          "prompt_match_method": "exact_value"
+        },
+        {
+          "rank": 2,
+          "field": "perceived_AIFUTRIMPCT_f_W152",
+          "question": "Expected impact of AI on arts and entertainment in the U.S. over the next 20 years",
+          "response": "Very negative",
+          "contribution": 0.10118001564345003,
+          "contribution_unit": "accepted-class raw-score contribution",
+          "selection_metric": "target_contribution",
+          "prompt_match_method": "exact_value"
+        },
+        {
+          "rank": 3,
+          "field": "perceived_FUTRAI_d_W152",
+          "question": "Expected likelihood of AI making humans happier over the next 20 years",
+          "response": "Not at all likely",
+          "contribution": 0.08683424716738107,
+          "contribution_unit": "accepted-class raw-score contribution",
+          "selection_metric": "target_contribution",
+          "prompt_match_method": "exact_value"
+        }
+      ]
+    },
+    "lgbm": {
+      "predicted_answer": {
+        "id": "2",
+        "label": "More concerned than excited"
+      },
+      "attribution_method": "accepted-class raw-score TreeSHAP on original fields",
+      "top_three": [
+        {
+          "rank": 1,
+          "field": "perceived_AICHANGE_W152",
+          "question": "Expected overall impact of AI on the U.S. over the next 20 years",
+          "response": "Very negative",
+          "contribution": 0.633608471363699,
+          "contribution_unit": "accepted-class raw-score contribution",
+          "selection_metric": "target_contribution",
+          "prompt_match_method": "exact_value"
+        },
+        {
+          "rank": 2,
+          "field": "perceived_FUTRAI_b_W152",
+          "question": "Expected likelihood of AI causing major harm over the next 20 years",
+          "response": "Extremely likely",
+          "contribution": 0.18600669228657135,
+          "contribution_unit": "accepted-class raw-score contribution",
+          "selection_metric": "target_contribution",
+          "prompt_match_method": "exact_value"
+        },
+        {
+          "rank": 3,
+          "field": "perceived_AICONTROL2_W152",
+          "question": "Preferred level of control over how AI is used in personal life",
+          "response": "I'd like more control over how AI is used in my life",
+          "contribution": 0.12248074623966224,
+          "contribution_unit": "accepted-class raw-score contribution",
+          "selection_metric": "target_contribution",
+          "prompt_match_method": "exact_value"
+        }
+      ]
+    },
+    "mlp": {
+      "predicted_answer": {
+        "id": "2",
+        "label": "More concerned than excited"
+      },
+      "attribution_method": "whole-field background-replacement marginal logit, 8 backgrounds × 8 orders",
+      "top_three": [
+        {
+          "rank": 1,
+          "field": "perceived_AICHANGE_W152",
+          "question": "Expected overall impact of AI on the U.S. over the next 20 years",
+          "response": "Very negative",
+          "contribution": 0.18684285308700055,
+          "contribution_unit": "accepted-class logit change",
+          "selection_metric": "target_contribution",
+          "prompt_match_method": "exact_value"
+        },
+        {
+          "rank": 2,
+          "field": "perceived_CHATAWARE_W152",
+          "question": "Awareness of AI chatbots",
+          "response": "A little",
+          "contribution": 0.1637821685289964,
+          "contribution_unit": "accepted-class logit change",
+          "selection_metric": "target_contribution",
+          "prompt_match_method": "exact_value"
+        },
+        {
+          "rank": 3,
+          "field": "perceived_AICONCERN_g_W152",
+          "question": "Concern about AI leading to job loss",
+          "response": "Extremely concerned",
+          "contribution": 0.13261424470692873,
+          "contribution_unit": "accepted-class logit change",
+          "selection_metric": "target_contribution",
+          "prompt_match_method": "exact_value"
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "run_type": "local_single_fold_reproduction_not_paper_original",
+    "source_train_sha256": "df911d5983665d1742e70d8a532777678d61aec8609d31d683ac07071e6b8e6e",
+    "source_script_sha256": {
+      "ebm": "d664922e47126b95de518fa39a0c8972d32b74df848d2a48859c4fc51c8b437f",
+      "lgbm": "5bb7401d8ceb15a8ac359f92e543fd2aea79de613b332648069997b7a562e562",
+      "mlp": "f2d2807acd5de9e79b5e5aad83787e8307089d821624e15799e5b6d5f6a8e616"
+    },
+    "split": {
+      "seed": 42,
+      "fold": 0,
+      "fit_rows": 3327,
+      "heldout_rows": 832,
+      "target_rows": 4159,
+      "original_test_set_used": false
+    },
+    "selection_rule": "target_positive: highest positive target contribution within each expert",
+    "example_selection": "Among common-correct heldout rows, prefer three AI/technology perception cues per expert and substantive cue responses; preserve each expert's original ranking",
+    "common_correct_count": 483,
+    "candidates_scanned": 48,
+    "prompt_mapping": {
+      "sampled_rows": 16,
+      "mapped_fields": 76
+    },
+    "encoder_feature_sha256": {
+      "ebm": "bf55b97c14a4582009bb97e6e4a9ff88f94d4ac976059ec1f0c28b13ffd9bca7",
+      "lgbm": "c928601ce022ab43bc8bbbcee4a1201bff2e24ebf981c13af7da820884d9ada2",
+      "mlp": "bf55b97c14a4582009bb97e6e4a9ff88f94d4ac976059ec1f0c28b13ffd9bca7"
+    },
+    "versions": {
+      "interpret": "0.7.8",
+      "lightgbm": "4.6.0",
+      "torch": "2.7.1",
+      "sklearn": "1.7.2",
+      "numpy": "2.3.5"
+    },
+    "training": {
+      "ebm": {
+        "rounds": 100,
+        "interactions": 0,
+        "n_jobs": 4
+      },
+      "lgbm": {
+        "seed": 42,
+        "prior_max_iter": 300,
+        "lgb_n_estimators": 0,
+        "lgb_learning_rate": 0.05,
+        "lgb_num_leaves": 31,
+        "lgb_max_depth": -1,
+        "lgb_min_child_samples": 20,
+        "lgb_min_split_gain": 0.0,
+        "lgb_subsample": 1.0,
+        "lgb_colsample_bytree": 1.0,
+        "lgb_reg_alpha": 0.0,
+        "lgb_reg_lambda": 0.0,
+        "lgb_cat_smooth": 10.0,
+        "lgb_max_bin": 255,
+        "lgb_class_weight": "none",
+        "lgb_n_jobs": 4,
+        "lgb_early_stopping": false,
+        "lgb_early_stopping_rounds": 30,
+        "lgb_min_delta": 0.0,
+        "lgb_refit_full_data": true,
+        "lgb_validation_fraction": 0.15
+      },
+      "mlp": {
+        "seed": 42,
+        "mlp_runtime_device": "cpu",
+        "mlp_allow_cpu_fallback": true,
+        "mlp_n_jobs": 4,
+        "mlp_hidden_sizes": [
+          64,
+          32
+        ],
+        "mlp_activation": "relu",
+        "mlp_alpha": 0.0001,
+        "mlp_learning_rate_init": 0.001,
+        "mlp_batch_size": 512,
+        "mlp_inference_batch_size": 8192,
+        "mlp_dtype": "float32",
+        "mlp_deterministic": true,
+        "mlp_early_stopping": true,
+        "mlp_refit_full_data": true,
+        "mlp_validation_fraction": 0.15,
+        "mlp_n_iter_no_change": 10,
+        "mlp_tol": 0.0001,
+        "prior_max_iter": 100
+      }
+    },
+    "semantic_filter_run": false
+  }
+}
