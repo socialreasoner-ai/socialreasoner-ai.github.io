@@ -11,9 +11,11 @@ node --check method-example.js
 node scripts/check-method-example.mjs
 node --check radar.js
 node --check radar-data.js
+node --check data-explorer.js
 node scripts/render-static-results.mjs --check
 node scripts/render-reasoning-radar.mjs --check
 node scripts/check-locales.mjs
 node scripts/check-geography.mjs
+node scripts/check-data-explorer.mjs
 git diff --check
 git diff --cached --check

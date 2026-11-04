@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "organization": "IMF",
+    "dataset": "World Economic Outlook",
+    "vintage": "2026-10",
+    "url": "https://data.imf.org/-/media/iData/External-Storage/Documents/C4182C5C54794FC48892DE8F6C74FF82/en/October-2026-WEO-Database-Appendix.pdf",
+    "pages": [
+      4,
+      5,
+      6
+    ],
+    "definition": "WEO advanced economies and emerging market and developing economies; not an income classification.",
+    "faq": "https://data.imf.org/en/Datasets/WEO/Frequently-Asked-Questions"
+  },
+  "groups": [
+    {
+      "id": "advanced"
+    },
+    {
+      "id": "emerging_developing"
+    }
+  ],
+  "regions": [
+    {
+      "regionId": "USA",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "ZAF",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "CHE",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "FRA",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "DEU",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "PHL",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "DNK",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "RUS",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "TWN",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "CZE",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "NOR",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "JPN",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "ISL",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "FIN",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "HRV",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "SWE",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "SVN",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "AUT",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "ESP",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "CHN",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "SVK",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "AUS",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "POL",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "LTU",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "ISR",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "HUN",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "GEO",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "ITA",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "BEL",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "CHL",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "NZL",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "IND",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "LVA",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "THA",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "VEN",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "SUR",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "BGR",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "UKR",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "EST",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "TUR",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "GBR",
+      "group": "advanced",
+      "matchType": "subregion_to_economy",
+      "sourceEconomy": "United Kingdom"
+    },
+    {
+      "regionId": "KOR",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "NLD",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "MEX",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "AZE",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "BIH",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "ARM",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "PRT",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "ALB",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "ROU",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "BLR",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "SRB",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "ARG",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "MKD",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "CYP",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "MNE",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    }
+  ]
+}

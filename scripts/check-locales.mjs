@@ -3,11 +3,12 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
 const root = new URL('../', import.meta.url);
-const [i18nSource, globeSource, html, appSource] = await Promise.all([
+const [i18nSource, globeSource, html, appSource, portraitSource] = await Promise.all([
   readFile(new URL('i18n.js', root), 'utf8'),
   readFile(new URL('globe-locales.js', root), 'utf8'),
   readFile(new URL('index.html', root), 'utf8'),
-  readFile(new URL('app.js', root), 'utf8')
+  readFile(new URL('app.js', root), 'utf8'),
+  readFile(new URL('data-explorer.js', root), 'utf8')
 ]);
 const languages = ['en', 'zh', 'fr', 'de', 'ko'];
 const issues = [];
@@ -75,6 +76,9 @@ for (const match of html.matchAll(/\bdata-i18n="([^"]+)"[^>]*>([^<]*)/g)) {
 }
 for (const match of appSource.matchAll(/\bsiteText\(['"]([^'"`]+)['"]/g)) {
   if (!Object.hasOwn(siteKeys, match[1])) issues.push(`app.js: unknown dynamic key ${match[1]}`);
+}
+for (const match of portraitSource.matchAll(/\bt\(['"]([^'"`]+)['"]/g)) {
+  if (!Object.hasOwn(siteKeys, `portrait.${match[1]}`)) issues.push(`data-explorer.js: unknown dynamic key portrait.${match[1]}`);
 }
 for (let index = 0; index < 4; index++) {
   for (const part of ['label', 'heading', 'body', 'input', 'output']) {

@@ -79,7 +79,21 @@
     .filter(item => sharesHighlight(item, region))
     .reduce((sum, item) => sum + countFor(item), 0);
 
+  function publishSelection() {
+    if (typeof window.dispatchEvent === 'function' && typeof CustomEvent === 'function') {
+      window.dispatchEvent(new CustomEvent('social:coveragechange', { detail: { dataset: state.dataset, selectedRegion: state.selected?.id || '' } }));
+    }
+  }
+
+  window.SocialCoverage = Object.freeze({
+    getSelection: () => ({ ready: Boolean(state.data), dataset: state.dataset, selectedRegion: state.selected?.id || '' }),
+    setDataset: value => { if (state.data) syncDataset(value); },
+    setRegion: id => { if (state.data && (!id || state.regionById.has(id))) selectRegion(id); },
+    regionName: id => { const region = state.regionById.get(id); return region ? regionName(region) : id; }
+  });
+
   function syncDataset(value) {
+    if (!state.data) return;
     if (value !== 'all' && !state.data.datasets.some(dataset => dataset.id === value)) return;
     state.dataset = value;
     selects.forEach(select => { select.value = value; });
@@ -91,6 +105,7 @@
     tooltip.hidden = true;
     updatePanels();
     draw();
+    publishSelection();
   }
 
   function selectRegion(id) {
@@ -106,6 +121,7 @@
     }
     updatePanels();
     draw();
+    publishSelection();
   }
 
   function updatePanels() {
@@ -557,6 +573,7 @@
     });
     buildCoverageMap();
     updateLocalizedCopy();
+    publishSelection();
     sizeCanvas();
     updateMotion();
     if ('ResizeObserver' in window) new ResizeObserver(sizeCanvas).observe(canvas);

@@ -1,0 +1,5511 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "ageField": "profile.age_group",
+    "variant": "clean no-perception survey JSONL",
+    "respondentKey": "person_id within each dataset across train and test",
+    "geographyCohort": "manuscript geography counts",
+    "countUnit": "unweighted respondents",
+    "scope": "Age labels are kept in their native survey groups. No age ranges are subdivided or estimated.",
+    "cohortDifference": "The clean source has 18 fewer respondents than the manuscript geography; those ages are unknown."
+  },
+  "datasets": [
+    {
+      "id": "ATP142",
+      "bins": [
+        {
+          "id": "age_18_29",
+          "label": "18-29",
+          "lower": 18,
+          "upper": 29
+        },
+        {
+          "id": "age_30_49",
+          "label": "30-49",
+          "lower": 30,
+          "upper": 49
+        },
+        {
+          "id": "age_50_64",
+          "label": "50-64",
+          "lower": 50,
+          "upper": 64
+        },
+        {
+          "id": "age_65_plus",
+          "label": "65+",
+          "lower": 65,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "native",
+          "regionIds": [
+            "USA"
+          ],
+          "binIds": [
+            "age_18_29",
+            "age_30_49",
+            "age_50_64",
+            "age_65_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "USA",
+          "schemeId": "native",
+          "counts": [
+            716,
+            3154,
+            2860,
+            3114
+          ],
+          "known": 9844,
+          "unknown": 7,
+          "sourceRespondents": 9851,
+          "manuscriptRespondents": 9851,
+          "audit": {
+            "sourceMissingAge": 7,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        }
+      ],
+      "totals": {
+        "known": 9844,
+        "unknown": 7,
+        "sourceRespondents": 9851,
+        "manuscriptRespondents": 9851,
+        "sourceMissingAge": 7,
+        "sourceAgeConflicts": 0,
+        "manuscriptCohortGap": 0
+      },
+      "sourceRows": 330148
+    },
+    {
+      "id": "ATP152",
+      "bins": [
+        {
+          "id": "age_18_29",
+          "label": "18-29",
+          "lower": 18,
+          "upper": 29
+        },
+        {
+          "id": "age_30_49",
+          "label": "30-49",
+          "lower": 30,
+          "upper": 49
+        },
+        {
+          "id": "age_50_64",
+          "label": "50-64",
+          "lower": 50,
+          "upper": 64
+        },
+        {
+          "id": "age_65_plus",
+          "label": "65+",
+          "lower": 65,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "native",
+          "regionIds": [
+            "USA"
+          ],
+          "binIds": [
+            "age_18_29",
+            "age_30_49",
+            "age_50_64",
+            "age_65_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "USA",
+          "schemeId": "native",
+          "counts": [
+            729,
+            1827,
+            1308,
+            1355
+          ],
+          "known": 5219,
+          "unknown": 8,
+          "sourceRespondents": 5227,
+          "manuscriptRespondents": 5227,
+          "audit": {
+            "sourceMissingAge": 8,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        }
+      ],
+      "totals": {
+        "known": 5219,
+        "unknown": 8,
+        "sourceRespondents": 5227,
+        "manuscriptRespondents": 5227,
+        "sourceMissingAge": 8,
+        "sourceAgeConflicts": 0,
+        "manuscriptCohortGap": 0
+      },
+      "sourceRows": 244976
+    },
+    {
+      "id": "EVS2017",
+      "bins": [
+        {
+          "id": "age_18_24",
+          "label": "18-24",
+          "lower": 18,
+          "upper": 24
+        },
+        {
+          "id": "age_25_34",
+          "label": "25-34",
+          "lower": 25,
+          "upper": 34
+        },
+        {
+          "id": "age_35_44",
+          "label": "35-44",
+          "lower": 35,
+          "upper": 44
+        },
+        {
+          "id": "age_45_54",
+          "label": "45-54",
+          "lower": 45,
+          "upper": 54
+        },
+        {
+          "id": "age_55_64",
+          "label": "55-64",
+          "lower": 55,
+          "upper": 64
+        },
+        {
+          "id": "age_65_plus",
+          "label": "65+",
+          "lower": 65,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "native",
+          "regionIds": [
+            "ALB",
+            "ARM",
+            "AUT",
+            "AZE",
+            "BGR",
+            "BIH",
+            "BLR",
+            "CHE",
+            "CZE",
+            "DEU",
+            "DNK",
+            "ESP",
+            "EST",
+            "FIN",
+            "FRA",
+            "GBR",
+            "GEO",
+            "HRV",
+            "HUN",
+            "ISL",
+            "ITA",
+            "LTU",
+            "LVA",
+            "MKD",
+            "MNE",
+            "NLD",
+            "NOR",
+            "POL",
+            "PRT",
+            "ROU",
+            "RUS",
+            "SRB",
+            "SVK",
+            "SVN",
+            "SWE",
+            "UKR"
+          ],
+          "binIds": [
+            "age_18_24",
+            "age_25_34",
+            "age_35_44",
+            "age_45_54",
+            "age_55_64",
+            "age_65_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "ALB",
+          "schemeId": "native",
+          "counts": [
+            183,
+            219,
+            250,
+            271,
+            259,
+            210
+          ],
+          "known": 1392,
+          "unknown": 0,
+          "sourceRespondents": 1392,
+          "manuscriptRespondents": 1392,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ARM",
+          "schemeId": "native",
+          "counts": [
+            206,
+            315,
+            249,
+            281,
+            209,
+            215
+          ],
+          "known": 1475,
+          "unknown": 0,
+          "sourceRespondents": 1475,
+          "manuscriptRespondents": 1475,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "AUT",
+          "schemeId": "native",
+          "counts": [
+            93,
+            222,
+            249,
+            294,
+            254,
+            412
+          ],
+          "known": 1524,
+          "unknown": 0,
+          "sourceRespondents": 1524,
+          "manuscriptRespondents": 1524,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "AZE",
+          "schemeId": "native",
+          "counts": [
+            247,
+            432,
+            351,
+            275,
+            270,
+            103
+          ],
+          "known": 1678,
+          "unknown": 0,
+          "sourceRespondents": 1678,
+          "manuscriptRespondents": 1678,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "BGR",
+          "schemeId": "native",
+          "counts": [
+            75,
+            145,
+            192,
+            214,
+            263,
+            464
+          ],
+          "known": 1353,
+          "unknown": 4,
+          "sourceRespondents": 1357,
+          "manuscriptRespondents": 1357,
+          "audit": {
+            "sourceMissingAge": 4,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "BIH",
+          "schemeId": "native",
+          "counts": [
+            249,
+            265,
+            235,
+            279,
+            291,
+            303
+          ],
+          "known": 1622,
+          "unknown": 7,
+          "sourceRespondents": 1629,
+          "manuscriptRespondents": 1629,
+          "audit": {
+            "sourceMissingAge": 7,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "BLR",
+          "schemeId": "native",
+          "counts": [
+            108,
+            244,
+            210,
+            198,
+            247,
+            240
+          ],
+          "known": 1247,
+          "unknown": 0,
+          "sourceRespondents": 1247,
+          "manuscriptRespondents": 1247,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CHE",
+          "schemeId": "native",
+          "counts": [
+            304,
+            471,
+            485,
+            598,
+            523,
+            644
+          ],
+          "known": 3025,
+          "unknown": 0,
+          "sourceRespondents": 3025,
+          "manuscriptRespondents": 3025,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CZE",
+          "schemeId": "native",
+          "counts": [
+            73,
+            164,
+            215,
+            177,
+            234,
+            437
+          ],
+          "known": 1300,
+          "unknown": 2,
+          "sourceRespondents": 1302,
+          "manuscriptRespondents": 1302,
+          "audit": {
+            "sourceMissingAge": 2,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DEU",
+          "schemeId": "native",
+          "counts": [
+            159,
+            275,
+            271,
+            367,
+            369,
+            525
+          ],
+          "known": 1966,
+          "unknown": 0,
+          "sourceRespondents": 1966,
+          "manuscriptRespondents": 1966,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DNK",
+          "schemeId": "native",
+          "counts": [
+            275,
+            321,
+            435,
+            578,
+            516,
+            922
+          ],
+          "known": 3047,
+          "unknown": 0,
+          "sourceRespondents": 3047,
+          "manuscriptRespondents": 3047,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ESP",
+          "schemeId": "native",
+          "counts": [
+            76,
+            139,
+            187,
+            211,
+            168,
+            290
+          ],
+          "known": 1071,
+          "unknown": 0,
+          "sourceRespondents": 1071,
+          "manuscriptRespondents": 1071,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "EST",
+          "schemeId": "native",
+          "counts": [
+            54,
+            119,
+            127,
+            124,
+            187,
+            412
+          ],
+          "known": 1023,
+          "unknown": 0,
+          "sourceRespondents": 1023,
+          "manuscriptRespondents": 1023,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FIN",
+          "schemeId": "native",
+          "counts": [
+            100,
+            124,
+            125,
+            164,
+            219,
+            393
+          ],
+          "known": 1125,
+          "unknown": 9,
+          "sourceRespondents": 1134,
+          "manuscriptRespondents": 1134,
+          "audit": {
+            "sourceMissingAge": 9,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FRA",
+          "schemeId": "native",
+          "counts": [
+            119,
+            226,
+            256,
+            244,
+            294,
+            543
+          ],
+          "known": 1682,
+          "unknown": 1,
+          "sourceRespondents": 1683,
+          "manuscriptRespondents": 1683,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "GBR",
+          "schemeId": "native",
+          "counts": [
+            42,
+            85,
+            110,
+            135,
+            171,
+            432
+          ],
+          "known": 975,
+          "unknown": 0,
+          "sourceRespondents": 975,
+          "manuscriptRespondents": 975,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "GEO",
+          "schemeId": "native",
+          "counts": [
+            163,
+            313,
+            350,
+            342,
+            434,
+            535
+          ],
+          "known": 2137,
+          "unknown": 0,
+          "sourceRespondents": 2137,
+          "manuscriptRespondents": 2137,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "HRV",
+          "schemeId": "native",
+          "counts": [
+            131,
+            211,
+            197,
+            209,
+            277,
+            329
+          ],
+          "known": 1354,
+          "unknown": 1,
+          "sourceRespondents": 1355,
+          "manuscriptRespondents": 1355,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "HUN",
+          "schemeId": "native",
+          "counts": [
+            145,
+            148,
+            192,
+            178,
+            219,
+            378
+          ],
+          "known": 1260,
+          "unknown": 0,
+          "sourceRespondents": 1260,
+          "manuscriptRespondents": 1260,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ISL",
+          "schemeId": "native",
+          "counts": [
+            150,
+            231,
+            249,
+            287,
+            305,
+            330
+          ],
+          "known": 1552,
+          "unknown": 0,
+          "sourceRespondents": 1552,
+          "manuscriptRespondents": 1552,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ITA",
+          "schemeId": "native",
+          "counts": [
+            175,
+            218,
+            305,
+            331,
+            366,
+            568
+          ],
+          "known": 1963,
+          "unknown": 0,
+          "sourceRespondents": 1963,
+          "manuscriptRespondents": 1963,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "LTU",
+          "schemeId": "native",
+          "counts": [
+            126,
+            138,
+            195,
+            224,
+            214,
+            350
+          ],
+          "known": 1247,
+          "unknown": 0,
+          "sourceRespondents": 1247,
+          "manuscriptRespondents": 1247,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "LVA",
+          "schemeId": "native",
+          "counts": [
+            61,
+            123,
+            172,
+            164,
+            223,
+            340
+          ],
+          "known": 1083,
+          "unknown": 0,
+          "sourceRespondents": 1083,
+          "manuscriptRespondents": 1083,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "MKD",
+          "schemeId": "native",
+          "counts": [
+            143,
+            163,
+            159,
+            169,
+            132,
+            133
+          ],
+          "known": 899,
+          "unknown": 2,
+          "sourceRespondents": 901,
+          "manuscriptRespondents": 901,
+          "audit": {
+            "sourceMissingAge": 2,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "MNE",
+          "schemeId": "native",
+          "counts": [
+            82,
+            108,
+            139,
+            155,
+            125,
+            155
+          ],
+          "known": 764,
+          "unknown": 0,
+          "sourceRespondents": 764,
+          "manuscriptRespondents": 764,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NLD",
+          "schemeId": "native",
+          "counts": [
+            73,
+            85,
+            110,
+            121,
+            216,
+            654
+          ],
+          "known": 1259,
+          "unknown": 0,
+          "sourceRespondents": 1259,
+          "manuscriptRespondents": 1259,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NOR",
+          "schemeId": "native",
+          "counts": [
+            103,
+            158,
+            203,
+            214,
+            172,
+            235
+          ],
+          "known": 1085,
+          "unknown": 0,
+          "sourceRespondents": 1085,
+          "manuscriptRespondents": 1085,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "POL",
+          "schemeId": "native",
+          "counts": [
+            113,
+            192,
+            179,
+            171,
+            271,
+            313
+          ],
+          "known": 1239,
+          "unknown": 0,
+          "sourceRespondents": 1239,
+          "manuscriptRespondents": 1239,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "PRT",
+          "schemeId": "native",
+          "counts": [
+            46,
+            68,
+            127,
+            78,
+            191,
+            414
+          ],
+          "known": 924,
+          "unknown": 0,
+          "sourceRespondents": 924,
+          "manuscriptRespondents": 924,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ROU",
+          "schemeId": "native",
+          "counts": [
+            142,
+            185,
+            212,
+            235,
+            243,
+            358
+          ],
+          "known": 1375,
+          "unknown": 16,
+          "sourceRespondents": 1391,
+          "manuscriptRespondents": 1391,
+          "audit": {
+            "sourceMissingAge": 16,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "RUS",
+          "schemeId": "native",
+          "counts": [
+            155,
+            265,
+            262,
+            210,
+            230,
+            289
+          ],
+          "known": 1411,
+          "unknown": 0,
+          "sourceRespondents": 1411,
+          "manuscriptRespondents": 1411,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SRB",
+          "schemeId": "native",
+          "counts": [
+            95,
+            241,
+            230,
+            206,
+            193,
+            233
+          ],
+          "known": 1198,
+          "unknown": 0,
+          "sourceRespondents": 1198,
+          "manuscriptRespondents": 1198,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SVK",
+          "schemeId": "native",
+          "counts": [
+            92,
+            135,
+            179,
+            192,
+            277,
+            337
+          ],
+          "known": 1212,
+          "unknown": 0,
+          "sourceRespondents": 1212,
+          "manuscriptRespondents": 1212,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SVN",
+          "schemeId": "native",
+          "counts": [
+            92,
+            119,
+            150,
+            137,
+            196,
+            262
+          ],
+          "known": 956,
+          "unknown": 0,
+          "sourceRespondents": 956,
+          "manuscriptRespondents": 956,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SWE",
+          "schemeId": "native",
+          "counts": [
+            90,
+            151,
+            162,
+            179,
+            200,
+            350
+          ],
+          "known": 1132,
+          "unknown": 0,
+          "sourceRespondents": 1132,
+          "manuscriptRespondents": 1132,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "UKR",
+          "schemeId": "native",
+          "counts": [
+            102,
+            247,
+            242,
+            246,
+            235,
+            247
+          ],
+          "known": 1319,
+          "unknown": 0,
+          "sourceRespondents": 1319,
+          "manuscriptRespondents": 1319,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        }
+      ],
+      "totals": {
+        "known": 50874,
+        "unknown": 42,
+        "sourceRespondents": 50916,
+        "manuscriptRespondents": 50916,
+        "sourceMissingAge": 42,
+        "sourceAgeConflicts": 0,
+        "manuscriptCohortGap": 0
+      },
+      "sourceRows": 2552997
+    },
+    {
+      "id": "ISSP2009",
+      "bins": [
+        {
+          "id": "age_18_24",
+          "label": "18-24",
+          "lower": 18,
+          "upper": 24
+        },
+        {
+          "id": "age_25_34",
+          "label": "25-34",
+          "lower": 25,
+          "upper": 34
+        },
+        {
+          "id": "age_35_44",
+          "label": "35-44",
+          "lower": 35,
+          "upper": 44
+        },
+        {
+          "id": "age_45_54",
+          "label": "45-54",
+          "lower": 45,
+          "upper": 54
+        },
+        {
+          "id": "age_55_64",
+          "label": "55-64",
+          "lower": 55,
+          "upper": 64
+        },
+        {
+          "id": "age_65_plus",
+          "label": "65+",
+          "lower": 65,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "native",
+          "regionIds": [
+            "ARG",
+            "AUS",
+            "AUT",
+            "BEL",
+            "BGR",
+            "CHE",
+            "CHL",
+            "CHN",
+            "CYP",
+            "CZE",
+            "DEU",
+            "DNK",
+            "ESP",
+            "EST",
+            "FIN",
+            "FRA",
+            "GBR",
+            "HRV",
+            "HUN",
+            "ISL",
+            "ISR",
+            "ITA",
+            "JPN",
+            "KOR",
+            "LTU",
+            "LVA",
+            "NOR",
+            "NZL",
+            "PHL",
+            "POL",
+            "PRT",
+            "RUS",
+            "SVK",
+            "SVN",
+            "SWE",
+            "TUR",
+            "TWN",
+            "UKR",
+            "USA",
+            "VEN",
+            "ZAF"
+          ],
+          "binIds": [
+            "age_18_24",
+            "age_25_34",
+            "age_35_44",
+            "age_45_54",
+            "age_55_64",
+            "age_65_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "ARG",
+          "schemeId": "native",
+          "counts": [
+            116,
+            220,
+            202,
+            194,
+            174,
+            210
+          ],
+          "known": 1116,
+          "unknown": 0,
+          "sourceRespondents": 1116,
+          "manuscriptRespondents": 1116,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "AUS",
+          "schemeId": "native",
+          "counts": [
+            89,
+            139,
+            207,
+            285,
+            318,
+            302
+          ],
+          "known": 1340,
+          "unknown": 8,
+          "sourceRespondents": 1348,
+          "manuscriptRespondents": 1348,
+          "audit": {
+            "sourceMissingAge": 8,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "AUT",
+          "schemeId": "native",
+          "counts": [
+            120,
+            160,
+            165,
+            210,
+            144,
+            152
+          ],
+          "known": 951,
+          "unknown": 0,
+          "sourceRespondents": 951,
+          "manuscriptRespondents": 951,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "BEL",
+          "schemeId": "native",
+          "counts": [
+            103,
+            166,
+            191,
+            211,
+            194,
+            243
+          ],
+          "known": 1108,
+          "unknown": 0,
+          "sourceRespondents": 1108,
+          "manuscriptRespondents": 1108,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "BGR",
+          "schemeId": "native",
+          "counts": [
+            75,
+            144,
+            164,
+            187,
+            170,
+            209
+          ],
+          "known": 949,
+          "unknown": 1,
+          "sourceRespondents": 950,
+          "manuscriptRespondents": 950,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CHE",
+          "schemeId": "native",
+          "counts": [
+            35,
+            166,
+            234,
+            203,
+            178,
+            236
+          ],
+          "known": 1052,
+          "unknown": 0,
+          "sourceRespondents": 1052,
+          "manuscriptRespondents": 1052,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CHL",
+          "schemeId": "native",
+          "counts": [
+            32,
+            113,
+            204,
+            186,
+            135,
+            161
+          ],
+          "known": 831,
+          "unknown": 0,
+          "sourceRespondents": 831,
+          "manuscriptRespondents": 831,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CHN",
+          "schemeId": "native",
+          "counts": [
+            282,
+            595,
+            782,
+            636,
+            450,
+            232
+          ],
+          "known": 2977,
+          "unknown": 1,
+          "sourceRespondents": 2978,
+          "manuscriptRespondents": 2978,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CYP",
+          "schemeId": "native",
+          "counts": [
+            47,
+            204,
+            205,
+            142,
+            126,
+            104
+          ],
+          "known": 828,
+          "unknown": 0,
+          "sourceRespondents": 828,
+          "manuscriptRespondents": 828,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CZE",
+          "schemeId": "native",
+          "counts": [
+            50,
+            139,
+            158,
+            153,
+            208,
+            173
+          ],
+          "known": 881,
+          "unknown": 0,
+          "sourceRespondents": 881,
+          "manuscriptRespondents": 881,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DEU",
+          "schemeId": "native",
+          "counts": [
+            133,
+            183,
+            244,
+            261,
+            213,
+            328
+          ],
+          "known": 1362,
+          "unknown": 4,
+          "sourceRespondents": 1366,
+          "manuscriptRespondents": 1366,
+          "audit": {
+            "sourceMissingAge": 4,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DNK",
+          "schemeId": "native",
+          "counts": [
+            97,
+            183,
+            258,
+            290,
+            289,
+            295
+          ],
+          "known": 1412,
+          "unknown": 1,
+          "sourceRespondents": 1413,
+          "manuscriptRespondents": 1413,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ESP",
+          "schemeId": "native",
+          "counts": [
+            91,
+            175,
+            184,
+            165,
+            130,
+            167
+          ],
+          "known": 912,
+          "unknown": 1,
+          "sourceRespondents": 913,
+          "manuscriptRespondents": 913,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "EST",
+          "schemeId": "native",
+          "counts": [
+            99,
+            139,
+            127,
+            165,
+            188,
+            272
+          ],
+          "known": 990,
+          "unknown": 0,
+          "sourceRespondents": 990,
+          "manuscriptRespondents": 990,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FIN",
+          "schemeId": "native",
+          "counts": [
+            86,
+            118,
+            126,
+            146,
+            214,
+            139
+          ],
+          "known": 829,
+          "unknown": 0,
+          "sourceRespondents": 829,
+          "manuscriptRespondents": 829,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FRA",
+          "schemeId": "native",
+          "counts": [
+            61,
+            240,
+            381,
+            551,
+            623,
+            647
+          ],
+          "known": 2503,
+          "unknown": 0,
+          "sourceRespondents": 2503,
+          "manuscriptRespondents": 2503,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "GBR",
+          "schemeId": "native",
+          "counts": [
+            42,
+            112,
+            159,
+            140,
+            158,
+            167
+          ],
+          "known": 778,
+          "unknown": 0,
+          "sourceRespondents": 778,
+          "manuscriptRespondents": 778,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "HRV",
+          "schemeId": "native",
+          "counts": [
+            66,
+            125,
+            141,
+            143,
+            124,
+            155
+          ],
+          "known": 754,
+          "unknown": 0,
+          "sourceRespondents": 754,
+          "manuscriptRespondents": 754,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "HUN",
+          "schemeId": "native",
+          "counts": [
+            39,
+            173,
+            218,
+            192,
+            176,
+            141
+          ],
+          "known": 939,
+          "unknown": 0,
+          "sourceRespondents": 939,
+          "manuscriptRespondents": 939,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ISL",
+          "schemeId": "native",
+          "counts": [
+            57,
+            110,
+            128,
+            118,
+            85,
+            99
+          ],
+          "known": 597,
+          "unknown": 0,
+          "sourceRespondents": 597,
+          "manuscriptRespondents": 597,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ISR",
+          "schemeId": "native",
+          "counts": [
+            72,
+            153,
+            105,
+            98,
+            70,
+            13
+          ],
+          "known": 511,
+          "unknown": 0,
+          "sourceRespondents": 511,
+          "manuscriptRespondents": 511,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ITA",
+          "schemeId": "native",
+          "counts": [
+            59,
+            88,
+            175,
+            204,
+            164,
+            134
+          ],
+          "known": 824,
+          "unknown": 6,
+          "sourceRespondents": 830,
+          "manuscriptRespondents": 830,
+          "audit": {
+            "sourceMissingAge": 6,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "JPN",
+          "schemeId": "native",
+          "counts": [
+            60,
+            166,
+            245,
+            193,
+            232,
+            274
+          ],
+          "known": 1170,
+          "unknown": 0,
+          "sourceRespondents": 1170,
+          "manuscriptRespondents": 1170,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "KOR",
+          "schemeId": "native",
+          "counts": [
+            135,
+            297,
+            436,
+            330,
+            167,
+            175
+          ],
+          "known": 1540,
+          "unknown": 3,
+          "sourceRespondents": 1543,
+          "manuscriptRespondents": 1543,
+          "audit": {
+            "sourceMissingAge": 3,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "LTU",
+          "schemeId": "native",
+          "counts": [
+            78,
+            117,
+            158,
+            173,
+            173,
+            274
+          ],
+          "known": 973,
+          "unknown": 5,
+          "sourceRespondents": 978,
+          "manuscriptRespondents": 978,
+          "audit": {
+            "sourceMissingAge": 5,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "LVA",
+          "schemeId": "native",
+          "counts": [
+            106,
+            158,
+            188,
+            191,
+            152,
+            173
+          ],
+          "known": 968,
+          "unknown": 0,
+          "sourceRespondents": 968,
+          "manuscriptRespondents": 968,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NOR",
+          "schemeId": "native",
+          "counts": [
+            73,
+            169,
+            254,
+            239,
+            247,
+            172
+          ],
+          "known": 1154,
+          "unknown": 0,
+          "sourceRespondents": 1154,
+          "manuscriptRespondents": 1154,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NZL",
+          "schemeId": "native",
+          "counts": [
+            60,
+            131,
+            151,
+            175,
+            187,
+            189
+          ],
+          "known": 893,
+          "unknown": 5,
+          "sourceRespondents": 898,
+          "manuscriptRespondents": 898,
+          "audit": {
+            "sourceMissingAge": 5,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "PHL",
+          "schemeId": "native",
+          "counts": [
+            146,
+            297,
+            277,
+            181,
+            147,
+            143
+          ],
+          "known": 1191,
+          "unknown": 0,
+          "sourceRespondents": 1191,
+          "manuscriptRespondents": 1191,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "POL",
+          "schemeId": "native",
+          "counts": [
+            51,
+            190,
+            176,
+            192,
+            222,
+            175
+          ],
+          "known": 1006,
+          "unknown": 0,
+          "sourceRespondents": 1006,
+          "manuscriptRespondents": 1006,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "PRT",
+          "schemeId": "native",
+          "counts": [
+            13,
+            85,
+            114,
+            80,
+            68,
+            113
+          ],
+          "known": 473,
+          "unknown": 0,
+          "sourceRespondents": 473,
+          "manuscriptRespondents": 473,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "RUS",
+          "schemeId": "native",
+          "counts": [
+            135,
+            238,
+            217,
+            252,
+            243,
+            325
+          ],
+          "known": 1410,
+          "unknown": 0,
+          "sourceRespondents": 1410,
+          "manuscriptRespondents": 1410,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SVK",
+          "schemeId": "native",
+          "counts": [
+            80,
+            167,
+            207,
+            209,
+            227,
+            167
+          ],
+          "known": 1057,
+          "unknown": 2,
+          "sourceRespondents": 1059,
+          "manuscriptRespondents": 1059,
+          "audit": {
+            "sourceMissingAge": 2,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SVN",
+          "schemeId": "native",
+          "counts": [
+            82,
+            186,
+            177,
+            181,
+            162,
+            179
+          ],
+          "known": 967,
+          "unknown": 0,
+          "sourceRespondents": 967,
+          "manuscriptRespondents": 967,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SWE",
+          "schemeId": "native",
+          "counts": [
+            101,
+            160,
+            190,
+            212,
+            224,
+            221
+          ],
+          "known": 1108,
+          "unknown": 0,
+          "sourceRespondents": 1108,
+          "manuscriptRespondents": 1108,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "TUR",
+          "schemeId": "native",
+          "counts": [
+            222,
+            402,
+            324,
+            248,
+            217,
+            130
+          ],
+          "known": 1543,
+          "unknown": 1,
+          "sourceRespondents": 1544,
+          "manuscriptRespondents": 1544,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "TWN",
+          "schemeId": "native",
+          "counts": [
+            118,
+            346,
+            320,
+            327,
+            208,
+            143
+          ],
+          "known": 1462,
+          "unknown": 0,
+          "sourceRespondents": 1462,
+          "manuscriptRespondents": 1462,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "UKR",
+          "schemeId": "native",
+          "counts": [
+            197,
+            330,
+            309,
+            373,
+            346,
+            415
+          ],
+          "known": 1970,
+          "unknown": 0,
+          "sourceRespondents": 1970,
+          "manuscriptRespondents": 1970,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "USA",
+          "schemeId": "native",
+          "counts": [
+            90,
+            264,
+            282,
+            317,
+            276,
+            317
+          ],
+          "known": 1546,
+          "unknown": 14,
+          "sourceRespondents": 1560,
+          "manuscriptRespondents": 1560,
+          "audit": {
+            "sourceMissingAge": 14,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "VEN",
+          "schemeId": "native",
+          "counts": [
+            123,
+            202,
+            151,
+            131,
+            55,
+            43
+          ],
+          "known": 705,
+          "unknown": 0,
+          "sourceRespondents": 705,
+          "manuscriptRespondents": 705,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ZAF",
+          "schemeId": "native",
+          "counts": [
+            642,
+            739,
+            672,
+            558,
+            347,
+            232
+          ],
+          "known": 3190,
+          "unknown": 0,
+          "sourceRespondents": 3190,
+          "manuscriptRespondents": 3190,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        }
+      ],
+      "totals": {
+        "known": 48770,
+        "unknown": 52,
+        "sourceRespondents": 48822,
+        "manuscriptRespondents": 48822,
+        "sourceMissingAge": 52,
+        "sourceAgeConflicts": 0,
+        "manuscriptCohortGap": 0
+      },
+      "sourceRows": 1503093
+    },
+    {
+      "id": "ISSP2015",
+      "bins": [
+        {
+          "id": "under_18",
+          "label": "under 18",
+          "lower": null,
+          "upper": 17
+        },
+        {
+          "id": "age_18_24",
+          "label": "18-24",
+          "lower": 18,
+          "upper": 24
+        },
+        {
+          "id": "age_18_25",
+          "label": "18-25",
+          "lower": 18,
+          "upper": 25
+        },
+        {
+          "id": "age_25_34",
+          "label": "25-34",
+          "lower": 25,
+          "upper": 34
+        },
+        {
+          "id": "age_26_35",
+          "label": "26-35",
+          "lower": 26,
+          "upper": 35
+        },
+        {
+          "id": "age_35_44",
+          "label": "35-44",
+          "lower": 35,
+          "upper": 44
+        },
+        {
+          "id": "age_36_45",
+          "label": "36-45",
+          "lower": 36,
+          "upper": 45
+        },
+        {
+          "id": "age_45_54",
+          "label": "45-54",
+          "lower": 45,
+          "upper": 54
+        },
+        {
+          "id": "age_46_55",
+          "label": "46-55",
+          "lower": 46,
+          "upper": 55
+        },
+        {
+          "id": "age_55_64",
+          "label": "55-64",
+          "lower": 55,
+          "upper": 64
+        },
+        {
+          "id": "age_56_65",
+          "label": "56-65",
+          "lower": 56,
+          "upper": 65
+        },
+        {
+          "id": "age_65_plus",
+          "label": "65+",
+          "lower": 65,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "standard",
+          "regionIds": [
+            "AUS",
+            "AUT",
+            "BEL",
+            "CHE",
+            "CHL",
+            "CHN",
+            "CZE",
+            "DEU",
+            "ESP",
+            "EST",
+            "FIN",
+            "FRA",
+            "GEO",
+            "HRV",
+            "HUN",
+            "IND",
+            "ISL",
+            "ISR",
+            "JPN",
+            "LTU",
+            "LVA",
+            "MEX",
+            "NOR",
+            "NZL",
+            "PHL",
+            "POL",
+            "RUS",
+            "SUR",
+            "SVK",
+            "SVN",
+            "SWE",
+            "TWN",
+            "USA",
+            "VEN",
+            "ZAF"
+          ],
+          "binIds": [
+            "under_18",
+            "age_18_24",
+            "age_25_34",
+            "age_35_44",
+            "age_45_54",
+            "age_55_64",
+            "age_65_plus"
+          ]
+        },
+        {
+          "id": "denmark",
+          "regionIds": [
+            "DNK"
+          ],
+          "binIds": [
+            "age_18_25",
+            "age_26_35",
+            "age_36_45",
+            "age_46_55",
+            "age_56_65",
+            "age_65_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "AUS",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            29,
+            0,
+            90,
+            0,
+            127,
+            0,
+            206,
+            0,
+            262,
+            0,
+            250
+          ],
+          "known": 964,
+          "unknown": 23,
+          "sourceRespondents": 987,
+          "manuscriptRespondents": 987,
+          "audit": {
+            "sourceMissingAge": 23,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "AUT",
+          "schemeId": "standard",
+          "counts": [
+            3,
+            54,
+            0,
+            190,
+            0,
+            163,
+            0,
+            213,
+            0,
+            157,
+            0,
+            163
+          ],
+          "known": 943,
+          "unknown": 0,
+          "sourceRespondents": 943,
+          "manuscriptRespondents": 943,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "BEL",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            179,
+            0,
+            358,
+            0,
+            357,
+            0,
+            358,
+            0,
+            332,
+            0,
+            351
+          ],
+          "known": 1935,
+          "unknown": 0,
+          "sourceRespondents": 1935,
+          "manuscriptRespondents": 1935,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CHE",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            82,
+            0,
+            171,
+            0,
+            208,
+            0,
+            233,
+            0,
+            184,
+            0,
+            266
+          ],
+          "known": 1144,
+          "unknown": 0,
+          "sourceRespondents": 1144,
+          "manuscriptRespondents": 1144,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CHL",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            98,
+            0,
+            203,
+            0,
+            200,
+            0,
+            256,
+            0,
+            177,
+            0,
+            279
+          ],
+          "known": 1213,
+          "unknown": 2,
+          "sourceRespondents": 1214,
+          "manuscriptRespondents": 1215,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 1
+          }
+        },
+        {
+          "regionId": "CHN",
+          "schemeId": "standard",
+          "counts": [
+            2,
+            64,
+            0,
+            242,
+            0,
+            275,
+            0,
+            326,
+            0,
+            295,
+            0,
+            271
+          ],
+          "known": 1475,
+          "unknown": 0,
+          "sourceRespondents": 1475,
+          "manuscriptRespondents": 1475,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CZE",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            75,
+            0,
+            215,
+            0,
+            265,
+            0,
+            191,
+            0,
+            250,
+            0,
+            289
+          ],
+          "known": 1285,
+          "unknown": 31,
+          "sourceRespondents": 1316,
+          "manuscriptRespondents": 1316,
+          "audit": {
+            "sourceMissingAge": 31,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DEU",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            106,
+            0,
+            227,
+            0,
+            215,
+            0,
+            389,
+            0,
+            287,
+            0,
+            407
+          ],
+          "known": 1631,
+          "unknown": 2,
+          "sourceRespondents": 1633,
+          "manuscriptRespondents": 1633,
+          "audit": {
+            "sourceMissingAge": 2,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DNK",
+          "schemeId": "denmark",
+          "counts": [
+            0,
+            0,
+            119,
+            0,
+            145,
+            0,
+            155,
+            0,
+            211,
+            0,
+            212,
+            189
+          ],
+          "known": 1031,
+          "unknown": 0,
+          "sourceRespondents": 1031,
+          "manuscriptRespondents": 1031,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ESP",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            113,
+            0,
+            236,
+            0,
+            367,
+            0,
+            353,
+            0,
+            278,
+            0,
+            401
+          ],
+          "known": 1748,
+          "unknown": 0,
+          "sourceRespondents": 1748,
+          "manuscriptRespondents": 1748,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "EST",
+          "schemeId": "standard",
+          "counts": [
+            6,
+            70,
+            0,
+            177,
+            0,
+            159,
+            0,
+            194,
+            0,
+            181,
+            0,
+            344
+          ],
+          "known": 1131,
+          "unknown": 0,
+          "sourceRespondents": 1131,
+          "manuscriptRespondents": 1131,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FIN",
+          "schemeId": "standard",
+          "counts": [
+            18,
+            91,
+            0,
+            149,
+            0,
+            174,
+            0,
+            204,
+            0,
+            255,
+            0,
+            252
+          ],
+          "known": 1143,
+          "unknown": 0,
+          "sourceRespondents": 1143,
+          "manuscriptRespondents": 1143,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FRA",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            42,
+            0,
+            139,
+            0,
+            214,
+            0,
+            216,
+            0,
+            219,
+            0,
+            226
+          ],
+          "known": 1056,
+          "unknown": 1,
+          "sourceRespondents": 1056,
+          "manuscriptRespondents": 1057,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 1
+          }
+        },
+        {
+          "regionId": "GEO",
+          "schemeId": "standard",
+          "counts": [
+            1,
+            92,
+            0,
+            218,
+            0,
+            228,
+            0,
+            271,
+            0,
+            296,
+            0,
+            341
+          ],
+          "known": 1447,
+          "unknown": 0,
+          "sourceRespondents": 1447,
+          "manuscriptRespondents": 1447,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "HRV",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            95,
+            0,
+            162,
+            0,
+            185,
+            0,
+            189,
+            0,
+            171,
+            0,
+            153
+          ],
+          "known": 955,
+          "unknown": 1,
+          "sourceRespondents": 956,
+          "manuscriptRespondents": 956,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "HUN",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            41,
+            0,
+            122,
+            0,
+            175,
+            0,
+            184,
+            0,
+            225,
+            0,
+            193
+          ],
+          "known": 940,
+          "unknown": 0,
+          "sourceRespondents": 940,
+          "manuscriptRespondents": 940,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "IND",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            119,
+            0,
+            369,
+            0,
+            283,
+            0,
+            258,
+            0,
+            162,
+            0,
+            114
+          ],
+          "known": 1305,
+          "unknown": 0,
+          "sourceRespondents": 1305,
+          "manuscriptRespondents": 1305,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ISL",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            59,
+            0,
+            149,
+            0,
+            189,
+            0,
+            181,
+            0,
+            179,
+            0,
+            142
+          ],
+          "known": 899,
+          "unknown": 0,
+          "sourceRespondents": 899,
+          "manuscriptRespondents": 899,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ISR",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            83,
+            0,
+            203,
+            0,
+            244,
+            0,
+            184,
+            0,
+            191,
+            0,
+            262
+          ],
+          "known": 1167,
+          "unknown": 4,
+          "sourceRespondents": 1171,
+          "manuscriptRespondents": 1171,
+          "audit": {
+            "sourceMissingAge": 4,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "JPN",
+          "schemeId": "standard",
+          "counts": [
+            6,
+            81,
+            0,
+            146,
+            0,
+            263,
+            0,
+            246,
+            0,
+            276,
+            0,
+            457
+          ],
+          "known": 1475,
+          "unknown": 0,
+          "sourceRespondents": 1475,
+          "manuscriptRespondents": 1475,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "LTU",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            92,
+            0,
+            183,
+            0,
+            155,
+            0,
+            189,
+            0,
+            160,
+            0,
+            246
+          ],
+          "known": 1025,
+          "unknown": 0,
+          "sourceRespondents": 1025,
+          "manuscriptRespondents": 1025,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "LVA",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            77,
+            0,
+            184,
+            0,
+            173,
+            0,
+            198,
+            0,
+            165,
+            0,
+            158
+          ],
+          "known": 955,
+          "unknown": 0,
+          "sourceRespondents": 955,
+          "manuscriptRespondents": 955,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "MEX",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            178,
+            0,
+            307,
+            0,
+            196,
+            0,
+            199,
+            0,
+            88,
+            0,
+            58
+          ],
+          "known": 1026,
+          "unknown": 2,
+          "sourceRespondents": 1028,
+          "manuscriptRespondents": 1028,
+          "audit": {
+            "sourceMissingAge": 2,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NOR",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            114,
+            0,
+            220,
+            0,
+            262,
+            0,
+            291,
+            0,
+            331,
+            0,
+            256
+          ],
+          "known": 1474,
+          "unknown": 0,
+          "sourceRespondents": 1474,
+          "manuscriptRespondents": 1474,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NZL",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            5,
+            0,
+            28,
+            0,
+            72,
+            0,
+            77,
+            0,
+            78,
+            0,
+            43
+          ],
+          "known": 303,
+          "unknown": 1,
+          "sourceRespondents": 304,
+          "manuscriptRespondents": 304,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "PHL",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            148,
+            0,
+            262,
+            0,
+            262,
+            0,
+            199,
+            0,
+            151,
+            0,
+            147
+          ],
+          "known": 1169,
+          "unknown": 0,
+          "sourceRespondents": 1169,
+          "manuscriptRespondents": 1169,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "POL",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            98,
+            0,
+            257,
+            0,
+            305,
+            0,
+            293,
+            0,
+            385,
+            0,
+            584
+          ],
+          "known": 1922,
+          "unknown": 0,
+          "sourceRespondents": 1922,
+          "manuscriptRespondents": 1922,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "RUS",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            122,
+            0,
+            291,
+            0,
+            264,
+            0,
+            265,
+            0,
+            260,
+            0,
+            216
+          ],
+          "known": 1418,
+          "unknown": 0,
+          "sourceRespondents": 1418,
+          "manuscriptRespondents": 1418,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SUR",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            35,
+            0,
+            186,
+            0,
+            179,
+            0,
+            213,
+            0,
+            135,
+            0,
+            103
+          ],
+          "known": 851,
+          "unknown": 0,
+          "sourceRespondents": 851,
+          "manuscriptRespondents": 851,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SVK",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            73,
+            0,
+            148,
+            0,
+            186,
+            0,
+            191,
+            0,
+            216,
+            0,
+            253
+          ],
+          "known": 1067,
+          "unknown": 4,
+          "sourceRespondents": 1071,
+          "manuscriptRespondents": 1071,
+          "audit": {
+            "sourceMissingAge": 4,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SVN",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            58,
+            0,
+            127,
+            0,
+            151,
+            0,
+            184,
+            0,
+            181,
+            0,
+            248
+          ],
+          "known": 949,
+          "unknown": 3,
+          "sourceRespondents": 952,
+          "manuscriptRespondents": 952,
+          "audit": {
+            "sourceMissingAge": 3,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SWE",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            44,
+            0,
+            131,
+            0,
+            199,
+            0,
+            217,
+            0,
+            223,
+            0,
+            283
+          ],
+          "known": 1097,
+          "unknown": 1,
+          "sourceRespondents": 1097,
+          "manuscriptRespondents": 1098,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 1
+          }
+        },
+        {
+          "regionId": "TWN",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            121,
+            0,
+            337,
+            0,
+            338,
+            0,
+            349,
+            0,
+            369,
+            0,
+            283
+          ],
+          "known": 1797,
+          "unknown": 0,
+          "sourceRespondents": 1797,
+          "manuscriptRespondents": 1797,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "USA",
+          "schemeId": "standard",
+          "counts": [
+            0,
+            92,
+            0,
+            236,
+            0,
+            272,
+            0,
+            260,
+            0,
+            268,
+            0,
+            305
+          ],
+          "known": 1433,
+          "unknown": 7,
+          "sourceRespondents": 1440,
+          "manuscriptRespondents": 1440,
+          "audit": {
+            "sourceMissingAge": 7,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "VEN",
+          "schemeId": "standard",
+          "counts": [
+            2,
+            221,
+            0,
+            253,
+            0,
+            187,
+            0,
+            171,
+            0,
+            98,
+            0,
+            58
+          ],
+          "known": 990,
+          "unknown": 0,
+          "sourceRespondents": 990,
+          "manuscriptRespondents": 990,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ZAF",
+          "schemeId": "standard",
+          "counts": [
+            39,
+            346,
+            0,
+            656,
+            0,
+            464,
+            0,
+            403,
+            0,
+            361,
+            0,
+            382
+          ],
+          "known": 2651,
+          "unknown": 0,
+          "sourceRespondents": 2651,
+          "manuscriptRespondents": 2651,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        }
+      ],
+      "totals": {
+        "known": 45014,
+        "unknown": 82,
+        "sourceRespondents": 45093,
+        "manuscriptRespondents": 45096,
+        "sourceMissingAge": 79,
+        "sourceAgeConflicts": 0,
+        "manuscriptCohortGap": 3
+      },
+      "sourceRows": 682112
+    },
+    {
+      "id": "ISSP2016",
+      "bins": [
+        {
+          "id": "age_18_24",
+          "label": "18-24",
+          "lower": 18,
+          "upper": 24
+        },
+        {
+          "id": "age_25_34",
+          "label": "25-34",
+          "lower": 25,
+          "upper": 34
+        },
+        {
+          "id": "age_35_44",
+          "label": "35-44",
+          "lower": 35,
+          "upper": 44
+        },
+        {
+          "id": "age_45_54",
+          "label": "45-54",
+          "lower": 45,
+          "upper": 54
+        },
+        {
+          "id": "age_55_64",
+          "label": "55-64",
+          "lower": 55,
+          "upper": 64
+        },
+        {
+          "id": "age_65_plus",
+          "label": "65+",
+          "lower": 65,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "native",
+          "regionIds": [
+            "AUS",
+            "BEL",
+            "CHE",
+            "CHL",
+            "CZE",
+            "DEU",
+            "DNK",
+            "ESP",
+            "FIN",
+            "FRA",
+            "GBR",
+            "GEO",
+            "HRV",
+            "HUN",
+            "IND",
+            "ISL",
+            "ISR",
+            "JPN",
+            "KOR",
+            "LTU",
+            "LVA",
+            "NOR",
+            "NZL",
+            "PHL",
+            "RUS",
+            "SUR",
+            "SVK",
+            "SVN",
+            "SWE",
+            "THA",
+            "TUR",
+            "TWN",
+            "USA",
+            "VEN",
+            "ZAF"
+          ],
+          "binIds": [
+            "age_18_24",
+            "age_25_34",
+            "age_35_44",
+            "age_45_54",
+            "age_55_64",
+            "age_65_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "AUS",
+          "schemeId": "native",
+          "counts": [
+            53,
+            108,
+            138,
+            189,
+            291,
+            327
+          ],
+          "known": 1106,
+          "unknown": 11,
+          "sourceRespondents": 1117,
+          "manuscriptRespondents": 1117,
+          "audit": {
+            "sourceMissingAge": 11,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "BEL",
+          "schemeId": "native",
+          "counts": [
+            122,
+            273,
+            283,
+            327,
+            354,
+            382
+          ],
+          "known": 1741,
+          "unknown": 0,
+          "sourceRespondents": 1741,
+          "manuscriptRespondents": 1741,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CHE",
+          "schemeId": "native",
+          "counts": [
+            67,
+            161,
+            164,
+            226,
+            172,
+            217
+          ],
+          "known": 1007,
+          "unknown": 0,
+          "sourceRespondents": 1007,
+          "manuscriptRespondents": 1007,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CHL",
+          "schemeId": "native",
+          "counts": [
+            95,
+            184,
+            178,
+            237,
+            203,
+            278
+          ],
+          "known": 1175,
+          "unknown": 0,
+          "sourceRespondents": 1175,
+          "manuscriptRespondents": 1175,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CZE",
+          "schemeId": "native",
+          "counts": [
+            46,
+            185,
+            258,
+            220,
+            227,
+            280
+          ],
+          "known": 1216,
+          "unknown": 19,
+          "sourceRespondents": 1235,
+          "manuscriptRespondents": 1235,
+          "audit": {
+            "sourceMissingAge": 19,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DEU",
+          "schemeId": "native",
+          "counts": [
+            104,
+            231,
+            221,
+            335,
+            327,
+            421
+          ],
+          "known": 1639,
+          "unknown": 1,
+          "sourceRespondents": 1640,
+          "manuscriptRespondents": 1640,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DNK",
+          "schemeId": "native",
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 0,
+          "unknown": 1010,
+          "sourceRespondents": 1010,
+          "manuscriptRespondents": 1010,
+          "audit": {
+            "sourceMissingAge": 1010,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ESP",
+          "schemeId": "native",
+          "counts": [
+            115,
+            236,
+            367,
+            353,
+            278,
+            398
+          ],
+          "known": 1747,
+          "unknown": 0,
+          "sourceRespondents": 1747,
+          "manuscriptRespondents": 1747,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FIN",
+          "schemeId": "native",
+          "counts": [
+            111,
+            160,
+            173,
+            210,
+            229,
+            242
+          ],
+          "known": 1125,
+          "unknown": 0,
+          "sourceRespondents": 1125,
+          "manuscriptRespondents": 1125,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FRA",
+          "schemeId": "native",
+          "counts": [
+            30,
+            147,
+            204,
+            227,
+            306,
+            437
+          ],
+          "known": 1351,
+          "unknown": 0,
+          "sourceRespondents": 1351,
+          "manuscriptRespondents": 1351,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "GBR",
+          "schemeId": "native",
+          "counts": [
+            3,
+            48,
+            83,
+            54,
+            73,
+            80
+          ],
+          "known": 341,
+          "unknown": 0,
+          "sourceRespondents": 341,
+          "manuscriptRespondents": 341,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "GEO",
+          "schemeId": "native",
+          "counts": [
+            93,
+            218,
+            228,
+            271,
+            296,
+            341
+          ],
+          "known": 1447,
+          "unknown": 0,
+          "sourceRespondents": 1447,
+          "manuscriptRespondents": 1447,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "HRV",
+          "schemeId": "native",
+          "counts": [
+            124,
+            180,
+            174,
+            183,
+            191,
+            132
+          ],
+          "known": 984,
+          "unknown": 0,
+          "sourceRespondents": 984,
+          "manuscriptRespondents": 984,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "HUN",
+          "schemeId": "native",
+          "counts": [
+            40,
+            129,
+            194,
+            219,
+            210,
+            179
+          ],
+          "known": 971,
+          "unknown": 0,
+          "sourceRespondents": 971,
+          "manuscriptRespondents": 971,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "IND",
+          "schemeId": "native",
+          "counts": [
+            136,
+            422,
+            307,
+            286,
+            180,
+            117
+          ],
+          "known": 1448,
+          "unknown": 0,
+          "sourceRespondents": 1448,
+          "manuscriptRespondents": 1448,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ISL",
+          "schemeId": "native",
+          "counts": [
+            95,
+            168,
+            234,
+            207,
+            233,
+            215
+          ],
+          "known": 1152,
+          "unknown": 0,
+          "sourceRespondents": 1152,
+          "manuscriptRespondents": 1152,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ISR",
+          "schemeId": "native",
+          "counts": [
+            86,
+            204,
+            246,
+            185,
+            193,
+            264
+          ],
+          "known": 1178,
+          "unknown": 4,
+          "sourceRespondents": 1182,
+          "manuscriptRespondents": 1182,
+          "audit": {
+            "sourceMissingAge": 4,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "JPN",
+          "schemeId": "native",
+          "counts": [
+            100,
+            155,
+            262,
+            259,
+            246,
+            452
+          ],
+          "known": 1474,
+          "unknown": 1,
+          "sourceRespondents": 1474,
+          "manuscriptRespondents": 1475,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 1
+          }
+        },
+        {
+          "regionId": "KOR",
+          "schemeId": "native",
+          "counts": [
+            57,
+            164,
+            162,
+            189,
+            162,
+            239
+          ],
+          "known": 973,
+          "unknown": 0,
+          "sourceRespondents": 973,
+          "manuscriptRespondents": 973,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "LTU",
+          "schemeId": "native",
+          "counts": [
+            77,
+            167,
+            138,
+            221,
+            150,
+            170
+          ],
+          "known": 923,
+          "unknown": 0,
+          "sourceRespondents": 923,
+          "manuscriptRespondents": 923,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "LVA",
+          "schemeId": "native",
+          "counts": [
+            78,
+            184,
+            176,
+            200,
+            166,
+            158
+          ],
+          "known": 962,
+          "unknown": 0,
+          "sourceRespondents": 962,
+          "manuscriptRespondents": 962,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NOR",
+          "schemeId": "native",
+          "counts": [
+            74,
+            169,
+            171,
+            226,
+            267,
+            259
+          ],
+          "known": 1166,
+          "unknown": 0,
+          "sourceRespondents": 1166,
+          "manuscriptRespondents": 1166,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NZL",
+          "schemeId": "native",
+          "counts": [
+            81,
+            188,
+            199,
+            172,
+            175,
+            237
+          ],
+          "known": 1052,
+          "unknown": 3,
+          "sourceRespondents": 1055,
+          "manuscriptRespondents": 1055,
+          "audit": {
+            "sourceMissingAge": 3,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "PHL",
+          "schemeId": "native",
+          "counts": [
+            148,
+            262,
+            262,
+            199,
+            151,
+            147
+          ],
+          "known": 1169,
+          "unknown": 0,
+          "sourceRespondents": 1169,
+          "manuscriptRespondents": 1169,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "RUS",
+          "schemeId": "native",
+          "counts": [
+            133,
+            297,
+            299,
+            263,
+            267,
+            208
+          ],
+          "known": 1467,
+          "unknown": 0,
+          "sourceRespondents": 1467,
+          "manuscriptRespondents": 1467,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SUR",
+          "schemeId": "native",
+          "counts": [
+            36,
+            172,
+            181,
+            181,
+            128,
+            94
+          ],
+          "known": 792,
+          "unknown": 2,
+          "sourceRespondents": 792,
+          "manuscriptRespondents": 794,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 2
+          }
+        },
+        {
+          "regionId": "SVK",
+          "schemeId": "native",
+          "counts": [
+            60,
+            132,
+            192,
+            203,
+            220,
+            273
+          ],
+          "known": 1080,
+          "unknown": 7,
+          "sourceRespondents": 1087,
+          "manuscriptRespondents": 1087,
+          "audit": {
+            "sourceMissingAge": 7,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SVN",
+          "schemeId": "native",
+          "counts": [
+            61,
+            128,
+            151,
+            184,
+            183,
+            254
+          ],
+          "known": 961,
+          "unknown": 3,
+          "sourceRespondents": 964,
+          "manuscriptRespondents": 964,
+          "audit": {
+            "sourceMissingAge": 3,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SWE",
+          "schemeId": "native",
+          "counts": [
+            49,
+            132,
+            159,
+            186,
+            219,
+            341
+          ],
+          "known": 1086,
+          "unknown": 0,
+          "sourceRespondents": 1086,
+          "manuscriptRespondents": 1086,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "THA",
+          "schemeId": "native",
+          "counts": [
+            45,
+            170,
+            252,
+            365,
+            325,
+            144
+          ],
+          "known": 1301,
+          "unknown": 1,
+          "sourceRespondents": 1302,
+          "manuscriptRespondents": 1302,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "TUR",
+          "schemeId": "native",
+          "counts": [
+            233,
+            351,
+            345,
+            226,
+            186,
+            132
+          ],
+          "known": 1473,
+          "unknown": 10,
+          "sourceRespondents": 1483,
+          "manuscriptRespondents": 1483,
+          "audit": {
+            "sourceMissingAge": 10,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "TWN",
+          "schemeId": "native",
+          "counts": [
+            198,
+            354,
+            343,
+            340,
+            341,
+            302
+          ],
+          "known": 1878,
+          "unknown": 0,
+          "sourceRespondents": 1878,
+          "manuscriptRespondents": 1878,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "USA",
+          "schemeId": "native",
+          "counts": [
+            77,
+            258,
+            195,
+            212,
+            259,
+            299
+          ],
+          "known": 1300,
+          "unknown": 1,
+          "sourceRespondents": 1301,
+          "manuscriptRespondents": 1301,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "VEN",
+          "schemeId": "native",
+          "counts": [
+            219,
+            236,
+            203,
+            147,
+            122,
+            61
+          ],
+          "known": 988,
+          "unknown": 0,
+          "sourceRespondents": 988,
+          "manuscriptRespondents": 988,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ZAF",
+          "schemeId": "native",
+          "counts": [
+            294,
+            589,
+            572,
+            417,
+            388,
+            432
+          ],
+          "known": 2692,
+          "unknown": 1,
+          "sourceRespondents": 2692,
+          "manuscriptRespondents": 2693,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 1
+          }
+        }
+      ],
+      "totals": {
+        "known": 42365,
+        "unknown": 1074,
+        "sourceRespondents": 43435,
+        "manuscriptRespondents": 43439,
+        "sourceMissingAge": 1070,
+        "sourceAgeConflicts": 0,
+        "manuscriptCohortGap": 4
+      },
+      "sourceRows": 1501830
+    },
+    {
+      "id": "ISSP2019",
+      "bins": [
+        {
+          "id": "age_18_24",
+          "label": "18-24",
+          "lower": 18,
+          "upper": 24
+        },
+        {
+          "id": "age_25_34",
+          "label": "25-34",
+          "lower": 25,
+          "upper": 34
+        },
+        {
+          "id": "age_35_44",
+          "label": "35-44",
+          "lower": 35,
+          "upper": 44
+        },
+        {
+          "id": "age_45_54",
+          "label": "45-54",
+          "lower": 45,
+          "upper": 54
+        },
+        {
+          "id": "age_55_64",
+          "label": "55-64",
+          "lower": 55,
+          "upper": 64
+        },
+        {
+          "id": "age_65_plus",
+          "label": "65+",
+          "lower": 65,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "native",
+          "regionIds": [
+            "AUS",
+            "AUT",
+            "BGR",
+            "CHE",
+            "CHL",
+            "CZE",
+            "DEU",
+            "DNK",
+            "FIN",
+            "FRA",
+            "GBR",
+            "HRV",
+            "ISL",
+            "ISR",
+            "ITA",
+            "JPN",
+            "LTU",
+            "NOR",
+            "NZL",
+            "PHL",
+            "RUS",
+            "SUR",
+            "SVN",
+            "SWE",
+            "THA",
+            "TWN",
+            "USA",
+            "VEN",
+            "ZAF"
+          ],
+          "binIds": [
+            "age_18_24",
+            "age_25_34",
+            "age_35_44",
+            "age_45_54",
+            "age_55_64",
+            "age_65_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "AUS",
+          "schemeId": "native",
+          "counts": [
+            37,
+            77,
+            139,
+            128,
+            241,
+            294
+          ],
+          "known": 916,
+          "unknown": 53,
+          "sourceRespondents": 968,
+          "manuscriptRespondents": 969,
+          "audit": {
+            "sourceMissingAge": 52,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 1
+          }
+        },
+        {
+          "regionId": "AUT",
+          "schemeId": "native",
+          "counts": [
+            43,
+            99,
+            175,
+            232,
+            267,
+            410
+          ],
+          "known": 1226,
+          "unknown": 2,
+          "sourceRespondents": 1228,
+          "manuscriptRespondents": 1228,
+          "audit": {
+            "sourceMissingAge": 2,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "BGR",
+          "schemeId": "native",
+          "counts": [
+            28,
+            105,
+            156,
+            202,
+            218,
+            347
+          ],
+          "known": 1056,
+          "unknown": 0,
+          "sourceRespondents": 1056,
+          "manuscriptRespondents": 1056,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CHE",
+          "schemeId": "native",
+          "counts": [
+            153,
+            461,
+            514,
+            589,
+            568,
+            573
+          ],
+          "known": 2858,
+          "unknown": 8,
+          "sourceRespondents": 2865,
+          "manuscriptRespondents": 2866,
+          "audit": {
+            "sourceMissingAge": 7,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 1
+          }
+        },
+        {
+          "regionId": "CHL",
+          "schemeId": "native",
+          "counts": [
+            116,
+            193,
+            193,
+            239,
+            223,
+            310
+          ],
+          "known": 1274,
+          "unknown": 0,
+          "sourceRespondents": 1274,
+          "manuscriptRespondents": 1274,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CZE",
+          "schemeId": "native",
+          "counts": [
+            61,
+            233,
+            341,
+            364,
+            302,
+            523
+          ],
+          "known": 1824,
+          "unknown": 24,
+          "sourceRespondents": 1848,
+          "manuscriptRespondents": 1848,
+          "audit": {
+            "sourceMissingAge": 24,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DEU",
+          "schemeId": "native",
+          "counts": [
+            76,
+            170,
+            183,
+            214,
+            275,
+            345
+          ],
+          "known": 1263,
+          "unknown": 9,
+          "sourceRespondents": 1272,
+          "manuscriptRespondents": 1272,
+          "audit": {
+            "sourceMissingAge": 9,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DNK",
+          "schemeId": "native",
+          "counts": [
+            71,
+            118,
+            150,
+            204,
+            201,
+            252
+          ],
+          "known": 996,
+          "unknown": 9,
+          "sourceRespondents": 1005,
+          "manuscriptRespondents": 1005,
+          "audit": {
+            "sourceMissingAge": 9,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FIN",
+          "schemeId": "native",
+          "counts": [
+            71,
+            151,
+            136,
+            159,
+            202,
+            208
+          ],
+          "known": 927,
+          "unknown": 0,
+          "sourceRespondents": 927,
+          "manuscriptRespondents": 927,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FRA",
+          "schemeId": "native",
+          "counts": [
+            22,
+            112,
+            276,
+            354,
+            330,
+            480
+          ],
+          "known": 1574,
+          "unknown": 0,
+          "sourceRespondents": 1574,
+          "manuscriptRespondents": 1574,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "GBR",
+          "schemeId": "native",
+          "counts": [
+            18,
+            114,
+            148,
+            138,
+            117,
+            203
+          ],
+          "known": 738,
+          "unknown": 0,
+          "sourceRespondents": 738,
+          "manuscriptRespondents": 738,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "HRV",
+          "schemeId": "native",
+          "counts": [
+            87,
+            172,
+            184,
+            199,
+            153,
+            124
+          ],
+          "known": 919,
+          "unknown": 5,
+          "sourceRespondents": 924,
+          "manuscriptRespondents": 924,
+          "audit": {
+            "sourceMissingAge": 5,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ISL",
+          "schemeId": "native",
+          "counts": [
+            83,
+            166,
+            200,
+            229,
+            219,
+            283
+          ],
+          "known": 1180,
+          "unknown": 0,
+          "sourceRespondents": 1180,
+          "manuscriptRespondents": 1180,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ISR",
+          "schemeId": "native",
+          "counts": [
+            105,
+            226,
+            246,
+            252,
+            164,
+            150
+          ],
+          "known": 1143,
+          "unknown": 1,
+          "sourceRespondents": 1144,
+          "manuscriptRespondents": 1144,
+          "audit": {
+            "sourceMissingAge": 1,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ITA",
+          "schemeId": "native",
+          "counts": [
+            60,
+            120,
+            170,
+            226,
+            221,
+            290
+          ],
+          "known": 1087,
+          "unknown": 1,
+          "sourceRespondents": 1087,
+          "manuscriptRespondents": 1088,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 1
+          }
+        },
+        {
+          "regionId": "JPN",
+          "schemeId": "native",
+          "counts": [
+            82,
+            130,
+            183,
+            233,
+            238,
+            504
+          ],
+          "known": 1370,
+          "unknown": 3,
+          "sourceRespondents": 1370,
+          "manuscriptRespondents": 1373,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 3
+          }
+        },
+        {
+          "regionId": "LTU",
+          "schemeId": "native",
+          "counts": [
+            98,
+            120,
+            157,
+            174,
+            190,
+            261
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "manuscriptRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NOR",
+          "schemeId": "native",
+          "counts": [
+            84,
+            170,
+            175,
+            282,
+            253,
+            316
+          ],
+          "known": 1280,
+          "unknown": 0,
+          "sourceRespondents": 1280,
+          "manuscriptRespondents": 1280,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NZL",
+          "schemeId": "native",
+          "counts": [
+            54,
+            135,
+            146,
+            181,
+            178,
+            400
+          ],
+          "known": 1094,
+          "unknown": 6,
+          "sourceRespondents": 1100,
+          "manuscriptRespondents": 1100,
+          "audit": {
+            "sourceMissingAge": 6,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "PHL",
+          "schemeId": "native",
+          "counts": [
+            408,
+            855,
+            884,
+            768,
+            620,
+            550
+          ],
+          "known": 4085,
+          "unknown": 0,
+          "sourceRespondents": 4085,
+          "manuscriptRespondents": 4085,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "RUS",
+          "schemeId": "native",
+          "counts": [
+            122,
+            339,
+            325,
+            214,
+            328,
+            243
+          ],
+          "known": 1571,
+          "unknown": 0,
+          "sourceRespondents": 1571,
+          "manuscriptRespondents": 1571,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SUR",
+          "schemeId": "native",
+          "counts": [
+            33,
+            161,
+            202,
+            167,
+            118,
+            89
+          ],
+          "known": 770,
+          "unknown": 2,
+          "sourceRespondents": 770,
+          "manuscriptRespondents": 772,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 2
+          }
+        },
+        {
+          "regionId": "SVN",
+          "schemeId": "native",
+          "counts": [
+            78,
+            136,
+            166,
+            207,
+            218,
+            322
+          ],
+          "known": 1127,
+          "unknown": 0,
+          "sourceRespondents": 1127,
+          "manuscriptRespondents": 1127,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SWE",
+          "schemeId": "native",
+          "counts": [
+            87,
+            194,
+            230,
+            274,
+            304,
+            502
+          ],
+          "known": 1591,
+          "unknown": 0,
+          "sourceRespondents": 1591,
+          "manuscriptRespondents": 1591,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "THA",
+          "schemeId": "native",
+          "counts": [
+            83,
+            220,
+            293,
+            372,
+            380,
+            86
+          ],
+          "known": 1434,
+          "unknown": 0,
+          "sourceRespondents": 1434,
+          "manuscriptRespondents": 1434,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "TWN",
+          "schemeId": "native",
+          "counts": [
+            33,
+            241,
+            319,
+            281,
+            341,
+            349
+          ],
+          "known": 1564,
+          "unknown": 0,
+          "sourceRespondents": 1564,
+          "manuscriptRespondents": 1564,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "USA",
+          "schemeId": "native",
+          "counts": [
+            57,
+            284,
+            294,
+            260,
+            320,
+            491
+          ],
+          "known": 1706,
+          "unknown": 90,
+          "sourceRespondents": 1795,
+          "manuscriptRespondents": 1796,
+          "audit": {
+            "sourceMissingAge": 89,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 1
+          }
+        },
+        {
+          "regionId": "VEN",
+          "schemeId": "native",
+          "counts": [
+            184,
+            265,
+            212,
+            176,
+            135,
+            62
+          ],
+          "known": 1034,
+          "unknown": 0,
+          "sourceRespondents": 1034,
+          "manuscriptRespondents": 1034,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ZAF",
+          "schemeId": "native",
+          "counts": [
+            107,
+            294,
+            313,
+            259,
+            248,
+            204
+          ],
+          "known": 1425,
+          "unknown": 0,
+          "sourceRespondents": 1425,
+          "manuscriptRespondents": 1425,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        }
+      ],
+      "totals": {
+        "known": 40032,
+        "unknown": 213,
+        "sourceRespondents": 40236,
+        "manuscriptRespondents": 40245,
+        "sourceMissingAge": 204,
+        "sourceAgeConflicts": 0,
+        "manuscriptCohortGap": 9
+      },
+      "sourceRows": 1044234
+    },
+    {
+      "id": "ISSP2021",
+      "bins": [
+        {
+          "id": "under_18",
+          "label": "under 18",
+          "lower": null,
+          "upper": 17
+        },
+        {
+          "id": "age_18_24",
+          "label": "18-24",
+          "lower": 18,
+          "upper": 24
+        },
+        {
+          "id": "age_25_34",
+          "label": "25-34",
+          "lower": 25,
+          "upper": 34
+        },
+        {
+          "id": "age_35_44",
+          "label": "35-44",
+          "lower": 35,
+          "upper": 44
+        },
+        {
+          "id": "age_45_54",
+          "label": "45-54",
+          "lower": 45,
+          "upper": 54
+        },
+        {
+          "id": "age_55_64",
+          "label": "55-64",
+          "lower": 55,
+          "upper": 64
+        },
+        {
+          "id": "age_65_plus",
+          "label": "65+",
+          "lower": 65,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "native",
+          "regionIds": [
+            "AUS",
+            "AUT",
+            "CHE",
+            "CHN",
+            "CZE",
+            "DEU",
+            "DNK",
+            "FIN",
+            "FRA",
+            "HRV",
+            "HUN",
+            "IND",
+            "ISL",
+            "ISR",
+            "ITA",
+            "JPN",
+            "MEX",
+            "NLD",
+            "NOR",
+            "NZL",
+            "PHL",
+            "POL",
+            "RUS",
+            "SUR",
+            "SVK",
+            "SVN",
+            "THA",
+            "TWN",
+            "USA",
+            "ZAF"
+          ],
+          "binIds": [
+            "under_18",
+            "age_18_24",
+            "age_25_34",
+            "age_35_44",
+            "age_45_54",
+            "age_55_64",
+            "age_65_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "AUS",
+          "schemeId": "native",
+          "counts": [
+            0,
+            24,
+            64,
+            108,
+            125,
+            182,
+            321
+          ],
+          "known": 824,
+          "unknown": 22,
+          "sourceRespondents": 846,
+          "manuscriptRespondents": 846,
+          "audit": {
+            "sourceMissingAge": 22,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "AUT",
+          "schemeId": "native",
+          "counts": [
+            4,
+            49,
+            146,
+            196,
+            200,
+            245,
+            274
+          ],
+          "known": 1114,
+          "unknown": 0,
+          "sourceRespondents": 1114,
+          "manuscriptRespondents": 1114,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CHE",
+          "schemeId": "native",
+          "counts": [
+            0,
+            162,
+            448,
+            456,
+            574,
+            588,
+            706
+          ],
+          "known": 2934,
+          "unknown": 2,
+          "sourceRespondents": 2936,
+          "manuscriptRespondents": 2936,
+          "audit": {
+            "sourceMissingAge": 2,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CHN",
+          "schemeId": "native",
+          "counts": [
+            0,
+            7,
+            149,
+            180,
+            240,
+            212,
+            186
+          ],
+          "known": 974,
+          "unknown": 0,
+          "sourceRespondents": 974,
+          "manuscriptRespondents": 974,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "CZE",
+          "schemeId": "native",
+          "counts": [
+            0,
+            40,
+            175,
+            228,
+            183,
+            194,
+            282
+          ],
+          "known": 1102,
+          "unknown": 3,
+          "sourceRespondents": 1105,
+          "manuscriptRespondents": 1105,
+          "audit": {
+            "sourceMissingAge": 3,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DEU",
+          "schemeId": "native",
+          "counts": [
+            0,
+            78,
+            180,
+            218,
+            261,
+            375,
+            489
+          ],
+          "known": 1601,
+          "unknown": 3,
+          "sourceRespondents": 1604,
+          "manuscriptRespondents": 1604,
+          "audit": {
+            "sourceMissingAge": 3,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "DNK",
+          "schemeId": "native",
+          "counts": [
+            0,
+            63,
+            180,
+            186,
+            283,
+            331,
+            409
+          ],
+          "known": 1452,
+          "unknown": 3,
+          "sourceRespondents": 1455,
+          "manuscriptRespondents": 1455,
+          "audit": {
+            "sourceMissingAge": 3,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FIN",
+          "schemeId": "native",
+          "counts": [
+            10,
+            59,
+            113,
+            100,
+            149,
+            208,
+            305
+          ],
+          "known": 944,
+          "unknown": 3,
+          "sourceRespondents": 947,
+          "manuscriptRespondents": 947,
+          "audit": {
+            "sourceMissingAge": 3,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "FRA",
+          "schemeId": "native",
+          "counts": [
+            0,
+            15,
+            78,
+            257,
+            352,
+            340,
+            499
+          ],
+          "known": 1541,
+          "unknown": 0,
+          "sourceRespondents": 1541,
+          "manuscriptRespondents": 1541,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "HRV",
+          "schemeId": "native",
+          "counts": [
+            0,
+            130,
+            180,
+            215,
+            172,
+            203,
+            143
+          ],
+          "known": 1043,
+          "unknown": 0,
+          "sourceRespondents": 1043,
+          "manuscriptRespondents": 1043,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "HUN",
+          "schemeId": "native",
+          "counts": [
+            0,
+            28,
+            113,
+            178,
+            242,
+            196,
+            217
+          ],
+          "known": 974,
+          "unknown": 0,
+          "sourceRespondents": 974,
+          "manuscriptRespondents": 974,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "IND",
+          "schemeId": "native",
+          "counts": [
+            0,
+            151,
+            554,
+            496,
+            246,
+            113,
+            70
+          ],
+          "known": 1630,
+          "unknown": 0,
+          "sourceRespondents": 1630,
+          "manuscriptRespondents": 1630,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ISL",
+          "schemeId": "native",
+          "counts": [
+            0,
+            45,
+            123,
+            144,
+            175,
+            175,
+            241
+          ],
+          "known": 903,
+          "unknown": 2,
+          "sourceRespondents": 905,
+          "manuscriptRespondents": 905,
+          "audit": {
+            "sourceMissingAge": 2,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ISR",
+          "schemeId": "native",
+          "counts": [
+            0,
+            86,
+            309,
+            214,
+            227,
+            158,
+            128
+          ],
+          "known": 1122,
+          "unknown": 0,
+          "sourceRespondents": 1122,
+          "manuscriptRespondents": 1122,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ITA",
+          "schemeId": "native",
+          "counts": [
+            0,
+            56,
+            97,
+            106,
+            161,
+            189,
+            302
+          ],
+          "known": 911,
+          "unknown": 0,
+          "sourceRespondents": 911,
+          "manuscriptRespondents": 911,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "JPN",
+          "schemeId": "native",
+          "counts": [
+            0,
+            65,
+            100,
+            200,
+            275,
+            224,
+            424
+          ],
+          "known": 1288,
+          "unknown": 1,
+          "sourceRespondents": 1288,
+          "manuscriptRespondents": 1289,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 1
+          }
+        },
+        {
+          "regionId": "MEX",
+          "schemeId": "native",
+          "counts": [
+            0,
+            70,
+            195,
+            202,
+            231,
+            102,
+            75
+          ],
+          "known": 875,
+          "unknown": 10,
+          "sourceRespondents": 885,
+          "manuscriptRespondents": 885,
+          "audit": {
+            "sourceMissingAge": 10,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NLD",
+          "schemeId": "native",
+          "counts": [
+            5,
+            46,
+            140,
+            149,
+            162,
+            239,
+            486
+          ],
+          "known": 1227,
+          "unknown": 1,
+          "sourceRespondents": 1227,
+          "manuscriptRespondents": 1228,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 1
+          }
+        },
+        {
+          "regionId": "NOR",
+          "schemeId": "native",
+          "counts": [
+            0,
+            90,
+            201,
+            215,
+            252,
+            323,
+            335
+          ],
+          "known": 1416,
+          "unknown": 0,
+          "sourceRespondents": 1416,
+          "manuscriptRespondents": 1416,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "NZL",
+          "schemeId": "native",
+          "counts": [
+            0,
+            51,
+            114,
+            124,
+            143,
+            169,
+            411
+          ],
+          "known": 1012,
+          "unknown": 37,
+          "sourceRespondents": 1049,
+          "manuscriptRespondents": 1049,
+          "audit": {
+            "sourceMissingAge": 37,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "PHL",
+          "schemeId": "native",
+          "counts": [
+            0,
+            169,
+            392,
+            331,
+            313,
+            233,
+            237
+          ],
+          "known": 1675,
+          "unknown": 0,
+          "sourceRespondents": 1675,
+          "manuscriptRespondents": 1675,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "POL",
+          "schemeId": "native",
+          "counts": [
+            0,
+            66,
+            127,
+            161,
+            157,
+            206,
+            307
+          ],
+          "known": 1024,
+          "unknown": 0,
+          "sourceRespondents": 1024,
+          "manuscriptRespondents": 1024,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "RUS",
+          "schemeId": "native",
+          "counts": [
+            0,
+            121,
+            282,
+            375,
+            224,
+            329,
+            231
+          ],
+          "known": 1562,
+          "unknown": 0,
+          "sourceRespondents": 1562,
+          "manuscriptRespondents": 1562,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SUR",
+          "schemeId": "native",
+          "counts": [
+            2,
+            71,
+            214,
+            201,
+            185,
+            204,
+            98
+          ],
+          "known": 975,
+          "unknown": 0,
+          "sourceRespondents": 975,
+          "manuscriptRespondents": 975,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SVK",
+          "schemeId": "native",
+          "counts": [
+            0,
+            40,
+            157,
+            187,
+            188,
+            167,
+            164
+          ],
+          "known": 903,
+          "unknown": 0,
+          "sourceRespondents": 903,
+          "manuscriptRespondents": 903,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "SVN",
+          "schemeId": "native",
+          "counts": [
+            0,
+            66,
+            147,
+            166,
+            157,
+            190,
+            205
+          ],
+          "known": 931,
+          "unknown": 0,
+          "sourceRespondents": 931,
+          "manuscriptRespondents": 931,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "THA",
+          "schemeId": "native",
+          "counts": [
+            0,
+            77,
+            223,
+            235,
+            302,
+            227,
+            97
+          ],
+          "known": 1161,
+          "unknown": 0,
+          "sourceRespondents": 1161,
+          "manuscriptRespondents": 1161,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "TWN",
+          "schemeId": "native",
+          "counts": [
+            0,
+            82,
+            228,
+            302,
+            304,
+            309,
+            332
+          ],
+          "known": 1557,
+          "unknown": 0,
+          "sourceRespondents": 1557,
+          "manuscriptRespondents": 1557,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "USA",
+          "schemeId": "native",
+          "counts": [
+            0,
+            14,
+            167,
+            159,
+            132,
+            174,
+            284
+          ],
+          "known": 930,
+          "unknown": 21,
+          "sourceRespondents": 951,
+          "manuscriptRespondents": 951,
+          "audit": {
+            "sourceMissingAge": 21,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        },
+        {
+          "regionId": "ZAF",
+          "schemeId": "native",
+          "counts": [
+            12,
+            174,
+            468,
+            544,
+            373,
+            315,
+            300
+          ],
+          "known": 2186,
+          "unknown": 0,
+          "sourceRespondents": 2186,
+          "manuscriptRespondents": 2186,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        }
+      ],
+      "totals": {
+        "known": 37791,
+        "unknown": 108,
+        "sourceRespondents": 37897,
+        "manuscriptRespondents": 37899,
+        "sourceMissingAge": 106,
+        "sourceAgeConflicts": 0,
+        "manuscriptCohortGap": 2
+      },
+      "sourceRows": 841609
+    },
+    {
+      "id": "GSS2022",
+      "bins": [
+        {
+          "id": "age_18_29",
+          "label": "18-29",
+          "lower": 18,
+          "upper": 29
+        },
+        {
+          "id": "age_30_49",
+          "label": "30-49",
+          "lower": 30,
+          "upper": 49
+        },
+        {
+          "id": "age_50_64",
+          "label": "50-64",
+          "lower": 50,
+          "upper": 64
+        },
+        {
+          "id": "age_65_plus",
+          "label": "65+",
+          "lower": 65,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "native",
+          "regionIds": [
+            "USA"
+          ],
+          "binIds": [
+            "age_18_29",
+            "age_30_49",
+            "age_50_64",
+            "age_65_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "USA",
+          "schemeId": "native",
+          "counts": [
+            71,
+            175,
+            125,
+            129
+          ],
+          "known": 500,
+          "unknown": 0,
+          "sourceRespondents": 500,
+          "manuscriptRespondents": 500,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeConflicts": 0,
+            "manuscriptCohortGap": 0
+          }
+        }
+      ],
+      "totals": {
+        "known": 500,
+        "unknown": 0,
+        "sourceRespondents": 500,
+        "manuscriptRespondents": 500,
+        "sourceMissingAge": 0,
+        "sourceAgeConflicts": 0,
+        "manuscriptCohortGap": 0
+      },
+      "sourceRows": 24649
+    }
+  ],
+  "audit": {
+    "known": 280409,
+    "unknown": 1586,
+    "sourceRespondents": 281977,
+    "manuscriptRespondents": 281995,
+    "sourceMissingAge": 1568,
+    "sourceAgeConflicts": 0,
+    "manuscriptCohortGap": 18,
+    "sourceRows": 8725648
+  }
+}
