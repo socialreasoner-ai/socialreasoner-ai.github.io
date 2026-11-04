@@ -17,5 +17,6 @@ node scripts/render-reasoning-radar.mjs --check
 node scripts/check-locales.mjs
 node scripts/check-geography.mjs
 node scripts/check-data-explorer.mjs
+node scripts/check-region-points.mjs
 git diff --check
 git diff --cached --check

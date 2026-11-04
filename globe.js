@@ -1,5 +1,9 @@
 /* Geographic coverage uses only the audited, precomputed counts in assets/geography.json. */
 (() => {
+  window.__globeCleanup?.();
+  const aborter = typeof AbortController === 'function' ? new AbortController() : null;
+  const on = (target, type, handler, options = {}) => target?.addEventListener?.(
+    type, handler, aborter ? { ...options, signal: aborter.signal } : options);
   const language = () => window.SiteI18n?.language || 'en';
   const translate = (key, params = {}) => {
     if (window.SiteI18n?.t) return window.SiteI18n.t(`globe.${key}`, params);
@@ -9,6 +13,7 @@
   };
   const formatNumber = value => window.SiteI18n?.number
     ? window.SiteI18n.number(value) : new Intl.NumberFormat(language()).format(value);
+  const clockNow = () => typeof performance === 'undefined' ? Date.now() : performance.now();
   const countryCodes = {
     USA: 'US', ZAF: 'ZA', CHE: 'CH', FRA: 'FR', DEU: 'DE', PHL: 'PH', DNK: 'DK', RUS: 'RU',
     CZE: 'CZ', NOR: 'NO', JPN: 'JP', ISL: 'IS', FIN: 'FI', HRV: 'HR', SWE: 'SE', SVN: 'SI',
@@ -34,7 +39,7 @@
   const ctx = canvas.getContext('2d');
   if (!ctx || !window.d3 || !window.topojson) {
     document.querySelector('#globe-region-name').textContent = translate('mapUnavailable');
-    window.addEventListener('site:languagechange', () => {
+    on(window, 'site:languagechange', () => {
       document.querySelector('#globe-region-name').textContent = translate('mapUnavailable');
     });
     return;
@@ -42,7 +47,19 @@
 
   const selects = [document.querySelector('#hero-dataset'), document.querySelector('#coverage-dataset')];
   const regionSelect = document.querySelector('#coverage-region');
+  const heroRegionSelect = document.querySelector('#globe-region-select');
   const tooltip = document.querySelector('#globe-tooltip');
+  const overlapPicker = document.querySelector('#globe-overlap-picker');
+  const inspector = document.querySelector('.globe-inspector');
+  const distribution = document.querySelector('#globe-region-distribution');
+  const scaleLegend = document.querySelector('#globe-legend-scale');
+  const rotationControl = document.querySelector('#globe-control-rotation');
+  const resetControl = document.querySelector('#globe-control-reset');
+  const clearControl = document.querySelector('#globe-control-clear');
+  const interactionControl = document.querySelector('#globe-control-interaction');
+  const infoControl = document.querySelector('#globe-info-toggle');
+  const infoPanel = document.querySelector('#globe-info');
+  const viewDataLink = document.querySelector('#globe-view-data');
   const chartList = document.querySelector('#coverage-list');
   const coverageControls = document.querySelector('.coverage-controls');
   const coverageSummary = document.querySelector('.coverage-summary');
@@ -51,10 +68,12 @@
   const labelCount = document.querySelector('#globe-region-count');
   const labelKicker = document.querySelector('#globe-region-kicker');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const defaultRotation = [-20, -15, 0];
   const state = {
     data: null, countries: [], countryByNumeric: new Map(), regionByNumeric: new Map(), regionById: new Map(),
-    dataset: 'all', selected: null, hovered: null, rotation: [-20, -15, 0],
-    spinning: !reduceMotion.matches, dragging: false, down: null,
+    dataset: 'all', selected: null, hovered: null, rotation: [...defaultRotation],
+    spinning: !reduceMotion.matches, dragging: false, down: null, touchRotate: false,
+    flight: null, pulseUntil: 0, maxRegionCount: 1, datasetIndex: new Map(),
     width: 0, height: 0, radius: 0, projection: null, path: null,
     lastFrame: 0, visible: true, dirty: true
   };
@@ -66,18 +85,42 @@
   let coverageMapSvg = null;
   let coverageMapPaths = [];
   let coverageMapMarkers = [];
+  let viewportObserver = null;
+  let resizeObserver = null;
 
-  const countFor = region => state.dataset === 'all' ? region.count : (region.byDataset?.[state.dataset] || 0);
+  const validCount = value => Number.isInteger(value) && value >= 0;
+  function sampleFor(region, dataset = state.dataset) {
+    if (!region) return { status: 'unknown', count: null };
+    if (dataset === 'all') return validCount(region.count)
+      ? { status: region.count > 0 ? 'covered' : 'none', count: region.count }
+      : { status: 'unknown', count: null };
+    const index = state.datasetIndex.get(dataset);
+    if (!index?.complete) return { status: 'unknown', count: null };
+    const explicit = region.byDataset && Object.prototype.hasOwnProperty.call(region.byDataset, dataset);
+    const indexed = index.counts.get(region.id);
+    if (explicit) {
+      const count = region.byDataset[dataset];
+      if (!validCount(count) || (indexed === undefined ? count !== 0 : indexed !== count)) return { status: 'unknown', count: null };
+      return { status: count > 0 ? 'covered' : 'none', count };
+    }
+    // Each dataset's own region array is the complete coverage index. Its absent
+    // entries mean zero only when that source array is present and valid.
+    if (indexed !== undefined) return { status: 'unknown', count: null };
+    return { status: 'none', count: 0 };
+  }
+  const countFor = region => sampleFor(region).count;
   const visibleRegions = () => state.data.regions.filter(region => countFor(region) > 0);
   const selectedDataset = () => state.data.datasets.find(item => item.id === state.dataset);
-  const selectedTotal = () => state.dataset === 'all' ? state.data.totalRespondents : selectedDataset()?.respondents || 0;
+  const selectedTotal = () => state.dataset === 'all' ? state.data.totalRespondents : selectedDataset()?.respondents;
   const numericKey = value => String(Number(value));
   // Map presentation can link survey regions while their respondent counts remain separate.
   const highlightGroup = region => region?.highlightGroup || region?.id;
   const sharesHighlight = (region, active) => Boolean(region && active && highlightGroup(region) === highlightGroup(active));
-  const mapCountFor = region => state.data.regions
-    .filter(item => sharesHighlight(item, region))
-    .reduce((sum, item) => sum + countFor(item), 0);
+  const markerRadius = count => validCount(count) && count > 0
+    ? 2 + 3 * Math.sqrt(count / state.maxRegionCount) : 0;
+  const sampleLabel = sample => sample.status === 'none' ? translate('noRespondents')
+    : sample.status === 'unknown' ? translate('unknownCount')
+    : translate('respondentCount', { count: formatNumber(sample.count) });
 
   function publishSelection() {
     if (typeof window.dispatchEvent === 'function' && typeof CustomEvent === 'function') {
@@ -97,12 +140,11 @@
     if (value !== 'all' && !state.data.datasets.some(dataset => dataset.id === value)) return;
     state.dataset = value;
     selects.forEach(select => { select.value = value; });
-    if (state.selected && mapCountFor(state.selected) === 0) {
-      state.selected = null;
-      regionSelect.value = '';
-    }
     state.hovered = null;
     tooltip.hidden = true;
+    if (overlapPicker) overlapPicker.hidden = true;
+    if (state.selected && sampleFor(state.selected).status === 'covered') focusRegion(state.selected);
+    else focusDataset();
     updatePanels();
     draw();
     publishSelection();
@@ -113,15 +155,143 @@
     state.hovered = null;
     tooltip.hidden = true;
     regionSelect.value = state.selected?.id || '';
+    if (heroRegionSelect) heroRegionSelect.value = state.selected?.id || '';
+    if (overlapPicker) overlapPicker.hidden = true;
     if (state.selected) {
-      const { lon, lat } = state.selected;
-      if (Number.isFinite(lon) && Number.isFinite(lat)) state.rotation = [-lon, -lat, 0];
       state.spinning = false;
+      state.pulseUntil = reduceMotion.matches ? 0 : clockNow() + 900;
+      focusRegion(state.selected);
+    } else {
+      state.flight = null;
+      state.pulseUntil = 0;
       updateMotion();
     }
     updatePanels();
     draw();
     publishSelection();
+  }
+
+  function clearSelection() { selectRegion(''); }
+
+  function resetView() {
+    state.spinning = false;
+    state.hovered = null;
+    tooltip.hidden = true;
+    if (overlapPicker) overlapPicker.hidden = true;
+    flyTo(defaultRotation);
+    updatePanels();
+  }
+
+  function toggleRotation() {
+    state.flight = null;
+    state.spinning = reduceMotion.matches ? false : !state.spinning;
+    state.pulseUntil = 0;
+    updateControls();
+    updateMotion();
+    draw();
+  }
+
+  function updateControls() {
+    if (rotationControl) {
+      const key = state.spinning ? 'pause' : 'resume';
+      rotationControl.setAttribute('aria-label', translate(state.spinning ? 'pauseRotation' : 'resumeRotation'));
+      rotationControl.setAttribute('aria-pressed', String(state.spinning));
+      rotationControl.disabled = reduceMotion.matches;
+      const label = rotationControl.querySelector('[data-globe-label]');
+      if (label) label.textContent = translate(key);
+      else rotationControl.textContent = translate(key);
+    }
+    if (resetControl) {
+      resetControl.setAttribute('aria-label', translate('resetView'));
+      const label = resetControl.querySelector('[data-globe-label]');
+      if (label) label.textContent = translate('resetView');
+      else resetControl.textContent = translate('resetView');
+    }
+    if (clearControl) {
+      clearControl.disabled = !state.selected;
+      clearControl.setAttribute('aria-label', translate('clearSelection'));
+      const label = clearControl.querySelector('[data-globe-label]');
+      if (label) label.textContent = translate('clearSelection');
+      else clearControl.textContent = translate('clearSelection');
+    }
+    if (interactionControl) {
+      const key = state.touchRotate ? 'touchScroll' : 'touchRotate';
+      interactionControl.setAttribute('aria-label', translate(key));
+      interactionControl.setAttribute('aria-pressed', String(state.touchRotate));
+      const label = interactionControl.querySelector('[data-globe-label]');
+      if (label) label.textContent = translate(key);
+      else interactionControl.textContent = translate(key);
+    }
+    hero.classList.toggle('is-touch-rotate', state.touchRotate);
+  }
+
+  function updateControlCopy() {
+    hero.querySelector('.globe-controls')?.setAttribute('aria-label', translate('controls'));
+    if (infoControl) infoControl.setAttribute('aria-label', translate('coverageInfo'));
+    if (infoPanel) infoPanel.textContent = translate('coverageInfoText');
+    if (viewDataLink) {
+      viewDataLink.setAttribute('aria-label', translate('viewData'));
+      const label = viewDataLink.querySelector('[data-globe-label]');
+      if (label) label.textContent = translate('viewData');
+      else if (viewDataLink.firstChild?.nodeType === 3) viewDataLink.firstChild.textContent = `${translate('viewData')} `;
+    }
+    if (distribution) distribution.setAttribute('aria-label', translate('distribution'));
+    if (heroRegionSelect) {
+      heroRegionSelect.setAttribute('aria-label', translate('allRegionOptions'));
+      const label = hero.querySelector('label[for="globe-region-select"]');
+      if (label) label.textContent = translate('regionFilter');
+    }
+    hero.querySelectorAll('[data-globe-label]').forEach(label => {
+      const key = label.dataset.globeLabel;
+      if (!['pause', 'resume', 'touchRotate', 'touchScroll'].includes(key)) label.textContent = translate(key);
+    });
+  }
+
+  function updateDistribution() {
+    if (!distribution || !state.data) return;
+    distribution.hidden = !state.selected;
+    distribution.replaceChildren();
+    if (!state.selected) return;
+    state.data.datasets.forEach(dataset => {
+      const sample = sampleFor(state.selected, dataset.id);
+      const row = document.createElement('li');
+      row.className = `globe-distribution-row is-${sample.status}`;
+      const name = document.createElement('span');
+      name.textContent = dataset.label;
+      if (dataset.heldOut) {
+        const badge = document.createElement('small');
+        badge.className = 'globe-heldout';
+        badge.textContent = translate('heldOut');
+        name.append(' ', badge);
+      }
+      const count = document.createElement('strong');
+      count.textContent = sample.status === 'covered' ? formatNumber(sample.count)
+        : sample.status === 'none' ? '0' : translate('unknownCount');
+      row.append(name, count);
+      distribution.append(row);
+    });
+  }
+
+  function updateScaleLegend() {
+    if (!scaleLegend) return;
+    const title = document.createElement('span');
+    title.className = 'globe-size-title';
+    title.textContent = translate('fixedScale');
+    const keys = [500, 5000, 20000].map(count => {
+      const key = document.createElement('span');
+      key.className = 'globe-size-key';
+      const dot = document.createElement('i');
+      dot.className = 'globe-size-dot';
+      dot.setAttribute('aria-hidden', 'true');
+      const size = markerRadius(count) * 2;
+      dot.style.width = `${size.toFixed(1)}px`;
+      dot.style.height = `${size.toFixed(1)}px`;
+      const label = document.createElement('span');
+      label.textContent = formatNumber(count);
+      key.append(dot, label);
+      return key;
+    });
+    scaleLegend.replaceChildren(title, ...keys);
   }
 
   function updatePanels() {
@@ -131,13 +301,24 @@
     const datasetText = state.dataset === 'all' ? translate('allDatasets') : state.dataset;
     labelKicker.textContent = `${datasetText} / ${translate(state.selected ? 'selectedRegion' : 'coverage')}`;
     labelTitle.textContent = state.selected ? regionName(state.selected) : translate('worldCoverage');
+    const selectedSample = state.selected ? sampleFor(state.selected) : null;
     labelCount.textContent = state.selected
-      ? translate('respondentCount', { count: formatNumber(countFor(state.selected)) })
-      : `${translate('respondentCount', { count: formatNumber(total) })} · ${formatNumber(regions.length)} ${translate(regions.length === 1 ? 'regionSingle' : 'regionPlural')}`;
-    document.querySelector('#coverage-total').textContent = formatNumber(total);
+      ? sampleLabel(selectedSample)
+      : `${translate('respondentCount', { count: validCount(total) ? formatNumber(total) : translate('unknownCount') })} · ${formatNumber(regions.length)} ${translate(regions.length === 1 ? 'regionSingle' : 'regionPlural')}`;
+    document.querySelector('#coverage-total').textContent = validCount(total) ? formatNumber(total) : translate('unknownCount');
     document.querySelector('#coverage-regions').textContent = formatNumber(regions.length);
     document.querySelector('#coverage-selected').textContent = state.selected
-      ? `${regionName(state.selected)} · ${formatNumber(countFor(state.selected))}` : translate('allRegions');
+      ? `${regionName(state.selected)} · ${selectedSample.status === 'covered' ? formatNumber(selectedSample.count) : sampleLabel(selectedSample)}` : translate('allRegions');
+    if (inspector) {
+      inspector.classList.toggle('is-selected', Boolean(state.selected));
+      inspector.classList.toggle('is-no-sample', selectedSample?.status === 'none');
+      inspector.classList.toggle('is-unknown', selectedSample?.status === 'unknown');
+    }
+    if (viewDataLink) viewDataLink.hidden = !state.selected;
+    updateDistribution();
+    updateScaleLegend();
+    updateControls();
+    updateControlCopy();
     if (listedDataset !== state.dataset || listedLanguage !== language()) rebuildRegionList(regions);
     for (const [id, button] of listedButtons) {
       const selected = id === state.selected?.id;
@@ -163,7 +344,7 @@
       const count = document.createElement('strong');
       count.textContent = formatNumber(countFor(region));
       button.append(name, count);
-      button.addEventListener('click', () => selectRegion(region.id));
+      on(button, 'click', () => selectRegion(region.id));
       listedButtons.set(region.id, button);
       li.append(button);
       chartList.append(li);
@@ -264,23 +445,65 @@
       label.textContent = translate(label.dataset.globeLabel);
     });
     coverageMapSvg.setAttribute('aria-label', `${datasetText}. ${state.selected
-      ? `${regionName(state.selected)}. ${translate('respondentCount', { count: formatNumber(countFor(state.selected)) })}`
+      ? `${regionName(state.selected)}. ${sampleLabel(sampleFor(state.selected))}`
       : translate('worldCoverage')}.`);
     for (const { node, region } of coverageMapPaths) {
       // Great Britain is a survey grouping, so do not color all of the UK.
       const fillRegion = region?.id === 'GBR' ? null : region;
-      const covered = Boolean(fillRegion && mapCountFor(fillRegion) > 0);
+      const sample = sampleFor(fillRegion);
+      const covered = sample.status === 'covered';
+      const selected = sharesHighlight(fillRegion, state.selected);
       node.classList.toggle('is-covered', covered);
-      node.classList.toggle('is-selected', covered && sharesHighlight(fillRegion, state.selected));
+      node.classList.toggle('is-selected', covered && selected);
+      node.classList.toggle('is-selected-empty', selected && sample.status === 'none');
+      node.classList.toggle('is-selected-unknown', selected && sample.status === 'unknown');
+      node.classList.toggle('is-unknown', sample.status === 'unknown' && Boolean(fillRegion));
     }
     for (const { node, region } of coverageMapMarkers) {
-      const covered = countFor(region) > 0;
+      const sample = sampleFor(region);
+      const covered = sample.status === 'covered';
       const highlighted = covered && sharesHighlight(region, state.selected);
       node.classList.toggle('is-covered', covered);
       node.classList.toggle('is-selected', highlighted);
-      node.setAttribute('r', highlighted ? '7.5' : '4.2');
+      node.setAttribute('r', markerRadius(sample.count).toFixed(2));
       node.setAttribute('visibility', covered ? 'visible' : 'hidden');
     }
+  }
+
+  function flyTo(rotation) {
+    if (reduceMotion.matches || !state.visible || document.hidden) {
+      state.flight = null;
+      state.rotation = [...rotation];
+      draw();
+      updateMotion();
+      return;
+    }
+    const deltaLon = ((rotation[0] - state.rotation[0] + 540) % 360) - 180;
+    const target = [state.rotation[0] + deltaLon, rotation[1], 0];
+    if (Math.abs(deltaLon) + Math.abs(target[1] - state.rotation[1]) < .2) {
+      state.flight = null;
+      state.rotation = target;
+      draw();
+      updateMotion();
+      return;
+    }
+    state.flight = { from: [...state.rotation], to: target, start: clockNow(), duration: 650, pausedAt: 0 };
+    updateMotion();
+  }
+
+  function focusRegion(region) {
+    if (!Number.isFinite(region?.lon) || !Number.isFinite(region?.lat)) return;
+    state.spinning = false;
+    flyTo([-region.lon, Math.max(-78, Math.min(78, -region.lat)), 0]);
+    updateControls();
+  }
+
+  function focusDataset() {
+    if (state.dataset === 'all') return;
+    const regions = visibleRegions();
+    const total = selectedTotal();
+    const top = [...regions].sort((a, b) => countFor(b) - countFor(a))[0];
+    if (top && (regions.length === 1 || (validCount(total) && countFor(top) / total > .8))) focusRegion(top);
   }
 
   function sizeCanvas() {
@@ -288,7 +511,7 @@
     const ratio = Math.min(window.devicePixelRatio || 1, 2);
     state.width = box.width;
     state.height = box.height;
-    state.radius = Math.min(box.width, box.height) * .38;
+    state.radius = Math.min(box.width, box.height) * .42;
     canvas.width = Math.max(1, Math.round(box.width * ratio));
     canvas.height = Math.max(1, Math.round(box.height * ratio));
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
@@ -316,48 +539,46 @@
     ctx.clearRect(0, 0, w, h);
     const cx = w / 2, cy = h / 2;
 
-    // Outer atmospheric glow and the ocean's dimensional gradient.
-    const aura = ctx.createRadialGradient(cx, cy, r * .68, cx, cy, r * 1.26);
-    aura.addColorStop(0, 'rgba(79,157,239,0)');
-    aura.addColorStop(.76, 'rgba(88,167,255,.08)');
-    aura.addColorStop(1, 'rgba(91,98,225,0)');
-    ctx.fillStyle = aura; ctx.beginPath(); ctx.arc(cx, cy, r * 1.28, 0, Math.PI * 2); ctx.fill();
+    // The only atmospheric glow is the thin edge around the sphere.
     const ocean = ctx.createRadialGradient(cx - r * .38, cy - r * .5, r * .12, cx, cy, r * 1.18);
-    ocean.addColorStop(0, '#1d3e62'); ocean.addColorStop(.46, '#0d2746'); ocean.addColorStop(1, '#040d20');
+    ocean.addColorStop(0, '#204666'); ocean.addColorStop(.52, '#0d2949'); ocean.addColorStop(1, '#061225');
     ctx.fillStyle = ocean; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
     ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip();
 
     // Latitude and longitude guides are decorative; map geometry comes from world-atlas.
-    ctx.strokeStyle = 'rgba(130,187,238,.16)'; ctx.lineWidth = .65;
+    ctx.strokeStyle = 'rgba(130,187,238,.11)'; ctx.lineWidth = .55;
     ctx.beginPath(); path(d3.geoGraticule10()); ctx.stroke();
 
-    const mapCounts = new Map();
-    state.data.regions.forEach(region => {
-      const group = highlightGroup(region);
-      mapCounts.set(group, (mapCounts.get(group) || 0) + countFor(region));
-    });
-    const maxMapCount = Math.max(1, ...mapCounts.values());
-    const maxCount = Math.max(1, ...visibleRegions().map(countFor));
     state.countries.forEach(country => {
       // The survey label is Great Britain; a whole-UK fill would imply Northern Ireland.
       const region = state.regionByNumeric.get(numericKey(country.id));
       const fillRegion = region?.id === 'GBR' ? null : region;
-      const count = fillRegion ? mapCounts.get(highlightGroup(fillRegion)) || 0 : 0;
+      // A country outside the survey index is background geography, not a
+      // survey region whose count is unavailable.
+      const sample = fillRegion ? sampleFor(fillRegion) : { status: 'unmapped', count: null };
+      const selected = sharesHighlight(fillRegion, state.selected);
+      const hovered = sharesHighlight(fillRegion, state.hovered);
       ctx.beginPath(); path(country);
-      if (sharesHighlight(fillRegion, state.selected)) {
+      if (sample.status === 'covered' && selected) {
         ctx.fillStyle = '#e3b48f';
-      } else if (sharesHighlight(fillRegion, state.hovered)) {
+      } else if (sample.status === 'covered' && hovered) {
         ctx.fillStyle = '#9bdfff';
-      } else if (count > 0) {
-        const alpha = .22 + .42 * Math.sqrt(count / maxMapCount);
+      } else if (sample.status === 'covered') {
+        const alpha = .21 + .37 * Math.sqrt(sample.count / state.maxRegionCount);
         ctx.fillStyle = `rgba(116,195,255,${alpha.toFixed(3)})`;
       } else {
         ctx.fillStyle = '#1b3452';
       }
       ctx.fill();
-      ctx.lineWidth = .65;
-      ctx.strokeStyle = count > 0 ? 'rgba(203,234,255,.58)' : 'rgba(153,189,225,.25)';
+      ctx.lineWidth = selected ? 1.35 : hovered ? 1.1 : .6;
+      ctx.strokeStyle = selected ? (sample.status === 'unknown' ? '#bdc8d4' : '#dfae87')
+        : hovered ? '#9bdfff' : sample.status === 'covered'
+        ? 'rgba(176,220,245,.46)' : sample.status === 'unknown'
+          ? 'rgba(190,203,216,.65)' : 'rgba(153,189,225,.24)';
+      if (ctx.setLineDash) ctx.setLineDash(sample.status === 'unknown' ? [2, 3]
+        : (selected || hovered) && sample.status === 'none' ? [3, 3] : []);
       ctx.stroke();
+      if (ctx.setLineDash) ctx.setLineDash([]);
     });
     ctx.restore();
 
@@ -366,91 +587,181 @@
       const point = projection([region.lon, region.lat]);
       if (!point) return;
       const count = countFor(region);
-      const selected = sharesHighlight(region, state.selected);
+      const selected = region.id === state.selected?.id;
+      const linked = sharesHighlight(region, state.selected) && !selected;
       const hovered = sharesHighlight(region, state.hovered);
-      const size = (selected ? 6.5 : hovered ? 5.5 : 2.8) + Math.sqrt(count / maxCount) * 3;
-      ctx.fillStyle = selected ? 'rgba(239,178,136,.22)' : 'rgba(152,213,255,.15)';
-      ctx.beginPath(); ctx.arc(point[0], point[1], size * 3.1, 0, Math.PI * 2); ctx.fill();
-      ctx.shadowColor = selected ? '#e9b189' : '#a8dcff'; ctx.shadowBlur = selected ? 26 : 17;
-      ctx.fillStyle = selected ? '#ffd9b8' : '#e8f7ff';
+      const size = markerRadius(count);
+      if (hovered && !selected) {
+        ctx.fillStyle = 'rgba(152,213,255,.13)';
+        ctx.beginPath(); ctx.arc(point[0], point[1], size + 3, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.fillStyle = selected ? '#ffdbb5' : linked ? '#d3e8f3' : '#e6f7ff';
       ctx.beginPath(); ctx.arc(point[0], point[1], size, 0, Math.PI * 2); ctx.fill();
-      ctx.shadowBlur = 0;
+      if (selected) {
+        const now = clockNow();
+        const progress = state.pulseUntil > now
+          ? 1 - (state.pulseUntil - now) / 900 : 1;
+        ctx.strokeStyle = '#ffd5a8'; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.arc(point[0], point[1], size + 3 + Math.sin(Math.PI * progress) * 1.3, 0, Math.PI * 2); ctx.stroke();
+      }
     });
+    if (state.selected && onFront(state.selected)) {
+      const point = projection([state.selected.lon, state.selected.lat]);
+      if (point) {
+        const sample = sampleFor(state.selected);
+        const size = markerRadius(sample.count) || 4;
+        if (sample.status !== 'covered') {
+          ctx.strokeStyle = sample.status === 'unknown' ? '#bdc8d4' : '#e8ad7f'; ctx.lineWidth = 1.4;
+          if (ctx.setLineDash) ctx.setLineDash([3, 2]);
+          ctx.beginPath(); ctx.arc(point[0], point[1], size + 3, 0, Math.PI * 2); ctx.stroke();
+          if (ctx.setLineDash) ctx.setLineDash([]);
+        }
+        const name = regionName(state.selected);
+        ctx.font = '600 11px "DM Sans", sans-serif';
+        const labelWidth = Math.min(ctx.measureText(name).width, Math.max(0, w - 24));
+        let toRight = point[0] < cx;
+        const rightX = point[0] + 35;
+        const leftX = point[0] - 35 - labelWidth;
+        if (toRight && rightX + labelWidth > w - 12 && leftX >= 12) toRight = false;
+        else if (!toRight && leftX < 12 && rightX + labelWidth <= w - 12) toRight = true;
+        const labelX = Math.max(12, Math.min(w - 12 - labelWidth, toRight ? rightX : leftX));
+        const endX = labelX + (toRight ? -4 : labelWidth + 4);
+        const endY = Math.max(16, Math.min(h - 16, point[1] - 18));
+        ctx.strokeStyle = sample.status === 'unknown' ? '#bdc8d4' : '#edb686'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(point[0] + (toRight ? size : -size), point[1]);
+        ctx.lineTo(endX, endY); ctx.stroke();
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.lineWidth = 3; ctx.strokeStyle = '#071321';
+        ctx.strokeText(name, labelX, endY - 5, w - 24);
+        ctx.fillStyle = sample.status === 'unknown' ? '#e1e9f1' : '#fff1de';
+        ctx.fillText(name, labelX, endY - 5, w - 24);
+      }
+    }
     const rim = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
-    rim.addColorStop(0, 'rgba(205,235,255,.85)'); rim.addColorStop(.45, 'rgba(96,170,236,.17)'); rim.addColorStop(1, 'rgba(143,163,243,.38)');
-    ctx.strokeStyle = rim; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(cx, cy, r + .4, 0, Math.PI * 2); ctx.stroke();
+    rim.addColorStop(0, 'rgba(198,234,255,.68)'); rim.addColorStop(.45, 'rgba(92,164,232,.20)'); rim.addColorStop(1, 'rgba(126,154,231,.35)');
+    ctx.shadowColor = '#7ab6ee'; ctx.shadowBlur = 7;
+    ctx.strokeStyle = rim; ctx.lineWidth = 1.1; ctx.beginPath(); ctx.arc(cx, cy, r + .4, 0, Math.PI * 2); ctx.stroke();
+    ctx.shadowBlur = 0;
   }
 
-  function findRegion(event) {
+  function findRegions(event) {
     const box = canvas.getBoundingClientRect();
     const x = event.clientX - box.left, y = event.clientY - box.top;
-    if (Math.hypot(x - state.width / 2, y - state.height / 2) > state.radius) return null;
+    if (Math.hypot(x - state.width / 2, y - state.height / 2) > state.radius) return [];
     const markers = visibleRegions().filter(onFront);
-    for (let i = markers.length - 1; i >= 0; i--) {
-      const point = state.projection([markers[i].lon, markers[i].lat]);
-      if (point && Math.hypot(point[0] - x, point[1] - y) < 11) return markers[i];
-    }
+    const threshold = event.pointerType === 'touch' ? 21 : 15;
+    const hits = markers.map(region => {
+      const point = state.projection([region.lon, region.lat]);
+      return point ? { region, distance: Math.hypot(point[0] - x, point[1] - y) } : null;
+    }).filter(hit => hit && hit.distance <= threshold)
+      .sort((a, b) => a.distance - b.distance || a.region.id.localeCompare(b.region.id));
+    if (hits.length) return hits.map(hit => hit.region);
     const lonLat = state.projection.invert([x, y]);
-    if (!lonLat) return null;
+    if (!lonLat) return [];
     const country = state.countries.find(item => d3.geoContains(item, lonLat));
-    if (!country) return null;
+    if (!country) return [];
     const region = state.regionByNumeric.get(numericKey(country.id));
-    // Linked geometry stays interactive when only its paired survey region has samples.
-    return region && region.id !== 'GBR' && mapCountFor(region) > 0 ? region : null;
+    // Great Britain is narrower than this atlas's United Kingdom geometry.
+    return region && region.id !== 'GBR' ? [region] : [];
+  }
+
+  function findRegion(event) { return findRegions(event)[0] || null; }
+
+  function showOverlapPicker(event, regions) {
+    if (!overlapPicker) return;
+    const stage = hero.querySelector('.globe-stage') || hero;
+    const box = stage.getBoundingClientRect();
+    overlapPicker.replaceChildren();
+    const title = document.createElement('strong');
+    title.className = 'globe-overlap-title';
+    title.textContent = translate('chooseRegion');
+    overlapPicker.append(title);
+    regions.forEach(region => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'globe-overlap-option';
+      const label = document.createElement('span');
+      label.textContent = regionName(region);
+      const count = document.createElement('small');
+      count.textContent = sampleLabel(sampleFor(region));
+      button.append(label, count);
+      on(button, 'click', () => selectRegion(region.id), { once: true });
+      overlapPicker.append(button);
+    });
+    overlapPicker.style.left = `${Math.min(Math.max(8, event.clientX - box.left + 10), Math.max(8, box.width - 234))}px`;
+    overlapPicker.style.top = `${Math.min(Math.max(8, event.clientY - box.top + 10), Math.max(8, box.height - 205))}px`;
+    overlapPicker.hidden = false;
+    overlapPicker.querySelector('button')?.focus({ preventScroll: true });
   }
 
   function showTooltip(event, region) {
     if (!region) { tooltip.hidden = true; return; }
-    const box = hero.getBoundingClientRect();
+    const box = (hero.querySelector('.globe-stage') || hero).getBoundingClientRect();
     tooltip.replaceChildren();
     const name = document.createElement('strong'); name.textContent = regionName(region);
     const count = document.createElement('span');
-    count.textContent = translate('respondentCount', { count: formatNumber(countFor(region)) });
+    count.textContent = sampleLabel(sampleFor(region));
     tooltip.append(name, count);
     tooltip.hidden = false;
     tooltip.style.left = `${Math.max(8, Math.min(box.width - 180, event.clientX - box.left + 12))}px`;
     tooltip.style.top = `${Math.max(32, Math.min(box.height - 65, event.clientY - box.top - 48))}px`;
   }
 
-  canvas.addEventListener('pointerdown', event => {
+  on(canvas, 'pointerdown', event => {
     if (!state.data) return;
-    canvas.setPointerCapture(event.pointerId);
-    state.down = { x: event.clientX, y: event.clientY, rotation: [...state.rotation], moved: false };
-    state.dragging = true;
-    updateMotion();
-    canvas.classList.add('is-dragging');
+    if ((event.button != null && event.button !== 0) || (state.down && state.down.id !== event.pointerId)) return;
+    state.flight = null;
+    state.down = { x: event.clientX, y: event.clientY, rotation: [...state.rotation], moved: false, id: event.pointerId, type: event.pointerType };
+    state.dragging = event.pointerType !== 'touch' || state.touchRotate;
+    if (state.dragging) {
+      canvas.setPointerCapture(event.pointerId);
+      canvas.classList.add('is-dragging');
+      state.spinning = false;
+      updateControls();
+      updateMotion();
+    }
+    if (overlapPicker) overlapPicker.hidden = true;
     tooltip.hidden = true;
   });
-  canvas.addEventListener('pointermove', event => {
+  on(canvas, 'pointermove', event => {
     if (!state.data) return;
-    if (state.dragging && state.down) {
+    if (state.down && state.down.id === event.pointerId && !state.dragging && event.pointerType === 'touch') {
+      if (Math.hypot(event.clientX - state.down.x, event.clientY - state.down.y) > 8) state.down.moved = true;
+      return;
+    }
+    if (state.dragging && state.down?.id === event.pointerId) {
       const dx = event.clientX - state.down.x, dy = event.clientY - state.down.y;
       if (Math.abs(dx) + Math.abs(dy) > 4) state.down.moved = true;
       state.rotation = [state.down.rotation[0] + dx * .32, Math.max(-78, Math.min(78, state.down.rotation[1] - dy * .32)), 0];
       state.spinning = false;
-      updateMotion();
       draw();
       return;
     }
+    if (event.pointerType === 'touch') return;
     const region = findRegion(event);
     state.hovered = region;
     canvas.style.cursor = region ? 'pointer' : 'grab';
     showTooltip(event, region);
     draw();
   });
-  canvas.addEventListener('pointerup', event => {
-    if (!state.dragging) return;
+  on(canvas, 'pointerup', event => {
+    if (!state.down || state.down.id !== event.pointerId) return;
     if (!state.down?.moved) {
-      const region = findRegion(event);
-      if (region) selectRegion(region.id);
+      const candidates = findRegions(event);
+      if (candidates.length > 1) {
+        state.spinning = false;
+        showOverlapPicker(event, candidates);
+      } else if (candidates.length === 1) selectRegion(candidates[0].id);
     }
     state.dragging = false; state.down = null;
     canvas.classList.remove('is-dragging');
     canvas.style.cursor = 'grab';
+    updateControls();
     updateMotion();
   });
-  canvas.addEventListener('pointercancel', () => { state.dragging = false; state.down = null; canvas.classList.remove('is-dragging'); updateMotion(); });
-  canvas.addEventListener('pointerleave', () => { state.hovered = null; tooltip.hidden = true; draw(); });
+  on(canvas, 'pointercancel', () => { state.dragging = false; state.down = null; canvas.classList.remove('is-dragging'); updateMotion(); });
+  on(canvas, 'pointerleave', () => { state.hovered = null; tooltip.hidden = true; draw(); });
 
   function updateOptions() {
     if (!state.data) return;
@@ -466,19 +777,21 @@
       select.value = state.dataset;
       select.disabled = false;
     });
-    regionSelect.replaceChildren();
-    const allOption = document.createElement('option');
-    allOption.value = '';
-    allOption.textContent = translate('allRegions');
-    regionSelect.append(allOption);
-    [...state.data.regions].sort((a, b) => regionName(a).localeCompare(regionName(b), language())).forEach(region => {
-      const option = document.createElement('option');
-      option.value = region.id;
-      option.textContent = regionName(region);
-      regionSelect.append(option);
+    [regionSelect, heroRegionSelect].filter(Boolean).forEach(select => {
+      select.replaceChildren();
+      const allOption = document.createElement('option');
+      allOption.value = '';
+      allOption.textContent = select === regionSelect ? translate('allRegions') : translate('chooseRegion');
+      select.append(allOption);
+      [...state.data.regions].sort((a, b) => regionName(a).localeCompare(regionName(b), language())).forEach(region => {
+        const option = document.createElement('option');
+        option.value = region.id;
+        option.textContent = regionName(region);
+        select.append(option);
+      });
+      select.value = state.selected?.id || '';
+      select.disabled = false;
     });
-    regionSelect.value = state.selected?.id || '';
-    regionSelect.disabled = false;
   }
 
   function updateLocalizedCopy() {
@@ -501,13 +814,46 @@
     chartList.append(li);
   }
 
-  window.addEventListener('site:languagechange', () => {
+  on(window, 'site:languagechange', () => {
     if (state.data) updateLocalizedCopy();
     else if (loadFailed) showLoadFailure();
   });
 
-  selects.forEach(select => select.addEventListener('change', event => syncDataset(event.target.value)));
-  regionSelect.addEventListener('change', event => selectRegion(event.target.value));
+  selects.forEach(select => on(select, 'change', event => syncDataset(event.target.value)));
+  on(regionSelect, 'change', event => selectRegion(event.target.value));
+  on(heroRegionSelect, 'change', event => selectRegion(event.target.value));
+  on(rotationControl, 'click', toggleRotation);
+  on(resetControl, 'click', resetView);
+  on(clearControl, 'click', clearSelection);
+  on(interactionControl, 'click', () => {
+    state.touchRotate = !state.touchRotate;
+    state.dragging = false;
+    state.down = null;
+    updateControls();
+  });
+  on(infoControl, 'click', () => {
+    if (!infoPanel) return;
+    infoPanel.hidden = !infoPanel.hidden;
+    infoControl.setAttribute('aria-expanded', String(!infoPanel.hidden));
+  });
+  on(viewDataLink, 'click', event => {
+    event.preventDefault();
+    const coverage = document.querySelector('#coverage');
+    coverage?.scrollIntoView({ block: 'start', behavior: reduceMotion.matches ? 'instant' : 'smooth' });
+    regionSelect?.focus({ preventScroll: true });
+  });
+  on(hero, 'keydown', event => {
+    if (event.key !== 'Escape') return;
+    if (overlapPicker && !overlapPicker.hidden) {
+      overlapPicker.hidden = true;
+      heroRegionSelect?.focus({ preventScroll: true });
+    }
+    if (infoPanel && !infoPanel.hidden) {
+      infoPanel.hidden = true;
+      infoControl?.setAttribute('aria-expanded', 'false');
+      infoControl?.focus({ preventScroll: true });
+    }
+  });
 
   let animationFrame = null;
   let frameScheduled = false;
@@ -521,7 +867,17 @@
     last = 0;
   }
   function updateMotion() {
-    if (!state.data || !state.spinning || state.dragging || !state.visible || document.hidden) {
+    if (!state.data || state.dragging || !state.visible || document.hidden) {
+      if (state.flight && !state.flight.pausedAt) state.flight.pausedAt = clockNow();
+      stopMotion();
+      return;
+    }
+    if (state.flight?.pausedAt) {
+      state.flight.start += clockNow() - state.flight.pausedAt;
+      state.flight.pausedAt = 0;
+    }
+    if (!state.flight && (!state.spinning || reduceMotion.matches) &&
+        (reduceMotion.matches || state.pulseUntil <= clockNow())) {
       stopMotion();
       return;
     }
@@ -532,36 +888,68 @@
   function animate(time) {
     animationFrame = null;
     frameScheduled = false;
-    if (!state.spinning || state.dragging || !state.visible || document.hidden) { stopMotion(); return; }
+    if (state.dragging || !state.visible || document.hidden) { updateMotion(); return; }
     if (!last || time - last >= 34) {
       const delta = Math.min(50, time - last || 34);
       last = time;
-      state.rotation[0] = (state.rotation[0] + delta * .0036) % 360;
+      if (state.flight) {
+        const progress = Math.min(1, Math.max(0, (clockNow() - state.flight.start) / state.flight.duration));
+        const ease = progress * progress * (3 - 2 * progress);
+        state.rotation = state.flight.from.map((start, i) => start + (state.flight.to[i] - start) * ease);
+        if (progress >= 1) state.flight = null;
+      } else if (state.spinning && !reduceMotion.matches) {
+        state.rotation[0] = (state.rotation[0] + delta * .0026) % 360;
+      }
       draw();
     }
     updateMotion();
   }
-  if (document.addEventListener) document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopMotion();
+  if (document.addEventListener) on(document, 'visibilitychange', () => {
+    if (document.hidden) updateMotion();
     else { if (state.dirty) draw(); updateMotion(); }
   });
-  window.addEventListener('pagehide', stopMotion);
-  window.addEventListener('pageshow', () => { if (state.dirty) draw(); updateMotion(); });
+  on(window, 'pagehide', () => { if (state.flight && !state.flight.pausedAt) state.flight.pausedAt = clockNow(); stopMotion(); });
+  on(window, 'pageshow', () => { if (state.dirty) draw(); updateMotion(); });
   const motionPreferenceChanged = () => {
-    if (reduceMotion.matches) state.spinning = false;
+    if (reduceMotion.matches) {
+      state.spinning = false;
+      state.pulseUntil = 0;
+      if (state.flight) {
+        state.rotation = [...state.flight.to];
+        state.flight = null;
+        draw();
+      }
+    }
+    updateControls();
     updateMotion();
   };
-  if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', motionPreferenceChanged);
+  if (reduceMotion.addEventListener) on(reduceMotion, 'change', motionPreferenceChanged);
   else if (reduceMotion.addListener) reduceMotion.addListener(motionPreferenceChanged);
-  if ('IntersectionObserver' in window) new IntersectionObserver(entries => {
+  if ('IntersectionObserver' in window) {
+    viewportObserver = new IntersectionObserver(entries => {
     state.visible = entries[0]?.isIntersecting || false;
     if (state.visible && state.dirty) draw();
     updateMotion();
-  }, { threshold: 0 }).observe(hero);
+    }, { threshold: 0 });
+    viewportObserver.observe(hero.querySelector('.globe-stage') || canvas);
+  }
+
+  window.__globeCleanup = () => {
+    aborter?.abort();
+    stopMotion();
+    viewportObserver?.disconnect();
+    resizeObserver?.disconnect();
+    if (!reduceMotion.addEventListener) reduceMotion.removeListener?.(motionPreferenceChanged);
+    const feedback = coverageMap?.parentElement;
+    if (feedback?.classList.contains('coverage-feedback')) {
+      coverageSummary.after(coverageListHead, chartList);
+      feedback.remove();
+    }
+  };
 
   Promise.all([
-    fetch('assets/world-110m.json?v=20261104-regions').then(response => { if (!response.ok) throw new Error('World geometry unavailable'); return response.json(); }),
-    fetch('assets/geography.json?v=20261104-paper-cohort-r1').then(response => { if (!response.ok) throw new Error('Coverage data unavailable'); return response.json(); })
+    fetch('assets/world-110m.json?v=20261104-regions', { signal: aborter?.signal }).then(response => { if (!response.ok) throw new Error('World geometry unavailable'); return response.json(); }),
+    fetch('assets/geography.json?v=20261104-point-audit-r1', { signal: aborter?.signal }).then(response => { if (!response.ok) throw new Error('Coverage data unavailable'); return response.json(); })
   ]).then(([topology, data]) => {
     if (data.schemaVersion !== 1 || !Array.isArray(data.regions) || !Array.isArray(data.datasets) || !topology.objects?.countries) throw new Error('Unexpected coverage format');
     state.data = data;
@@ -571,14 +959,29 @@
       state.regionById.set(region.id, region);
       if (region.numericId) state.regionByNumeric.set(numericKey(region.numericId), region);
     });
+    state.maxRegionCount = Math.max(1, ...data.regions.map(region => validCount(region.count) ? region.count : 0));
+    data.datasets.forEach(dataset => {
+      const counts = new Map();
+      let complete = Array.isArray(dataset.regions);
+      for (const item of Array.isArray(dataset.regions) ? dataset.regions : []) {
+        if (!state.regionById.has(item.id) || !validCount(item.count) || counts.has(item.id)) complete = false;
+        else counts.set(item.id, item.count);
+      }
+      if (!validCount(dataset.respondents) || [...counts.values()].reduce((sum, value) => sum + value, 0) !== dataset.respondents) complete = false;
+      state.datasetIndex.set(dataset.id, { counts, complete });
+    });
     buildCoverageMap();
     updateLocalizedCopy();
     publishSelection();
     sizeCanvas();
     updateMotion();
-    if ('ResizeObserver' in window) new ResizeObserver(sizeCanvas).observe(canvas);
-    else window.addEventListener('resize', sizeCanvas);
+    if ('ResizeObserver' in window) {
+      resizeObserver = new ResizeObserver(sizeCanvas);
+      resizeObserver.observe(canvas);
+    }
+    else on(window, 'resize', sizeCanvas);
   }).catch(error => {
+    if (error.name === 'AbortError') return;
     loadFailed = true;
     showLoadFailure();
     console.warn('Geographic coverage:', error.message);

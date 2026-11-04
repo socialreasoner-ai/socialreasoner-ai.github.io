@@ -59,37 +59,91 @@ assert.equal(data.regions.find(r => r.id === 'TWN').label, 'Taiwan, China');
 assert.equal(data.regions.find(r => r.id === 'CHN').highlightGroup, 'CHN');
 assert.equal(data.regions.find(r => r.id === 'TWN').highlightGroup, 'CHN');
 
-const fills = [];
+// Lightweight DOM and Canvas harness for the production globe controller.
+const fills = [], strokes = [];
 const context = new Proxy({
   geometry: null,
   beginPath() { this.geometry = null; },
   fill() { fills.push({ id: this.geometry, color: this.fillStyle }); },
+  stroke() { strokes.push({ id: this.geometry, color: this.strokeStyle }); },
+  measureText(text) { return { width: String(text).length * 7 }; },
   createRadialGradient() { return { addColorStop() {} }; },
   createLinearGradient() { return { addColorStop() {} }; }
 }, { get(target, key) { return key in target ? target[key] : () => {}; } });
+let documentMock;
 class Element {
-  constructor() { this.value = ''; this.textContent = ''; this.innerHTML = ''; this.hidden = false; this.style = {}; this.children = []; this.events = {}; this.classList = { add() {}, remove() {} }; }
+  constructor(tag = 'div') {
+    this.tagName = tag.toUpperCase(); this.value = ''; this._text = ''; this.hidden = false;
+    this.style = { setProperty(name, value) { this[name] = value; }, removeProperty(name) { delete this[name]; } };
+    this.dataset = {}; this.children = []; this.events = {}; this.attributes = {}; this.className = '';
+    this.classList = {
+      add: (...names) => { this.className = [...new Set([...this.className.split(' ').filter(Boolean), ...names])].join(' '); },
+      remove: (...names) => { this.className = this.className.split(' ').filter(n => !names.includes(n)).join(' '); },
+      contains: name => this.className.split(' ').includes(name),
+      toggle: (name, force) => { const on = force ?? !this.classList.contains(name); this.classList[on ? 'add' : 'remove'](name); return on; }
+    };
+  }
+  get textContent() { return this._text + this.children.map(c => c.textContent || '').join(''); }
+  set textContent(value) { this._text = String(value); this.children = []; }
+  set innerHTML(value) { this.textContent = value; }
   addEventListener(name, fn) { this.events[name] = fn; }
-  setAttribute() {}
-  append(...items) { this.children.push(...items); }
-  replaceChildren(...items) { this.children = items; }
-  getBoundingClientRect() { return { width: 640, height: 640, left: 0, top: 0 }; }
+  removeEventListener(name) { delete this.events[name]; }
+  setAttribute(name, value) { this.attributes[name] = String(value); if (name.startsWith('data-')) this.dataset[name.slice(5).replace(/-([a-z])/g, (_, x) => x.toUpperCase())] = String(value); }
+  getAttribute(name) { return this.attributes[name] ?? null; }
+  removeAttribute(name) { delete this.attributes[name]; }
+  append(...items) { for (let item of items) { if (typeof item === 'string') { const text = new Element('span'); text.textContent = item; item = text; } item.parentElement = this; this.children.push(item); } }
+  appendChild(item) { this.append(item); return item; }
+  replaceChildren(...items) { this._text = ''; this.children = []; this.append(...items); }
+  after() {}
+  remove() { if (this.parentElement) this.parentElement.children = this.parentElement.children.filter(x => x !== this); }
+  focus() { documentMock.activeElement = this; }
+  contains(node) { return this === node || this.children.some(c => c.contains?.(node)); }
+  querySelectorAll(selector) {
+    const found = [];
+    const match = node => selector[0] === '.' ? node.classList.contains(selector.slice(1))
+      : selector[0] === '[' ? node.getAttribute(selector.slice(1, -1).split('=')[0]) !== null
+      : node.tagName.toLowerCase() === selector;
+    const visit = node => { for (const child of node.children) { if (match(child)) found.push(child); visit(child); } };
+    visit(this); return found;
+  }
+  querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
+  getBoundingClientRect() { return { width: 640, height: 520, left: 0, top: 0, right: 640, bottom: 520 }; }
   getContext() { return context; }
   setPointerCapture() {}
+  releasePointerCapture() {}
+  scrollIntoView() {}
 }
 const elements = new Map();
-const removedCoverageElements = new Set(['#coverage-method', '#coverage-audit', '#coverage-audit-short', '.coverage-details']);
-const element = selector => { if (!elements.has(selector)) elements.set(selector, new Element()); return elements.get(selector); };
-let language = 'en';
-const events = {};
-const sandbox = {
-  console, Intl, d3, topojson,
-  document: { querySelector: selector => removedCoverageElements.has(selector) ? null : element(selector), createElement: () => new Element(), hidden: false },
-  requestAnimationFrame() {},
-  ResizeObserver: class { observe() {} },
-  window: { d3, topojson, devicePixelRatio: 1, matchMedia: () => ({ matches: true }), addEventListener(name, fn) { events[name] = fn; } },
-  fetch: async url => ({ ok: true, json: async () => JSON.parse(fs.readFileSync(root + url.split('?')[0], 'utf8')) })
+const absent = new Set(['#coverage-method', '#coverage-audit', '#coverage-audit-short', '.coverage-details']);
+const element = selector => {
+  if (!elements.has(selector)) {
+    const n = new Element(selector.includes('select') || ['#hero-dataset','#coverage-dataset','#coverage-region'].includes(selector) ? 'select' : 'div');
+    if (selector.startsWith('.')) n.className = selector.slice(1);
+    elements.set(selector, n);
+  }
+  return elements.get(selector);
 };
+let language = 'en', now = 0, nextFrame = 1;
+const events = {}, documentEvents = {}, frames = new Map(), intersections = [];
+const media = { matches: true, addEventListener(name, fn) { this[name] = fn; }, removeEventListener() {} };
+documentMock = {
+  querySelector: selector => absent.has(selector) ? null : element(selector),
+  querySelectorAll: selector => [...elements.values()].filter(n => n.classList.contains(selector.slice(1))),
+  createElement: tag => new Element(tag), hidden: false, activeElement: null,
+  addEventListener(name, fn) { documentEvents[name] = fn; }, removeEventListener() {}
+};
+const sandbox = {
+  console, Intl, d3, topojson, AbortController, URL, setTimeout, clearTimeout,
+  performance: { now: () => now }, document: documentMock,
+  requestAnimationFrame(fn) { const id = nextFrame++; frames.set(id, fn); return id; },
+  cancelAnimationFrame(id) { frames.delete(id); },
+  ResizeObserver: class { observe() {} disconnect() {} },
+  IntersectionObserver: class { constructor(fn) { intersections.push(fn); } observe() {} disconnect() {} },
+  window: { d3, topojson, devicePixelRatio: 1, matchMedia: () => media, addEventListener(name, fn) { events[name] = fn; }, removeEventListener() {} },
+  fetch: async url => ({ ok: true, json: async () => JSON.parse(fs.readFileSync(root + String(url).split('?')[0], 'utf8')) })
+};
+sandbox.window.ResizeObserver = sandbox.ResizeObserver;
+sandbox.window.IntersectionObserver = sandbox.IntersectionObserver;
 sandbox.window.SiteI18n = {
   get language() { return language; },
   number(value, options) { return new Intl.NumberFormat(language, options).format(value); },
@@ -99,77 +153,110 @@ sandbox.window.SiteI18n = {
   }
 };
 vm.createContext(sandbox);
-if (fs.existsSync(root + 'globe-locales.js')) vm.runInContext(fs.readFileSync(root + 'globe-locales.js', 'utf8'), sandbox);
+vm.runInContext(fs.readFileSync(root + 'globe-locales.js', 'utf8'), sandbox);
 let source = fs.readFileSync(root + 'globe.js', 'utf8');
-source = source.replace(/\}\)\(\);\s*$/, 'window.__globeTest = { state, selectRegion, syncDataset, findRegion, draw, countFor }; })();');
+source = source.replace(/\}\)\(\);\s*$/, 'window.__globeTest = { state, selectRegion, syncDataset, findRegion, findRegions, draw, countFor, sampleFor, markerRadius, resetView, clearSelection, toggleRotation }; })();');
 vm.runInContext(source, sandbox);
 await new Promise(resolve => setImmediate(resolve));
 const api = sandbox.window.__globeTest;
 assert.ok(api.state.data, 'Globe data initialized');
+assert.notEqual(element('#globe-region-name').textContent, 'Coverage unavailable', 'Complete controller initialization');
 api.state.path = feature => { context.geometry = feature.id == null ? null : Number(feature.id); };
 const colors = () => Object.fromEntries(fills.filter(f => f.id != null).map(f => [f.id, f.color]));
-const draw = () => { fills.length = 0; api.draw(); return colors(); };
-
-for (const id of ['CHN', 'TWN']) {
-  api.selectRegion(id);
-  const c = draw();
-  assert.equal(c[156], '#e3b48f', `${id}: mainland selected`);
-  assert.equal(c[158], '#e3b48f', `${id}: Taiwan selected`);
-  assert.equal(fills.filter(f => f.color === '#ffd9b8').length, 2, 'Both sampled markers selected');
-}
-api.selectRegion('');
-for (const id of ['CHN', 'TWN']) {
-  api.state.hovered = api.state.regionById.get(id);
-  const c = draw();
-  assert.equal(c[156], '#9bdfff'); assert.equal(c[158], '#9bdfff');
-}
-api.state.hovered = null;
-api.syncDataset('ISSP2016');
-api.selectRegion('TWN');
-assert.equal(api.countFor(api.state.regionById.get('CHN')), 0);
-assert.equal(api.countFor(api.state.regionById.get('TWN')), 1878);
+const draw = () => { fills.length = 0; strokes.length = 0; api.draw(); return colors(); };
+const us = api.state.regionById.get('USA'), fr = api.state.regionById.get('FRA'), chn = api.state.regionById.get('CHN'), twn = api.state.regionById.get('TWN');
+api.selectRegion('USA'); api.syncDataset('ATP142');
+assert.equal(api.state.selected.id, 'USA');
+assert.equal(api.countFor(us), 9851);
+assert.equal(element('#hero-dataset').value, 'ATP142');
+assert.equal(element('#coverage-dataset').value, 'ATP142');
+assert.equal(element('#coverage-region').value, 'USA');
+assert.ok(element('#globe-region-count').textContent.includes('9,851'));
+const radius = api.markerRadius(9851);
+api.syncDataset('all'); assert.equal(api.markerRadius(9851), radius, 'Marker radius is comparable across datasets');
+assert.ok(api.markerRadius(20000) > api.markerRadius(2000));
+api.syncDataset('ATP142'); api.selectRegion('FRA');
+assert.equal(api.countFor(fr), 0);
+assert.ok(element('#globe-region-count').textContent.includes('No respondents'), 'Zero sample is explicit');
+api.syncDataset('ATP152'); assert.equal(api.state.selected.id, 'FRA', 'Selection remains while its sample state updates');
+assert.equal(api.countFor(fr), 0);
+api.resetView(); assert.equal(api.state.dataset, 'ATP152', 'Reset view preserves dataset');
+api.clearSelection(); assert.equal(api.state.selected, null); assert.equal(api.state.dataset, 'ATP152');
+api.syncDataset('ISSP2016'); api.selectRegion('TWN');
+assert.equal(api.countFor(chn), 0); assert.equal(api.countFor(twn), 1878);
 let c = draw();
-assert.equal(c[156], '#e3b48f'); assert.equal(c[158], '#e3b48f');
-assert.equal(fills.filter(f => f.color === '#ffd9b8').length, 1, 'No invented zero-count marker');
-const mainland = api.state.regionById.get('CHN');
-const point = api.state.projection([mainland.lon, mainland.lat]);
-assert.equal(api.findRegion({ clientX: point[0], clientY: point[1] })?.id, 'CHN', 'Linked mainland remains clickable');
+assert.notEqual(c[156], c[158], 'Zero mainland sample is not given covered Taiwan fill');
+assert.ok(strokes.some(x => x.id === 156) && strokes.some(x => x.id === 158), 'Linked region geometry remains outlined');
 api.selectRegion('CHN');
-assert.equal(api.countFor(api.state.selected), 0, 'Map linkage does not copy counts');
-api.syncDataset('ISSP2019');
-assert.equal(api.state.selected.id, 'CHN', 'Preserve selection when linked samples remain');
-api.syncDataset('ATP142');
-assert.equal(api.state.selected, null, 'Clear selection when entire group has no samples');
-api.selectRegion('');
-c = draw();
-assert.equal(c[156], c[158], 'Linked base shading matches');
-assert.equal(c[156], '#1b3452', 'No samples means no coverage shade');
-api.syncDataset('all');
-api.selectRegion('TWN');
-const translatedNames = { zh: '中国台湾', fr: 'Taïwan, Chine', de: 'Taiwan, China', ko: '중국 대만', en: 'Taiwan, China' };
-assert.equal(typeof events['site:languagechange'], 'function', 'Globe listens for language changes');
+assert.equal(api.countFor(api.state.selected), 0);
+assert.ok(element('#globe-region-count').textContent.includes('No respondents'));
+api.syncDataset('ATP142'); assert.equal(api.state.selected.id, 'CHN');
+assert.equal(api.countFor(chn), 0);
+const original = us.byDataset.ATP142;
+us.byDataset.ATP142 = null;
+assert.equal(api.countFor(us), null, 'Explicit unknown is not coerced to zero');
+us.byDataset.ATP142 = original + 1;
+assert.equal(api.countFor(us), null, 'Conflicting indices are not silently normalized');
+us.byDataset.ATP142 = original;
+api.selectRegion('USA');
 for (const lang of ['zh', 'fr', 'de', 'ko', 'en']) {
-  language = lang;
-  events['site:languagechange']({ detail: { language: lang } });
-  assert.equal(api.state.dataset, 'all'); assert.equal(api.state.selected.id, 'TWN');
-  assert.equal(element('#globe-region-name').textContent, translatedNames[lang], `${lang}: selected region is translated`);
-  assert.equal(element('#coverage-region').value, 'TWN', `${lang}: selector retains the selected region`);
-  c = draw(); assert.equal(c[156], '#e3b48f'); assert.equal(c[158], '#e3b48f');
+  language = lang; events['site:languagechange']({ detail: { language: lang } });
+  assert.equal(api.state.dataset, 'ATP142'); assert.equal(api.state.selected.id, 'USA');
+  assert.equal(element('#hero-dataset').value, 'ATP142');
+  assert.equal(element('#globe-region-select').value, 'USA');
 }
-api.syncDataset('ISSP2016');
-api.selectRegion('CHN');
-const rotation = [...api.state.rotation];
-for (const lang of ['zh', 'fr', 'de', 'ko', 'en']) {
-  language = lang;
-  events['site:languagechange']({ detail: { language: lang } });
-  assert.equal(api.state.dataset, 'ISSP2016');
-  assert.equal(api.state.selected.id, 'CHN');
-  assert.equal(api.state.spinning, false);
-  assert.deepEqual([...api.state.rotation], rotation);
-  assert.equal(element('#hero-dataset').value, 'ISSP2016');
-  assert.equal(element('#coverage-dataset').value, 'ISSP2016');
-  assert.equal(element('#globe-region-name').textContent, sandbox.window.SOCIAL_REGION_NAMES[lang].CHN);
-  assert.equal(element('#globe-region-count').textContent, sandbox.window.SiteI18n.t('globe.respondentCount', { count: '0' }));
-  c = draw(); assert.equal(c[156], '#e3b48f'); assert.equal(c[158], '#e3b48f');
-}
-console.log('PASS: aggregate totals; China mainland/Taiwan linked fill, markers, hover, zero-sample hit testing, filters, and language-state preservation.');
+// Visibility and the user's pause choice are independent states.
+media.matches = false; media.change?.();
+api.toggleRotation();
+assert.equal(api.state.spinning, true);
+documentMock.hidden = true; documentEvents.visibilitychange?.();
+assert.equal(frames.size, 0, 'Hidden document cancels animation frames');
+assert.equal(api.state.spinning, true, 'Hiding does not override user rotation choice');
+documentMock.hidden = false; documentEvents.visibilitychange?.();
+assert.ok(frames.size > 0, 'Visible document resumes requested rotation');
+api.toggleRotation(); assert.equal(api.state.spinning, false);
+documentMock.hidden = true; documentEvents.visibilitychange?.();
+documentMock.hidden = false; documentEvents.visibilitychange?.();
+assert.equal(api.state.spinning, false, 'User pause survives a visibility round trip');
+media.matches = true; media.change?.();
+assert.equal(api.state.spinning, false);
+api.selectRegion('FRA');
+assert.deepEqual([...api.state.rotation], [-fr.lon, -fr.lat, 0], 'Reduced motion focuses immediately');
+// Dense regions return a stable candidate list rather than a random point.
+api.syncDataset('all'); api.selectRegion('BEL'); api.draw();
+let center = api.state.projection([api.state.selected.lon, api.state.selected.lat]);
+const hitEvent = { clientX: center[0], clientY: center[1], pointerType: 'touch', pointerId: 1, button: 0 };
+const candidates = api.findRegions(hitEvent);
+assert.ok(candidates.length > 1 && candidates.some(x => x.id === 'BEL'), 'Dense Europe offers disambiguation');
+assert.deepEqual(api.findRegions(hitEvent).map(x => x.id), candidates.map(x => x.id));
+assert.ok(candidates.every(x => d3.geoDistance([x.lon,x.lat], [-api.state.rotation[0],-api.state.rotation[1]]) < Math.PI/2), 'No back-hemisphere marker hits');
+const canvas = element('#globe-canvas');
+const beforeTouchScroll = [...api.state.rotation];
+canvas.events.pointerdown(hitEvent);
+canvas.events.pointermove({ ...hitEvent, clientY: hitEvent.clientY + 80 });
+canvas.events.pointercancel(hitEvent);
+assert.deepEqual([...api.state.rotation], beforeTouchScroll, 'Default touch scrolling does not rotate');
+assert.equal(api.state.down, null, 'Pointer cancellation cannot select a region');
+element('#globe-control-interaction').events.click({});
+canvas.events.pointerdown(hitEvent);
+canvas.events.pointermove({ ...hitEvent, clientX: hitEvent.clientX + 45, clientY: hitEvent.clientY + 25 });
+canvas.events.pointerup({ ...hitEvent, clientX: hitEvent.clientX + 45, clientY: hitEvent.clientY + 25 });
+assert.notDeepEqual([...api.state.rotation], beforeTouchScroll, 'Explicit touch mode rotates');
+assert.equal(api.state.spinning, false);
+element('#globe-control-interaction').events.click({});
+media.matches = false; media.change?.(); api.selectRegion('USA');
+assert.ok(api.state.flight, 'Normal focus creates a finite flight');
+canvas.events.pointerdown({ ...hitEvent, pointerType: 'mouse' });
+assert.equal(api.state.flight, null, 'Dragging interrupts automatic focus immediately');
+canvas.events.pointercancel(hitEvent);
+api.selectRegion('FRA'); api.clearSelection();
+assert.equal(api.state.flight, null, 'Clear selection also cancels its pending flight');
+api.selectRegion('BEL'); media.matches = true; media.change?.(); api.selectRegion('BEL');
+center = api.state.projection([api.state.selected.lon,api.state.selected.lat]);
+media.matches = false; media.change?.(); api.toggleRotation();
+const overlapEvent = { ...hitEvent, clientX:center[0],clientY:center[1] };
+canvas.events.pointerdown(overlapEvent); canvas.events.pointerup(overlapEvent);
+assert.equal(element('#globe-overlap-picker').hidden, false);
+assert.equal(api.state.spinning, false);
+assert.equal(element('#globe-control-rotation').getAttribute('aria-pressed'), 'false', 'Touch overlap selection updates rotation control');
+console.log('PASS: picking, touch-mode controller and interruptible focus; preserved aggregates; shared filters; zero/unknown semantics; independent counts with linked outlines; fixed marker scale; language state; rotation lifecycle.');

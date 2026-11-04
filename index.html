@@ -23,13 +23,13 @@
   <title data-i18n="meta.title">SocialReasoner — Human reasoning, in context</title>
   <link rel="icon" href="assets/favicon.svg?v=20261104-regions" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css?v=20261104-regions">
-  <link rel="stylesheet" href="globe.css?v=20261104-experts-r3final">
   <link rel="stylesheet" href="i18n.css?v=20261104-refresh-r8">
-  <script defer src="globe-locales.js?v=20261104-paper-cohort-r1"></script>
+  <script defer src="globe-locales.js?v=20261104-observatory-r1"></script>
   <script defer src="i18n.js?v=20261104-portrait-r1"></script>
   <link rel="stylesheet" href="refresh.css?v=20261104-natural-copy-r1">
   <link rel="stylesheet" href="results.css?v=20261104-motivation-r1">
   <link rel="stylesheet" href="launch.css?v=20261104-natural-copy-r1">
+  <link rel="stylesheet" href="globe.css?v=20261104-observatory-r1">
   <link rel="stylesheet" href="method-motion.css?v=20261104-method-evidence">
   <link rel="stylesheet" href="radar.css?v=20261104-motivation-r1">
   <script defer src="radar-data.js?v=20261104-interactive-r1"></script>
@@ -38,7 +38,7 @@
   <script defer src="app.js?v=20261104-motivation-r1"></script>
   <script defer src="assets/vendor/d3.min.js"></script>
   <script defer src="assets/vendor/topojson-client.min.js"></script>
-  <script defer src="globe.js?v=20261104-portrait-r1"></script>
+  <script defer src="globe.js?v=20261104-observatory-r1"></script>
   <link rel="stylesheet" href="data-explorer.css?v=20261104-portrait-r1">
   <script defer src="data-explorer.js?v=20261104-portrait-r1"></script>
   <script defer src="method-motion.js?v=20261104-method-lab"></script>
@@ -91,15 +91,21 @@
         <p class="hero-subtitle"><span data-i18n="paper.title">Learning a Foundation Model of Human Social Reasoning from Heterogeneous Experts</span></p>
       </div>
       <div class="hero-visual globe-hero" aria-label="Interactive globe showing respondent counts by survey region" data-i18n-aria-label="hero.globeAria">
-        <div class="globe-material" aria-hidden="true"></div>
-        <div class="globe-orbit globe-orbit-one" aria-hidden="true"></div><div class="globe-orbit globe-orbit-two" aria-hidden="true"></div>
-        <div class="globe-frame"><canvas id="globe-canvas" aria-label="Drag to rotate the world globe. Select a dataset or region using the controls below for keyboard access." data-i18n-aria-label="hero.canvasAria"></canvas></div>
-        <div class="globe-hero-top"><span class="globe-light" aria-hidden="true"></span><span><span data-i18n="hero.geoCoverage">SURVEY COVERAGE</span></span></div>
-        <div class="globe-filter"><label for="hero-dataset"><span data-i18n="hero.exploreDataset">EXPLORE DATASET</span></label><select id="hero-dataset" aria-label="Filter globe by dataset" data-i18n-aria-label="hero.filterAria" disabled><option value="all" data-i18n="hero.loadingCoverage">Loading coverage…</option></select></div>
-        <div class="globe-hero-detail" aria-live="polite"><span id="globe-region-kicker"><span data-i18n="hero.worldwide">WORLDWIDE / ALL DATASETS</span></span><strong id="globe-region-name"><span data-i18n="hero.loading">Loading coverage</span></strong><span id="globe-region-count"><span data-i18n="hero.pleaseWait">Please wait</span></span></div>
-        <div class="globe-tooltip" id="globe-tooltip" role="status" hidden></div>
-        <div class="globe-legend"><span><i class="legend-sampled"></i><span data-i18n="hero.sampledRegion">Sampled region</span></span><span><i class="legend-selected"></i><span data-i18n="hero.selectedRegion">Selected region</span></span></div>
-        <div class="visual-caption"><span data-i18n="hero.drag">Drag to explore</span></div>
+        <div class="globe-toolbar">
+          <div class="globe-hero-top"><span class="globe-light" aria-hidden="true"></span><span data-i18n="hero.geoCoverage">SURVEY COVERAGE</span><button type="button" class="globe-info-toggle" id="globe-info-toggle" aria-controls="globe-info" aria-expanded="false" aria-label="How counts work">i</button></div>
+          <div class="globe-filter"><div><label for="hero-dataset"><span data-i18n="hero.exploreDataset">EXPLORE DATASET</span></label><select id="hero-dataset" aria-label="Filter globe by dataset" data-i18n-aria-label="hero.filterAria" disabled><option value="all" data-i18n="hero.loadingCoverage">Loading coverage…</option></select></div><div><label for="globe-region-select" data-globe-label="regionFilter">SURVEY REGION</label><select id="globe-region-select" aria-label="Choose a survey region" disabled><option value="">Choose a region</option></select></div></div>
+          <div class="globe-info" id="globe-info" data-globe-label="coverageInfoText" hidden>Unweighted respondents by dataset. People may appear in more than one survey. Pins mark survey regions.</div>
+        </div>
+        <div class="globe-stage">
+          <div class="globe-frame"><canvas id="globe-canvas" aria-label="Drag to rotate the world globe. Select a dataset or region using the controls below for keyboard access." data-i18n-aria-label="hero.canvasAria"></canvas></div>
+          <div class="globe-tooltip" id="globe-tooltip" role="status" hidden></div>
+          <div class="globe-overlap-picker" id="globe-overlap-picker" hidden></div>
+        </div>
+        <div class="globe-controls" role="group" aria-label="Globe controls"><button type="button" id="globe-control-rotation" aria-pressed="false"><span data-globe-label="pause">Pause</span></button><button type="button" id="globe-control-reset"><span data-globe-label="resetView">Reset view</span></button><button type="button" id="globe-control-clear" disabled><span data-globe-label="clearSelection">Clear region</span></button><button type="button" id="globe-control-interaction" aria-pressed="false"><span data-globe-label="touchRotate">Rotate by touch</span></button></div>
+        <div class="globe-inspector"><div class="globe-inspector-head"><div class="globe-hero-detail" aria-live="polite"><span id="globe-region-kicker"><span data-i18n="hero.worldwide">WORLDWIDE / ALL DATASETS</span></span><strong id="globe-region-name"><span data-i18n="hero.loading">Loading coverage</span></strong><span id="globe-region-count"><span data-i18n="hero.pleaseWait">Please wait</span></span></div><a href="#coverage" id="globe-view-data"><span data-globe-label="viewData">View data</span> <span aria-hidden="true">↗</span></a></div>
+          <ul id="globe-region-distribution" aria-label="Respondents by dataset" hidden></ul>
+          <div class="globe-legend"><span><i class="legend-sampled" aria-hidden="true"></i><span data-globe-label="sampledRegion">Sampled region</span></span><span><i class="legend-selected" aria-hidden="true"></i><span data-globe-label="selectedRegion">Selected region</span></span><span><i class="legend-empty" aria-hidden="true"></i><span data-globe-label="noSample">No sample</span></span><span id="globe-legend-scale">Dot size · square-root scale, fixed across datasets</span></div>
+        </div>
       </div>
     </section>
     <section class="stats-strip" aria-label="Study scale" data-i18n-aria-label="stats.aria">
