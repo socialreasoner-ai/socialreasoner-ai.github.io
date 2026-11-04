@@ -217,7 +217,7 @@
         }
         const centerAngle = (90 - modelIndex * 120) * Math.PI / 180;
         const [labelX, labelY] = point(cx, cy, radius * (compact ? 1.24 : 1.31), centerAngle);
-        add(arc, 'text', { class: 'radar-model-name', x: labelX, y: labelY, 'text-anchor': 'middle', 'dominant-baseline': 'middle' }, model.name);
+        add(arc, 'text', { class: 'radar-model-name', x: labelX - (model.id === 'opus' ? (compact ? 14 : 24) : 0), y: labelY, 'text-anchor': 'middle', 'dominant-baseline': 'middle' }, model.name);
       });
       for (let i = 0; i < 3; i++) {
         const angle = (30 - i * 120) * Math.PI / 180;
