@@ -7,6 +7,8 @@ node --check research-data.js
 node --check globe.js
 node --check launch.js
 node --check method-motion.js
+node --check radar.js
+node --check radar-data.js
 node scripts/render-static-results.mjs --check
 node scripts/render-reasoning-radar.mjs --check
 node scripts/check-locales.mjs

@@ -26,12 +26,14 @@
   <link rel="stylesheet" href="globe.css?v=20261104-experts-r3final">
   <link rel="stylesheet" href="i18n.css?v=20261104-refresh-r8">
   <script defer src="globe-locales.js?v=20261104-paper-cohort-r1"></script>
-  <script defer src="i18n.js?v=20261104-method-lab"></script>
+  <script defer src="i18n.js?v=20261104-method-radar"></script>
   <link rel="stylesheet" href="refresh.css?v=20261104-natural-copy-r1">
   <link rel="stylesheet" href="results.css?v=20261104-experts-r3final">
   <link rel="stylesheet" href="launch.css?v=20261104-natural-copy-r1">
   <link rel="stylesheet" href="method-motion.css?v=20261104-method-lab">
-  <link rel="stylesheet" href="radar.css?v=20261104-radar-r1">
+  <link rel="stylesheet" href="radar.css?v=20261104-interactive-r1">
+  <script defer src="radar-data.js?v=20261104-interactive-r1"></script>
+  <script defer src="radar.js?v=20261104-interactive-r1"></script>
   <script defer src="research-data.js?v=20261104-refresh-r8"></script>
   <script defer src="app.js?v=20261104-experts-r3final"></script>
   <script defer src="assets/vendor/d3.min.js"></script>
@@ -109,26 +111,43 @@
     <section class="reasoning-gap section-shell section-pad" id="idea" aria-labelledby="radar-title">
       <div class="radar-layout">
         <div class="radar-copy">
-          <p class="kicker" data-i18n="radar.kicker">THE MOTIVATION · FIGURE 1</p>
-          <h2 id="radar-title" data-i18n="radar.heading">A gap in social reasoning.</h2>
-          <p class="radar-intro" data-i18n="radar.intro">Leading LLMs show strong general reasoning, yet remain limited at reasoning about human social responses.</p>
-          <div class="radar-bridge"><h3 data-i18n="radar.bridge">Why learn from experts?</h3><p data-i18n="radar.bridgeBody">SocialReasoner learns complementary evidence from heterogeneous experts to better predict human responses.</p></div>
-        </div>
-        <figure class="reasoning-radar" aria-describedby="radar-caption">
-          <p class="radar-mobile-hint"><span data-i18n="radar.mobileHint">Tap the figure to open it full size</span> <span aria-hidden="true">↗</span></p>
-          <div class="radar-scroll" tabindex="0" role="region" aria-label="Radar chart comparing general and social reasoning across three language models and five survey datasets" data-i18n-aria-label="radar.chartAria">
-            <a class="radar-open" href="assets/reasoning-radar.svg?v=20261104-radar-r1" target="_blank" rel="noopener"><img class="radar-image" src="assets/reasoning-radar.svg?v=20261104-radar-r1" width="1000" height="840" alt="Radar chart comparing general and social reasoning across three language models and five survey datasets" data-i18n-alt="radar.chartAria" loading="lazy"></a>
+          <p class="kicker" data-i18n="radar.kicker">WHY SOCIAL REASONING</p>
+          <h2 id="radar-title" data-i18n="radar.heading">From solving problems to understanding people.</h2>
+          <p class="radar-intro" data-i18n="radar.intro">Explore three models across reasoning benchmarks and social prediction tasks.</p>
+          <div data-radar-enhancement hidden>
+            <div class="radar-controls" role="group" aria-label="Choose a model view" data-i18n-aria-label="radar.modelSelection">
+              <button type="button" data-radar-model="overview" aria-pressed="true" data-i18n="radar.overview">Overview</button>
+              <button type="button" data-radar-model="astra" aria-pressed="false">GPT-6 Astra</button>
+              <button type="button" data-radar-model="sol" aria-pressed="false">GPT-5.6 Sol</button>
+              <button type="button" data-radar-model="opus" aria-pressed="false">Claude Opus 4.8</button>
+            </div>
+            <button type="button" class="radar-replay" data-radar-replay><span aria-hidden="true">↻</span> <span data-i18n="radar.replay">Replay</span></button>
           </div>
-          <div class="radar-key" aria-hidden="true"><span><i></i><span data-i18n="radar.general">Math / coding / reasoning</span></span><span><i class="radar-key-social"></i><span data-i18n="radar.social">Social reasoning</span></span></div>
-          <figcaption id="radar-caption" class="radar-caption" data-i18n="radar.caption">Adapted from Figure 1 of the manuscript. Plot geometry follows the paper; radii do not share an accuracy scale.</figcaption>
-        </figure>
+        </div>
+        <div class="radar-visual">
+          <figure class="reasoning-radar" aria-describedby="radar-caption">
+            <div class="radar-interactive" hidden>
+              <svg id="reasoning-radar" role="img" aria-labelledby="radar-svg-title radar-svg-description"><title id="radar-svg-title" data-i18n="radar.chartAria">Radar chart comparing general and social reasoning across three language models and five survey datasets</title><desc id="radar-svg-description" data-i18n="radar.chartDescription">Choose a model, then a task. Circles show general reasoning; squares show social reasoning.</desc></svg>
+            </div>
+            <div class="radar-fallback"><a class="radar-open" href="assets/reasoning-radar.svg?v=20261104-interactive-r1" target="_blank" rel="noopener"><img class="radar-image" src="assets/reasoning-radar.svg?v=20261104-interactive-r1" width="1000" height="840" alt="Radar chart comparing general and social reasoning across three language models and five survey datasets" data-i18n-alt="radar.chartAria" loading="lazy"></a></div>
+            <div class="radar-key"><span><i></i><span data-i18n="radar.general">Math / coding / reasoning</span></span><span><i class="radar-key-social"></i><span data-i18n="radar.social">Social reasoning</span></span></div>
+            <figcaption id="radar-caption" class="radar-caption" data-i18n="radar.caption">General reasoning uses a fixed reference radius; social reasoning shows transformed accuracy.</figcaption>
+          </figure>
+          <div data-radar-enhancement hidden>
+            <div class="radar-detail" id="radar-detail"><h3 data-radar-detail-model></h3><div data-radar-detail-content></div></div>
+            <p class="radar-instructions" data-i18n="radar.instructions">Hover to preview. Select a task to keep its details.</p>
+            <div class="radar-task-list" role="group" aria-label="Choose a task pair" data-i18n-aria-label="radar.taskSelection"></div>
+          </div>
+        </div>
       </div>
+      <p class="radar-announcement sr-only" aria-live="polite" aria-atomic="true"></p>
       <details class="radar-source">
-        <summary><span data-i18n="radar.sourceSummary">View source scores</span></summary>
-        <p data-i18n="radar.sourceNote">Values from the manuscript plotting source. The general reference radius is 1; social radii use 0.92 × (score / 100)^1.35. Tasks sharing a spoke are separate evaluations.</p>
-        <div class="radar-table-scroll" tabindex="0" role="region" aria-label="View source scores" data-i18n-aria-label="radar.sourceSummary">
+        <summary><span data-i18n="radar.metrics">Metrics and scaling</span></summary>
+        <p data-i18n="radar.scaleRule">General benchmarks use a fixed reference radius of 1. Social results use 0.92 × (score / 100)^1.35. The two tasks on each axis are evaluated separately.</p>
+        <p data-i18n="radar.sourceMetricNote">General benchmark inputs are preserved as source scores; their original metric definitions are not specified in the plotting source.</p>
+        <div class="radar-table-scroll" tabindex="0" role="region" aria-label="Original results" data-i18n-aria-label="radar.sourceScores">
           <table>
-            <thead><tr><th scope="col" data-i18n="radar.model">Model</th><th scope="col" data-i18n="radar.benchmark">General benchmark</th><th scope="col" data-i18n="radar.generalScore">Source score</th><th scope="col" data-i18n="radar.survey">Social survey</th><th scope="col" data-i18n="radar.socialScore">Source score</th></tr></thead>
+            <thead><tr><th scope="col" data-i18n="radar.model">Model</th><th scope="col" data-i18n="radar.benchmark">General benchmark</th><th scope="col" data-i18n="radar.generalScore">Source score</th><th scope="col" data-i18n="radar.survey">Social survey</th><th scope="col"><span data-i18n="radar.metricAccuracy">Accuracy</span> (%)</th></tr></thead>
             <tbody>
               <!-- radar-source-rows:start -->
               <tr><th scope="row">GPT-6 Astra</th><td>LiveBench Math</td><td>96.81</td><td>ISSP2009</td><td>57.59</td></tr>
@@ -153,7 +172,6 @@
       </details>
     </section>
     <section class="approach section-shell section-pad" aria-labelledby="approach-title">
-      <div class="overview-brief"><h2><span data-i18n="overview.heading">Beyond demographics</span></h2><p><span data-i18n="overview.body">Beliefs and perceptions help explain why people with similar demographics answer differently.</span></p></div>
       <div id="approach" class="method-heading section-heading-row"><div><p class="kicker"><span data-i18n="method.kicker">METHOD</span></p><h2 id="approach-title"><span data-i18n="method.heading">Learning from heterogeneous experts</span></h2></div><p><span data-i18n="method.intro">Three experts provide complementary evidence. Their reasoning records become supervision for a single language model.</span></p></div>
       <section class="method-lab" id="method-diagram" aria-label="Interactive SocialReasoner method diagram" data-i18n-aria-label="lab.aria" data-phase="complete" data-mode="overview">
         <div class="ml-topbar">
