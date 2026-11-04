@@ -10,7 +10,7 @@ const source = await readFile(new URL('research-data.js', root), 'utf8');
 const context = vm.createContext({ window: {} });
 vm.runInContext(source, context, { filename: 'research-data.js' });
 const research = context.window.SOCIAL_RESEARCH_RESULTS;
-if (!research?.models?.qwen3 || !Array.isArray(research.datasets) || !research.expertExpansion?.records) {
+if (!research?.models?.qwen3 || !Array.isArray(research.datasets)) {
   throw Error('research-data.js has an unexpected shape');
 }
 
@@ -43,42 +43,7 @@ function renderBenchmark() {
   }).join('\n          ');
 }
 
-function renderExpertChart() {
-  const values = research.expertExpansion.records;
-  const x = index => 75 + index * 150;
-  const y = accuracy => 220 - (accuracy - 62) * 82;
-  const axis = [62, 63, 64].map(tick => `<line x1="65" x2="690" y1="${y(tick)}" y2="${y(tick)}"></line><text x="55" y="${y(tick) + 4}" text-anchor="end">${tick}</text>`).join('');
-  const points = values.map((item, index) => `${x(index)},${y(item.accuracy)}`).join(' ');
-  const circles = values.map((item, index) => {
-    const current = index === 2;
-    const className = `expert-point${item.defaultConfiguration ? ' is-default' : ''}${current ? ' is-current' : ''}`;
-    const reference = item.defaultConfiguration ? `<circle class="expert-reference-ring" cx="${x(index)}" cy="${y(item.accuracy)}" r="11"></circle>` : '';
-    return `<g class="${className}" aria-current="${current}">${reference}<circle class="expert-dot" cx="${x(index)}" cy="${y(item.accuracy)}" r="5.5"></circle><text x="${x(index)}" y="247" text-anchor="middle">${index + 1}</text></g>`;
-  }).join('');
-  return `<g class="expert-axis">${axis}</g><polyline class="expert-line" fill="none" points="${points}"></polyline>${circles}<text class="expert-x-title" x="380" y="277" text-anchor="middle" data-i18n="evidence.expertXAxis">Number of experts</text>`;
-}
-
-function renderExpertList() {
-  return research.expertExpansion.records.map((item, index) => {
-    const current = index === 2;
-    const className = `${item.defaultConfiguration ? 'is-default ' : ''}${current ? 'is-current' : ''}`.trim();
-    const marker = item.defaultConfiguration ? `<span class="expert-main-configuration" data-i18n="evidence.mainConfiguration">Main configuration</span>` : '';
-    return `<li${className ? ` class="${className}"` : ''}><button type="button" data-expert-index="${index}" aria-pressed="${current}"><span class="expert-index">${String(index + 1).padStart(2, '0')}</span><div><strong>${escapeHtml(item.experts)}</strong><span>${escapeHtml(item.trainingRecords)} reasoning records</span>${marker}</div><b>${format(item.accuracy, 2)}%</b></button></li>`;
-  }).join('\n            ');
-}
-
-function renderExpertCurrent() {
-  const item = research.expertExpansion.records.find(record => record.defaultConfiguration);
-  return `<div class="expert-current" aria-live="polite"><strong>${escapeHtml(item.experts)}</strong><span>${escapeHtml(item.trainingRecords)} reasoning records · ${format(item.accuracy, 2)}%</span></div>`;
-}
-
-const blocks = {
-  summary: renderSummary(),
-  benchmark: renderBenchmark(),
-  'expert-chart': renderExpertChart(),
-  'expert-list': renderExpertList(),
-  'expert-current': renderExpertCurrent()
-};
+const blocks = { summary: renderSummary(), benchmark: renderBenchmark() };
 
 const mode = process.argv[2] || '--check';
 if (mode === '--fragments') {

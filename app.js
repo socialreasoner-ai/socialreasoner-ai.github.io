@@ -178,116 +178,12 @@ setupResultMotion();
 
 function renderSupplementaryResults() {
   const distribution = researchResults.distribution;
-  const unseen = researchResults.unseenSurvey;
   const text = (id, value, digits) => { document.getElementById(id).textContent = siteNumber(value, digits); };
   text('distribution-base', distribution.base, 3);
   text('distribution-ours', distribution.ours, 3);
-  text('unseen-base', unseen.base, 2);
-  text('unseen-ours', unseen.ours, 2);
-  text('unseen-points', Number((unseen.ours - unseen.base).toFixed(2)), 2);
-}
-
-let selectedExpertIndex = 2;
-let lastExpertCompact = null;
-
-function selectExpert(index) {
-  selectedExpertIndex = index;
-  const item = researchResults.expertExpansion.records[index];
-  document.querySelectorAll('#expert-trend-chart .expert-point').forEach((point, pointIndex) => {
-    point.classList.toggle('is-current', pointIndex === index);
-    point.setAttribute('aria-current', pointIndex === index ? 'true' : 'false');
-  });
-  document.querySelectorAll('#expert-trend-list li').forEach((row, rowIndex) => {
-    row.classList.toggle('is-current', rowIndex === index);
-    row.querySelector('button').setAttribute('aria-pressed', String(rowIndex === index));
-  });
-  const current = document.querySelector('.expert-current');
-  current.querySelector('strong').textContent = item.experts;
-  current.querySelector('span').textContent = `${siteText('evidence.expertRecords', { count: item.trainingRecords })} · ${siteNumber(item.accuracy, 2)}%`;
-}
-
-function renderExpertExpansion(force = false) {
-  const experiment = researchResults.expertExpansion;
-  const values = experiment.records;
-  const svg = document.getElementById('expert-trend-chart');
-  const list = document.getElementById('expert-trend-list');
-  const compact = window.matchMedia('(max-width: 620px)').matches;
-  if (!force && compact === lastExpertCompact && list.children.length) return;
-  const restoreFocus = document.activeElement?.closest?.('#expert-trend-list button')?.dataset.expertIndex;
-  lastExpertCompact = compact;
-  const x = index => compact ? 48 + index * 55 : 75 + index * 150;
-  const y = accuracy => compact ? 192 - (accuracy - 62) * 68 : 220 - (accuracy - 62) * 82;
-  const node = (tag, attrs = {}, content) => {
-    const element = document.createElementNS('http://www.w3.org/2000/svg', tag);
-    Object.entries(attrs).forEach(([name, value]) => element.setAttribute(name, String(value)));
-    if (content !== undefined) element.textContent = content;
-    return element;
-  };
-  const axis = node('g', { class: 'expert-axis' });
-  for (const tick of [62, 63, 64]) {
-    const position = y(tick);
-    axis.append(node('line', { x1: compact ? 43 : 65, x2: compact ? 276 : 690, y1: position, y2: position }), node('text', { x: compact ? 36 : 55, y: position + 4, 'text-anchor': 'end' }, String(tick)));
-  }
-  svg.setAttribute('viewBox', compact ? '0 0 320 252' : '0 0 760 282');
-  const xAxisTitle = node('text', { class: 'expert-x-title', x: compact ? 160 : 380, y: compact ? 245 : 277, 'text-anchor': 'middle' }, siteText('evidence.expertXAxis'));
-  svg.replaceChildren(axis, node('polyline', {
-    class: 'expert-line', fill: 'none', points: values.map((item, index) => `${x(index)},${y(item.accuracy)}`).join(' ')
-  }));
-  values.forEach((item, index) => {
-    const group = node('g', { class: item.defaultConfiguration ? 'expert-point is-default' : 'expert-point' });
-    group.addEventListener('click', () => selectExpert(index));
-    if (item.defaultConfiguration) group.append(node('circle', { class: 'expert-reference-ring', cx: x(index), cy: y(item.accuracy), r: 11 }));
-    group.append(node('circle', { class: 'expert-dot', cx: x(index), cy: y(item.accuracy), r: 5.5 }),
-      node('text', { x: x(index), y: compact ? 218 : 247, 'text-anchor': 'middle' }, String(index + 1)));
-    svg.append(group);
-  });
-  svg.append(xAxisTitle);
-  svg.setAttribute('aria-label', siteText('evidence.expertChartAria'));
-  list.replaceChildren(...values.map((item, index) => {
-    const row = document.createElement('li');
-    if (item.defaultConfiguration) row.className = 'is-default';
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.dataset.expertIndex = String(index);
-    const indexLabel = document.createElement('span'); indexLabel.className = 'expert-index'; indexLabel.textContent = String(index + 1).padStart(2, '0');
-    const description = document.createElement('div');
-    const name = document.createElement('strong'); name.textContent = item.experts;
-    const records = document.createElement('span'); records.textContent = siteText('evidence.expertRecords', { count: item.trainingRecords });
-    description.append(name, records);
-    if (item.defaultConfiguration) {
-      const marker = document.createElement('span');
-      marker.className = 'expert-main-configuration';
-      marker.textContent = siteText('evidence.mainConfiguration');
-      description.append(marker);
-    }
-    const accuracy = document.createElement('b'); accuracy.textContent = `${siteNumber(item.accuracy, 2)}%`;
-    button.append(indexLabel, description, accuracy);
-    button.addEventListener('click', () => selectExpert(index));
-    button.addEventListener('keydown', event => {
-      if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
-      event.preventDefault();
-      const next = event.key === 'Home' ? 0 : event.key === 'End' ? values.length - 1
-        : (index + (['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 1) + values.length) % values.length;
-      selectExpert(next);
-      list.querySelectorAll('button')[next].focus();
-    });
-    row.append(button);
-    return row;
-  }));
-  if (!svg.parentElement.querySelector('.expert-current')) {
-    const current = document.createElement('div');
-    current.className = 'expert-current';
-    current.setAttribute('aria-live', 'polite');
-    current.append(document.createElement('strong'), document.createElement('span'));
-    svg.after(current);
-  }
-  selectExpert(selectedExpertIndex);
-  if (restoreFocus !== undefined) list.querySelectorAll('button')[Number(restoreFocus)]?.focus();
 }
 
 renderSupplementaryResults();
-renderExpertExpansion();
-window.addEventListener('resize', () => renderExpertExpansion(), { passive: true });
 
 let activeEvidence = null;
 let previewEvidence = null;
@@ -428,7 +324,6 @@ window.addEventListener('site:languagechange', () => {
   renderStage(document.querySelector('.stage.active'));
   renderResults(document.querySelector('.model-tab.active').dataset.model);
   renderSupplementaryResults();
-  renderExpertExpansion(true);
   renderMenuLabel();
 });
 
