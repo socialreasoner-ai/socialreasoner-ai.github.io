@@ -137,7 +137,6 @@ select:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visib
 .target-question h4 { font: 500 23px/1.4 'Space Grotesk',sans-serif; letter-spacing: -.02em; margin: 0 0 22px; }
 .reasoning-card { padding: 17px 19px; background: #8bd8ff07; border-left: 2px solid #8bd8ff60; }
 .reasoning-label { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.edited-label { font-size: 11px; color: #92a8be; }
 #reasoning-summary { font-size: 16px; color: #c2d3e5; line-height: 1.75; margin: 0; }
 #reasoning-summary [data-reasoning] { border-radius: 3px; transition: background .2s,color .2s; }
 #reasoning-summary .is-highlighted { background: #8bd8ff28; color: #fff; }

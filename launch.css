@@ -60,7 +60,7 @@ body{background:radial-gradient(ellipse at 85% 5%,#12233b55,transparent 36%),var
 .case-controls button{font:500 12px 'DM Sans',sans-serif;padding:8px 10px;border:1px solid #a8d7ff35;border-radius:5px;color:#c4e5fa;background:#081424;cursor:pointer;min-height:40px}
 .case-controls button:hover{border-color:var(--accent)}
 .reasoning-card{padding:20px;background:#0b1524;border:1px solid #b2d6ff24;border-radius:8px;min-height:290px}
-.reasoning-label{margin-bottom:17px;display:block}.edited-label{display:block;font-size:11px}
+.reasoning-label{margin-bottom:17px;display:block}
 #reasoning-summary{font-size:16px;line-height:1.8}
 #reasoning-summary [data-reasoning]{transition:background 250ms,color 250ms,box-shadow 250ms}
 #reasoning-summary .is-highlighted{background:#7ad8ff1c;box-shadow:0 2px 0 #7ad8ff8c;color:#eefaff}
