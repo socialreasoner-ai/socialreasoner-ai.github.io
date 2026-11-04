@@ -27,20 +27,32 @@ Empty values display Coming soon. Valid URLs activate both the homepage and rele
 
 ## Content
 
-The benchmark presents accuracy (%) for eight main evaluation datasets. GSS2022 is a separate held-out transfer evaluation. The interactive globe displays survey-region aggregates from the current research data release. Background stars are decorative.
+The benchmark presents accuracy (%) for eight main evaluation datasets. GSS2022 is a separate held-out transfer evaluation. The interactive globe displays survey-region aggregates for the manuscript data version. Background stars are decorative.
 
 The project is presented as a research preview. Release URLs and final publication metadata can be added when available.
+
+The default-visible method diagram is built with HTML and CSS, with four keyboard-accessible stages. The static doctor-trust example is based on Figure 18 (manuscript p. 61); its survey items are shortened and its reasoning summary is edited, not a verbatim model transcript. It does not call a model service.
+
+`research-data.js` centralizes displayed experiments and their manuscript sources: Table 1 accuracy, Appendix B.1 / Table 7 mean TVD, Table 2(a) held-out GSS2022 accuracy, and Figure 5(b) expert expansion. Only the Table 1 panel follows the backbone tabs; the supplementary experiments remain Qwen2.5-7B. Expert record counts retain the manuscript's K precision. The current geographic files and count logic are independent of these display-only experimental results.
+
+`refresh.css` contains the compact page, method diagram, example and coverage presentation; `results.css` styles the result panels. Both extend the original styles without a framework or build step. Core content is visible immediately, and motion effects respect `prefers-reduced-motion`.
+
+The model-release presentation adds `launch.css` / `launch.js` for the globe's decorative expert paths, the three-column case and current-section navigation. Decorative paths represent training supervision and remain separate from geographic coverage. `method-motion.css` / `method-motion.js` progressively enhance the method into one five-stage scene driven by native scroll. Pinning requires sufficient width, height and measured content space; smaller windows and reduced-motion mode show the full vertical narrative. Without JavaScript, the original four-stage method remains visible. No animation library, video, backend or new service is required.
+
+Accuracy chart rows persist across model changes so their widths transition from the current state to the new values on a fixed 0–70% axis. Case evidence can be previewed with keyboard focus, pinned by clicking and cleared with Escape or Clear selection. The expert-expansion list and plot share a selection; all experimental values remain in `research-data.js`. Globe rotation stops drawing while offscreen, hidden or paused, and the background stars draw only on demand.
 
 
 ## Geographic coverage
 
-`assets/geography.json` contains anonymous survey-region totals only: 281,977 survey-level respondents across 56 survey regions and nine datasets. Respondents are deduplicated within each dataset across train and test; totals are not cross-survey deduplicated. Counts are unweighted sample counts. These 56 survey regions are not a count of sovereign states.
+`assets/geography.json` contains anonymous survey-region totals for the manuscript data version: 281,995 survey-level respondents and 8,725,666 valid respondent-question records across 56 survey regions and nine datasets. Respondents are deduplicated within each dataset across train and test; totals are not cross-survey deduplicated. Counts are unweighted sample counts. These 56 survey regions are not a count of sovereign states.
 
 Czech Republic/Czechia and Slovak Republic/Slovakia are consolidated. Great Britain retains its source label and uses a representative marker rather than shading the whole United Kingdom. Map markers represent regions, not individual locations.
 
 Display names use `China (mainland)` and `Taiwan, China`. These survey regions share map shading, hover and selection highlights through `highlightGroup: "CHN"`, including when only one region has samples in a filtered dataset. Marker sizes, tooltips and respondent totals remain region-specific and are never duplicated. The geography generator keeps original source labels in the local audit mapping rather than the public map index.
 
-The current prepared data has 18 fewer respondents than the manuscript total of 281,995 (ISSP2015: 3; ISSP2016: 4; ISSP2019: 9; ISSP2021: 2). The site discloses the difference; its cause is not established. No original respondent-level survey records are included in this repository.
+The globe retains the manuscript cohort, before the 2026-09-24 removal of 18 records from 18 respondents whose profiles contained no `perceived_*` fields (ISSP2015: 3; ISSP2016: 4; ISSP2019: 9; ISSP2021: 2). The later cleaned data has 281,977 survey-level respondents and 8,725,648 records. These historical records are included in the manuscript-version geographic aggregates; this website patch does not restore or modify any respondent-level training or inference files. No original respondent-level survey records are included in this repository.
+
+The 2026-11-04 manuscript-cohort revision was merged from `SocialReasoner_Manuscript_Globe_Patch_20261104`: 14 dataset/region aggregate corrections, without replacing current labels, linked map interactions or page layout. The four corrected dataset totals are ISSP2015 45,096, ISSP2016 43,439, ISSP2019 40,245 and ISSP2021 37,899. Treat the resulting JSON as a versioned manuscript snapshot; do not add the 18 historical records again or overwrite it with cleaned-data aggregates. Its `versionNote` remains visible inside the coverage details even when the totals agree; `versionNoteKey` maps its translations in `globe-locales.js`.
 
 ## Keeping all five languages synchronized
 

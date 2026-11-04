@@ -77,7 +77,7 @@ for (const match of appSource.matchAll(/\bsiteText\(['"]([^'"`]+)['"]/g)) {
   if (!Object.hasOwn(siteKeys, match[1])) issues.push(`app.js: unknown dynamic key ${match[1]}`);
 }
 for (let index = 0; index < 4; index++) {
-  for (const part of ['label', 'heading', 'body']) {
+  for (const part of ['label', 'heading', 'body', 'input', 'output']) {
     if (!Object.hasOwn(siteKeys, `stage.${index}.${part}`)) issues.push(`app.js: missing stage.${index}.${part}`);
   }
 }

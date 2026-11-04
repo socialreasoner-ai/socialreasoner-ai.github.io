@@ -30,10 +30,12 @@ window.SOCIAL_GLOBE_MESSAGES = {
     indexUnavailable: 'The geographic index could not be loaded.',
     sourceUnavailable: 'Geographic source files are temporarily unavailable.',
     method: 'Respondents are counted once per dataset across train and test; a person may appear in more than one survey. Counts are unweighted survey samples, not population estimates. Regional labels follow survey groupings. China (mainland) and Taiwan, China share map shading and highlights, while their counts and marker sizes remain separate; linked shading does not mean both regions have samples. Czech and Slovak name variants are consolidated. Great Britain keeps the survey label. Markers show representative regional centers, not individual locations.',
-    versionShortFewer: '{count} fewer survey respondents in the prepared index than in the manuscript; reason not established.',
-    versionShortMore: '{count} more survey respondents in the prepared index than in the manuscript; reason not established.',
-    versionDetailFewer: 'The current data release contains {prepared} dataset-level respondents, {difference} fewer than the {manuscript} reported in the manuscript: {breakdown}. The reason for the difference is not established.',
-    versionDetailMore: 'The current data release contains {prepared} dataset-level respondents, {difference} more than the {manuscript} reported in the manuscript: {breakdown}. The reason for the difference is not established.'
+    manuscriptMethod: 'Manuscript data version: {respondents} dataset-level respondents and {responses} valid respondent-question records.',
+    manuscriptVersionNote: 'This globe retains the manuscript cohort. A later cleaning step on 2026-09-24 removed 18 records from 18 respondents whose profiles contained no perceived_* fields: ISSP2015 3, ISSP2016 4, ISSP2019 9, and ISSP2021 2. The cleaned data contains 281,977 dataset-level respondents and 8,725,648 records; the manuscript-version counts shown here include those 18 historical records.',
+    versionShortFewer: '{count} fewer survey respondents in this index than in the manuscript; see version details.',
+    versionShortMore: '{count} more survey respondents in this index than in the manuscript; see version details.',
+    versionDetailFewer: 'This index contains {prepared} dataset-level respondents, {difference} fewer than the {manuscript} reported in the manuscript: {breakdown}. See version details.',
+    versionDetailMore: 'This index contains {prepared} dataset-level respondents, {difference} more than the {manuscript} reported in the manuscript: {breakdown}. See version details.'
   },
   zh: {
     mapUnavailable: '地图暂不可用',
@@ -57,10 +59,12 @@ window.SOCIAL_GLOBE_MESSAGES = {
     indexUnavailable: '无法加载地理索引。',
     sourceUnavailable: '地理数据源文件暂不可用。',
     method: '每个数据集内跨训练集和测试集去重统计受访者；同一人可能出现在多个调查中。数字是未经加权的调查样本数，不代表人口估计。地区名称遵循调查的地区分组。中国大陆与中国台湾共享地图着色和高亮，但人数与标记大小分别统计；联动着色不表示两个地区都有样本。捷克和斯洛伐克的名称变体已合并。大不列颠保留调查中的名称。标记表示地区的代表性中心，不代表个人位置。',
-    versionShortFewer: '整理后的索引比论文少 {count} 位调查受访者；差异原因尚未确定。',
-    versionShortMore: '整理后的索引比论文多 {count} 位调查受访者；差异原因尚未确定。',
-    versionDetailFewer: '当前数据版本包含 {prepared} 条数据集层面的受访者记录，比论文报告的 {manuscript} 条少 {difference} 条：{breakdown}。差异原因尚未确定。',
-    versionDetailMore: '当前数据版本包含 {prepared} 条数据集层面的受访者记录，比论文报告的 {manuscript} 条多 {difference} 条：{breakdown}。差异原因尚未确定。'
+    manuscriptMethod: '论文数据版本：按数据集统计的受访者共 {respondents} 人，有效的受访者—问题回答记录共 {responses} 条。',
+    manuscriptVersionNote: '此地球图采用论文中的受访者版本。2026-09-24 的后续清理从 18 名受访者中各移除 1 条记录，因为他们的画像不含任何 perceived_* 字段：ISSP2015 为 3 条、ISSP2016 为 4 条、ISSP2019 为 9 条、ISSP2021 为 2 条。清理后数据包含按数据集统计的 281,977 名受访者和 8,725,648 条回答记录；此处显示的论文版本统计仍包含上述 18 条历史记录。',
+    versionShortFewer: '此索引比论文少 {count} 名调查受访者；详情见版本说明。',
+    versionShortMore: '此索引比论文多 {count} 名调查受访者；详情见版本说明。',
+    versionDetailFewer: '此索引包含按数据集统计的 {prepared} 名受访者，比论文报告的 {manuscript} 名少 {difference} 名：{breakdown}。详情见版本说明。',
+    versionDetailMore: '此索引包含按数据集统计的 {prepared} 名受访者，比论文报告的 {manuscript} 名多 {difference} 名：{breakdown}。详情见版本说明。'
   },
   fr: {
     mapUnavailable: 'Carte indisponible',
@@ -84,10 +88,12 @@ window.SOCIAL_GLOBE_MESSAGES = {
     indexUnavailable: "Impossible de charger l’index géographique.",
     sourceUnavailable: 'Les fichiers géographiques sont temporairement indisponibles.',
     method: 'Les personnes sont dénombrées une seule fois par jeu de données, sur les ensembles d’entraînement et de test ; une même personne peut figurer dans plusieurs enquêtes. Les effectifs sont des échantillons non pondérés, pas des estimations de population. Les noms suivent les regroupements géographiques des enquêtes. La Chine (partie continentale) et Taïwan, Chine partagent la coloration et les surbrillances de la carte, mais leurs effectifs et tailles de marqueurs restent distincts ; cette coloration commune ne signifie pas que les deux régions ont des échantillons. Les variantes des noms tchèques et slovaques sont regroupées. La Grande-Bretagne conserve son nom d’enquête. Les marqueurs indiquent des centres régionaux représentatifs, pas des positions individuelles.',
-    versionShortFewer: '{count} personnes interrogées de moins dans l’index préparé que dans l’article ; la raison reste inconnue.',
-    versionShortMore: '{count} personnes interrogées de plus dans l’index préparé que dans l’article ; la raison reste inconnue.',
-    versionDetailFewer: 'La version actuelle comprend {prepared} personnes interrogées au niveau des jeux de données, soit {difference} de moins que les {manuscript} indiquées dans l’article : {breakdown}. La raison de cet écart n’est pas établie.',
-    versionDetailMore: 'La version actuelle comprend {prepared} personnes interrogées au niveau des jeux de données, soit {difference} de plus que les {manuscript} indiquées dans l’article : {breakdown}. La raison de cet écart n’est pas établie.'
+    manuscriptMethod: 'Version des données du manuscrit : {respondents} personnes interrogées comptées par jeu de données et {responses} enregistrements valides de réponses à des questions.',
+    manuscriptVersionNote: 'Ce globe conserve la cohorte du manuscrit. Un nettoyage ultérieur, le 2026-09-24, a retiré 18 enregistrements correspondant à 18 personnes dont le profil ne contenait aucun champ perceived_* : ISSP2015 3, ISSP2016 4, ISSP2019 9 et ISSP2021 2. Les données nettoyées comptent 281 977 personnes interrogées au niveau des jeux de données et 8 725 648 enregistrements ; les chiffres du manuscrit présentés ici incluent ces 18 enregistrements historiques.',
+    versionShortFewer: '{count} personnes interrogées de moins dans cet index que dans le manuscrit ; voir les détails sur la version.',
+    versionShortMore: '{count} personnes interrogées de plus dans cet index que dans le manuscrit ; voir les détails sur la version.',
+    versionDetailFewer: 'Cet index comprend {prepared} personnes interrogées au niveau des jeux de données, soit {difference} de moins que les {manuscript} indiquées dans le manuscrit : {breakdown}. Voir les détails sur la version.',
+    versionDetailMore: 'Cet index comprend {prepared} personnes interrogées au niveau des jeux de données, soit {difference} de plus que les {manuscript} indiquées dans le manuscrit : {breakdown}. Voir les détails sur la version.'
   },
   de: {
     mapUnavailable: 'Karte nicht verfügbar',
@@ -111,10 +117,12 @@ window.SOCIAL_GLOBE_MESSAGES = {
     indexUnavailable: 'Der geografische Index konnte nicht geladen werden.',
     sourceUnavailable: 'Die geografischen Quelldateien sind vorübergehend nicht verfügbar.',
     method: 'Befragte werden pro Datensatz über Trainings- und Testdaten hinweg einmal gezählt; dieselbe Person kann in mehreren Umfragen vorkommen. Die Zahlen sind ungewichtete Stichproben, keine Bevölkerungsschätzungen. Regionsnamen folgen den geografischen Gruppen der Umfragen. China (Festland) und Taiwan, China teilen Kartenfärbung und Hervorhebung, ihre Zahlen und Markierungsgrößen bleiben jedoch getrennt; die gemeinsame Färbung bedeutet nicht, dass beide Regionen Stichproben enthalten. Tschechische und slowakische Namensvarianten sind zusammengeführt. Großbritannien behält die Bezeichnung aus der Umfrage. Die Markierungen zeigen repräsentative Regionszentren, keine individuellen Standorte.',
-    versionShortFewer: '{count} Befragte weniger im aufbereiteten Index als im Manuskript; der Grund ist ungeklärt.',
-    versionShortMore: '{count} Befragte mehr im aufbereiteten Index als im Manuskript; der Grund ist ungeklärt.',
-    versionDetailFewer: 'Die aktuelle Datenversion enthält {prepared} Befragte auf Datensatzebene, {difference} weniger als die {manuscript} im Manuskript: {breakdown}. Der Grund für die Abweichung ist ungeklärt.',
-    versionDetailMore: 'Die aktuelle Datenversion enthält {prepared} Befragte auf Datensatzebene, {difference} mehr als die {manuscript} im Manuskript: {breakdown}. Der Grund für die Abweichung ist ungeklärt.'
+    manuscriptMethod: 'Datenstand des Manuskripts: {respondents} Befragte auf Datensatzebene und {responses} gültige Antwortdatensätze zu Befragten und Fragen.',
+    manuscriptVersionNote: 'Dieser Globus zeigt die Kohorte des Manuskripts. Bei einer späteren Bereinigung am 2026-09-24 wurden 18 Datensätze von 18 Befragten entfernt, deren Profile kein einziges perceived_*-Feld enthielten: ISSP2015 3, ISSP2016 4, ISSP2019 9 und ISSP2021 2. Die bereinigten Daten umfassen 281.977 Befragte auf Datensatzebene und 8.725.648 Antwortdatensätze; die hier gezeigten Zahlen des Manuskripts enthalten diese 18 historischen Datensätze.',
+    versionShortFewer: '{count} Befragte weniger in diesem Index als im Manuskript; siehe Versionsdetails.',
+    versionShortMore: '{count} Befragte mehr in diesem Index als im Manuskript; siehe Versionsdetails.',
+    versionDetailFewer: 'Dieser Index enthält {prepared} Befragte auf Datensatzebene, {difference} weniger als die {manuscript} im Manuskript: {breakdown}. Siehe Versionsdetails.',
+    versionDetailMore: 'Dieser Index enthält {prepared} Befragte auf Datensatzebene, {difference} mehr als die {manuscript} im Manuskript: {breakdown}. Siehe Versionsdetails.'
   },
   ko: {
     mapUnavailable: '지도를 사용할 수 없습니다',
@@ -138,9 +146,11 @@ window.SOCIAL_GLOBE_MESSAGES = {
     indexUnavailable: '지리 인덱스를 불러올 수 없습니다.',
     sourceUnavailable: '지리 데이터 원본 파일을 일시적으로 사용할 수 없습니다.',
     method: '응답자는 각 데이터셋의 학습 및 시험 자료를 합쳐 한 번만 집계하지만, 같은 사람이 여러 조사에 포함될 수 있습니다. 수치는 가중치를 적용하지 않은 조사 표본 수이며 인구 추정치가 아닙니다. 지역 명칭은 조사별 지리적 분류를 따릅니다. 중국 본토와 중국 대만은 지도 음영과 강조 표시를 공유하지만 응답자 수와 마커 크기는 각각 별도로 계산합니다. 함께 표시된다고 해서 두 지역 모두에 표본이 있다는 뜻은 아닙니다. 체코와 슬로바키아의 명칭 변형은 통합했습니다. 그레이트브리튼은 조사 명칭을 유지합니다. 마커는 개인의 위치가 아닌 지역의 대표 중심을 나타냅니다.',
-    versionShortFewer: '정리된 인덱스의 설문 응답자가 논문보다 {count}명 적습니다. 차이의 원인은 확인되지 않았습니다.',
-    versionShortMore: '정리된 인덱스의 설문 응답자가 논문보다 {count}명 많습니다. 차이의 원인은 확인되지 않았습니다.',
-    versionDetailFewer: '현재 데이터 버전에는 데이터셋 기준 응답자 {prepared}명이 포함되어 있으며, 논문에 보고된 {manuscript}명보다 {difference}명 적습니다. 데이터셋별 차이는 {breakdown}이며 원인은 확인되지 않았습니다.',
-    versionDetailMore: '현재 데이터 버전에는 데이터셋 기준 응답자 {prepared}명이 포함되어 있으며, 논문에 보고된 {manuscript}명보다 {difference}명 많습니다. 데이터셋별 차이는 {breakdown}이며 원인은 확인되지 않았습니다.'
+    manuscriptMethod: '논문 데이터 버전: 데이터셋별 응답자 {respondents}명과 유효한 응답자-문항 답변 기록 {responses}건.',
+    manuscriptVersionNote: '이 지구본은 논문에 사용된 응답자 집단을 보여 줍니다. 이후 2026-09-24에 프로필에 perceived_* 필드가 전혀 없는 응답자 18명에게서 각각 1건씩, 총 18건의 기록을 제거했습니다. 데이터셋별로 ISSP2015 3건, ISSP2016 4건, ISSP2019 9건, ISSP2021 2건입니다. 정리된 데이터에는 데이터셋별 응답자 281,977명과 답변 기록 8,725,648건이 포함되어 있으며, 여기에 표시한 논문 버전 집계에는 해당 과거 기록 18건이 포함됩니다.',
+    versionShortFewer: '이 인덱스의 설문 응답자는 논문보다 {count}명 적습니다. 버전 설명을 확인하세요.',
+    versionShortMore: '이 인덱스의 설문 응답자는 논문보다 {count}명 많습니다. 버전 설명을 확인하세요.',
+    versionDetailFewer: '이 인덱스에는 데이터셋 기준 응답자 {prepared}명이 포함되어 있으며, 논문에 보고된 {manuscript}명보다 {difference}명 적습니다. 데이터셋별 차이는 {breakdown}입니다. 버전 설명을 확인하세요.',
+    versionDetailMore: '이 인덱스에는 데이터셋 기준 응답자 {prepared}명이 포함되어 있으며, 논문에 보고된 {manuscript}명보다 {difference}명 많습니다. 데이터셋별 차이는 {breakdown}입니다. 버전 설명을 확인하세요.'
   }
 };

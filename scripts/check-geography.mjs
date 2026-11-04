@@ -12,8 +12,47 @@ const data = JSON.parse(fs.readFileSync(root + 'assets/geography.json', 'utf8'))
 const sum = values => values.reduce((a, b) => a + b, 0);
 assert.equal(sum(data.regions.map(r => r.count)), data.totalRespondents);
 assert.equal(sum(data.datasets.map(d => d.respondents)), data.totalRespondents);
+assert.equal(sum(data.datasets.map(d => d.responses)), data.totalResponses);
+assert.equal(data.totalRespondents, 281995);
+assert.equal(data.paperRespondents, 281995);
+assert.equal(data.totalResponses, 8725666);
+assert.equal(data.paperResponses, 8725666);
+assert.equal(data.totalRegions, 56);
+assert.equal(data.regions.length, data.totalRegions);
+assert.equal(data.versionNoteKey, 'manuscriptVersionNote');
+const manuscriptDatasetTotals = {
+  ISSP2015: { respondents: 45096, responses: 682115 },
+  ISSP2016: { respondents: 43439, responses: 1501834 },
+  ISSP2019: { respondents: 40245, responses: 1044243 },
+  ISSP2021: { respondents: 37899, responses: 841611 }
+};
+for (const [id, expected] of Object.entries(manuscriptDatasetTotals)) {
+  const dataset = data.datasets.find(d => d.id === id);
+  assert.ok(dataset, `${id}: dataset exists`);
+  assert.equal(dataset.respondents, expected.respondents, `${id}: respondent total`);
+  assert.equal(dataset.responses, expected.responses, `${id}: response total`);
+}
+const correctedRegionCounts = {
+  ISSP2015: { CHL: 1215, FRA: 1057, SWE: 1098 },
+  ISSP2016: { SUR: 794, ZAF: 2693, JPN: 1475 },
+  ISSP2019: { CHE: 2866, ITA: 1088, JPN: 1373, AUS: 969, SUR: 772, USA: 1796 },
+  ISSP2021: { JPN: 1289, NLD: 1228 }
+};
 for (const dataset of data.datasets) {
   assert.equal(sum(data.regions.map(r => r.byDataset[dataset.id] || 0)), dataset.respondents);
+  assert.equal(sum(dataset.regions.map(r => r.count)), dataset.respondents);
+  for (const region of dataset.regions) {
+    assert.equal(region.count, data.regions.find(r => r.id === region.id)?.byDataset[dataset.id],
+      `${dataset.id}/${region.id}: dataset and geographic counts agree`);
+  }
+  for (const [id, count] of Object.entries(correctedRegionCounts[dataset.id] || {})) {
+    assert.equal(dataset.regions.find(r => r.id === id)?.count, count, `${dataset.id}/${id}: manuscript count`);
+    assert.equal(data.regions.find(r => r.id === id)?.byDataset[dataset.id], count,
+      `${dataset.id}/${id}: geographic manuscript count`);
+  }
+}
+for (const region of data.regions) {
+  assert.equal(sum(Object.values(region.byDataset)), region.count, `${region.id}: cross-dataset total`);
 }
 assert.equal(data.regions.find(r => r.id === 'TWN').label, 'Taiwan, China');
 assert.equal(data.regions.find(r => r.id === 'CHN').highlightGroup, 'CHN');
@@ -65,6 +104,8 @@ vm.runInContext(source, sandbox);
 await new Promise(resolve => setImmediate(resolve));
 const api = sandbox.window.__globeTest;
 assert.ok(api.state.data, 'Globe data initialized');
+assert.equal(element('#coverage-audit').hidden, false, 'Version note remains visible at matching totals');
+assert.equal(element('#coverage-audit').textContent, data.versionNote, 'English note matches index provenance');
 api.state.path = feature => { context.geometry = feature.id == null ? null : Number(feature.id); };
 const colors = () => Object.fromEntries(fills.filter(f => f.id != null).map(f => [f.id, f.color]));
 const draw = () => { fills.length = 0; api.draw(); return colors(); };
@@ -113,6 +154,9 @@ for (const lang of ['zh', 'fr', 'de', 'ko', 'en']) {
   assert.equal(api.state.dataset, 'all'); assert.equal(api.state.selected.id, 'TWN');
   assert.equal(element('#globe-region-name').textContent, translatedNames[lang], `${lang}: selected region is translated`);
   assert.equal(element('#coverage-region').value, 'TWN', `${lang}: selector retains the selected region`);
+  assert.equal(element('#coverage-audit').hidden, false, `${lang}: version note remains visible`);
+  assert.ok(element('#coverage-audit').textContent.trim(), `${lang}: version note has text`);
+  assert.ok(!element('#coverage-audit').textContent.includes('{'), `${lang}: version note is interpolated`);
   c = draw(); assert.equal(c[156], '#e3b48f'); assert.equal(c[158], '#e3b48f');
 }
 api.syncDataset('ISSP2016');

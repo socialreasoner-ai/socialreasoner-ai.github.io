@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "totalRespondents": 281977,
+  "totalRespondents": 281995,
   "totalRegions": 56,
-  "totalResponses": 8725648,
+  "totalResponses": 8725666,
   "paperRespondents": 281995,
   "paperResponses": 8725666,
   "unmappedRespondents": 0,
   "updated": "2026-11-04",
-  "sourceVersion": "no-perception-strict, September 2026 data release",
-  "methodology": "Respondents are counted once per dataset using person_id across train and test. Totals sum dataset-level respondents; the same individual may appear in more than one survey. Counts are unweighted sample counts, not population estimates.",
+  "sourceVersion": "Manuscript cohort, before the 2026-09-24 zero-perception-field exclusions",
+  "methodology": "Geographic counts follow the manuscript data version: 281,995 dataset-level respondents and 8,725,666 valid respondent-question records. Respondents are counted once per dataset using person_id across train and test. Totals sum dataset-level respondents; the same individual may appear in more than one survey. Counts are unweighted sample counts, not population estimates.",
   "geographyNote": "Display names are standardized for the website; counts retain the survey geographic groupings. China (mainland) and Taiwan, China share map shading and interaction highlights. Marker sizes and displayed counts remain specific to each survey region; linked shading does not imply samples in every region. Czech Republic/Czechia and Slovak Republic/Slovakia are consolidated. Great Britain retains its survey label. Markers are representative regional centers, not individual locations.",
-  "versionNote": "The current data release contains 281,977 dataset-level respondents, 18 fewer than the 281,995 reported in the manuscript: ISSP2015 −3, ISSP2016 −4, ISSP2019 −9, and ISSP2021 −2. The reason for the difference is not established.",
+  "versionNote": "This globe retains the manuscript cohort. A later cleaning step on 2026-09-24 removed 18 records from 18 respondents whose profiles contained no perceived_* fields: ISSP2015 3, ISSP2016 4, ISSP2019 9, and ISSP2021 2. The cleaned data contains 281,977 dataset-level respondents and 8,725,648 records; the manuscript-version counts shown here include those 18 historical records.",
   "datasets": [
     {
       "id": "ATP142",
@@ -385,8 +385,8 @@
     {
       "id": "ISSP2015",
       "label": "ISSP2015",
-      "respondents": 45093,
-      "responses": 682112,
+      "respondents": 45096,
+      "responses": 682115,
       "paperRespondents": 45096,
       "regions": [
         {
@@ -407,7 +407,7 @@
         },
         {
           "id": "CHL",
-          "count": 1214
+          "count": 1215
         },
         {
           "id": "CHN",
@@ -439,7 +439,7 @@
         },
         {
           "id": "FRA",
-          "count": 1056
+          "count": 1057
         },
         {
           "id": "GEO",
@@ -515,7 +515,7 @@
         },
         {
           "id": "SWE",
-          "count": 1097
+          "count": 1098
         },
         {
           "id": "TWN",
@@ -540,8 +540,8 @@
     {
       "id": "ISSP2016",
       "label": "ISSP2016",
-      "respondents": 43435,
-      "responses": 1501830,
+      "respondents": 43439,
+      "responses": 1501834,
       "paperRespondents": 43439,
       "regions": [
         {
@@ -614,7 +614,7 @@
         },
         {
           "id": "JPN",
-          "count": 1474
+          "count": 1475
         },
         {
           "id": "KOR",
@@ -646,7 +646,7 @@
         },
         {
           "id": "SUR",
-          "count": 792
+          "count": 794
         },
         {
           "id": "SVK",
@@ -682,7 +682,7 @@
         },
         {
           "id": "ZAF",
-          "count": 2692
+          "count": 2693
         }
       ],
       "usCensusRegions": {},
@@ -691,13 +691,13 @@
     {
       "id": "ISSP2019",
       "label": "ISSP2019",
-      "respondents": 40236,
-      "responses": 1044234,
+      "respondents": 40245,
+      "responses": 1044243,
       "paperRespondents": 40245,
       "regions": [
         {
           "id": "AUS",
-          "count": 968
+          "count": 969
         },
         {
           "id": "AUT",
@@ -709,7 +709,7 @@
         },
         {
           "id": "CHE",
-          "count": 2865
+          "count": 2866
         },
         {
           "id": "CHL",
@@ -753,11 +753,11 @@
         },
         {
           "id": "ITA",
-          "count": 1087
+          "count": 1088
         },
         {
           "id": "JPN",
-          "count": 1370
+          "count": 1373
         },
         {
           "id": "LTU",
@@ -781,7 +781,7 @@
         },
         {
           "id": "SUR",
-          "count": 770
+          "count": 772
         },
         {
           "id": "SVN",
@@ -801,7 +801,7 @@
         },
         {
           "id": "USA",
-          "count": 1795
+          "count": 1796
         },
         {
           "id": "VEN",
@@ -818,8 +818,8 @@
     {
       "id": "ISSP2021",
       "label": "ISSP2021",
-      "respondents": 37897,
-      "responses": 841609,
+      "respondents": 37899,
+      "responses": 841611,
       "paperRespondents": 37899,
       "regions": [
         {
@@ -884,7 +884,7 @@
         },
         {
           "id": "JPN",
-          "count": 1288
+          "count": 1289
         },
         {
           "id": "MEX",
@@ -892,7 +892,7 @@
         },
         {
           "id": "NLD",
-          "count": 1227
+          "count": 1228
         },
         {
           "id": "NOR",
@@ -974,14 +974,14 @@
       "numericId": "840",
       "lon": -103.5725,
       "lat": 44.7557,
-      "count": 22625,
+      "count": 22626,
       "byDataset": {
         "ATP142": 9851,
         "ATP152": 5227,
         "ISSP2009": 1560,
         "ISSP2015": 1440,
         "ISSP2016": 1301,
-        "ISSP2019": 1795,
+        "ISSP2019": 1796,
         "ISSP2021": 951,
         "GSS2022": 500
       }
@@ -992,11 +992,11 @@
       "numericId": "710",
       "lon": 25.1581,
       "lat": -28.9233,
-      "count": 12144,
+      "count": 12145,
       "byDataset": {
         "ISSP2009": 3190,
         "ISSP2015": 2651,
-        "ISSP2016": 2692,
+        "ISSP2016": 2693,
         "ISSP2019": 1425,
         "ISSP2021": 2186
       }
@@ -1007,13 +1007,13 @@
       "numericId": "756",
       "lon": 8.1158,
       "lat": 46.7928,
-      "count": 12029,
+      "count": 12030,
       "byDataset": {
         "EVS2017": 3025,
         "ISSP2009": 1052,
         "ISSP2015": 1144,
         "ISSP2016": 1007,
-        "ISSP2019": 2865,
+        "ISSP2019": 2866,
         "ISSP2021": 2936
       }
     },
@@ -1023,11 +1023,11 @@
       "numericId": "250",
       "lon": -6.8016,
       "lat": 43.1403,
-      "count": 9708,
+      "count": 9709,
       "byDataset": {
         "EVS2017": 1683,
         "ISSP2009": 2503,
-        "ISSP2015": 1056,
+        "ISSP2015": 1057,
         "ISSP2016": 1351,
         "ISSP2019": 1574,
         "ISSP2021": 1541
@@ -1150,13 +1150,13 @@
       "numericId": "392",
       "lon": 137.7123,
       "lat": 37.5367,
-      "count": 6777,
+      "count": 6782,
       "byDataset": {
         "ISSP2009": 1170,
         "ISSP2015": 1475,
-        "ISSP2016": 1474,
-        "ISSP2019": 1370,
-        "ISSP2021": 1288
+        "ISSP2016": 1475,
+        "ISSP2019": 1373,
+        "ISSP2021": 1289
       }
     },
     {
@@ -1213,11 +1213,11 @@
       "numericId": "752",
       "lon": 16.1091,
       "lat": 62.4185,
-      "count": 6014,
+      "count": 6015,
       "byDataset": {
         "EVS2017": 1132,
         "ISSP2009": 1108,
-        "ISSP2015": 1097,
+        "ISSP2015": 1098,
         "ISSP2016": 1086,
         "ISSP2019": 1591
       }
@@ -1302,12 +1302,12 @@
       "numericId": "036",
       "lon": 134.3141,
       "lat": -25.7631,
-      "count": 5266,
+      "count": 5267,
       "byDataset": {
         "ISSP2009": 1348,
         "ISSP2015": 987,
         "ISSP2016": 1117,
-        "ISSP2019": 968,
+        "ISSP2019": 969,
         "ISSP2021": 846
       }
     },
@@ -1389,11 +1389,11 @@
       "numericId": "380",
       "lon": 12.269,
       "lat": 42.6708,
-      "count": 4791,
+      "count": 4792,
       "byDataset": {
         "EVS2017": 1963,
         "ISSP2009": 830,
-        "ISSP2019": 1087,
+        "ISSP2019": 1088,
         "ISSP2021": 911
       }
     },
@@ -1416,10 +1416,10 @@
       "numericId": "152",
       "lon": -71.1779,
       "lat": -37.3109,
-      "count": 4494,
+      "count": 4495,
       "byDataset": {
         "ISSP2009": 831,
-        "ISSP2015": 1214,
+        "ISSP2015": 1215,
         "ISSP2016": 1175,
         "ISSP2019": 1274
       }
@@ -1499,11 +1499,11 @@
       "numericId": "740",
       "lon": -55.9115,
       "lat": 4.1197,
-      "count": 3388,
+      "count": 3392,
       "byDataset": {
         "ISSP2015": 851,
-        "ISSP2016": 792,
-        "ISSP2019": 770,
+        "ISSP2016": 794,
+        "ISSP2019": 772,
         "ISSP2021": 975
       }
     },
@@ -1589,10 +1589,10 @@
       "numericId": "528",
       "lon": 5.4999,
       "lat": 52.2929,
-      "count": 2486,
+      "count": 2487,
       "byDataset": {
         "EVS2017": 1259,
-        "ISSP2021": 1227
+        "ISSP2021": 1228
       }
     },
     {
@@ -1740,5 +1740,6 @@
         "EVS2017": 764
       }
     }
-  ]
+  ],
+  "versionNoteKey": "manuscriptVersionNote"
 }

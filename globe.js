@@ -55,7 +55,7 @@
     dataset: 'all', selected: null, hovered: null, rotation: [-20, -15, 0],
     spinning: !reduceMotion.matches, dragging: false, down: null,
     width: 0, height: 0, radius: 0, projection: null, path: null,
-    lastFrame: 0, visible: true
+    lastFrame: 0, visible: true, dirty: true
   };
 
   const countFor = region => state.dataset === 'all' ? region.count : (region.byDataset?.[state.dataset] || 0);
@@ -100,6 +100,7 @@
       if (Number.isFinite(lon) && Number.isFinite(lat)) state.rotation = [-lon, -lat, 0];
       state.spinning = false;
       updateSpinButton();
+      updateMotion();
     }
     updatePanels();
     draw();
@@ -170,8 +171,11 @@
 
   function draw() {
     if (!state.data || !state.projection) return;
+    // Retain the latest state while offscreen, then paint it once on re-entry.
+    if (document.hidden || !state.visible) { state.dirty = true; return; }
     const { width: w, height: h, radius: r, projection, path } = state;
     if (w < 1 || h < 1) return;
+    state.dirty = false;
     projection.rotate(state.rotation);
     ctx.clearRect(0, 0, w, h);
     const cx = w / 2, cy = h / 2;
@@ -277,6 +281,7 @@
     canvas.setPointerCapture(event.pointerId);
     state.down = { x: event.clientX, y: event.clientY, rotation: [...state.rotation], moved: false };
     state.dragging = true;
+    updateMotion();
     canvas.classList.add('is-dragging');
     tooltip.hidden = true;
   });
@@ -288,6 +293,7 @@
       state.rotation = [state.down.rotation[0] + dx * .32, Math.max(-78, Math.min(78, state.down.rotation[1] - dy * .32)), 0];
       state.spinning = false;
       updateSpinButton();
+      updateMotion();
       draw();
       return;
     }
@@ -306,8 +312,9 @@
     state.dragging = false; state.down = null;
     canvas.classList.remove('is-dragging');
     canvas.style.cursor = 'grab';
+    updateMotion();
   });
-  canvas.addEventListener('pointercancel', () => { state.dragging = false; state.down = null; canvas.classList.remove('is-dragging'); });
+  canvas.addEventListener('pointercancel', () => { state.dragging = false; state.down = null; canvas.classList.remove('is-dragging'); updateMotion(); });
   canvas.addEventListener('pointerleave', () => { state.hovered = null; tooltip.hidden = true; draw(); });
 
   function updateOptions() {
@@ -341,12 +348,23 @@
 
   function updateMethodAndAudit() {
     if (!state.data) return;
-    document.querySelector('#coverage-method').textContent = translate('method');
+    const cohort = state.data.versionNoteKey === 'manuscriptVersionNote'
+      ? translate('manuscriptMethod', {
+        respondents: formatNumber(state.data.totalRespondents),
+        responses: formatNumber(state.data.totalResponses)
+      }) + ' ' : '';
+    document.querySelector('#coverage-method').textContent = cohort + translate('method');
     const difference = state.data.paperRespondents - state.data.totalRespondents;
     const audit = document.querySelector('#coverage-audit');
     const short = document.querySelector('#coverage-audit-short');
-    audit.hidden = !difference;
+    // Version provenance remains available even when displayed and manuscript totals match.
+    const translatedNote = state.data.versionNoteKey ? translate(state.data.versionNoteKey) : '';
+    const versionNote = language() !== 'en' && translatedNote && translatedNote !== state.data.versionNoteKey
+      ? translatedNote : state.data.versionNote;
+    audit.hidden = !(versionNote || difference);
     short.hidden = !difference;
+    audit.textContent = versionNote || '';
+    short.textContent = '';
     if (!difference) return;
     const params = {
       count: formatNumber(Math.abs(difference)),
@@ -355,6 +373,7 @@
       difference: formatNumber(Math.abs(difference))
     };
     short.textContent = translate(difference > 0 ? 'versionShortFewer' : 'versionShortMore', params);
+    if (versionNote) return;
     const deltas = state.data.datasets.map(dataset => ({
       id: dataset.id,
       delta: dataset.respondents - dataset.paperRespondents
@@ -404,7 +423,7 @@
 
   selects.forEach(select => select.addEventListener('change', event => syncDataset(event.target.value)));
   regionSelect.addEventListener('change', event => selectRegion(event.target.value));
-  spinButton.addEventListener('click', () => { state.spinning = !state.spinning; updateSpinButton(); });
+  spinButton.addEventListener('click', () => { state.spinning = !state.spinning; updateSpinButton(); updateMotion(); });
   resetButton.addEventListener('click', () => {
     state.rotation = [-20, -15, 0];
     state.selected = null;
@@ -414,26 +433,63 @@
     regionSelect.value = '';
     state.spinning = !reduceMotion.matches;
     tooltip.hidden = true;
-    updateSpinButton(); updatePanels(); draw();
+    updateSpinButton(); updatePanels(); draw(); updateMotion();
   });
 
+  let animationFrame = null;
+  let frameScheduled = false;
   let last = 0;
-  function animate(time) {
-    requestAnimationFrame(animate);
-    if (!state.data || document.hidden || !state.visible || time - last < 34) return;
-    const delta = Math.min(50, time - last || 34);
-    last = time;
-    if (state.spinning && !state.dragging) state.rotation[0] = (state.rotation[0] + delta * .0036) % 360;
-    draw();
+  function stopMotion() {
+    if (frameScheduled && animationFrame != null && typeof cancelAnimationFrame === 'function') {
+      cancelAnimationFrame(animationFrame);
+    }
+    animationFrame = null;
+    frameScheduled = false;
+    last = 0;
   }
-  requestAnimationFrame(animate);
+  function updateMotion() {
+    if (!state.data || !state.spinning || state.dragging || !state.visible || document.hidden) {
+      stopMotion();
+      return;
+    }
+    if (frameScheduled) return;
+    frameScheduled = true;
+    animationFrame = requestAnimationFrame(animate);
+  }
+  function animate(time) {
+    animationFrame = null;
+    frameScheduled = false;
+    if (!state.spinning || state.dragging || !state.visible || document.hidden) { stopMotion(); return; }
+    if (!last || time - last >= 34) {
+      const delta = Math.min(50, time - last || 34);
+      last = time;
+      state.rotation[0] = (state.rotation[0] + delta * .0036) % 360;
+      draw();
+    }
+    updateMotion();
+  }
+  if (document.addEventListener) document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopMotion();
+    else { if (state.dirty) draw(); updateMotion(); }
+  });
+  window.addEventListener('pagehide', stopMotion);
+  window.addEventListener('pageshow', () => { if (state.dirty) draw(); updateMotion(); });
+  const motionPreferenceChanged = () => {
+    if (reduceMotion.matches) state.spinning = false;
+    updateSpinButton();
+    updateMotion();
+  };
+  if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', motionPreferenceChanged);
+  else if (reduceMotion.addListener) reduceMotion.addListener(motionPreferenceChanged);
   if ('IntersectionObserver' in window) new IntersectionObserver(entries => {
     state.visible = entries[0]?.isIntersecting || false;
+    if (state.visible && state.dirty) draw();
+    updateMotion();
   }, { threshold: 0 }).observe(hero);
 
   Promise.all([
     fetch('assets/world-110m.json?v=20261104-regions').then(response => { if (!response.ok) throw new Error('World geometry unavailable'); return response.json(); }),
-    fetch('assets/geography.json?v=20261104-regions').then(response => { if (!response.ok) throw new Error('Coverage data unavailable'); return response.json(); })
+    fetch('assets/geography.json?v=20261104-paper-cohort-r1').then(response => { if (!response.ok) throw new Error('Coverage data unavailable'); return response.json(); })
   ]).then(([topology, data]) => {
     if (data.schemaVersion !== 1 || !Array.isArray(data.regions) || !Array.isArray(data.datasets) || !topology.objects?.countries) throw new Error('Unexpected coverage format');
     state.data = data;
@@ -447,6 +503,7 @@
     resetButton.disabled = false;
     updateLocalizedCopy();
     sizeCanvas();
+    updateMotion();
     if ('ResizeObserver' in window) new ResizeObserver(sizeCanvas).observe(canvas);
     else window.addEventListener('resize', sizeCanvas);
   }).catch(error => {
