@@ -1,17 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 184 96" role="img" aria-labelledby="title desc">
-  <title id="title">Multilayer perceptron schematic</title>
-  <desc id="desc">Inputs pass through successive conceptual neural layers to a model output.</desc>
-  <rect x="1" y="1" width="182" height="94" rx="10" fill="#0d1929" stroke="#6fe0c6" stroke-opacity=".28"/>
-  <g fill="none" stroke="#6fe0c6" stroke-width="1.25" stroke-opacity=".49">
-    <path d="M20 30 L68 18 M20 30 L68 48 M20 30 L68 78 M20 66 L68 18 M20 66 L68 48 M20 66 L68 78"/>
-    <path d="M68 18 L117 29 M68 18 L117 66 M68 48 L117 29 M68 48 L117 66 M68 78 L117 29 M68 78 L117 66"/>
-    <path d="M117 29 L163 48 M117 66 L163 48"/>
-  </g>
-  <g fill="#173a3e" stroke="#6fe0c6" stroke-width="1.6">
-    <circle cx="20" cy="30" r="5"/><circle cx="20" cy="66" r="5"/>
-    <circle cx="68" cy="18" r="5"/><circle cx="68" cy="48" r="5"/><circle cx="68" cy="78" r="5"/>
-    <circle cx="117" cy="29" r="5"/><circle cx="117" cy="66" r="5"/>
-    <circle cx="163" cy="48" r="7" fill="#1a4d4b"/>
-  </g>
-  <circle cx="163" cy="48" r="2.3" fill="#c4ffe9"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" role="img" aria-label="MLP network schematic" class="ml-expert-svg" focusable="false"><title>MLP network schematic</title><desc>Input nodes pass through conceptual hidden layers to an output; highlighted connections are illustrative, not feature attributions.</desc><path d="M0 135H360" stroke="#d9edff" stroke-opacity=".10"/><g fill="none" stroke="#6fe0c6" stroke-opacity=".26" stroke-width="1.2"><path d="M30 38L110 25"/><path d="M30 38L110 58"/><path d="M30 38L110 91"/><path d="M30 38L110 124"/><path d="M30 75L110 25"/><path d="M30 75L110 58"/><path d="M30 75L110 91"/><path d="M30 75L110 124"/><path d="M30 112L110 25"/><path d="M30 112L110 58"/><path d="M30 112L110 91"/><path d="M30 112L110 124"/><path d="M110 25L196 38"/><path d="M110 25L196 75"/><path d="M110 25L196 112"/><path d="M110 58L196 38"/><path d="M110 58L196 75"/><path d="M110 58L196 112"/><path d="M110 91L196 38"/><path d="M110 91L196 75"/><path d="M110 91L196 112"/><path d="M110 124L196 38"/><path d="M110 124L196 75"/><path d="M110 124L196 112"/><path d="M196 38L290 75"/><path d="M196 75L290 75"/><path d="M196 112L290 75"/></g><g fill="none" stroke="#c8fff0" stroke-width="2.5" stroke-linecap="round" class="ml-model-active"><path d="M30 75L110 58L196 75L290 75"/></g><circle cx="30" cy="38" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="30" cy="75" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="30" cy="112" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="110" cy="25" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="110" cy="58" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="110" cy="91" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="110" cy="124" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="196" cy="38" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="196" cy="75" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="196" cy="112" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="290" cy="75" r="8" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="290" cy="75" r="3" fill="#d5fff1" class="ml-model-active"/></svg>

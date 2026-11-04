@@ -26,18 +26,18 @@
   <link rel="stylesheet" href="globe.css?v=20261104-experts-r3final">
   <link rel="stylesheet" href="i18n.css?v=20261104-refresh-r8">
   <script defer src="globe-locales.js?v=20261104-paper-cohort-r1"></script>
-  <script defer src="i18n.js?v=20261104-radar-r2"></script>
+  <script defer src="i18n.js?v=20261104-method-lab"></script>
   <link rel="stylesheet" href="refresh.css?v=20261104-natural-copy-r1">
   <link rel="stylesheet" href="results.css?v=20261104-experts-r3final">
   <link rel="stylesheet" href="launch.css?v=20261104-natural-copy-r1">
-  <link rel="stylesheet" href="method-motion.css?v=20261104-experts-r3final">
+  <link rel="stylesheet" href="method-motion.css?v=20261104-method-lab">
   <link rel="stylesheet" href="radar.css?v=20261104-radar-r1">
   <script defer src="research-data.js?v=20261104-refresh-r8"></script>
   <script defer src="app.js?v=20261104-experts-r3final"></script>
   <script defer src="assets/vendor/d3.min.js"></script>
   <script defer src="assets/vendor/topojson-client.min.js"></script>
   <script defer src="globe.js?v=20261104-experts-r3final"></script>
-  <script defer src="method-motion.js?v=20261104-experts-r3final"></script>
+  <script defer src="method-motion.js?v=20261104-method-lab"></script>
   <script defer src="launch.js?v=20261104-experts-r3a"></script>
 </head>
 <body>
@@ -155,78 +155,245 @@
     <section class="approach section-shell section-pad" aria-labelledby="approach-title">
       <div class="overview-brief"><h2><span data-i18n="overview.heading">Beyond demographics</span></h2><p><span data-i18n="overview.body">Beliefs and perceptions help explain why people with similar demographics answer differently.</span></p></div>
       <div id="approach" class="method-heading section-heading-row"><div><p class="kicker"><span data-i18n="method.kicker">METHOD</span></p><h2 id="approach-title"><span data-i18n="method.heading">Learning from heterogeneous experts</span></h2></div><p><span data-i18n="method.intro">Three experts provide complementary evidence. Their reasoning records become supervision for a single language model.</span></p></div>
-      <section class="method-journey" aria-label="Five-stage method demonstration" data-i18n-aria-label="journey.aria" data-current-stage="0">
-        <div class="journey-sticky">
-          <div class="journey-head">
-            <span class="journey-eyebrow" data-i18n="method.training">Training-data construction</span>
-            <span class="journey-progress" aria-hidden="true"><span></span></span>
-            <a class="journey-continue" href="#case-study" data-i18n="journey.continue">Explore the case ↘</a>
+      <section class="method-lab" id="method-diagram" aria-label="Interactive SocialReasoner method diagram" data-i18n-aria-label="lab.aria" data-phase="complete" data-mode="overview">
+        <div class="ml-topbar">
+          <div class="ml-topcopy"><p class="ml-eyebrow" data-i18n="lab.training">TRAINING PIPELINE</p><p class="ml-hint" data-i18n="lab.hint">Select an expert to trace its evidence.</p></div>
+          <div class="ml-topcontrols">
+            <div class="ml-mode-switch" role="group" aria-label="Method view" data-i18n-aria-label="lab.aria"><button type="button" data-method-mode="overview" aria-pressed="true" data-i18n="lab.overview">Overview</button><button type="button" data-method-mode="explore" aria-pressed="false" data-i18n="lab.explore">Explore experts</button></div>
+            <div class="ml-play-controls"><button type="button" data-method-play aria-label="Play demonstration" data-i18n-aria-label="lab.play"><span class="ml-play-icon" aria-hidden="true">▶</span><span data-method-play-label data-i18n="lab.play">Play</span></button><button type="button" data-method-replay aria-label="Replay demonstration" data-i18n-aria-label="lab.replay"><span aria-hidden="true">↺</span><span data-i18n="lab.replay">Replay</span></button></div>
           </div>
-          <ol class="journey-index" aria-label="Method stages" data-i18n-aria-label="journey.indexAria">
-            <li><button class="journey-step is-active" type="button" data-journey-stage="0" aria-current="step"><span>01</span><b data-i18n="journey.0.title">Human responses</b></button></li>
-            <li><button class="journey-step" type="button" data-journey-stage="1"><span>02</span><b data-i18n="journey.1.title">Heterogeneous experts</b></button></li>
-            <li><button class="journey-step" type="button" data-journey-stage="2"><span>03</span><b data-i18n="journey.2.title">Predictive evidence</b></button></li>
-            <li><button class="journey-step" type="button" data-journey-stage="3"><span>04</span><b data-i18n="journey.3.title">Reasoning supervision</b></button></li>
-            <li><button class="journey-step" type="button" data-journey-stage="4"><span>05</span><b>SocialReasoner</b></button></li>
-          </ol>
-          <div class="journey-scene">
-            <svg class="journey-routes" aria-hidden="true" focusable="false">
-              <path class="route route-ebm" data-journey-link="input-ebm" pathLength="1"/>
-              <path class="route route-lgbm" data-journey-link="input-lgbm" pathLength="1"/>
-              <path class="route route-mlp" data-journey-link="input-mlp" pathLength="1"/>
-              <path class="route route-ebm" data-journey-link="ebm-evidence" pathLength="1"/>
-              <path class="route route-lgbm" data-journey-link="lgbm-evidence" pathLength="1"/>
-              <path class="route route-mlp" data-journey-link="mlp-evidence" pathLength="1"/>
-              <path class="route route-ebm" data-journey-link="ebm-record" pathLength="1"/>
-              <path class="route route-lgbm" data-journey-link="lgbm-record" pathLength="1"/>
-              <path class="route route-mlp" data-journey-link="mlp-record" pathLength="1"/>
-              <path class="route route-ebm" data-journey-link="ebm-pool" pathLength="1"/>
-              <path class="route route-lgbm" data-journey-link="lgbm-pool" pathLength="1"/>
-              <path class="route route-mlp" data-journey-link="mlp-pool" pathLength="1"/>
-              <path class="route route-finish" data-journey-link="pool-sft" pathLength="1"/>
-              <path class="route route-finish" data-journey-link="sft-model" pathLength="1"/>
-            </svg>
-            <div class="journey-input journey-node" data-journey-node="input"><span class="journey-node-kicker" data-i18n="journey.input">Structured survey input</span><strong data-i18n="journey.demographics">Demographics</strong><strong data-i18n="journey.perceptions">Perceptions</strong><strong data-i18n="journey.question">Target question</strong><small data-i18n="journey.inputNote">Known at prediction time</small></div>
-            <span class="journey-schematic-caption" data-i18n="journey.schematicEyebrow">Model schematics</span>
-            <div class="journey-expert-set">
-              <div class="journey-expert journey-ebm journey-node" data-journey-node="ebm"><strong>EBM</strong><img src="assets/expert-ebm.svg" width="184" height="96" alt="Explainable Boosting Machine schematic: additive feature effects combine into an output" data-i18n-alt="journey.ebmAlt"><small data-i18n="journey.ebmPrinciple">Additive feature effects</small></div>
-              <div class="journey-expert journey-lgbm journey-node" data-journey-node="lgbm"><strong>LightGBM</strong><img src="assets/expert-lightgbm.svg" width="184" height="96" alt="LightGBM schematic: boosted decision trees contribute to a shared output" data-i18n-alt="journey.lgbmAlt"><small data-i18n="journey.lgbmPrinciple">Boosted decision trees</small></div>
-              <div class="journey-expert journey-mlp journey-node" data-journey-node="mlp"><strong>MLP</strong><img src="assets/expert-mlp.svg" width="184" height="96" alt="Multilayer perceptron schematic: inputs pass through neural layers to an output" data-i18n-alt="journey.mlpAlt"><small data-i18n="journey.mlpPrinciple">Multilayer neural network</small></div>
-            </div>
-            <div class="journey-evidence-set">
-              <div class="journey-evidence journey-ebm journey-node" data-journey-node="ebm-evidence"><span>EBM</span><strong data-i18n="journey.evidence">Relevant features</strong></div>
-              <div class="journey-evidence journey-lgbm journey-node" data-journey-node="lgbm-evidence"><span>LightGBM</span><strong data-i18n="journey.evidence">Relevant features</strong></div>
-              <div class="journey-evidence journey-mlp journey-node" data-journey-node="mlp-evidence"><span>MLP</span><strong data-i18n="journey.evidence">Relevant features</strong></div>
-            </div>
-            <div class="journey-record-set">
-              <div class="journey-record journey-ebm journey-node" data-journey-node="ebm-record"><span>EBM</span><strong data-i18n="flow.record">Reasoning record</strong></div>
-              <div class="journey-record journey-lgbm journey-node" data-journey-node="lgbm-record"><span>LightGBM</span><strong data-i18n="flow.record">Reasoning record</strong></div>
-              <div class="journey-record journey-mlp journey-node" data-journey-node="mlp-record"><span>MLP</span><strong data-i18n="flow.record">Reasoning record</strong></div>
-            </div>
-            <div class="journey-pool journey-node" data-journey-node="pool"><strong data-i18n="journey.trainingPool">Training records</strong><small data-i18n="journey.trainingOnly">Observed answer · training supervision</small></div>
-            <div class="journey-sft journey-node" data-journey-node="sft"><strong data-i18n="journey.sft">SFT</strong></div>
-            <div class="journey-model journey-node" data-journey-node="model"><span class="journey-model-mark" aria-hidden="true">✦</span><strong>SocialReasoner</strong><small data-i18n="journey.modelNote">One trained language model</small></div>
-            <span class="journey-token token-ebm" aria-hidden="true" data-journey-token="ebm"></span>
-            <span class="journey-token token-lgbm" aria-hidden="true" data-journey-token="lgbm"></span>
-            <span class="journey-token token-mlp" aria-hidden="true" data-journey-token="mlp"></span>
-            <span class="journey-token token-unified" aria-hidden="true" data-journey-token="unified"></span>
-          </div>
-          <div class="journey-description" aria-live="polite"><span class="journey-description-index">01 / 05</span><p data-journey-description data-i18n="journey.0.body">Demographics, perceptions, and the target question form the model input, while observed answers provide training supervision.</p></div>
         </div>
-        <ol class="journey-static-list" aria-label="Five method stages" data-i18n-aria-label="journey.indexAria">
-          <li class="journey-static-stage"><b>01 <span data-i18n="journey.0.title">Human responses</span></b><p data-i18n="journey.0.body">Demographics, perceptions, and the target question form the model input, while observed answers provide training supervision.</p><div class="journey-static-input"><span data-i18n="journey.demographics">Demographics</span><span data-i18n="journey.perceptions">Perceptions</span><span data-i18n="journey.question">Target question</span></div></li>
-          <li class="journey-static-stage"><b>02 <span data-i18n="journey.1.title">Heterogeneous experts</span></b><p data-i18n="journey.1.body">EBM, LightGBM, and MLP learn separately from respondent data.</p><span class="journey-static-caption" data-i18n="journey.schematicEyebrow">Model schematics</span><div class="journey-static-experts">
-            <div class="journey-static-expert journey-ebm"><strong>EBM</strong><img src="assets/expert-ebm.svg" width="184" height="96" alt="Explainable Boosting Machine schematic: additive feature effects combine into an output" data-i18n-alt="journey.ebmAlt"><small data-i18n="journey.ebmPrinciple">Additive feature effects</small></div>
-            <div class="journey-static-expert journey-lgbm"><strong>LightGBM</strong><img src="assets/expert-lightgbm.svg" width="184" height="96" alt="LightGBM schematic: boosted decision trees contribute to a shared output" data-i18n-alt="journey.lgbmAlt"><small data-i18n="journey.lgbmPrinciple">Boosted decision trees</small></div>
-            <div class="journey-static-expert journey-mlp"><strong>MLP</strong><img src="assets/expert-mlp.svg" width="184" height="96" alt="Multilayer perceptron schematic: inputs pass through neural layers to an output" data-i18n-alt="journey.mlpAlt"><small data-i18n="journey.mlpPrinciple">Multilayer neural network</small></div>
-          </div></li>
-          <li class="journey-static-stage"><b>03 <span data-i18n="journey.2.title">Predictive evidence</span></b><p data-i18n="journey.2.body">Correct out-of-fold predictions yield answer-specific, Top-K feature evidence from each expert.</p><div class="journey-static-lanes"><div class="journey-ebm"><strong>EBM</strong><span data-i18n="journey.evidence">Relevant features</span></div><div class="journey-lgbm"><strong>LightGBM</strong><span data-i18n="journey.evidence">Relevant features</span></div><div class="journey-mlp"><strong>MLP</strong><span data-i18n="journey.evidence">Relevant features</span></div></div></li>
-          <li class="journey-static-stage"><b>04 <span data-i18n="journey.3.title">Reasoning supervision</span></b><p data-i18n="journey.3.body">Semantic denoising filters irrelevant evidence. Each expert forms its own reasoning–answer records.</p><div class="journey-static-lanes"><div class="journey-ebm"><strong>EBM</strong><span data-i18n="flow.record">Reasoning record</span></div><div class="journey-lgbm"><strong>LightGBM</strong><span data-i18n="flow.record">Reasoning record</span></div><div class="journey-mlp"><strong>MLP</strong><span data-i18n="flow.record">Reasoning record</span></div></div></li>
-          <li class="journey-static-stage"><b>05 SocialReasoner</b><p data-i18n="journey.4.body">The records join a training pool for supervised fine-tuning. The resulting language model predicts responses on its own.</p><div class="journey-static-finish"><span><strong data-i18n="journey.trainingPool">Training records</strong><small data-i18n="journey.trainingOnly">Observed answer · training supervision</small></span><span class="journey-static-arrow" aria-hidden="true">→</span><span><strong data-i18n="journey.sft">SFT</strong></span><span class="journey-static-arrow" aria-hidden="true">→</span><span><strong>SocialReasoner</strong><small data-i18n="journey.modelNote">One trained language model</small></span></div></li>
-        </ol>
+        <nav class="ml-phase-nav" aria-label="Method demonstration stages" data-i18n-aria-label="lab.stagesAria">
+          <button type="button" data-method-stage="0" aria-current="false"><span class="ml-phase-number">01</span><span data-i18n="lab.phase.0">Survey input</span></button>
+          <button type="button" data-method-stage="1" aria-current="false"><span class="ml-phase-number">02</span><span data-i18n="lab.phase.1">Three experts</span></button>
+          <button type="button" data-method-stage="2" aria-current="false"><span class="ml-phase-number">03</span><span data-i18n="lab.phase.2">Rank cues</span></button>
+          <button type="button" data-method-stage="3" aria-current="false"><span class="ml-phase-number">04</span><span data-i18n="lab.phase.3">Filter cues</span></button>
+          <button type="button" data-method-stage="4" aria-current="false"><span class="ml-phase-number">05</span><span data-i18n="lab.phase.4">Training records</span></button>
+          <button type="button" data-method-stage="5" aria-current="false"><span class="ml-phase-number">06</span><span data-i18n="lab.phase.5">SocialReasoner</span></button>
+        </nav>
+        <div class="ml-stage-summary" role="status" aria-live="polite"><span data-method-status data-i18n="lab.status.ready">Ready</span><p data-method-description data-i18n="lab.phaseBody.0">Structured survey inputs are available to each expert.</p></div>
+        <div class="ml-overview">
+          <div class="ml-flow-caption"><span data-i18n="journey.oof">Correct OOF predictions · Top-K</span><span data-i18n="lab.positiveEvidence">Positive cues for each expert’s predicted answer</span></div>
+          <div class="ml-training-map" aria-label="Training data construction" data-i18n-aria-label="lab.training">
+            <div class="ml-input">
+              <p class="ml-node-label" data-i18n="lab.surveyRecord">Survey record</p>
+              <strong data-i18n="journey.input">Structured survey input</strong>
+              <ul><li data-i18n="journey.demographics">Demographics</li><li data-i18n="journey.perceptions">Perceptions</li><li data-i18n="journey.question">Target question</li></ul>
+              <small data-i18n="lab.inputSubtitle">Available at prediction time</small>
+            </div>
+            <div class="ml-lanes" aria-label="Independent expert paths" data-i18n-aria-label="lab.expertPaths">
+              <div class="ml-mobile-tabs" role="group" aria-label="Choose an expert" data-i18n-aria-label="lab.detailTabsAria">
+                <button type="button" data-expert-tab="ebm" aria-pressed="true">EBM</button>
+                <button type="button" data-expert-tab="lgbm" aria-pressed="false">LightGBM</button>
+                <button type="button" data-expert-tab="mlp" aria-pressed="false">MLP</button>
+              </div>
+              <article class="ml-lane ml-lane-ebm" data-lane="ebm">
+                <button class="ml-expert" type="button" data-expert="ebm" aria-label="Explore EBM evidence extraction" data-i18n-aria-label="lab.exploreEbm" aria-pressed="false">
+                  <span class="ml-expert-heading"><span class="ml-expert-name">EBM</span><span class="ml-expert-open" aria-hidden="true">↗</span></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" aria-hidden="true" class="ml-expert-svg" focusable="false" aria-hidden="true"><title>EBM feature-effect schematic</title><desc>Three distinct example feature-effect functions route independently into the sum inside EBM. Values and selected positions are illustrative.</desc><g fill="none" stroke="#7ad8ff" stroke-width="1.5" stroke-opacity=".5" stroke-linecap="round"><path d="M92 84V8H303V60"/><path d="M184 84V140H303V90"/><path d="M276 84H302"/></g><g transform="translate(12 14)"><rect x=".5" y=".5" width="80" height="112" rx="9" fill="#0d2231" stroke="#7ad8ff" stroke-opacity=".38"/><path d="M12 91V18M12 91H70" stroke="#88b7c7" stroke-opacity=".62" stroke-width="1.2"/><path d="M12 66H70M12 42H70" stroke="#88b7c7" stroke-opacity=".15"/><path d="M13 77C26 74 32 66 42 56S56 36 69 28" fill="none" stroke="#7ad8ff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" class="ml-model-active"/><path d="M39 91V60" stroke="#d6f4ff" stroke-opacity=".78" stroke-dasharray="3 3"/><circle cx="39" cy="60" r="4" fill="#d6f4ff" class="ml-model-active"/><path d="M70 70H80" stroke="#7ad8ff" stroke-opacity=".7"/></g><g transform="translate(104 14)"><rect x=".5" y=".5" width="80" height="112" rx="9" fill="#0d2231" stroke="#7ad8ff" stroke-opacity=".38"/><path d="M12 91V18M12 91H70" stroke="#88b7c7" stroke-opacity=".62" stroke-width="1.2"/><path d="M12 66H70M12 42H70" stroke="#88b7c7" stroke-opacity=".15"/><path d="M13 78H26V60H42V67H55V44H69" fill="none" stroke="#7ad8ff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" class="ml-model-active"/><path d="M42 91V67" stroke="#d6f4ff" stroke-opacity=".78" stroke-dasharray="3 3"/><circle cx="42" cy="67" r="4" fill="#d6f4ff" class="ml-model-active"/><path d="M70 70H80" stroke="#7ad8ff" stroke-opacity=".7"/></g><g transform="translate(196 14)"><rect x=".5" y=".5" width="80" height="112" rx="9" fill="#0d2231" stroke="#7ad8ff" stroke-opacity=".38"/><path d="M12 91V18M12 91H70" stroke="#88b7c7" stroke-opacity=".62" stroke-width="1.2"/><path d="M12 66H70M12 42H70" stroke="#88b7c7" stroke-opacity=".15"/><path d="M13 50C26 28 36 26 45 49S55 74 69 41" fill="none" stroke="#7ad8ff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" class="ml-model-active"/><path d="M45 91V49" stroke="#d6f4ff" stroke-opacity=".78" stroke-dasharray="3 3"/><circle cx="45" cy="49" r="4" fill="#d6f4ff" class="ml-model-active"/><path d="M70 70H80" stroke="#7ad8ff" stroke-opacity=".7"/></g><circle cx="320" cy="75" r="17" fill="#153b4a" stroke="#7ad8ff" stroke-width="1.8"/><text x="320" y="82" text-anchor="middle" fill="#cff2ff" font-size="23" font-family="Georgia,serif">Σ</text><path d="M337 75H350" stroke="#7ad8ff" stroke-width="1.8"/><circle cx="352" cy="75" r="3" fill="#bdf1ff"/></svg>
+                  <span class="ml-expert-principle" data-i18n="journey.ebmPrinciple">Additive feature effects</span>
+                </button>
+                <span class="ml-lane-arrow" aria-hidden="true"></span>
+                <div class="ml-evidence">
+                  <div class="ml-evidence-head"><strong data-i18n="lab.cuesTitle">Predictive cues</strong><small data-i18n="lab.structure">Illustrative structure</small></div>
+                  <ol class="ml-cue-list">
+                    <li class="ml-cue"><span class="ml-cue-rank">01</span><span data-i18n="lab.cue1">Cue 01</span><em data-i18n="lab.keep">Keep</em></li>
+                    <li class="ml-cue"><span class="ml-cue-rank">02</span><span data-i18n="lab.cue2">Cue 02</span><em data-i18n="lab.keep">Keep</em></li>
+                    <li class="ml-cue is-removed"><span class="ml-cue-rank">03</span><span data-i18n="lab.cue3">Cue 03</span><em data-i18n="lab.remove">Remove</em></li>
+                  </ol>
+                  <span class="ml-filter-label" data-i18n="lab.filter">Answer-blind cue filtering</span>
+                </div>
+                <span class="ml-lane-arrow" aria-hidden="true"></span>
+                <div class="ml-record">
+                  <p class="ml-record-source">EBM · <span data-i18n="flow.record">Reasoning record</span></p>
+                  <div class="ml-record-field"><i aria-hidden="true"></i><span data-i18n="lab.recordInput">Input + question</span></div>
+                  <div class="ml-record-field"><i aria-hidden="true"></i><span data-i18n="lab.recordCues">Retained cues</span></div>
+                  <div class="ml-record-field ml-record-answer"><i aria-hidden="true"></i><span data-i18n="lab.recordAnswer">Observed answer</span></div>
+                </div>
+                <div class="ml-answer-inlet"><span aria-hidden="true">↑</span><span data-i18n="lab.answerFeed">Observed human answer</span></div>
+              </article>
+              <article class="ml-lane ml-lane-lgbm" data-lane="lgbm">
+                <button class="ml-expert" type="button" data-expert="lgbm" aria-label="Explore LightGBM evidence extraction" data-i18n-aria-label="lab.exploreLgbm" aria-pressed="false">
+                  <span class="ml-expert-heading"><span class="ml-expert-name">LightGBM</span><span class="ml-expert-open" aria-hidden="true">↗</span></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" aria-hidden="true" class="ml-expert-svg" focusable="false" aria-hidden="true"><title>LightGBM boosted-tree schematic</title><desc>Three example decision trees route independently into the additive output inside LightGBM. Highlighted tree paths are illustrative, not TreeSHAP attributions.</desc><g fill="none" stroke="#aa9bff" stroke-width="1.5" stroke-opacity=".5" stroke-linecap="round"><path d="M95 108V8H304V61"/><path d="M188 108V140H304V89"/><path d="M281 108H303V75"/></g><g transform="translate(12 14)"><rect x=".5" y=".5" width="83" height="112" rx="9" fill="#1b1c38" stroke="#aa9bff" stroke-opacity=".38"/><g fill="none" stroke="#aa9bff" stroke-width="1.6" stroke-opacity=".6" stroke-linecap="round"><path d="M42 23L22 49M42 23L62 49M22 49L13 78M22 49L31 78M62 49L52 78M62 49L72 78"/></g><path d="M42 23L62 49L72 78" fill="none" stroke="#e1daff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="ml-model-active"/><g fill="#39375a" stroke="#b9abff" stroke-width="1.4"><circle cx="42" cy="23" r="5"/><circle cx="22" cy="49" r="4"/><circle cx="62" cy="49" r="4"/><circle cx="13" cy="78" r="3.5"/><circle cx="31" cy="78" r="3.5"/><circle cx="52" cy="78" r="3.5"/><circle cx="72" cy="78" r="3.5"/></g><path d="M72 83V94H83" fill="none" stroke="#aa9bff" stroke-opacity=".72"/></g><g transform="translate(105 14)"><rect x=".5" y=".5" width="83" height="112" rx="9" fill="#1b1c38" stroke="#aa9bff" stroke-opacity=".38"/><g fill="none" stroke="#aa9bff" stroke-width="1.6" stroke-opacity=".6" stroke-linecap="round"><path d="M42 23L22 49M42 23L62 49M22 49L13 78M22 49L31 78M62 49L52 78M62 49L72 78"/></g><path d="M42 23L22 49L13 78" fill="none" stroke="#e1daff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="ml-model-active"/><g fill="#39375a" stroke="#b9abff" stroke-width="1.4"><circle cx="42" cy="23" r="5"/><circle cx="22" cy="49" r="4"/><circle cx="62" cy="49" r="4"/><circle cx="13" cy="78" r="3.5"/><circle cx="31" cy="78" r="3.5"/><circle cx="52" cy="78" r="3.5"/><circle cx="72" cy="78" r="3.5"/></g><path d="M13 83V94H83" fill="none" stroke="#aa9bff" stroke-opacity=".72"/></g><g transform="translate(198 14)"><rect x=".5" y=".5" width="83" height="112" rx="9" fill="#1b1c38" stroke="#aa9bff" stroke-opacity=".38"/><g fill="none" stroke="#aa9bff" stroke-width="1.6" stroke-opacity=".6" stroke-linecap="round"><path d="M42 23L22 49M42 23L62 49M22 49L13 78M22 49L31 78M62 49L52 78M62 49L72 78"/></g><path d="M42 23L62 49L72 78" fill="none" stroke="#e1daff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="ml-model-active"/><g fill="#39375a" stroke="#b9abff" stroke-width="1.4"><circle cx="42" cy="23" r="5"/><circle cx="22" cy="49" r="4"/><circle cx="62" cy="49" r="4"/><circle cx="13" cy="78" r="3.5"/><circle cx="31" cy="78" r="3.5"/><circle cx="52" cy="78" r="3.5"/><circle cx="72" cy="78" r="3.5"/></g><path d="M72 83V94H83" fill="none" stroke="#aa9bff" stroke-opacity=".72"/></g><circle cx="320" cy="75" r="17" fill="#383455" stroke="#aa9bff" stroke-width="1.8"/><path d="M313 75H327M320 68V82" stroke="#eee9ff" stroke-width="2" stroke-linecap="round"/><path d="M337 75H350" stroke="#aa9bff" stroke-width="1.8"/><circle cx="352" cy="75" r="3" fill="#dcd3ff"/></svg>
+                  <span class="ml-expert-principle" data-i18n="journey.lgbmPrinciple">Boosted decision trees</span>
+                </button>
+                <span class="ml-lane-arrow" aria-hidden="true"></span>
+                <div class="ml-evidence">
+                  <div class="ml-evidence-head"><strong data-i18n="lab.cuesTitle">Predictive cues</strong><small data-i18n="lab.structure">Illustrative structure</small></div>
+                  <ol class="ml-cue-list">
+                    <li class="ml-cue"><span class="ml-cue-rank">01</span><span data-i18n="lab.cue1">Cue 01</span><em data-i18n="lab.keep">Keep</em></li>
+                    <li class="ml-cue"><span class="ml-cue-rank">02</span><span data-i18n="lab.cue2">Cue 02</span><em data-i18n="lab.keep">Keep</em></li>
+                    <li class="ml-cue is-removed"><span class="ml-cue-rank">03</span><span data-i18n="lab.cue3">Cue 03</span><em data-i18n="lab.remove">Remove</em></li>
+                  </ol>
+                  <span class="ml-filter-label" data-i18n="lab.filter">Answer-blind cue filtering</span>
+                </div>
+                <span class="ml-lane-arrow" aria-hidden="true"></span>
+                <div class="ml-record">
+                  <p class="ml-record-source">LightGBM · <span data-i18n="flow.record">Reasoning record</span></p>
+                  <div class="ml-record-field"><i aria-hidden="true"></i><span data-i18n="lab.recordInput">Input + question</span></div>
+                  <div class="ml-record-field"><i aria-hidden="true"></i><span data-i18n="lab.recordCues">Retained cues</span></div>
+                  <div class="ml-record-field ml-record-answer"><i aria-hidden="true"></i><span data-i18n="lab.recordAnswer">Observed answer</span></div>
+                </div>
+                <div class="ml-answer-inlet"><span aria-hidden="true">↑</span><span data-i18n="lab.answerFeed">Observed human answer</span></div>
+              </article>
+              <article class="ml-lane ml-lane-mlp" data-lane="mlp">
+                <button class="ml-expert" type="button" data-expert="mlp" aria-label="Explore MLP evidence extraction" data-i18n-aria-label="lab.exploreMlp" aria-pressed="false">
+                  <span class="ml-expert-heading"><span class="ml-expert-name">MLP</span><span class="ml-expert-open" aria-hidden="true">↗</span></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" aria-hidden="true" class="ml-expert-svg" focusable="false" aria-hidden="true"><title>MLP network schematic</title><desc>Input nodes pass through conceptual hidden layers to an output; highlighted connections are illustrative, not feature attributions.</desc><path d="M0 135H360" stroke="#d9edff" stroke-opacity=".10"/><g fill="none" stroke="#6fe0c6" stroke-opacity=".26" stroke-width="1.2"><path d="M30 38L110 25"/><path d="M30 38L110 58"/><path d="M30 38L110 91"/><path d="M30 38L110 124"/><path d="M30 75L110 25"/><path d="M30 75L110 58"/><path d="M30 75L110 91"/><path d="M30 75L110 124"/><path d="M30 112L110 25"/><path d="M30 112L110 58"/><path d="M30 112L110 91"/><path d="M30 112L110 124"/><path d="M110 25L196 38"/><path d="M110 25L196 75"/><path d="M110 25L196 112"/><path d="M110 58L196 38"/><path d="M110 58L196 75"/><path d="M110 58L196 112"/><path d="M110 91L196 38"/><path d="M110 91L196 75"/><path d="M110 91L196 112"/><path d="M110 124L196 38"/><path d="M110 124L196 75"/><path d="M110 124L196 112"/><path d="M196 38L290 75"/><path d="M196 75L290 75"/><path d="M196 112L290 75"/></g><g fill="none" stroke="#c8fff0" stroke-width="2.5" stroke-linecap="round" class="ml-model-active"><path d="M30 75L110 58L196 75L290 75"/></g><circle cx="30" cy="38" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="30" cy="75" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="30" cy="112" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="110" cy="25" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="110" cy="58" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="110" cy="91" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="110" cy="124" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="196" cy="38" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="196" cy="75" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="196" cy="112" r="6" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="290" cy="75" r="8" fill="#163b3b" stroke="#70dfc6" stroke-width="1.6"/><circle cx="290" cy="75" r="3" fill="#d5fff1" class="ml-model-active"/></svg>
+                  <span class="ml-expert-principle" data-i18n="journey.mlpPrinciple">Multilayer neural network</span>
+                </button>
+                <span class="ml-lane-arrow" aria-hidden="true"></span>
+                <div class="ml-evidence">
+                  <div class="ml-evidence-head"><strong data-i18n="lab.cuesTitle">Predictive cues</strong><small data-i18n="lab.structure">Illustrative structure</small></div>
+                  <ol class="ml-cue-list">
+                    <li class="ml-cue"><span class="ml-cue-rank">01</span><span data-i18n="lab.cue1">Cue 01</span><em data-i18n="lab.keep">Keep</em></li>
+                    <li class="ml-cue"><span class="ml-cue-rank">02</span><span data-i18n="lab.cue2">Cue 02</span><em data-i18n="lab.keep">Keep</em></li>
+                    <li class="ml-cue is-removed"><span class="ml-cue-rank">03</span><span data-i18n="lab.cue3">Cue 03</span><em data-i18n="lab.remove">Remove</em></li>
+                  </ol>
+                  <span class="ml-filter-label" data-i18n="lab.filter">Answer-blind cue filtering</span>
+                </div>
+                <span class="ml-lane-arrow" aria-hidden="true"></span>
+                <div class="ml-record">
+                  <p class="ml-record-source">MLP · <span data-i18n="flow.record">Reasoning record</span></p>
+                  <div class="ml-record-field"><i aria-hidden="true"></i><span data-i18n="lab.recordInput">Input + question</span></div>
+                  <div class="ml-record-field"><i aria-hidden="true"></i><span data-i18n="lab.recordCues">Retained cues</span></div>
+                  <div class="ml-record-field ml-record-answer"><i aria-hidden="true"></i><span data-i18n="lab.recordAnswer">Observed answer</span></div>
+                </div>
+                <div class="ml-answer-inlet"><span aria-hidden="true">↑</span><span data-i18n="lab.answerFeed">Observed human answer</span></div>
+              </article>
+            </div>
+            <div class="ml-finish">
+              <div class="ml-pool"><span class="ml-pool-icon" aria-hidden="true"><i></i><i></i><i></i></span><strong data-i18n="lab.pool">Training data pool</strong><small data-i18n="lab.poolNote">Independent expert records</small></div>
+              <span class="ml-finish-arrow" aria-hidden="true">↓</span>
+              <div class="ml-sft" data-i18n="journey.sft">SFT</div>
+              <span class="ml-finish-arrow" aria-hidden="true">↓</span>
+              <div class="ml-final-model"><span aria-hidden="true">✦</span><strong>SocialReasoner</strong><small data-i18n="journey.modelNote">One trained language model</small></div>
+            </div>
+          </div>
+          <div class="ml-label-feed"><div class="ml-label-source"><span class="ml-node-label" data-i18n="lab.answerSource">Training label</span><strong data-i18n="lab.answerFeed">Observed human answer</strong></div><span class="ml-label-route" aria-hidden="true"></span><p data-i18n="lab.answerDest">Added to each expert record</p></div>
+          <div class="ml-inference"><span class="ml-inference-label" data-i18n="lab.inference">INFERENCE</span><div class="ml-inference-flow"><span data-i18n="lab.newInput">New respondent + question</span><i aria-hidden="true">→</i><strong>SocialReasoner</strong><i aria-hidden="true">→</i><span data-i18n="lab.predicted">Predicted response</span></div></div>
+        </div>
+        <div class="ml-detail" id="method-expert-details" hidden>
+          <div class="ml-detail-top"><div><p class="ml-eyebrow" data-i18n="lab.detailEyebrow">EXPERT EVIDENCE</p><h3 tabindex="-1" data-detail-heading data-i18n="lab.detailTitle">Trace one expert path</h3></div><button type="button" class="ml-back" data-method-overview><span aria-hidden="true">←</span><span data-i18n="lab.back">Back to overview</span></button></div>
+          <div class="ml-detail-tabs" role="group" aria-label="Choose an expert" data-i18n-aria-label="lab.detailTabsAria">
+            <button type="button" data-expert-tab="ebm" aria-pressed="true">EBM</button>
+            <button type="button" data-expert-tab="lgbm" aria-pressed="false">LightGBM</button>
+            <button type="button" data-expert-tab="mlp" aria-pressed="false">MLP</button>
+          </div>
+          <section class="ml-expert-detail ml-detail-ebm" data-expert-detail="ebm" aria-label="EBM evidence path" data-i18n-aria-label="lab.exploreEbm" hidden>
+            <div class="ml-detail-visual"><div><span class="ml-node-label" data-i18n="lab.structure">Illustrative structure</span><h4>EBM</h4><p data-i18n="lab.detailEbmStructure">Additive feature-effect functions combine within EBM.</p></div><img src="assets/expert-ebm.svg" width="360" height="150" alt="Conceptual model structure; no fitted values or respondent path" data-i18n-alt="lab.schematicAlt"></div>
+            <p class="ml-illustrative-note" data-i18n="lab.detail.illustrative">Illustrative structure and cues; no individual contribution values shown.</p>
+            <nav class="ml-detail-stages" aria-label="Expert evidence extraction stages" data-i18n-aria-label="lab.detailStagesAria">
+              <button type="button" data-detail-stage="0" aria-controls="ml-ebm-step-0" aria-current="true"><span>01</span><span data-i18n="lab.detail0">Available inputs</span></button>
+              <button type="button" data-detail-stage="1" aria-controls="ml-ebm-step-1" aria-current="false"><span>02</span><span data-i18n="lab.detail1">Prediction + contribution</span></button>
+              <button type="button" data-detail-stage="2" aria-controls="ml-ebm-step-2" aria-current="false"><span>03</span><span data-i18n="lab.phase.2">Rank cues</span></button>
+              <button type="button" data-detail-stage="3" aria-controls="ml-ebm-step-3" aria-current="false"><span>04</span><span data-i18n="lab.detail3">Cue filtering</span></button>
+              <button type="button" data-detail-stage="4" aria-controls="ml-ebm-step-4" aria-current="false"><span>05</span><span data-i18n="lab.detail4">Reasoning record</span></button>
+            </nav>
+            <div class="ml-detail-panel" id="ml-ebm-step-0" data-detail-panel="0" >
+              <p class="ml-detail-step-label"><span>01 / 05</span><strong data-i18n="lab.detail0">Available inputs</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.inputs">For a target question, each expert uses demographics and responses to other perception items. The target answer is absent from the feature input; during training, it checks out-of-fold correctness and later labels the reasoning record.</p>
+              <div class="ml-input-chips"><span data-i18n="journey.demographics">Demographics</span><span data-i18n="journey.perceptions">Perceptions</span><span data-i18n="journey.question">Target question</span></div>
+            </div>
+            <div class="ml-detail-panel" id="ml-ebm-step-1" data-detail-panel="1" hidden>
+              <p class="ml-detail-step-label"><span>02 / 05</span><strong data-i18n="lab.detail1">Prediction + contribution</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.ebm.compute">EBM predicts with class-specific additive terms over one-hot indicators. For evidence, it takes the term of each field’s observed category, oriented to the correctly predicted choice for binary tasks. The full additive score, including its intercept, makes the prediction.</p>
+              <div class="ml-detail-diagram"><strong class="ml-attribution-label" data-i18n="lab.detail.ebm.attribution">Observed-category additive term</strong><div class="ml-attribution-process"><div class="ml-block-source"><strong data-i18n="lab.attr.observed">Observed field category</strong><div class="ml-field-blocks" aria-hidden="true"><i>A₀</i><i class="is-active">A₁</i><i>A₂</i></div></div><span class="ml-attr-arrow" aria-hidden="true">→</span><div class="ml-block-source"><strong data-i18n="lab.attr.activeTerm">Active additive term</strong><b class="ml-math" aria-hidden="true">fⱼ,c(1)</b></div></div></div>
+            </div>
+            <div class="ml-detail-panel" id="ml-ebm-step-2" data-detail-panel="2" hidden>
+              <p class="ml-detail-step-label"><span>03 / 05</span><strong data-i18n="lab.phase.2">Rank cues</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.ebm.ranking">Rank the observed fields by their signed EBM support for the correctly predicted choice. Retain at most Kₑ fields with the strongest positive support; inactive categories are not presented as respondent facts.</p>
+              <span class="ml-example-tag" data-i18n="lab.detail.top3">First three cues shown · illustrative</span><ol class="ml-detail-cues"><li><b>01</b><span data-i18n="lab.cue1">Cue 01</span></li><li><b>02</b><span data-i18n="lab.cue2">Cue 02</span></li><li><b>03</b><span data-i18n="lab.cue3">Cue 03</span></li></ol>
+            </div>
+            <div class="ml-detail-panel" id="ml-ebm-step-3" data-detail-panel="3" hidden>
+              <p class="ml-detail-step-label"><span>04 / 05</span><strong data-i18n="lab.detail3">Cue filtering</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.filter">The denoiser sees the target question, options, and ordered candidate cues—but neither the observed answer nor the expert prediction. It can only remove irrelevant, duplicate, or unsupported stereotype-dependent cues. Retained cues keep their wording and order; a record with no remaining cue is discarded.</p>
+              <div class="ml-filter-demo"><span class="ml-filter-before"><i>01</i><span data-i18n="lab.cue1">Cue 01</span></span><span class="ml-filter-before"><i>02</i><span data-i18n="lab.cue2">Cue 02</span></span><span class="ml-filter-before is-removed"><i>03</i><span data-i18n="lab.cue3">Cue 03</span><em data-i18n="lab.remove">Remove</em></span></div>
+            </div>
+            <div class="ml-detail-panel" id="ml-ebm-step-4" data-detail-panel="4" hidden>
+              <p class="ml-detail-step-label"><span>05 / 05</span><strong data-i18n="lab.detail4">Reasoning record</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.record">Each expert’s retained cues form a separate reasoning record. The observed human answer enters after filtering and follows the `&lt;think&gt;` reasoning in the SFT output. Records from different experts enter one training pool as separate examples.</p>
+              <div class="ml-detail-record"><span data-i18n="lab.detailRecordQuestion">Question and profile fields</span><span data-i18n="lab.detailRecordCues">Retained predictive cues</span><span class="ml-detail-answer" data-i18n="lab.detailRecordAnswer">Observed training answer</span></div>
+            </div>
+          </section>
+          <section class="ml-expert-detail ml-detail-lgbm" data-expert-detail="lgbm" aria-label="LightGBM evidence path" data-i18n-aria-label="lab.exploreLgbm" hidden>
+            <div class="ml-detail-visual"><div><span class="ml-node-label" data-i18n="lab.structure">Illustrative structure</span><h4>LightGBM</h4><p data-i18n="lab.detailLgbmStructure">Boosted decision trees combine within LightGBM.</p></div><img src="assets/expert-lightgbm.svg" width="360" height="150" alt="Conceptual model structure; no fitted values or respondent path" data-i18n-alt="lab.schematicAlt"></div>
+            <p class="ml-illustrative-note" data-i18n="lab.detail.illustrative">Illustrative structure and cues; no individual contribution values shown.</p>
+            <nav class="ml-detail-stages" aria-label="Expert evidence extraction stages" data-i18n-aria-label="lab.detailStagesAria">
+              <button type="button" data-detail-stage="0" aria-controls="ml-lgbm-step-0" aria-current="true"><span>01</span><span data-i18n="lab.detail0">Available inputs</span></button>
+              <button type="button" data-detail-stage="1" aria-controls="ml-lgbm-step-1" aria-current="false"><span>02</span><span data-i18n="lab.detail1">Prediction + contribution</span></button>
+              <button type="button" data-detail-stage="2" aria-controls="ml-lgbm-step-2" aria-current="false"><span>03</span><span data-i18n="lab.phase.2">Rank cues</span></button>
+              <button type="button" data-detail-stage="3" aria-controls="ml-lgbm-step-3" aria-current="false"><span>04</span><span data-i18n="lab.detail3">Cue filtering</span></button>
+              <button type="button" data-detail-stage="4" aria-controls="ml-lgbm-step-4" aria-current="false"><span>05</span><span data-i18n="lab.detail4">Reasoning record</span></button>
+            </nav>
+            <div class="ml-detail-panel" id="ml-lgbm-step-0" data-detail-panel="0" >
+              <p class="ml-detail-step-label"><span>01 / 05</span><strong data-i18n="lab.detail0">Available inputs</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.inputs">For a target question, each expert uses demographics and responses to other perception items. The target answer is absent from the feature input; during training, it checks out-of-fold correctness and later labels the reasoning record.</p>
+              <div class="ml-input-chips"><span data-i18n="journey.demographics">Demographics</span><span data-i18n="journey.perceptions">Perceptions</span><span data-i18n="journey.question">Target question</span></div>
+            </div>
+            <div class="ml-detail-panel" id="ml-lgbm-step-1" data-detail-panel="1" hidden>
+              <p class="ml-detail-step-label"><span>02 / 05</span><strong data-i18n="lab.detail1">Prediction + contribution</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.lgbm.compute">LightGBM predicts with boosted trees over the original categorical fields. TreeSHAP assigns each field a contribution to the correctly predicted choice’s raw class score; its bias term is excluded. For binary tasks, the signed raw margin is oriented to that choice.</p>
+              <div class="ml-detail-diagram"><strong class="ml-attribution-label" data-i18n="lab.detail.lgbm.attribution">Field-level TreeSHAP</strong><div class="ml-attribution-process"><div class="ml-block-source"><strong data-i18n="lab.attr.trees">Tree ensemble</strong><b class="ml-math" aria-hidden="true">T₁ + T₂ + T₃</b></div><span class="ml-attr-arrow" aria-hidden="true">→</span><div class="ml-block-source"><strong>TreeSHAP</strong><div class="ml-field-blocks" aria-hidden="true"><i>A</i><i>B</i><i>C</i></div><small data-i18n="lab.attr.rawScore">Accepted-class raw score</small></div></div></div>
+            </div>
+            <div class="ml-detail-panel" id="ml-lgbm-step-2" data-detail-panel="2" hidden>
+              <p class="ml-detail-step-label"><span>03 / 05</span><strong data-i18n="lab.phase.2">Rank cues</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.lgbm.ranking">Rank original fields by positive TreeSHAP support within this prediction, keeping at most Kₑ. The drawn trees show the model form; TreeSHAP, rather than a single highlighted tree path, produces the field ranking.</p>
+              <span class="ml-example-tag" data-i18n="lab.detail.top3">First three cues shown · illustrative</span><ol class="ml-detail-cues"><li><b>01</b><span data-i18n="lab.cue1">Cue 01</span></li><li><b>02</b><span data-i18n="lab.cue2">Cue 02</span></li><li><b>03</b><span data-i18n="lab.cue3">Cue 03</span></li></ol>
+            </div>
+            <div class="ml-detail-panel" id="ml-lgbm-step-3" data-detail-panel="3" hidden>
+              <p class="ml-detail-step-label"><span>04 / 05</span><strong data-i18n="lab.detail3">Cue filtering</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.filter">The denoiser sees the target question, options, and ordered candidate cues—but neither the observed answer nor the expert prediction. It can only remove irrelevant, duplicate, or unsupported stereotype-dependent cues. Retained cues keep their wording and order; a record with no remaining cue is discarded.</p>
+              <div class="ml-filter-demo"><span class="ml-filter-before"><i>01</i><span data-i18n="lab.cue1">Cue 01</span></span><span class="ml-filter-before"><i>02</i><span data-i18n="lab.cue2">Cue 02</span></span><span class="ml-filter-before is-removed"><i>03</i><span data-i18n="lab.cue3">Cue 03</span><em data-i18n="lab.remove">Remove</em></span></div>
+            </div>
+            <div class="ml-detail-panel" id="ml-lgbm-step-4" data-detail-panel="4" hidden>
+              <p class="ml-detail-step-label"><span>05 / 05</span><strong data-i18n="lab.detail4">Reasoning record</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.record">Each expert’s retained cues form a separate reasoning record. The observed human answer enters after filtering and follows the `&lt;think&gt;` reasoning in the SFT output. Records from different experts enter one training pool as separate examples.</p>
+              <div class="ml-detail-record"><span data-i18n="lab.detailRecordQuestion">Question and profile fields</span><span data-i18n="lab.detailRecordCues">Retained predictive cues</span><span class="ml-detail-answer" data-i18n="lab.detailRecordAnswer">Observed training answer</span></div>
+            </div>
+          </section>
+          <section class="ml-expert-detail ml-detail-mlp" data-expert-detail="mlp" aria-label="MLP evidence path" data-i18n-aria-label="lab.exploreMlp" hidden>
+            <div class="ml-detail-visual"><div><span class="ml-node-label" data-i18n="lab.structure">Illustrative structure</span><h4>MLP</h4><p data-i18n="lab.detailMlpStructure">Inputs pass through neural layers to an MLP output.</p></div><img src="assets/expert-mlp.svg" width="360" height="150" alt="Conceptual model structure; no fitted values or respondent path" data-i18n-alt="lab.schematicAlt"></div>
+            <p class="ml-illustrative-note" data-i18n="lab.detail.illustrative">Illustrative structure and cues; no individual contribution values shown.</p>
+            <nav class="ml-detail-stages" aria-label="Expert evidence extraction stages" data-i18n-aria-label="lab.detailStagesAria">
+              <button type="button" data-detail-stage="0" aria-controls="ml-mlp-step-0" aria-current="true"><span>01</span><span data-i18n="lab.detail0">Available inputs</span></button>
+              <button type="button" data-detail-stage="1" aria-controls="ml-mlp-step-1" aria-current="false"><span>02</span><span data-i18n="lab.detail1">Prediction + contribution</span></button>
+              <button type="button" data-detail-stage="2" aria-controls="ml-mlp-step-2" aria-current="false"><span>03</span><span data-i18n="lab.phase.2">Rank cues</span></button>
+              <button type="button" data-detail-stage="3" aria-controls="ml-mlp-step-3" aria-current="false"><span>04</span><span data-i18n="lab.detail3">Cue filtering</span></button>
+              <button type="button" data-detail-stage="4" aria-controls="ml-mlp-step-4" aria-current="false"><span>05</span><span data-i18n="lab.detail4">Reasoning record</span></button>
+            </nav>
+            <div class="ml-detail-panel" id="ml-mlp-step-0" data-detail-panel="0" >
+              <p class="ml-detail-step-label"><span>01 / 05</span><strong data-i18n="lab.detail0">Available inputs</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.inputs">For a target question, each expert uses demographics and responses to other perception items. The target answer is absent from the feature input; during training, it checks out-of-fold correctness and later labels the reasoning record.</p>
+              <div class="ml-input-chips"><span data-i18n="journey.demographics">Demographics</span><span data-i18n="journey.perceptions">Perceptions</span><span data-i18n="journey.question">Target question</span></div>
+            </div>
+            <div class="ml-detail-panel" id="ml-mlp-step-1" data-detail-panel="1" hidden>
+              <p class="ml-detail-step-label"><span>02 / 05</span><strong data-i18n="lab.detail1">Prediction + contribution</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.mlp.compute">MLP predicts from one-hot respondent fields. Its attribution inserts each complete original-field block into sampled training-fold background profiles and measures the change in the correctly predicted choice’s logit. It averages eight backgrounds and eight sampled field orders per background.</p>
+              <div class="ml-detail-diagram"><strong class="ml-attribution-label" data-i18n="lab.detail.mlp.attribution">Background-replacement logit change</strong><div class="ml-attribution-process ml-background-replacement"><div class="ml-block-source"><strong data-i18n="lab.attr.background">Training-fold background</strong><div class="ml-field-blocks" aria-hidden="true"><i>A′</i><i>B′</i><i>C′</i></div></div><span class="ml-attr-arrow" aria-hidden="true">→</span><div class="ml-block-source"><strong data-i18n="lab.attr.insert">Insert whole field</strong><div class="ml-field-blocks" aria-hidden="true"><i class="is-active">A</i><i>B′</i><i>C′</i></div></div><div class="ml-attr-output"><strong data-i18n="lab.attr.delta">Change in accepted-class logit</strong><small data-i18n="lab.attr.average">Average over 8 backgrounds × 8 field orders</small></div></div></div>
+            </div>
+            <div class="ml-detail-panel" id="ml-mlp-step-2" data-detail-panel="2" hidden>
+              <p class="ml-detail-step-label"><span>03 / 05</span><strong data-i18n="lab.phase.2">Rank cues</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.mlp.ranking">Rank original fields by their averaged, signed marginal logit support for the correctly predicted choice. Keep at most Kₑ with positive support. Network connections illustrate forward computation, not measured field contributions.</p>
+              <span class="ml-example-tag" data-i18n="lab.detail.top3">First three cues shown · illustrative</span><ol class="ml-detail-cues"><li><b>01</b><span data-i18n="lab.cue1">Cue 01</span></li><li><b>02</b><span data-i18n="lab.cue2">Cue 02</span></li><li><b>03</b><span data-i18n="lab.cue3">Cue 03</span></li></ol>
+            </div>
+            <div class="ml-detail-panel" id="ml-mlp-step-3" data-detail-panel="3" hidden>
+              <p class="ml-detail-step-label"><span>04 / 05</span><strong data-i18n="lab.detail3">Cue filtering</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.filter">The denoiser sees the target question, options, and ordered candidate cues—but neither the observed answer nor the expert prediction. It can only remove irrelevant, duplicate, or unsupported stereotype-dependent cues. Retained cues keep their wording and order; a record with no remaining cue is discarded.</p>
+              <div class="ml-filter-demo"><span class="ml-filter-before"><i>01</i><span data-i18n="lab.cue1">Cue 01</span></span><span class="ml-filter-before"><i>02</i><span data-i18n="lab.cue2">Cue 02</span></span><span class="ml-filter-before is-removed"><i>03</i><span data-i18n="lab.cue3">Cue 03</span><em data-i18n="lab.remove">Remove</em></span></div>
+            </div>
+            <div class="ml-detail-panel" id="ml-mlp-step-4" data-detail-panel="4" hidden>
+              <p class="ml-detail-step-label"><span>05 / 05</span><strong data-i18n="lab.detail4">Reasoning record</strong></p>
+              <p class="ml-detail-body" data-i18n="lab.detail.record">Each expert’s retained cues form a separate reasoning record. The observed human answer enters after filtering and follows the `&lt;think&gt;` reasoning in the SFT output. Records from different experts enter one training pool as separate examples.</p>
+              <div class="ml-detail-record"><span data-i18n="lab.detailRecordQuestion">Question and profile fields</span><span data-i18n="lab.detailRecordCues">Retained predictive cues</span><span class="ml-detail-answer" data-i18n="lab.detailRecordAnswer">Observed training answer</span></div>
+            </div>
+          </section>
+          <div class="ml-detail-controls"><button type="button" data-detail-prev><span aria-hidden="true">←</span><span data-i18n="lab.previous">Previous</span></button><button type="button" data-detail-next><span data-i18n="lab.next">Next</span><span aria-hidden="true">→</span></button></div>
+        </div>
       </section>
 
-      <details class="method-details"><summary><span data-i18n="method.details">Method details</span><span aria-hidden="true">+</span></summary><div><p><span data-i18n="method.detailsBody">EBM, LightGBM, and MLP are trained on respondent data. Correct out-of-fold (OOF) predictions provide answer-specific evidence: additive feature effects, tree-path attributions, and grouped neural perturbations. Top-K evidence is filtered through semantic denoising to form natural-language reasoning records. Records from the experts are combined as reasoning–answer pairs for supervised fine-tuning (SFT). The trained language model then predicts answers directly from respondent profiles and questions.</span></p><p><span data-i18n="method.reasoningNote">Reasoning records are generated from the experts’ predictive evidence and used to train the language model.</span></p></div></details>
+      <details class="method-details"><summary><span data-i18n="method.details">Method details</span><span aria-hidden="true">+</span></summary><div><p><span data-i18n="method.detailsBody">For each target question, EBM, LightGBM, and MLP are trained separately. Correct out-of-fold predictions yield expert-specific evidence: EBM additive terms, LightGBM TreeSHAP, and MLP marginal logit changes. Each expert ranks positive support for the correctly predicted choice. An answer-blind filter removes irrelevant or duplicate cues without rewriting them. Separate records pair retained cues with the observed answer for SFT. The trained SocialReasoner predicts responses directly.</span></p><p><span data-i18n="method.reasoningNote">Reasoning records are generated from the experts’ predictive evidence and used to train the language model.</span></p></div></details>
       <details class="paper-figure"><summary><span><span data-i18n="approach.figureSummary">View the method figure from the manuscript</span></span><span aria-hidden="true">↗</span></summary><div class="paper-figure-inner"><img src="assets/method-from-manuscript.png" alt="Method diagram: three experts yield feature contributions, which are semantically denoised into reasoning records and combined for supervised fine-tuning." data-i18n-alt="approach.figureAlt" loading="lazy"><p><span data-i18n="approach.figureCaption">Figure 3 in the manuscript. The illustration shows the full expert-to-reasoning-to-SFT pipeline.</span></p></div></details>
       <article id="case-study" class="worked-example" aria-labelledby="example-title"><div class="example-heading"><p class="kicker"><span data-i18n="case.kicker">A WORKED EXAMPLE · FIGURE 18</span></p><h3 id="example-title"><span data-i18n="case.heading">Predicting trust in doctors</span></h3></div>
         <div class="target-question"><p class="case-label"><span data-i18n="case.targetLabel">Target question</span></p><h4><span data-i18n="case.question">To what extent do you agree or disagree that doctors can be trusted?</span></h4></div><div class="example-layout"><svg class="case-connections" aria-hidden="true"><path class="evidence-wire"/><path class="prediction-wire"/></svg><div class="example-evidence"><p class="case-label"><span data-i18n="case.evidence">Relevant profile evidence</span></p><ol class="profile-evidence"><li><button type="button" data-evidence="motives" aria-pressed="false"><span class="evidence-index">01</span><span class="evidence-item"><span data-i18n="case.item0">Doctors care more about earnings than patients.</span><span class="evidence-response"><span data-i18n="case.response">Response</span>: <strong><span data-i18n="case.disagree">Disagree</span></strong></span></span></button></li><li><button type="button" data-evidence="competence" aria-pressed="false"><span class="evidence-index">02</span><span class="evidence-item"><span data-i18n="case.item1">Doctors’ medical skills are not as good as they should be.</span><span class="evidence-response"><span data-i18n="case.response">Response</span>: <strong><span data-i18n="case.disagree">Disagree</span></strong></span></span></button></li><li><button type="button" data-evidence="confidence" aria-pressed="false"><span class="evidence-index">03</span><span class="evidence-item"><span data-i18n="case.item2">Confidence in the country’s healthcare system.</span><span class="evidence-response"><span data-i18n="case.response">Response</span>: <strong><span data-i18n="case.confidence">A great deal of confidence</span></strong></span></span></button></li><li><button type="button" data-evidence="efficiency" aria-pressed="false"><span class="evidence-index">04</span><span class="evidence-item"><span data-i18n="case.item3">The healthcare system is inefficient.</span><span class="evidence-response"><span data-i18n="case.response">Response</span>: <strong><span data-i18n="case.disagree">Disagree</span></strong></span></span></button></li></ol><div class="case-controls"><span data-i18n="case.interactionHint">Select evidence to highlight the related reasoning.</span><button type="button" data-clear-evidence data-i18n="case.clear">Clear selection</button></div></div><div class="case-reasoning"><div class="reasoning-card"><div class="reasoning-label"><p class="case-label"><span data-i18n="case.reasoning">Reasoning summary</span></p></div><p id="reasoning-summary"><span data-reasoning="motives"><span data-i18n="case.motives">The respondent rejects negative views of doctors’ motives</span></span><span data-reasoning="competence"><span data-i18n="case.competence"> and competence</span></span><span data-reasoning="confidence"><span data-i18n="case.system">, reports strong confidence in the healthcare system</span></span><span data-reasoning="efficiency"><span data-i18n="case.efficiency">, and disagrees that the system is inefficient.</span></span> <span data-i18n="case.conclusion">Together, these views support an “Agree” response.</span></p></div></div><div class="case-outcome"><p class="case-label" data-i18n="case.predictionLabel">SocialReasoner prediction</p><div class="case-answer"><div><span><span data-i18n="case.predicted">Predicted</span></span><strong><span data-i18n="case.agree">Agree</span></strong></div><div><span><span data-i18n="case.observed">Observed</span></span><strong><span data-i18n="case.agree">Agree</span><i aria-hidden="true">✓</i></strong></div></div></div></div><p class="case-source"><span data-i18n="case.source">Adapted from Figure 18 on page 61 of the manuscript; survey items are shortened and the reasoning summary has been edited.</span></p></article>
