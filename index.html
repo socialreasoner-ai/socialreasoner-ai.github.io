@@ -12,19 +12,19 @@
   <title data-i18n="meta.title">SocialReasoner — Human reasoning, in context</title>
   <link rel="icon" href="assets/favicon.svg?v=20261104-regions" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css?v=20261104-regions">
-  <link rel="stylesheet" href="globe.css?v=20261104-regions">
+  <link rel="stylesheet" href="globe.css?v=20261104-globe-clean-r1">
   <link rel="stylesheet" href="i18n.css?v=20261104-refresh-r8">
   <script defer src="globe-locales.js?v=20261104-paper-cohort-r1"></script>
   <script defer src="i18n.js?v=20261104-launch-r2"></script>
-  <link rel="stylesheet" href="refresh.css?v=20261104-refresh-r8">
+  <link rel="stylesheet" href="refresh.css?v=20261104-globe-clean-r1">
   <link rel="stylesheet" href="results.css?v=20261104-launch-r2">
-  <link rel="stylesheet" href="launch.css?v=20261104-launch-r2">
+  <link rel="stylesheet" href="launch.css?v=20261104-globe-clean-r1">
   <link rel="stylesheet" href="method-motion.css?v=20261104-launch-r2">
   <script defer src="research-data.js?v=20261104-refresh-r8"></script>
   <script defer src="app.js?v=20261104-launch-r2"></script>
   <script defer src="assets/vendor/d3.min.js"></script>
   <script defer src="assets/vendor/topojson-client.min.js"></script>
-  <script defer src="globe.js?v=20261104-launch-r2"></script>
+  <script defer src="globe.js?v=20261104-globe-clean-r1"></script>
   <script defer src="method-motion.js?v=20261104-launch-r2"></script>
   <script defer src="launch.js?v=20261104-launch-r2"></script>
 </head>
@@ -75,15 +75,12 @@
       </div>
       <div class="hero-visual globe-hero" aria-label="Interactive globe showing respondent counts by survey region" data-i18n-aria-label="hero.globeAria">
         <div class="globe-material" aria-hidden="true"></div>
-        <svg class="expert-orbits" viewBox="0 0 700 650" aria-hidden="true"><defs><linearGradient id="orbit-cyan"><stop stop-color="#7AD8FF" stop-opacity=".05"/><stop offset=".55" stop-color="#7AD8FF"/><stop offset="1" stop-color="#7AD8FF" stop-opacity=".1"/></linearGradient><linearGradient id="orbit-purple"><stop stop-color="#AA9BFF" stop-opacity=".1"/><stop offset=".65" stop-color="#AA9BFF"/><stop offset="1" stop-color="#AA9BFF" stop-opacity=".05"/></linearGradient><linearGradient id="orbit-mint"><stop stop-color="#6FE0C6" stop-opacity=".05"/><stop offset=".6" stop-color="#6FE0C6"/><stop offset="1" stop-color="#6FE0C6" stop-opacity=".1"/></linearGradient></defs><g fill="none" stroke-width="1.5"><ellipse class="orbit-ebm" cx="350" cy="325" rx="320" ry="115" transform="rotate(-25 350 325)" stroke="url(#orbit-cyan)"/><ellipse class="orbit-lgbm" cx="350" cy="325" rx="309" ry="133" transform="rotate(35 350 325)" stroke="url(#orbit-purple)"/><ellipse class="orbit-mlp" cx="350" cy="325" rx="285" ry="110" transform="rotate(69 350 325)" stroke="url(#orbit-mint)"/></g></svg>
-        <div class="expert-signature"><span data-i18n="hero.pathways">Expert pathways · training supervision</span><div><span class="ebm">EBM</span><span class="lgbm">LightGBM</span><span class="mlp">MLP</span></div></div>
         <div class="globe-orbit globe-orbit-one" aria-hidden="true"></div><div class="globe-orbit globe-orbit-two" aria-hidden="true"></div>
         <div class="globe-frame"><canvas id="globe-canvas" aria-label="Drag to rotate the world globe. Select a dataset or region using the controls below for keyboard access." data-i18n-aria-label="hero.canvasAria"></canvas></div>
         <div class="globe-hero-top"><span class="globe-light" aria-hidden="true"></span><span><span data-i18n="hero.geoCoverage">SURVEY COVERAGE</span></span></div>
         <div class="globe-filter"><label for="hero-dataset"><span data-i18n="hero.exploreDataset">EXPLORE DATASET</span></label><select id="hero-dataset" aria-label="Filter globe by dataset" data-i18n-aria-label="hero.filterAria" disabled><option value="all" data-i18n="hero.loadingCoverage">Loading coverage…</option></select></div>
         <div class="globe-hero-detail" aria-live="polite"><span id="globe-region-kicker"><span data-i18n="hero.worldwide">WORLDWIDE / ALL DATASETS</span></span><strong id="globe-region-name"><span data-i18n="hero.loading">Loading coverage</span></strong><span id="globe-region-count"><span data-i18n="hero.pleaseWait">Please wait</span></span></div>
         <div class="globe-tooltip" id="globe-tooltip" role="status" hidden></div>
-        <div class="globe-actions"><button type="button" id="globe-spin" aria-label="Pause globe rotation" data-i18n-aria-label="hero.pauseAria" disabled>Ⅱ <span><span data-i18n="hero.pause">PAUSE</span></span></button><button type="button" id="globe-reset" aria-label="Reset globe view" data-i18n-aria-label="hero.resetAria" disabled>↺ <span><span data-i18n="hero.reset">RESET</span></span></button></div>
         <div class="globe-legend"><span><i class="legend-sampled"></i><span data-i18n="hero.sampledRegion">Sampled region</span></span><span><i class="legend-selected"></i><span data-i18n="hero.selectedRegion">Selected region</span></span></div>
         <div class="visual-caption"><span data-i18n="hero.drag">Drag to explore</span></div>
       </div>

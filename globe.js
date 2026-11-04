@@ -43,8 +43,6 @@
   const selects = [document.querySelector('#hero-dataset'), document.querySelector('#coverage-dataset')];
   const regionSelect = document.querySelector('#coverage-region');
   const tooltip = document.querySelector('#globe-tooltip');
-  const spinButton = document.querySelector('#globe-spin');
-  const resetButton = document.querySelector('#globe-reset');
   const chartList = document.querySelector('#coverage-list');
   const labelTitle = document.querySelector('#globe-region-name');
   const labelCount = document.querySelector('#globe-region-count');
@@ -70,12 +68,6 @@
     .filter(item => sharesHighlight(item, region))
     .reduce((sum, item) => sum + countFor(item), 0);
 
-  function updateSpinButton() {
-    spinButton.innerHTML = `${state.spinning ? 'Ⅱ' : '▶'} <span>${translate(state.spinning ? 'pause' : 'resume')}</span>`;
-    spinButton.setAttribute('aria-label', translate(state.spinning ? 'pauseRotation' : 'resumeRotation'));
-    spinButton.setAttribute('aria-pressed', String(!state.spinning));
-  }
-
   function syncDataset(value) {
     if (value !== 'all' && !state.data.datasets.some(dataset => dataset.id === value)) return;
     state.dataset = value;
@@ -99,7 +91,6 @@
       const { lon, lat } = state.selected;
       if (Number.isFinite(lon) && Number.isFinite(lat)) state.rotation = [-lon, -lat, 0];
       state.spinning = false;
-      updateSpinButton();
       updateMotion();
     }
     updatePanels();
@@ -292,7 +283,6 @@
       if (Math.abs(dx) + Math.abs(dy) > 4) state.down.moved = true;
       state.rotation = [state.down.rotation[0] + dx * .32, Math.max(-78, Math.min(78, state.down.rotation[1] - dy * .32)), 0];
       state.spinning = false;
-      updateSpinButton();
       updateMotion();
       draw();
       return;
@@ -397,8 +387,6 @@
     state.hovered = null;
     tooltip.hidden = true;
     updateOptions();
-    updateSpinButton();
-    resetButton.setAttribute('aria-label', translate('resetView'));
     updatePanels();
     updateMethodAndAudit();
     draw();
@@ -423,18 +411,6 @@
 
   selects.forEach(select => select.addEventListener('change', event => syncDataset(event.target.value)));
   regionSelect.addEventListener('change', event => selectRegion(event.target.value));
-  spinButton.addEventListener('click', () => { state.spinning = !state.spinning; updateSpinButton(); updateMotion(); });
-  resetButton.addEventListener('click', () => {
-    state.rotation = [-20, -15, 0];
-    state.selected = null;
-    state.hovered = null;
-    state.dataset = 'all';
-    selects.forEach(select => { select.value = 'all'; });
-    regionSelect.value = '';
-    state.spinning = !reduceMotion.matches;
-    tooltip.hidden = true;
-    updateSpinButton(); updatePanels(); draw(); updateMotion();
-  });
 
   let animationFrame = null;
   let frameScheduled = false;
@@ -476,7 +452,6 @@
   window.addEventListener('pageshow', () => { if (state.dirty) draw(); updateMotion(); });
   const motionPreferenceChanged = () => {
     if (reduceMotion.matches) state.spinning = false;
-    updateSpinButton();
     updateMotion();
   };
   if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', motionPreferenceChanged);
@@ -499,8 +474,6 @@
       state.regionById.set(region.id, region);
       if (region.numericId) state.regionByNumeric.set(numericKey(region.numericId), region);
     });
-    spinButton.disabled = false;
-    resetButton.disabled = false;
     updateLocalizedCopy();
     sizeCanvas();
     updateMotion();

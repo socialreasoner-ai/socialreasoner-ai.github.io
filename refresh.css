@@ -60,9 +60,7 @@ select:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visib
 #globe-region-kicker { font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: .03em; }
 #globe-region-name { font-size: 25px; letter-spacing: -.025em; }
 #globe-region-count { font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--muted); }
-.globe-actions { bottom: 54px; right: 6px; gap: 8px; }
-.globe-actions button { min-height: 42px; min-width: 42px; font-size: 14px; }
-.globe-actions button span { font-family: 'DM Sans', sans-serif; font-size: 11px; }
+
 .globe-legend { position: absolute; z-index: 3; left: 8px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 15px; font-size: 11px; color: #a9bdd1; }
 .globe-legend>span { display: inline-flex; align-items: center; gap: 6px; }
 .globe-legend i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
@@ -191,7 +189,7 @@ select:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visib
   .hero-subtitle { font-size: 22px; }
   .hero-description { font-size: 16px; }
   .hero-visual.globe-hero { height: 520px; }
-  .globe-actions button span { display: none; }
+
   .section-heading-row { grid-template-columns: 1.3fr 1fr; gap: 32px; }
   .section-heading-row h2, .scale h2 { font-size: 46px; }
   .pipeline { grid-template-columns: repeat(2,minmax(0,1fr)); }
@@ -255,8 +253,7 @@ select:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visib
   #globe-region-name { font-size: 21px; }
   #globe-region-kicker { font-size: 9px; }
   #globe-region-count { font-size: 11px; }
-  .globe-actions { right: 0; bottom: 55px; gap: 5px; }
-  .globe-actions button { min-width: 42px; min-height: 42px; font-size: 15px; }
+
   .globe-hero .visual-caption { font-size: 10px; right: 0; bottom: 11px; }
   .globe-legend { left: 0; bottom: 10px; font-size: 9px; gap: 9px; max-width: 72%; }
   .stats-inner { grid-template-columns: repeat(2,minmax(0,1fr)); }
