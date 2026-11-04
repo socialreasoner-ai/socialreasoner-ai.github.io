@@ -31,16 +31,24 @@ The benchmark presents accuracy (%) for eight main evaluation datasets. GSS2022 
 
 The project is presented as a research preview. Release URLs and final publication metadata can be added when available.
 
-The default-visible method diagram is built with HTML and CSS, with four keyboard-accessible stages. The static doctor-trust example is based on Figure 18 (manuscript p. 61); its survey items are shortened and its reasoning summary is edited, not a verbatim model transcript. It does not call a model service.
+The default-visible method diagram uses HTML and local SVG model schematics across five stages. The static doctor-trust example is based on Figure 18 (manuscript p. 61); its survey items are shortened and its reasoning summary is edited, not a verbatim model transcript. It does not call a model service.
 
 `research-data.js` centralizes displayed experiments and their manuscript sources: Table 1 accuracy, Appendix B.1 / Table 7 mean TVD, Table 2(a) held-out GSS2022 accuracy, and Figure 5(b) expert expansion. Only the Table 1 panel follows the backbone tabs; the supplementary experiments remain Qwen2.5-7B. Expert record counts retain the manuscript's K precision. The current geographic files and count logic are independent of these display-only experimental results.
 
 `refresh.css` contains the compact page, method diagram, example and coverage presentation; `results.css` styles the result panels. Both extend the original styles without a framework or build step. Core content is visible immediately, and motion effects respect `prefers-reduced-motion`.
 
-The model-release presentation adds `launch.css` / `launch.js` for the globe's decorative expert paths, the three-column case and current-section navigation. Decorative paths represent training supervision and remain separate from geographic coverage. `method-motion.css` / `method-motion.js` progressively enhance the method into one five-stage scene driven by native scroll. Pinning requires sufficient width, height and measured content space; smaller windows and reduced-motion mode show the full vertical narrative. Without JavaScript, the original four-stage method remains visible. No animation library, video, backend or new service is required.
+The model-release presentation adds `launch.css` / `launch.js` for the three-column case and current-section navigation. `method-motion.css` / `method-motion.js` progressively enhance the method into one five-stage scene driven by native scroll. Pinning requires sufficient width, height and measured content space; Wide, short windows use a non-pinned graphical stage with step buttons. Narrow windows, reduced-motion mode and pages without JavaScript show the complete vertical flow, including all three expert schematics. No animation library, video, backend or new service is required.
 
-Accuracy chart rows persist across model changes so their widths transition from the current state to the new values on a fixed 0–70% axis. Case evidence can be previewed with keyboard focus, pinned by clicking and cleared with Escape or Clear selection. The expert-expansion list and plot share a selection; all experimental values remain in `research-data.js`. Globe rotation stops drawing while offscreen, hidden or paused, and the background stars draw only on demand.
+Accuracy chart rows persist across model changes so their widths transition from the current state to the new values on a fixed 0–70% axis. Case evidence uses the shared semantic IDs `motives`, `competence`, `confidence` and `efficiency` in every language. It can be previewed with keyboard focus, pinned by clicking and cleared with Escape or Clear selection. The expert-expansion list and plot share a selection; all experimental values remain in `research-data.js`. Globe rotation stops drawing while offscreen, hidden or paused, and the background stars draw only on demand.
 
+
+The editable model schematics are `assets/expert-ebm.svg`, `assets/expert-lightgbm.svg`, and `assets/expert-mlp.svg`. They illustrate model principles, without encoding experimental architectures, weights or results. Expert colors are consistent across the method lanes. Connections are measured from card edges; native scrolling drives evidence-to-record and record-to-SFT progress over a bounded 214vh stage. Language changes and resizing remeasure the layout.
+
+The Data section has an on-demand SVG Equal Earth map beside its region list, using the same local atlas and geographic index as the hero globe. Selecting a region updates existing list nodes and keeps keyboard focus; dataset or language changes rebuild the list and restore focus by region ID.
+
+The default accuracy chart and expert-expansion SVG/list are generated from `research-data.js` by `node scripts/render-static-results.mjs --write`. After changing experiment data, rerun that command. `node scripts/render-static-results.mjs --check` verifies the checked-in HTML agrees with that source and is included in the pre-commit hook. This is a small maintenance script, not a runtime build dependency. The main three-expert configuration has a fixed outline marker; only the currently selected configuration receives the strong selection style.
+
+`assets/socialreasoner-share.svg` is the editable source of the 1200 × 630 social cover. Its PNG export is used by Open Graph and Twitter metadata at the public absolute URL. No additional library, external image host or video is used.
 
 ## Geographic coverage
 

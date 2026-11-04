@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 184 96" role="img" aria-labelledby="title desc">
+  <title id="title">Explainable Boosting Machine schematic</title>
+  <desc id="desc">Three conceptual feature effect curves combine additively into a model output.</desc>
+  <rect x="1" y="1" width="182" height="94" rx="10" fill="#0d1929" stroke="#7ad8ff" stroke-opacity=".28"/>
+  <g fill="#12293b" stroke="#7ad8ff" stroke-opacity=".36" stroke-width="1">
+    <rect x="11" y="8" width="78" height="23" rx="4"/>
+    <rect x="11" y="36" width="78" height="23" rx="4"/>
+    <rect x="11" y="64" width="78" height="23" rx="4"/>
+  </g>
+  <g fill="none" stroke="#7ad8ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 25 C30 25 29 13 40 13 S54 24 65 20 S76 15 82 17"/>
+    <path d="M18 52 H34 V46 H50 V42 H65 V49 H82"/>
+    <path d="M18 81 C30 79 33 72 44 73 S58 83 68 76 S78 69 82 70"/>
+  </g>
+  <g fill="none" stroke="#7ad8ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".75">
+    <path d="M89 19 H102 Q111 19 111 31 V47"/>
+    <path d="M89 47 H108"/>
+    <path d="M89 75 H102 Q111 75 111 63 V49"/>
+    <path d="M131 48 H158"/>
+  </g>
+  <circle cx="120" cy="48" r="11" fill="#183a4c" stroke="#7ad8ff" stroke-width="1.6"/>
+  <path d="M115 48 H125 M120 43 V53" stroke="#b8eeff" stroke-width="1.7" stroke-linecap="round"/>
+  <rect x="158" y="39" width="15" height="18" rx="4" fill="#183a4c" stroke="#7ad8ff" stroke-width="1.6"/>
+  <circle cx="165.5" cy="48" r="2" fill="#b8eeff"/>
+</svg>

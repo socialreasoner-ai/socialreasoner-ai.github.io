@@ -43,9 +43,10 @@
   const selects = [document.querySelector('#hero-dataset'), document.querySelector('#coverage-dataset')];
   const regionSelect = document.querySelector('#coverage-region');
   const tooltip = document.querySelector('#globe-tooltip');
-  const spinButton = document.querySelector('#globe-spin');
-  const resetButton = document.querySelector('#globe-reset');
   const chartList = document.querySelector('#coverage-list');
+  const coverageControls = document.querySelector('.coverage-controls');
+  const coverageSummary = document.querySelector('.coverage-summary');
+  const coverageListHead = document.querySelector('.coverage-list-head');
   const labelTitle = document.querySelector('#globe-region-name');
   const labelCount = document.querySelector('#globe-region-count');
   const labelKicker = document.querySelector('#globe-region-kicker');
@@ -57,6 +58,14 @@
     width: 0, height: 0, radius: 0, projection: null, path: null,
     lastFrame: 0, visible: true, dirty: true
   };
+  let listedDataset = null;
+  let listedLanguage = null;
+  const listedButtons = new Map();
+  let coverageMap = null;
+  let coverageMapTitle = null;
+  let coverageMapSvg = null;
+  let coverageMapPaths = [];
+  let coverageMapMarkers = [];
 
   const countFor = region => state.dataset === 'all' ? region.count : (region.byDataset?.[state.dataset] || 0);
   const visibleRegions = () => state.data.regions.filter(region => countFor(region) > 0);
@@ -69,12 +78,6 @@
   const mapCountFor = region => state.data.regions
     .filter(item => sharesHighlight(item, region))
     .reduce((sum, item) => sum + countFor(item), 0);
-
-  function updateSpinButton() {
-    spinButton.innerHTML = `${state.spinning ? 'Ⅱ' : '▶'} <span>${translate(state.spinning ? 'pause' : 'resume')}</span>`;
-    spinButton.setAttribute('aria-label', translate(state.spinning ? 'pauseRotation' : 'resumeRotation'));
-    spinButton.setAttribute('aria-pressed', String(!state.spinning));
-  }
 
   function syncDataset(value) {
     if (value !== 'all' && !state.data.datasets.some(dataset => dataset.id === value)) return;
@@ -99,7 +102,6 @@
       const { lon, lat } = state.selected;
       if (Number.isFinite(lon) && Number.isFinite(lat)) state.rotation = [-lon, -lat, 0];
       state.spinning = false;
-      updateSpinButton();
       updateMotion();
     }
     updatePanels();
@@ -120,18 +122,33 @@
     document.querySelector('#coverage-regions').textContent = formatNumber(regions.length);
     document.querySelector('#coverage-selected').textContent = state.selected
       ? `${regionName(state.selected)} · ${formatNumber(countFor(state.selected))}` : translate('allRegions');
+    if (listedDataset !== state.dataset || listedLanguage !== language()) rebuildRegionList(regions);
+    for (const [id, button] of listedButtons) {
+      const selected = id === state.selected?.id;
+      button.className = 'coverage-row' + (selected ? ' is-selected' : '');
+      button.setAttribute('aria-pressed', String(selected));
+    }
+    updateCoverageMap();
+  }
+
+  function rebuildRegionList(regions) {
+    const focusedRegion = [...listedButtons].find(([, button]) => button === document.activeElement)?.[0];
     chartList.replaceChildren();
+    listedButtons.clear();
     regions.sort((a, b) => countFor(b) - countFor(a) || regionName(a).localeCompare(regionName(b), language())).slice(0, 12).forEach(region => {
       const li = document.createElement('li');
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = 'coverage-row' + (state.selected?.id === region.id ? ' is-selected' : '');
+      button.className = 'coverage-row';
+      button.setAttribute('data-region-id', region.id);
+      button.setAttribute('aria-pressed', 'false');
       const name = document.createElement('span');
       name.textContent = regionName(region);
       const count = document.createElement('strong');
       count.textContent = formatNumber(countFor(region));
       button.append(name, count);
       button.addEventListener('click', () => selectRegion(region.id));
+      listedButtons.set(region.id, button);
       li.append(button);
       chartList.append(li);
     });
@@ -144,6 +161,109 @@
     if (!regions.length) {
       const li = document.createElement('li'); li.className = 'coverage-loading';
       li.textContent = translate('noRecords'); chartList.append(li);
+    }
+    listedDataset = state.dataset;
+    listedLanguage = language();
+    if (focusedRegion) {
+      const replacement = listedButtons.get(focusedRegion);
+      (replacement || regionSelect).focus({ preventScroll: true });
+    }
+  }
+
+  // A static projection gives the Data filters immediate, local geographic feedback.
+  // Its country fills use the same surveyed-region and linked-highlight rules as the globe.
+  function buildCoverageMap() {
+    if (!coverageControls || coverageMap || !document.createElementNS) return;
+    const svgNS = 'http://www.w3.org/2000/svg';
+    coverageMap = document.createElement('div');
+    coverageMap.className = 'coverage-map';
+    const header = document.createElement('div');
+    header.className = 'coverage-map-header';
+    const heading = document.createElement('div');
+    heading.className = 'coverage-map-heading';
+    const eyebrow = document.createElement('span');
+    eyebrow.className = 'coverage-map-eyebrow';
+    eyebrow.textContent = translate('coverage');
+    coverageMapTitle = document.createElement('strong');
+    heading.append(eyebrow, coverageMapTitle);
+    const legend = document.createElement('div');
+    legend.className = 'coverage-map-legend';
+    for (const [kind, key] of [['covered', 'coverage'], ['selected', 'selectedRegion']]) {
+      const item = document.createElement('span');
+      const dot = document.createElement('i');
+      dot.className = `coverage-map-swatch ${kind}`;
+      dot.setAttribute('aria-hidden', 'true');
+      const label = document.createElement('span');
+      label.dataset.globeLabel = key;
+      label.textContent = translate(key);
+      item.append(dot, label);
+      legend.append(item);
+    }
+    header.append(heading, legend);
+    coverageMapSvg = document.createElementNS(svgNS, 'svg');
+    coverageMapSvg.classList.add('coverage-map-svg');
+    coverageMapSvg.setAttribute('viewBox', '0 0 1100 470');
+    coverageMapSvg.setAttribute('role', 'img');
+    coverageMapSvg.setAttribute('focusable', 'false');
+    const projection = d3.geoEqualEarth().fitExtent([[24, 20], [1076, 448]], { type: 'Sphere' });
+    const geoPath = d3.geoPath(projection);
+    for (const country of state.countries) {
+      const path = document.createElementNS(svgNS, 'path');
+      path.setAttribute('d', geoPath(country) || '');
+      path.classList.add('coverage-map-country');
+      const region = state.regionByNumeric.get(numericKey(country.id));
+      if (region) path.setAttribute('data-region-id', region.id);
+      coverageMapSvg.append(path);
+      coverageMapPaths.push({ node: path, region });
+    }
+    for (const region of state.data.regions) {
+      if (!Number.isFinite(region.lon) || !Number.isFinite(region.lat)) continue;
+      const point = projection([region.lon, region.lat]);
+      if (!point) continue;
+      const marker = document.createElementNS(svgNS, 'circle');
+      marker.setAttribute('cx', point[0].toFixed(2));
+      marker.setAttribute('cy', point[1].toFixed(2));
+      marker.setAttribute('r', '3.3');
+      marker.setAttribute('data-region-id', region.id);
+      marker.classList.add('coverage-map-marker');
+      coverageMapSvg.append(marker);
+      coverageMapMarkers.push({ node: marker, region });
+    }
+    coverageMap.append(header, coverageMapSvg);
+    const feedback = document.createElement('div');
+    feedback.className = 'coverage-feedback';
+    const listPanel = document.createElement('div');
+    listPanel.className = 'coverage-list-panel';
+    listPanel.append(coverageListHead, chartList);
+    feedback.append(coverageMap, listPanel);
+    coverageSummary.after(feedback);
+  }
+
+  function updateCoverageMap() {
+    if (!coverageMap) return;
+    const datasetText = state.dataset === 'all' ? translate('allDatasets') : state.dataset;
+    coverageMap.querySelector('.coverage-map-eyebrow').textContent = `${translate('coverage')} / ${datasetText}`;
+    coverageMapTitle.textContent = state.selected ? regionName(state.selected) : translate('worldCoverage');
+    coverageMap.querySelectorAll('[data-globe-label]').forEach(label => {
+      label.textContent = translate(label.dataset.globeLabel);
+    });
+    coverageMapSvg.setAttribute('aria-label', `${datasetText}. ${state.selected
+      ? `${regionName(state.selected)}. ${translate('respondentCount', { count: formatNumber(countFor(state.selected)) })}`
+      : translate('worldCoverage')}.`);
+    for (const { node, region } of coverageMapPaths) {
+      // Great Britain is a survey grouping, so do not color all of the UK.
+      const fillRegion = region?.id === 'GBR' ? null : region;
+      const covered = Boolean(fillRegion && mapCountFor(fillRegion) > 0);
+      node.classList.toggle('is-covered', covered);
+      node.classList.toggle('is-selected', covered && sharesHighlight(fillRegion, state.selected));
+    }
+    for (const { node, region } of coverageMapMarkers) {
+      const covered = countFor(region) > 0;
+      const highlighted = covered && sharesHighlight(region, state.selected);
+      node.classList.toggle('is-covered', covered);
+      node.classList.toggle('is-selected', highlighted);
+      node.setAttribute('r', highlighted ? '7.5' : '4.2');
+      node.setAttribute('visibility', covered ? 'visible' : 'hidden');
     }
   }
 
@@ -292,7 +412,6 @@
       if (Math.abs(dx) + Math.abs(dy) > 4) state.down.moved = true;
       state.rotation = [state.down.rotation[0] + dx * .32, Math.max(-78, Math.min(78, state.down.rotation[1] - dy * .32)), 0];
       state.spinning = false;
-      updateSpinButton();
       updateMotion();
       draw();
       return;
@@ -397,8 +516,6 @@
     state.hovered = null;
     tooltip.hidden = true;
     updateOptions();
-    updateSpinButton();
-    resetButton.setAttribute('aria-label', translate('resetView'));
     updatePanels();
     updateMethodAndAudit();
     draw();
@@ -423,18 +540,6 @@
 
   selects.forEach(select => select.addEventListener('change', event => syncDataset(event.target.value)));
   regionSelect.addEventListener('change', event => selectRegion(event.target.value));
-  spinButton.addEventListener('click', () => { state.spinning = !state.spinning; updateSpinButton(); updateMotion(); });
-  resetButton.addEventListener('click', () => {
-    state.rotation = [-20, -15, 0];
-    state.selected = null;
-    state.hovered = null;
-    state.dataset = 'all';
-    selects.forEach(select => { select.value = 'all'; });
-    regionSelect.value = '';
-    state.spinning = !reduceMotion.matches;
-    tooltip.hidden = true;
-    updateSpinButton(); updatePanels(); draw(); updateMotion();
-  });
 
   let animationFrame = null;
   let frameScheduled = false;
@@ -476,7 +581,6 @@
   window.addEventListener('pageshow', () => { if (state.dirty) draw(); updateMotion(); });
   const motionPreferenceChanged = () => {
     if (reduceMotion.matches) state.spinning = false;
-    updateSpinButton();
     updateMotion();
   };
   if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', motionPreferenceChanged);
@@ -499,8 +603,7 @@
       state.regionById.set(region.id, region);
       if (region.numericId) state.regionByNumeric.set(numericKey(region.numericId), region);
     });
-    spinButton.disabled = false;
-    resetButton.disabled = false;
+    buildCoverageMap();
     updateLocalizedCopy();
     sizeCanvas();
     updateMotion();

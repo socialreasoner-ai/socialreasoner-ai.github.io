@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 184 96" role="img" aria-labelledby="title desc">
+  <title id="title">Multilayer perceptron schematic</title>
+  <desc id="desc">Inputs pass through successive conceptual neural layers to a model output.</desc>
+  <rect x="1" y="1" width="182" height="94" rx="10" fill="#0d1929" stroke="#6fe0c6" stroke-opacity=".28"/>
+  <g fill="none" stroke="#6fe0c6" stroke-width="1.25" stroke-opacity=".49">
+    <path d="M20 30 L68 18 M20 30 L68 48 M20 30 L68 78 M20 66 L68 18 M20 66 L68 48 M20 66 L68 78"/>
+    <path d="M68 18 L117 29 M68 18 L117 66 M68 48 L117 29 M68 48 L117 66 M68 78 L117 29 M68 78 L117 66"/>
+    <path d="M117 29 L163 48 M117 66 L163 48"/>
+  </g>
+  <g fill="#173a3e" stroke="#6fe0c6" stroke-width="1.6">
+    <circle cx="20" cy="30" r="5"/><circle cx="20" cy="66" r="5"/>
+    <circle cx="68" cy="18" r="5"/><circle cx="68" cy="48" r="5"/><circle cx="68" cy="78" r="5"/>
+    <circle cx="117" cy="29" r="5"/><circle cx="117" cy="66" r="5"/>
+    <circle cx="163" cy="48" r="7" fill="#1a4d4b"/>
+  </g>
+  <circle cx="163" cy="48" r="2.3" fill="#c4ffe9"/>
+</svg>

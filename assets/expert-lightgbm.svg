@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 184 96" role="img" aria-labelledby="title desc">
+  <title id="title">LightGBM schematic</title>
+  <desc id="desc">Three conceptual boosted decision trees, including asymmetric branching, contribute to a shared model output.</desc>
+  <rect x="1" y="1" width="182" height="94" rx="10" fill="#0d1929" stroke="#aa9bff" stroke-opacity=".28"/>
+  <g fill="none" stroke="#aa9bff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".75">
+    <path d="M28 17 L16 37 M28 17 L39 37 M16 37 L12 56 M16 37 L22 56 M39 37 L34 56 M39 37 L45 56"/>
+    <path d="M79 17 L67 37 M79 17 L92 37 M67 37 L63 56 M67 37 L74 56 M92 37 L87 55 M92 37 L99 53 M99 53 L96 65 M99 53 L105 65"/>
+    <path d="M132 17 L119 37 M132 17 L144 37 M119 37 L115 56 M119 37 L125 56 M144 37 L139 56 M144 37 L150 56"/>
+    <path d="M28 62 V78 M79 70 V78 M132 62 V78 M28 78 H151"/>
+    <path d="M151 78 H165"/>
+  </g>
+  <path d="M28 17 L39 37 L45 56" fill="none" stroke="#d8d0ff" stroke-width="2.3" stroke-linecap="round"/>
+  <g fill="#25304d" stroke="#aa9bff" stroke-width="1.2">
+    <circle cx="28" cy="17" r="4"/><circle cx="16" cy="37" r="3.3"/><circle cx="39" cy="37" r="3.3"/><circle cx="12" cy="56" r="2.7"/><circle cx="22" cy="56" r="2.7"/><circle cx="34" cy="56" r="2.7"/><circle cx="45" cy="56" r="2.7"/>
+    <circle cx="79" cy="17" r="4"/><circle cx="67" cy="37" r="3.3"/><circle cx="92" cy="37" r="3.3"/><circle cx="63" cy="56" r="2.7"/><circle cx="74" cy="56" r="2.7"/><circle cx="87" cy="55" r="2.7"/><circle cx="99" cy="53" r="3.1"/><circle cx="96" cy="65" r="2.7"/><circle cx="105" cy="65" r="2.7"/>
+    <circle cx="132" cy="17" r="4"/><circle cx="119" cy="37" r="3.3"/><circle cx="144" cy="37" r="3.3"/><circle cx="115" cy="56" r="2.7"/><circle cx="125" cy="56" r="2.7"/><circle cx="139" cy="56" r="2.7"/><circle cx="150" cy="56" r="2.7"/>
+  </g>
+  <rect x="165" y="69" width="11" height="18" rx="3" fill="#28304e" stroke="#aa9bff" stroke-width="1.5"/>
+  <circle cx="170.5" cy="78" r="1.7" fill="#d8d0ff"/>
+</svg>

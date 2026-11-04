@@ -43,15 +43,18 @@ function bindTabs(selector, callback) {
 }
 
 function renderStage(button) {
+  if (!button) return;
   const index = Number(button.dataset.stage);
   const panel = document.querySelector('#stage-panel');
+  if (!panel) return;
   panel.setAttribute('aria-labelledby', button.id);
   panel.querySelector('.panel-index').textContent = siteText('stage.step', { current: String(index + 1).padStart(2, '0'), total: '04' });
   panel.querySelector('#stage-panel-title').textContent = siteText(`stage.${index}.heading`);
   panel.querySelector('#stage-panel-body').textContent = siteText(`stage.${index}.body`);
   panel.querySelector('#stage-input').textContent = siteText(`stage.${index}.input`);
   panel.querySelector('#stage-output').textContent = siteText(`stage.${index}.output`);
-  document.querySelector('.method-flow').dataset.activeStage = String(index);
+  const flow = document.querySelector('.method-flow');
+  if (flow) flow.dataset.activeStage = String(index);
 }
 
 bindTabs('.stage', renderStage);
@@ -76,9 +79,16 @@ function makeChartBar(className, value) {
 // current width, including when the next model is chosen mid-transition.
 function buildResultRows() {
   const chart = document.querySelector('#benchmark-chart');
+  const existing = [...chart.querySelectorAll(':scope > .chart-row')];
+  // The default model is rendered in HTML from research-data.js so the chart is
+  // readable before this script runs. Reuse those nodes for animated updates.
+  if (existing.length === datasets.length && existing.every((row, index) =>
+    row.dataset.dataset === datasets[index] &&
+    row.querySelector('.chart-bar.base > span') && row.querySelector('.chart-bar.ours > span'))) return;
   chart.replaceChildren(...datasets.map(name => {
     const row = document.createElement('div');
     row.className = 'chart-row';
+    row.dataset.dataset = name;
     const label = document.createElement('span');
     label.className = 'chart-label';
     label.textContent = name;
@@ -139,8 +149,10 @@ let lastExpertCompact = null;
 function selectExpert(index) {
   selectedExpertIndex = index;
   const item = researchResults.expertExpansion.records[index];
-  document.querySelectorAll('#expert-trend-chart .expert-point').forEach((point, pointIndex) =>
-    point.classList.toggle('is-current', pointIndex === index));
+  document.querySelectorAll('#expert-trend-chart .expert-point').forEach((point, pointIndex) => {
+    point.classList.toggle('is-current', pointIndex === index);
+    point.setAttribute('aria-current', pointIndex === index ? 'true' : 'false');
+  });
   document.querySelectorAll('#expert-trend-list li').forEach((row, rowIndex) => {
     row.classList.toggle('is-current', rowIndex === index);
     row.querySelector('button').setAttribute('aria-pressed', String(rowIndex === index));
@@ -172,17 +184,20 @@ function renderExpertExpansion(force = false) {
     const position = y(tick);
     axis.append(node('line', { x1: compact ? 43 : 65, x2: compact ? 276 : 690, y1: position, y2: position }), node('text', { x: compact ? 36 : 55, y: position + 4, 'text-anchor': 'end' }, String(tick)));
   }
-  svg.setAttribute('viewBox', compact ? '0 0 320 240' : '0 0 760 270');
+  svg.setAttribute('viewBox', compact ? '0 0 320 252' : '0 0 760 282');
+  const xAxisTitle = node('text', { class: 'expert-x-title', x: compact ? 160 : 380, y: compact ? 245 : 277, 'text-anchor': 'middle' }, siteText('evidence.expertXAxis'));
   svg.replaceChildren(axis, node('polyline', {
     class: 'expert-line', fill: 'none', points: values.map((item, index) => `${x(index)},${y(item.accuracy)}`).join(' ')
   }));
   values.forEach((item, index) => {
     const group = node('g', { class: item.defaultConfiguration ? 'expert-point is-default' : 'expert-point' });
     group.addEventListener('click', () => selectExpert(index));
-    group.append(node('circle', { cx: x(index), cy: y(item.accuracy), r: item.defaultConfiguration ? 8 : 6 }),
+    if (item.defaultConfiguration) group.append(node('circle', { class: 'expert-reference-ring', cx: x(index), cy: y(item.accuracy), r: 11 }));
+    group.append(node('circle', { class: 'expert-dot', cx: x(index), cy: y(item.accuracy), r: 5.5 }),
       node('text', { x: x(index), y: compact ? 218 : 247, 'text-anchor': 'middle' }, String(index + 1)));
     svg.append(group);
   });
+  svg.append(xAxisTitle);
   svg.setAttribute('aria-label', siteText('evidence.expertChartAria'));
   list.replaceChildren(...values.map((item, index) => {
     const row = document.createElement('li');
@@ -195,6 +210,12 @@ function renderExpertExpansion(force = false) {
     const name = document.createElement('strong'); name.textContent = item.experts;
     const records = document.createElement('span'); records.textContent = siteText('evidence.expertRecords', { count: item.trainingRecords });
     description.append(name, records);
+    if (item.defaultConfiguration) {
+      const marker = document.createElement('span');
+      marker.className = 'expert-main-configuration';
+      marker.textContent = siteText('evidence.mainConfiguration');
+      description.append(marker);
+    }
     const accuracy = document.createElement('b'); accuracy.textContent = `${siteNumber(item.accuracy, 2)}%`;
     button.append(indexLabel, description, accuracy);
     button.addEventListener('click', () => selectExpert(index));
@@ -224,62 +245,65 @@ renderSupplementaryResults();
 renderExpertExpansion();
 window.addEventListener('resize', () => renderExpertExpansion(), { passive: true });
 
-let activeEvidence = -1;
-let previewEvidence = -1;
+let activeEvidence = null;
+let previewEvidence = null;
 let suppressEvidencePreview = false;
 const evidenceButtons = [...document.querySelectorAll('.profile-evidence [data-evidence]')];
-const evidenceTargets = ['motives', 'competence', 'confidence', 'confidence'];
+const evidenceIds = new Set(['motives', 'competence', 'confidence', 'efficiency']);
 function renderEvidenceSelection() {
-  const shown = suppressEvidencePreview ? activeEvidence : previewEvidence >= 0 ? previewEvidence : activeEvidence;
+  const shown = suppressEvidencePreview ? activeEvidence : previewEvidence || activeEvidence;
   const example = document.querySelector('.worked-example');
-  example.dataset.evidenceActive = shown >= 0 ? String(shown) : '-1';
-  evidenceButtons.forEach((button, index) => {
-    button.classList.toggle('is-highlighted', index === shown);
-    button.setAttribute('aria-pressed', String(index === activeEvidence));
+  example.dataset.evidenceActive = shown || '-1';
+  evidenceButtons.forEach(button => {
+    const id = button.dataset.evidence;
+    button.classList.toggle('is-highlighted', id === shown);
+    button.setAttribute('aria-pressed', String(id === activeEvidence));
   });
   document.querySelectorAll('#reasoning-summary [data-reasoning]').forEach(part => {
-    part.classList.toggle('is-highlighted', shown >= 0 && part.dataset.reasoning === evidenceTargets[shown]);
+    part.classList.toggle('is-highlighted', !!shown && part.dataset.reasoning === shown);
   });
 }
-evidenceButtons.forEach((button, index) => {
+evidenceButtons.forEach(button => {
+  const id = button.dataset.evidence;
+  if (!evidenceIds.has(id)) return;
   button.addEventListener('click', () => {
-    const clear = activeEvidence === index;
-    activeEvidence = clear ? -1 : index;
-    previewEvidence = clear ? -1 : index;
+    const clear = activeEvidence === id;
+    activeEvidence = clear ? null : id;
+    previewEvidence = clear ? null : id;
     suppressEvidencePreview = clear;
     renderEvidenceSelection();
   });
   button.addEventListener('focus', () => {
-    previewEvidence = index;
+    previewEvidence = id;
     suppressEvidencePreview = false;
     renderEvidenceSelection();
   });
   button.addEventListener('blur', () => {
-    previewEvidence = -1;
+    previewEvidence = null;
     suppressEvidencePreview = false;
     renderEvidenceSelection();
   });
   button.addEventListener('pointerenter', () => {
-    previewEvidence = index;
+    previewEvidence = id;
     suppressEvidencePreview = false;
     renderEvidenceSelection();
   });
   button.addEventListener('pointerleave', () => {
-    previewEvidence = button === document.activeElement ? index : -1;
+    previewEvidence = button === document.activeElement ? id : null;
     renderEvidenceSelection();
   });
   button.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
     event.preventDefault();
-    activeEvidence = -1;
-    previewEvidence = -1;
+    activeEvidence = null;
+    previewEvidence = null;
     suppressEvidencePreview = true;
     renderEvidenceSelection();
   });
 });
 document.querySelector('[data-clear-evidence]')?.addEventListener('click', () => {
-  activeEvidence = -1;
-  previewEvidence = -1;
+  activeEvidence = null;
+  previewEvidence = null;
   suppressEvidencePreview = true;
   renderEvidenceSelection();
 });

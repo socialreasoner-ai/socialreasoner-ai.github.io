@@ -68,20 +68,21 @@
 .expert-panel-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(360px,.82fr);align-items:center;gap:20px}
 .expert-chart-wrap{min-width:0}
 .expert-axis-title{display:block;color:#a8c3db;font-size:11px;margin:0 0 3px}
-#expert-trend-chart{display:block;width:100%;height:auto;max-height:275px;overflow:visible}
+#expert-trend-chart{display:block;width:100%;height:auto;max-height:290px;overflow:visible}
 .expert-axis line{stroke:#4f6b87;stroke-width:1;stroke-dasharray:4 6}.expert-axis text,.expert-point text{fill:#adc4d9;font:13px 'DM Mono',monospace}
+.expert-x-title{fill:#aec4d8;font:12px 'DM Sans',sans-serif}
 .expert-line{stroke:#8bd8ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-.expert-point circle{fill:#9aadd1;stroke:#101d30;stroke-width:3}.expert-point.is-default circle{fill:#8bd8ff;stroke:#e8f7ff;stroke-width:3;filter:drop-shadow(0 0 7px #8bd8ff88)}
-.expert-point.is-default text{fill:#e4f6ff;font-weight:700}
+.expert-point .expert-dot{fill:#9aadd1;stroke:#101d30;stroke-width:3}
+.expert-point .expert-reference-ring{fill:none;stroke:#a4b8db;stroke-width:1.5;stroke-dasharray:2 3;pointer-events:none}
 .expert-trend-list{list-style:none;margin:0;padding:0;display:grid;gap:2px;min-width:0}
 .expert-trend-list li{display:grid;grid-template-columns:29px 1fr auto;gap:12px;align-items:center;min-width:0;padding:8px 9px;border:1px solid transparent;border-radius:5px}
-.expert-trend-list li.is-default{background:#163452;border-color:#3e83ab}
+.expert-trend-list li.is-default{border-color:#516482}
 .expert-index{color:#86a6c4;font:600 11px 'DM Mono',monospace}
 .expert-trend-list li>div{min-width:0}
 .expert-trend-list li strong{display:block;color:#e8f1fa;font-size:12px;line-height:1.25;overflow-wrap:anywhere}
 .expert-trend-list li>div span{display:block;color:#9fb8ce;font-size:11px;margin-top:3px}
 .expert-trend-list li b{color:#d7e9f8;font:600 14px 'DM Mono',monospace;white-space:nowrap}
-.expert-trend-list li.is-default b{color:#8bd8ff}
+.expert-trend-list li.is-default b{color:#d7e9f8}
 .expert-panel-foot{margin:14px 0 0;color:#aabfd2;font-size:12px;line-height:1.5}
 @media(max-width:1160px){.results-layout{grid-template-columns:1fr}.results-support{grid-template-columns:1fr 1fr;grid-template-rows:none}.expert-panel-grid{grid-template-columns:1fr 1fr}.results-card{min-height:240px}}
 @media(max-width:900px){.results-heading,.expert-panel-head{display:block}.results-heading>p,.expert-panel-head p{max-width:680px;margin-top:14px}.results-support{gap:14px}.expert-panel-grid{grid-template-columns:1fr}.expert-trend-list{grid-template-columns:1fr 1fr}.expert-trend-list li:last-child{grid-column:1/-1}}
@@ -104,8 +105,8 @@
 
 /* The chart and the accessible list share one selected expert combination. */
 .expert-point{cursor:pointer}
-.expert-point circle{transition:fill 180ms,stroke 180ms,filter 180ms,r 180ms}
-.expert-point.is-current circle{fill:#b9ecff;stroke:#fff;stroke-width:3;filter:drop-shadow(0 0 10px #7ad8ffb0)}
+.expert-point .expert-dot{transition:fill 180ms,stroke 180ms,filter 180ms}
+.expert-point.is-current .expert-dot{fill:#b9ecff;stroke:#fff;stroke-width:3;filter:drop-shadow(0 0 10px #7ad8ffb0)}
 .expert-point.is-current text{fill:#fff;font-weight:700}
 .expert-trend-list li{display:block;padding:0;transition:background 180ms,border-color 180ms}
 .expert-trend-list li.is-current{background:#1b3954;border-color:#7ad8ff}
@@ -116,7 +117,8 @@
 .expert-trend-list li>button strong{display:block;color:#e8f1fa;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
 .expert-trend-list li>button div span{display:block;color:#9fb8ce;font-size:13px;margin-top:3px}
 .expert-trend-list li>button b{color:#d7e9f8;font:600 14px 'DM Mono',monospace;white-space:nowrap}
-.expert-trend-list li.is-default>button b,.expert-trend-list li.is-current>button b{color:#8bd8ff}
+.expert-trend-list li.is-current>button b{color:#8bd8ff}
+.expert-trend-list li>button div span.expert-main-configuration{display:inline-block;width:max-content;max-width:100%;margin-top:5px;padding:1px 6px;border:1px solid #6f89ac;border-radius:99px;color:#c5d5ea;font:600 10px/1.4 'DM Sans',sans-serif;letter-spacing:.01em}
 .expert-current{display:flex;justify-content:space-between;align-items:baseline;gap:14px;min-height:52px;padding:11px 14px;margin-top:4px;border:1px solid #8bd8ff4a;border-radius:7px;background:linear-gradient(110deg,#8bd8ff12,#8e9bff08);font-variant-numeric:tabular-nums}
 .expert-current strong{font:600 14px/1.35 'Space Grotesk',sans-serif;color:#e8f7ff}
 .expert-current span{font:12px/1.4 'DM Mono',monospace;color:#a8dfff;text-align:right}
@@ -135,5 +137,5 @@
   .expert-current span{display:block;margin-top:5px;text-align:left}
 }
 @media(prefers-reduced-motion:reduce){
-  .evidence .chart-bar,.expert-point circle,.expert-trend-list li,.profile-evidence .evidence-connect{transition:none}
+  .evidence .chart-bar,.expert-point .expert-dot,.expert-trend-list li,.profile-evidence .evidence-connect{transition:none}
 }
