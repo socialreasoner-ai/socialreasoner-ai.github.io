@@ -1,0 +1,38 @@
+/* Manuscript Figure 1, using the site's cyan and violet palette. */
+.reasoning-gap{position:relative;border-bottom:1px solid var(--line);scroll-margin-top:96px}
+.radar-layout{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:32px;align-items:center}
+.radar-copy{padding-block:22px;position:relative;z-index:1}
+.radar-copy .kicker{color:#9eb8d5;font-size:11px;letter-spacing:.12em}
+.radar-copy h2{font:500 clamp(38px,4vw,57px)/1.08 'Space Grotesk',sans-serif;letter-spacing:-.05em;margin:0 0 24px;max-width:10ch;text-wrap:balance}
+.radar-intro{font-size:17px;line-height:1.8;color:#b4c5d9;max-width:34ch;margin:0}
+.radar-bridge{border-left:2px solid #aa9bff66;padding-left:19px;margin-top:36px;max-width:36ch}
+.radar-bridge h3{font-size:14px;line-height:1.5;font-weight:600;color:#d9d1ff;margin:0 0 8px}
+.radar-bridge p{font-size:14px;line-height:1.75;color:var(--muted);margin:0}
+.reasoning-radar{margin:0;min-width:0;position:relative}
+.radar-scroll{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#4f6991 transparent;border-radius:8px}
+.radar-image{display:block;width:100%;max-width:none;height:auto}
+.radar-open{display:block;cursor:zoom-in}
+.radar-key{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 26px;margin:4px 0 19px;font-size:12px;line-height:1.5;color:#d2dfed}
+.radar-key>span{display:flex;align-items:center;gap:10px}
+.radar-key i{display:inline-block;width:27px;height:0;border-top:2px solid #7ad8ff;position:relative}
+.radar-key i::after{content:'';position:absolute;width:7px;height:7px;border-radius:50%;border:1.6px solid #7ad8ff;background:#0b1526;left:10px;top:-4.5px}
+.radar-key .radar-key-social{border-top:2px dashed #b1a1ff}
+.radar-key .radar-key-social::after{border-color:#b1a1ff;border-radius:0}
+.radar-caption{font-size:11px;line-height:1.7;color:#90a5c0;max-width:70ch;margin:0 auto;text-align:center}
+.radar-mobile-hint{display:none;color:#9cb5d1;font-size:11px;line-height:1.5;margin:0 0 14px;text-align:right}
+.radar-source{margin-top:28px;border-top:1px solid var(--line)}
+.radar-source summary{list-style:none;display:flex;justify-content:space-between;gap:20px;padding:17px 0;color:#b8cbe1;font-size:12px;cursor:pointer}
+.radar-source summary::-webkit-details-marker{display:none}
+.radar-source summary::after{content:'+';color:var(--accent);font-size:18px;line-height:1}
+.radar-source[open] summary::after{content:'−'}
+.radar-source>p{font-size:12px;line-height:1.8;max-width:95ch;color:var(--muted);margin:4px 0 20px}
+.radar-table-scroll{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin}
+.radar-source table{border-collapse:collapse;width:100%;min-width:680px;font-size:12px;text-align:left;color:#b2c6dc}
+.radar-source th,.radar-source td{padding:11px 16px 11px 0;border-bottom:1px solid #a9d3ff12;font-weight:400;line-height:1.5}
+.radar-source thead th{color:#b8adff;font-weight:500;font-size:11px}
+.radar-source tbody th{color:#d8e5f5}
+.radar-source td:nth-child(3),.radar-source td:nth-child(5){font-variant-numeric:tabular-nums}
+.radar-source tr:nth-child(5n):not(:last-child)>*{border-bottom-color:#a9d3ff35}
+@media(min-width:1100px){.reasoning-gap.section-pad{padding-block:60px 35px}}
+@media(max-width:1000px){.radar-layout{grid-template-columns:1fr;gap:22px}.radar-copy{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;padding:0}.radar-copy .kicker{grid-column:1/-1}.radar-copy h2{grid-row:2/4;max-width:15ch}.radar-intro{font-size:16px;max-width:48ch}.radar-bridge{margin-top:22px;max-width:48ch}.reasoning-radar{max-width:780px;width:100%;margin-inline:auto}}
+@media(max-width:600px){.reasoning-gap.section-pad{padding-block:54px 24px}.radar-copy{display:block}.radar-copy h2{font-size:38px;max-width:13ch;margin-bottom:20px}.radar-intro{font-size:15px;line-height:1.75;max-width:42ch}.radar-bridge{margin-top:24px}.radar-bridge p{font-size:13px}.radar-layout{gap:30px}.radar-image{width:100%;min-width:0}.radar-key{justify-content:flex-start;font-size:11px;gap:10px 22px;margin-top:14px}.radar-caption{text-align:left;font-size:11px}.radar-mobile-hint{display:block}.radar-source{margin-top:23px}.radar-scroll:focus-visible,.radar-table-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:3px}}

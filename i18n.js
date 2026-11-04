@@ -70,7 +70,7 @@ const SOCIAL_I18N_ROWS = [
   ["radar.generalScore", "Source score", "原始分数", "Score source", "Ausgangswert", "원자료 점수"],
   ["radar.survey", "Social survey", "社会调查", "Enquête sociale", "Soziale Umfrage", "사회 설문"],
   ["radar.socialScore", "Source score", "原始分数", "Score source", "Ausgangswert", "원자료 점수"],
-  ["radar.mobileHint", "Swipe to explore the full figure", "左右滑动查看完整图表", "Balayez pour explorer la figure entière", "Wischen, um die ganze Abbildung zu sehen", "좌우로 밀어 전체 그림 보기"],
+  ["radar.mobileHint", "Tap the figure to open it full size", "点击图表查看完整大图", "Touchez la figure pour l’ouvrir en grand", "Abbildung antippen, um sie in voller Größe zu öffnen", "그림을 눌러 전체 크기로 보기"],
   ["radar.bridge", "Why learn from experts?", "为何向专家模型学习？", "Pourquoi apprendre des experts ?", "Warum von Experten lernen?", "왜 전문가 모델에서 학습할까요?"],
   ["radar.bridgeBody", "SocialReasoner learns complementary evidence from heterogeneous experts to better predict human responses.", "SocialReasoner 从不同类型的专家模型学习互补证据，以更好地预测人类回答。", "SocialReasoner apprend des indices complémentaires auprès d’experts hétérogènes pour mieux prédire les réponses humaines.", "SocialReasoner lernt aus der ergänzenden Evidenz verschiedener Expertenmodelle, um menschliche Antworten besser vorherzusagen.", "SocialReasoner는 서로 다른 전문가 모델에서 상호 보완적인 근거를 학습해 사람의 응답을 더 잘 예측합니다."],
   ["idea.number", "THE QUESTION", "研究问题", "LA QUESTION", "DIE FRAGE", "연구 질문"],

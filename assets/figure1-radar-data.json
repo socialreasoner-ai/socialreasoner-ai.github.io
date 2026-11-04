@@ -1,0 +1,136 @@
+{
+  "source": "Manuscript Figure 1 plotting source (recovered historical input values; no new evaluation).",
+  "models": [
+    "GPT-6 Astra",
+    "GPT-5.6 Sol",
+    "Claude Opus 4.8"
+  ],
+  "angleStartDegrees": 138.0,
+  "generalRadius": 1,
+  "socialTransform": {
+    "power": 1.35,
+    "scale": 0.92
+  },
+  "rows": [
+    {
+      "model": "GPT-6 Astra",
+      "axis_index": 0,
+      "benchmark": "LiveBench Math",
+      "survey": "ISSP2009",
+      "outer_raw": 96.81,
+      "human_raw": 57.59
+    },
+    {
+      "model": "GPT-6 Astra",
+      "axis_index": 1,
+      "benchmark": "GPQA-D",
+      "survey": "ISSP2015",
+      "outer_raw": 96.0,
+      "human_raw": 49.2
+    },
+    {
+      "model": "GPT-6 Astra",
+      "axis_index": 2,
+      "benchmark": "ARC-AGI-1",
+      "survey": "ISSP2016",
+      "outer_raw": 98.5,
+      "human_raw": 51.73
+    },
+    {
+      "model": "GPT-6 Astra",
+      "axis_index": 3,
+      "benchmark": "WeirdML",
+      "survey": "ISSP2019",
+      "outer_raw": 93.28,
+      "human_raw": 47.88
+    },
+    {
+      "model": "GPT-6 Astra",
+      "axis_index": 4,
+      "benchmark": "VibeCode",
+      "survey": "ISSP2021",
+      "outer_raw": 89.59,
+      "human_raw": 46.42
+    },
+    {
+      "model": "GPT-5.6 Sol",
+      "axis_index": 0,
+      "benchmark": "LiveBench Math",
+      "survey": "ISSP2009",
+      "outer_raw": 96.2,
+      "human_raw": 52.44
+    },
+    {
+      "model": "GPT-5.6 Sol",
+      "axis_index": 1,
+      "benchmark": "GPQA-D",
+      "survey": "ISSP2015",
+      "outer_raw": 94.6,
+      "human_raw": 44.27
+    },
+    {
+      "model": "GPT-5.6 Sol",
+      "axis_index": 2,
+      "benchmark": "ARC-AGI-1",
+      "survey": "ISSP2016",
+      "outer_raw": 97.5,
+      "human_raw": 47.64
+    },
+    {
+      "model": "GPT-5.6 Sol",
+      "axis_index": 3,
+      "benchmark": "WeirdML",
+      "survey": "ISSP2019",
+      "outer_raw": 88.76,
+      "human_raw": 42.5
+    },
+    {
+      "model": "GPT-5.6 Sol",
+      "axis_index": 4,
+      "benchmark": "VibeCode",
+      "survey": "ISSP2021",
+      "outer_raw": 80.5,
+      "human_raw": 42.24
+    },
+    {
+      "model": "Claude Opus 4.8",
+      "axis_index": 0,
+      "benchmark": "LiveBench Math",
+      "survey": "ISSP2009",
+      "outer_raw": 94.32,
+      "human_raw": 49.09
+    },
+    {
+      "model": "Claude Opus 4.8",
+      "axis_index": 1,
+      "benchmark": "GPQA-D",
+      "survey": "ISSP2015",
+      "outer_raw": 92.0,
+      "human_raw": 45.98
+    },
+    {
+      "model": "Claude Opus 4.8",
+      "axis_index": 2,
+      "benchmark": "ARC-AGI-1",
+      "survey": "ISSP2016",
+      "outer_raw": 92.5,
+      "human_raw": 45.43
+    },
+    {
+      "model": "Claude Opus 4.8",
+      "axis_index": 3,
+      "benchmark": "WeirdML",
+      "survey": "ISSP2019",
+      "outer_raw": 82.89,
+      "human_raw": 40.96
+    },
+    {
+      "model": "Claude Opus 4.8",
+      "axis_index": 4,
+      "benchmark": "VibeCode",
+      "survey": "ISSP2021",
+      "outer_raw": 82.72,
+      "human_raw": 42.35
+    }
+  ]
+}

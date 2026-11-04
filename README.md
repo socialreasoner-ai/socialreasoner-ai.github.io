@@ -50,6 +50,10 @@ The default accuracy chart and expert-expansion SVG/list are generated from `res
 
 `assets/socialreasoner-share.svg` is the editable source of the 1200 × 630 social cover. Its PNG export is used by Open Graph and Twitter metadata at the public absolute URL. No additional library, external image host or video is used.
 
+## Introduction figure
+
+The introduction includes a cosmic-palette adaptation of manuscript Figure 1 between the globe and the method. `assets/figure1-radar-data.json` preserves all 30 plotting-source scores and the original task/model order. As in the paper, the cyan general-reasoning reference has radius 1, while social radii use `0.92 * (score / 100) ** 1.35`; the caption and expandable source table explain that these are not a common accuracy scale. This is a presentation of the manuscript plotting inputs, not a new benchmark evaluation. To regenerate the vector figure and source table, run `node scripts/render-reasoning-radar.mjs --write`; `--check` verifies that both remain synchronized. The figure opens at full size when selected, and its caption and surrounding copy use the shared five-language dictionary.
+
 ## Geographic coverage
 
 `assets/geography.json` contains anonymous survey-region totals for the manuscript data version: 281,995 survey-level respondents and 8,725,666 valid respondent-question records across 56 survey regions and nine datasets. Respondents are deduplicated within each dataset across train and test; totals are not cross-survey deduplicated. Counts are unweighted sample counts. These 56 survey regions are not a count of sovereign states.
