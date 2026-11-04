@@ -12,6 +12,7 @@ const researchResults = window.SOCIAL_RESEARCH_RESULTS;
 const datasets = researchResults.datasets;
 const results = researchResults.models;
 const siteNumber = (value, digits) => window.SiteI18n.number(value, { minimumFractionDigits: digits, maximumFractionDigits: digits });
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 function activateTab(button, buttons, callback) {
   buttons.forEach(item => {
@@ -85,7 +86,7 @@ function buildResultRows() {
   if (existing.length === datasets.length && existing.every((row, index) =>
     row.dataset.dataset === datasets[index] &&
     row.querySelector('.chart-bar.base > span') && row.querySelector('.chart-bar.ours > span'))) return;
-  chart.replaceChildren(...datasets.map(name => {
+  chart.replaceChildren(...datasets.map((name, index) => {
     const row = document.createElement('div');
     row.className = 'chart-row';
     row.dataset.dataset = name;
@@ -95,8 +96,8 @@ function buildResultRows() {
     const bars = document.createElement('div');
     bars.className = 'chart-bars';
     bars.setAttribute('aria-hidden', 'true');
-    bars.append(makeChartBar('base', results.qwen3.base[datasets.indexOf(name)]),
-      makeChartBar('ours', results.qwen3.ours[datasets.indexOf(name)]));
+    bars.append(makeChartBar('base', results.qwen3.base[index]),
+      makeChartBar('ours', results.qwen3.ours[index]));
     row.append(label, bars);
     return row;
   }));
@@ -128,9 +129,52 @@ function renderResults(key) {
   chart.dataset.model = key;
 }
 
+function setupResultMotion() {
+  const chart = document.querySelector('#benchmark-chart');
+  if (!chart || !('IntersectionObserver' in window)) return;
+  const rows = [...chart.querySelectorAll('.chart-row')];
+  let pageActive = true;
+
+  function syncMotion() {
+    const enabled = !reducedMotion.matches;
+    const active = enabled && pageActive && !document.hidden;
+    chart.classList.toggle('has-chart-motion', enabled);
+    chart.classList.toggle('is-motion-active', active);
+    rows.forEach(row => {
+      // Reveal each row once, including rows reached later on a small screen.
+      // A preference change must never hide results that were already readable.
+      if (!enabled) {
+        row.classList.add('is-revealed');
+        row.classList.remove('is-entering');
+      } else if (active && row.classList.contains('is-in-view') && !row.classList.contains('is-revealed')) {
+        row.classList.add('is-revealed', 'is-entering');
+      }
+    });
+  }
+
+  chart.addEventListener('animationend', event => {
+    if (event.animationName === 'accuracy-reveal' && event.target.matches('.chart-bar.ours')) {
+      event.target.closest('.chart-row').classList.remove('is-entering');
+    }
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => entry.target.classList.toggle('is-in-view', entry.isIntersecting));
+    syncMotion();
+  }, { threshold: 0.12, rootMargin: '0px 0px -20px 0px' });
+  syncMotion();
+  rows.forEach(row => observer.observe(row));
+  document.addEventListener('visibilitychange', syncMotion);
+  if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', syncMotion);
+  else reducedMotion.addListener?.(syncMotion);
+  window.addEventListener('pagehide', () => { pageActive = false; syncMotion(); });
+  window.addEventListener('pageshow', () => { pageActive = true; syncMotion(); });
+}
+
 buildResultRows();
 bindTabs('.model-tab', button => renderResults(button.dataset.model));
 renderResults('qwen3');
+setupResultMotion();
 
 function renderSupplementaryResults() {
   const distribution = researchResults.distribution;
@@ -339,7 +383,6 @@ mobileNav.addEventListener('keydown', event => {
   menuToggle.focus();
 });
 
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 // Anchored sections are immediately readable, including after direct #hash navigation.
 document.querySelectorAll('.reveal').forEach(element => element.classList.add('visible'));
 

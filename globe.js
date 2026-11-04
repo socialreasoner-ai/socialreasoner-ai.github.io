@@ -465,59 +465,12 @@
     regionSelect.disabled = false;
   }
 
-  function updateMethodAndAudit() {
-    if (!state.data) return;
-    const cohort = state.data.versionNoteKey === 'manuscriptVersionNote'
-      ? translate('manuscriptMethod', {
-        respondents: formatNumber(state.data.totalRespondents),
-        responses: formatNumber(state.data.totalResponses)
-      }) + ' ' : '';
-    document.querySelector('#coverage-method').textContent = cohort + translate('method');
-    const difference = state.data.paperRespondents - state.data.totalRespondents;
-    const audit = document.querySelector('#coverage-audit');
-    const short = document.querySelector('#coverage-audit-short');
-    // Version provenance remains available even when displayed and manuscript totals match.
-    const translatedNote = state.data.versionNoteKey ? translate(state.data.versionNoteKey) : '';
-    const versionNote = language() !== 'en' && translatedNote && translatedNote !== state.data.versionNoteKey
-      ? translatedNote : state.data.versionNote;
-    audit.hidden = !(versionNote || difference);
-    short.hidden = !difference;
-    audit.textContent = versionNote || '';
-    short.textContent = '';
-    if (!difference) return;
-    const params = {
-      count: formatNumber(Math.abs(difference)),
-      prepared: formatNumber(state.data.totalRespondents),
-      manuscript: formatNumber(state.data.paperRespondents),
-      difference: formatNumber(Math.abs(difference))
-    };
-    short.textContent = translate(difference > 0 ? 'versionShortFewer' : 'versionShortMore', params);
-    if (versionNote) return;
-    const deltas = state.data.datasets.map(dataset => ({
-      id: dataset.id,
-      delta: dataset.respondents - dataset.paperRespondents
-    }));
-    const complete = deltas.every(item => Number.isFinite(item.delta))
-      && deltas.reduce((sum, item) => sum + item.delta, 0) === -difference;
-    const parts = deltas.filter(item => item.delta).map(item =>
-      `${item.id} ${item.delta < 0 ? '−' : '+'}${formatNumber(Math.abs(item.delta))}`);
-    if (complete && parts.length) {
-      const formatter = Intl.ListFormat
-        ? new Intl.ListFormat(language(), { style: 'long', type: 'conjunction' }) : null;
-      params.breakdown = formatter ? formatter.format(parts) : parts.join(', ');
-      audit.textContent = translate(difference > 0 ? 'versionDetailFewer' : 'versionDetailMore', params);
-    } else {
-      audit.textContent = short.textContent;
-    }
-  }
-
   function updateLocalizedCopy() {
     if (!state.data) return;
     state.hovered = null;
     tooltip.hidden = true;
     updateOptions();
     updatePanels();
-    updateMethodAndAudit();
     draw();
   }
 
@@ -530,7 +483,6 @@
     li.className = 'coverage-loading';
     li.textContent = translate('indexUnavailable');
     chartList.append(li);
-    document.querySelector('#coverage-method').textContent = translate('sourceUnavailable');
   }
 
   window.addEventListener('site:languagechange', () => {

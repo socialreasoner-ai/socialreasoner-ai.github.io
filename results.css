@@ -99,9 +99,29 @@
 .metric-details{font-size:13px}
 @media(max-width:620px){.evidence .chart-label{font-size:14px}}
 
-/* Model changes move the existing bars from their current rendered widths. */
-.evidence .chart-bar{transition:width 360ms cubic-bezier(.2,.8,.2,1)}
-.evidence .chart-bar>span{font-variant-numeric:tabular-nums}
+/* Keep the measured widths intact while the eight comparisons reveal in view. */
+.evidence .benchmark-chart .chart-row:nth-child(1){--chart-enter-delay:0ms;--chart-switch-delay:0ms;--chart-sheen-delay:0ms}
+.evidence .benchmark-chart .chart-row:nth-child(2){--chart-enter-delay:45ms;--chart-switch-delay:30ms;--chart-sheen-delay:-160ms}
+.evidence .benchmark-chart .chart-row:nth-child(3){--chart-enter-delay:90ms;--chart-switch-delay:60ms;--chart-sheen-delay:-320ms}
+.evidence .benchmark-chart .chart-row:nth-child(4){--chart-enter-delay:135ms;--chart-switch-delay:90ms;--chart-sheen-delay:-480ms}
+.evidence .benchmark-chart .chart-row:nth-child(5){--chart-enter-delay:180ms;--chart-switch-delay:120ms;--chart-sheen-delay:-640ms}
+.evidence .benchmark-chart .chart-row:nth-child(6){--chart-enter-delay:225ms;--chart-switch-delay:150ms;--chart-sheen-delay:-800ms}
+.evidence .benchmark-chart .chart-row:nth-child(7){--chart-enter-delay:270ms;--chart-switch-delay:180ms;--chart-sheen-delay:-960ms}
+.evidence .benchmark-chart .chart-row:nth-child(8){--chart-enter-delay:315ms;--chart-switch-delay:210ms;--chart-sheen-delay:-1120ms}
+.evidence .chart-bar{transition:width 760ms cubic-bezier(.22,1,.36,1);transition-delay:var(--chart-switch-delay,0ms)}
+.evidence .chart-bar.base{box-shadow:inset 0 1px #e8f4ff24,inset 0 -1px #07192745}
+.evidence .chart-bar.ours{background:linear-gradient(90deg,#65c8f8,#9ae4ff);box-shadow:0 0 15px #7ad8ff27,inset 0 1px #f2fcff65}
+.evidence .chart-bar.ours::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(100deg,transparent,#fff9,transparent) no-repeat -70% 0/30% 100%;opacity:.38;animation:accuracy-sheen 6s linear infinite;animation-play-state:paused;animation-delay:var(--chart-sheen-delay,0ms)}
+.evidence .chart-bar.ours::after{content:'';position:absolute;right:0;top:2px;bottom:2px;width:2px;border-radius:2px;background:#effcffba;box-shadow:0 0 9px 2px #b6f0ff90;pointer-events:none}
+.evidence .chart-bar>span{position:relative;z-index:1;font-variant-numeric:tabular-nums}
+.evidence .chart-row:hover .chart-bars{background-color:#7ad8ff08}
+.evidence .chart-row:hover .chart-label{color:#aee8ff}
+.evidence .chart-row .chart-bars,.evidence .chart-row .chart-label{transition:background-color 220ms ease,color 220ms ease}
+.evidence .benchmark-chart.has-chart-motion .chart-row.is-entering .chart-bar{transform-origin:left center;animation:accuracy-reveal 620ms cubic-bezier(.16,1,.3,1) both;animation-delay:var(--chart-enter-delay,0ms);animation-play-state:paused}
+.evidence .benchmark-chart.has-chart-motion .chart-row.is-entering .chart-bar.ours{animation-delay:calc(var(--chart-enter-delay,0ms) + 70ms)}
+.evidence .benchmark-chart.is-motion-active .chart-row.is-in-view.is-revealed .chart-bar,.evidence .benchmark-chart.is-motion-active .chart-row.is-in-view .chart-bar.ours::before{animation-play-state:running}
+@keyframes accuracy-reveal{from{opacity:.72;transform:scaleX(.92)}to{opacity:1;transform:scaleX(1)}}
+@keyframes accuracy-sheen{0%,22%{background-position:-70% 0}48%,100%{background-position:175% 0}}
 
 /* The chart and the accessible list share one selected expert combination. */
 .expert-point{cursor:pointer}
@@ -138,4 +158,10 @@
 }
 @media(prefers-reduced-motion:reduce){
   .evidence .chart-bar,.expert-point .expert-dot,.expert-trend-list li,.profile-evidence .evidence-connect{transition:none}
+  .evidence .benchmark-chart .chart-row .chart-bar{opacity:1!important;transform:none!important;animation:none!important}
+  .evidence .chart-bar.ours::before{animation:none!important;opacity:0}
+}
+@media print{
+  .evidence .benchmark-chart .chart-row .chart-bar{opacity:1!important;transform:none!important;animation:none!important;transition:none!important}
+  .evidence .chart-bar.ours::before{animation:none!important;opacity:0}
 }

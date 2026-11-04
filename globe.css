@@ -45,20 +45,9 @@
 .coverage-row>span{font:13px 'DM Sans',sans-serif;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
 .coverage-row strong{font:11px 'DM Mono',monospace;color:#9bcdf0;white-space:nowrap}
 .coverage-more,.coverage-loading{color:#9badbf;font:12px 'DM Mono',monospace;padding:15px 0;grid-column:1/-1}
-.coverage-method,.coverage-audit{border-top:1px solid rgba(169,211,255,.12);padding:16px 32px;margin:0;color:#8199b0;font:10px/1.7 'DM Mono',monospace;letter-spacing:.01em}
-.coverage-audit{color:#c5a27d}
-.coverage-audit[hidden]{display:none}
-.coverage-audit-short{margin:0;padding:13px 32px;color:#d9ba96;border-top:1px solid rgba(169,211,255,.1);font:10px/1.6 'DM Mono',monospace}
-.coverage-audit-short[hidden]{display:none}
-.coverage-details{border-top:1px solid rgba(169,211,255,.13)}
-.coverage-details summary{list-style:none;cursor:pointer;padding:16px 32px;color:#a9c6dc;font:11px 'DM Mono',monospace;letter-spacing:.07em;display:flex;justify-content:space-between}
-.coverage-details summary::-webkit-details-marker{display:none}
-.coverage-details summary span{color:#efb859}
-.coverage-details[open] summary span{transform:rotate(90deg)}
-.coverage-details .coverage-method,.coverage-details .coverage-audit{border-top:0;padding-top:0}
+
 @media(max-width:900px){.coverage-intro{align-items:start;flex-direction:column;gap:22px}.coverage-intro>p{max-width:700px}.globe-hero{height:540px!important}.globe-hero .visual-caption{bottom:20px}}
-@media(max-width:620px){.globe-hero{height:410px!important;margin-top:20px!important}.globe-hero-top{top:5px;left:5px;font-size:8px}.globe-hero-top em{font-size:7px}.globe-filter{top:3px;right:0}.globe-filter label{font-size:8px}.globe-filter select{max-width:125px;font-size:10px;min-height:32px}.globe-hero-detail{left:5px;bottom:42px;padding:9px 11px;max-width:57%}#globe-region-kicker{font-size:7px}#globe-region-name{font-size:19px}#globe-region-count{font-size:8px}.globe-hero .visual-caption{bottom:12px;font-size:7px}.coverage-controls{grid-template-columns:1fr;gap:12px;padding:20px}.coverage-controls>div{gap:10px}.coverage-controls label{font-size:8px}.coverage-controls select{width:65%;font-size:11px}.coverage-summary{grid-template-columns:1fr 1fr}.coverage-summary>div{padding:19px 15px}.coverage-summary>div:nth-child(2){border-right:0}.coverage-summary>div:last-child{grid-column:1/-1;border-top:1px solid rgba(169,211,255,.16)}.coverage-summary strong{font-size:28px}.coverage-summary span{font-size:8px}.coverage-list{grid-template-columns:1fr;padding:0 19px 10px}.coverage-list-head{padding:17px 19px 8px}.coverage-method,.coverage-audit{padding:14px 19px;font-size:9px}}
-@media(max-width:620px){.coverage-audit-short,.coverage-details summary{padding-left:19px;padding-right:19px}}
+@media(max-width:620px){.globe-hero{height:410px!important;margin-top:20px!important}.globe-hero-top{top:5px;left:5px;font-size:8px}.globe-hero-top em{font-size:7px}.globe-filter{top:3px;right:0}.globe-filter label{font-size:8px}.globe-filter select{max-width:125px;font-size:10px;min-height:32px}.globe-hero-detail{left:5px;bottom:42px;padding:9px 11px;max-width:57%}#globe-region-kicker{font-size:7px}#globe-region-name{font-size:19px}#globe-region-count{font-size:8px}.globe-hero .visual-caption{bottom:12px;font-size:7px}.coverage-controls{grid-template-columns:1fr;gap:12px;padding:20px}.coverage-controls>div{gap:10px}.coverage-controls label{font-size:8px}.coverage-controls select{width:65%;font-size:11px}.coverage-summary{grid-template-columns:1fr 1fr}.coverage-summary>div{padding:19px 15px}.coverage-summary>div:nth-child(2){border-right:0}.coverage-summary>div:last-child{grid-column:1/-1;border-top:1px solid rgba(169,211,255,.16)}.coverage-summary strong{font-size:28px}.coverage-summary span{font-size:8px}.coverage-list{grid-template-columns:1fr;padding:0 19px 10px}.coverage-list-head{padding:17px 19px 8px}}
 
 /* Local, non-animated coverage projection. Country geometry uses the globe's atlas. */
 .coverage-feedback{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(0,1fr);border-bottom:1px solid rgba(169,211,255,.16)}
