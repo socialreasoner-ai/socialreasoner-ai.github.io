@@ -6,10 +6,10 @@
   "paperRespondents": 281995,
   "paperResponses": 8725666,
   "unmappedRespondents": 0,
-  "updated": "2026-11-03",
+  "updated": "2026-11-04",
   "sourceVersion": "no-perception-strict, September 2026 data release",
   "methodology": "Respondents are counted once per dataset using person_id across train and test. Totals sum dataset-level respondents; the same individual may appear in more than one survey. Counts are unweighted sample counts, not population estimates.",
-  "geographyNote": "Country/region labels come from the survey profiles. Czech Republic/Czechia and Slovak Republic/Slovakia are consolidated. Great Britain retains its survey label. Markers are representative regional centers, not individual locations.",
+  "geographyNote": "Display names are standardized for the website; counts retain the survey geographic groupings. China (mainland) and Taiwan, China share map shading and interaction highlights. Marker sizes and displayed counts remain specific to each survey region; linked shading does not imply samples in every region. Czech Republic/Czechia and Slovak Republic/Slovakia are consolidated. Great Britain retains its survey label. Markers are representative regional centers, not individual locations.",
   "versionNote": "The current data release contains 281,977 dataset-level respondents, 18 fewer than the 281,995 reported in the manuscript: ISSP2015 −3, ISSP2016 −4, ISSP2019 −9, and ISSP2021 −2. The reason for the difference is not established.",
   "datasets": [
     {
@@ -984,10 +984,7 @@
         "ISSP2019": 1795,
         "ISSP2021": 951,
         "GSS2022": 500
-      },
-      "sourceLabels": [
-        "United States"
-      ]
+      }
     },
     {
       "id": "ZAF",
@@ -1002,10 +999,7 @@
         "ISSP2016": 2692,
         "ISSP2019": 1425,
         "ISSP2021": 2186
-      },
-      "sourceLabels": [
-        "South Africa"
-      ]
+      }
     },
     {
       "id": "CHE",
@@ -1021,10 +1015,7 @@
         "ISSP2016": 1007,
         "ISSP2019": 2865,
         "ISSP2021": 2936
-      },
-      "sourceLabels": [
-        "Switzerland"
-      ]
+      }
     },
     {
       "id": "FRA",
@@ -1040,10 +1031,7 @@
         "ISSP2016": 1351,
         "ISSP2019": 1574,
         "ISSP2021": 1541
-      },
-      "sourceLabels": [
-        "France"
-      ]
+      }
     },
     {
       "id": "DEU",
@@ -1059,10 +1047,7 @@
         "ISSP2016": 1640,
         "ISSP2019": 1272,
         "ISSP2021": 1604
-      },
-      "sourceLabels": [
-        "Germany"
-      ]
+      }
     },
     {
       "id": "PHL",
@@ -1077,10 +1062,7 @@
         "ISSP2016": 1169,
         "ISSP2019": 4085,
         "ISSP2021": 1675
-      },
-      "sourceLabels": [
-        "Philippines"
-      ]
+      }
     },
     {
       "id": "DNK",
@@ -1096,10 +1078,7 @@
         "ISSP2016": 1010,
         "ISSP2019": 1005,
         "ISSP2021": 1455
-      },
-      "sourceLabels": [
-        "Denmark"
-      ]
+      }
     },
     {
       "id": "RUS",
@@ -1115,14 +1094,11 @@
         "ISSP2016": 1467,
         "ISSP2019": 1571,
         "ISSP2021": 1562
-      },
-      "sourceLabels": [
-        "Russia"
-      ]
+      }
     },
     {
       "id": "TWN",
-      "label": "Taiwan",
+      "label": "Taiwan, China",
       "numericId": "158",
       "lon": 120.9716,
       "lat": 23.739,
@@ -1134,9 +1110,7 @@
         "ISSP2019": 1564,
         "ISSP2021": 1557
       },
-      "sourceLabels": [
-        "Taiwan"
-      ]
+      "highlightGroup": "CHN"
     },
     {
       "id": "CZE",
@@ -1152,11 +1126,7 @@
         "ISSP2016": 1235,
         "ISSP2019": 1848,
         "ISSP2021": 1105
-      },
-      "sourceLabels": [
-        "Czechia",
-        "Czech Republic"
-      ]
+      }
     },
     {
       "id": "NOR",
@@ -1172,10 +1142,7 @@
         "ISSP2016": 1166,
         "ISSP2019": 1280,
         "ISSP2021": 1416
-      },
-      "sourceLabels": [
-        "Norway"
-      ]
+      }
     },
     {
       "id": "JPN",
@@ -1190,10 +1157,7 @@
         "ISSP2016": 1474,
         "ISSP2019": 1370,
         "ISSP2021": 1288
-      },
-      "sourceLabels": [
-        "Japan"
-      ]
+      }
     },
     {
       "id": "ISL",
@@ -1209,10 +1173,7 @@
         "ISSP2016": 1152,
         "ISSP2019": 1180,
         "ISSP2021": 905
-      },
-      "sourceLabels": [
-        "Iceland"
-      ]
+      }
     },
     {
       "id": "FIN",
@@ -1228,10 +1189,7 @@
         "ISSP2016": 1125,
         "ISSP2019": 927,
         "ISSP2021": 947
-      },
-      "sourceLabels": [
-        "Finland"
-      ]
+      }
     },
     {
       "id": "HRV",
@@ -1247,10 +1205,7 @@
         "ISSP2016": 984,
         "ISSP2019": 924,
         "ISSP2021": 1043
-      },
-      "sourceLabels": [
-        "Croatia"
-      ]
+      }
     },
     {
       "id": "SWE",
@@ -1265,10 +1220,7 @@
         "ISSP2015": 1097,
         "ISSP2016": 1086,
         "ISSP2019": 1591
-      },
-      "sourceLabels": [
-        "Sweden"
-      ]
+      }
     },
     {
       "id": "SVN",
@@ -1284,10 +1236,7 @@
         "ISSP2016": 964,
         "ISSP2019": 1127,
         "ISSP2021": 931
-      },
-      "sourceLabels": [
-        "Slovenia"
-      ]
+      }
     },
     {
       "id": "AUT",
@@ -1302,10 +1251,7 @@
         "ISSP2015": 943,
         "ISSP2019": 1228,
         "ISSP2021": 1114
-      },
-      "sourceLabels": [
-        "Austria"
-      ]
+      }
     },
     {
       "id": "ESP",
@@ -1319,14 +1265,11 @@
         "ISSP2009": 913,
         "ISSP2015": 1748,
         "ISSP2016": 1747
-      },
-      "sourceLabels": [
-        "Spain"
-      ]
+      }
     },
     {
       "id": "CHN",
-      "label": "China",
+      "label": "China (mainland)",
       "numericId": "156",
       "lon": 103.4525,
       "lat": 36.6834,
@@ -1336,9 +1279,7 @@
         "ISSP2015": 1475,
         "ISSP2021": 974
       },
-      "sourceLabels": [
-        "China"
-      ]
+      "highlightGroup": "CHN"
     },
     {
       "id": "SVK",
@@ -1353,11 +1294,7 @@
         "ISSP2015": 1071,
         "ISSP2016": 1087,
         "ISSP2021": 903
-      },
-      "sourceLabels": [
-        "Slovakia",
-        "Slovak Republic"
-      ]
+      }
     },
     {
       "id": "AUS",
@@ -1372,10 +1309,7 @@
         "ISSP2016": 1117,
         "ISSP2019": 968,
         "ISSP2021": 846
-      },
-      "sourceLabels": [
-        "Australia"
-      ]
+      }
     },
     {
       "id": "POL",
@@ -1389,10 +1323,7 @@
         "ISSP2009": 1006,
         "ISSP2015": 1922,
         "ISSP2021": 1024
-      },
-      "sourceLabels": [
-        "Poland"
-      ]
+      }
     },
     {
       "id": "LTU",
@@ -1407,10 +1338,7 @@
         "ISSP2015": 1025,
         "ISSP2016": 923,
         "ISSP2019": 1000
-      },
-      "sourceLabels": [
-        "Lithuania"
-      ]
+      }
     },
     {
       "id": "ISR",
@@ -1425,10 +1353,7 @@
         "ISSP2016": 1182,
         "ISSP2019": 1144,
         "ISSP2021": 1122
-      },
-      "sourceLabels": [
-        "Israel"
-      ]
+      }
     },
     {
       "id": "HUN",
@@ -1443,10 +1368,7 @@
         "ISSP2015": 940,
         "ISSP2016": 971,
         "ISSP2021": 974
-      },
-      "sourceLabels": [
-        "Hungary"
-      ]
+      }
     },
     {
       "id": "GEO",
@@ -1459,10 +1381,7 @@
         "EVS2017": 2137,
         "ISSP2015": 1447,
         "ISSP2016": 1447
-      },
-      "sourceLabels": [
-        "Georgia"
-      ]
+      }
     },
     {
       "id": "ITA",
@@ -1476,10 +1395,7 @@
         "ISSP2009": 830,
         "ISSP2019": 1087,
         "ISSP2021": 911
-      },
-      "sourceLabels": [
-        "Italy"
-      ]
+      }
     },
     {
       "id": "BEL",
@@ -1492,10 +1408,7 @@
         "ISSP2009": 1108,
         "ISSP2015": 1935,
         "ISSP2016": 1741
-      },
-      "sourceLabels": [
-        "Belgium"
-      ]
+      }
     },
     {
       "id": "CHL",
@@ -1509,10 +1422,7 @@
         "ISSP2015": 1214,
         "ISSP2016": 1175,
         "ISSP2019": 1274
-      },
-      "sourceLabels": [
-        "Chile"
-      ]
+      }
     },
     {
       "id": "NZL",
@@ -1527,10 +1437,7 @@
         "ISSP2016": 1055,
         "ISSP2019": 1100,
         "ISSP2021": 1049
-      },
-      "sourceLabels": [
-        "New Zealand"
-      ]
+      }
     },
     {
       "id": "IND",
@@ -1543,10 +1450,7 @@
         "ISSP2015": 1305,
         "ISSP2016": 1448,
         "ISSP2021": 1630
-      },
-      "sourceLabels": [
-        "India"
-      ]
+      }
     },
     {
       "id": "LVA",
@@ -1560,10 +1464,7 @@
         "ISSP2009": 968,
         "ISSP2015": 955,
         "ISSP2016": 962
-      },
-      "sourceLabels": [
-        "Latvia"
-      ]
+      }
     },
     {
       "id": "THA",
@@ -1576,10 +1477,7 @@
         "ISSP2016": 1302,
         "ISSP2019": 1434,
         "ISSP2021": 1161
-      },
-      "sourceLabels": [
-        "Thailand"
-      ]
+      }
     },
     {
       "id": "VEN",
@@ -1593,10 +1491,7 @@
         "ISSP2015": 990,
         "ISSP2016": 988,
         "ISSP2019": 1034
-      },
-      "sourceLabels": [
-        "Venezuela"
-      ]
+      }
     },
     {
       "id": "SUR",
@@ -1610,10 +1505,7 @@
         "ISSP2016": 792,
         "ISSP2019": 770,
         "ISSP2021": 975
-      },
-      "sourceLabels": [
-        "Suriname"
-      ]
+      }
     },
     {
       "id": "BGR",
@@ -1626,10 +1518,7 @@
         "EVS2017": 1357,
         "ISSP2009": 950,
         "ISSP2019": 1056
-      },
-      "sourceLabels": [
-        "Bulgaria"
-      ]
+      }
     },
     {
       "id": "UKR",
@@ -1641,10 +1530,7 @@
       "byDataset": {
         "EVS2017": 1319,
         "ISSP2009": 1970
-      },
-      "sourceLabels": [
-        "Ukraine"
-      ]
+      }
     },
     {
       "id": "EST",
@@ -1657,10 +1543,7 @@
         "EVS2017": 1023,
         "ISSP2009": 990,
         "ISSP2015": 1131
-      },
-      "sourceLabels": [
-        "Estonia"
-      ]
+      }
     },
     {
       "id": "TUR",
@@ -1672,10 +1555,7 @@
       "byDataset": {
         "ISSP2009": 1544,
         "ISSP2016": 1483
-      },
-      "sourceLabels": [
-        "Turkey"
-      ]
+      }
     },
     {
       "id": "GBR",
@@ -1689,10 +1569,7 @@
         "ISSP2009": 778,
         "ISSP2016": 341,
         "ISSP2019": 738
-      },
-      "sourceLabels": [
-        "Great Britain"
-      ]
+      }
     },
     {
       "id": "KOR",
@@ -1704,10 +1581,7 @@
       "byDataset": {
         "ISSP2009": 1543,
         "ISSP2016": 973
-      },
-      "sourceLabels": [
-        "South Korea"
-      ]
+      }
     },
     {
       "id": "NLD",
@@ -1719,10 +1593,7 @@
       "byDataset": {
         "EVS2017": 1259,
         "ISSP2021": 1227
-      },
-      "sourceLabels": [
-        "Netherlands"
-      ]
+      }
     },
     {
       "id": "MEX",
@@ -1734,10 +1605,7 @@
       "byDataset": {
         "ISSP2015": 1028,
         "ISSP2021": 885
-      },
-      "sourceLabels": [
-        "Mexico"
-      ]
+      }
     },
     {
       "id": "AZE",
@@ -1748,10 +1616,7 @@
       "count": 1678,
       "byDataset": {
         "EVS2017": 1678
-      },
-      "sourceLabels": [
-        "Azerbaijan"
-      ]
+      }
     },
     {
       "id": "BIH",
@@ -1762,10 +1627,7 @@
       "count": 1629,
       "byDataset": {
         "EVS2017": 1629
-      },
-      "sourceLabels": [
-        "Bosnia and Herzegovina"
-      ]
+      }
     },
     {
       "id": "ARM",
@@ -1776,10 +1638,7 @@
       "count": 1475,
       "byDataset": {
         "EVS2017": 1475
-      },
-      "sourceLabels": [
-        "Armenia"
-      ]
+      }
     },
     {
       "id": "PRT",
@@ -1791,10 +1650,7 @@
       "byDataset": {
         "EVS2017": 924,
         "ISSP2009": 473
-      },
-      "sourceLabels": [
-        "Portugal"
-      ]
+      }
     },
     {
       "id": "ALB",
@@ -1805,10 +1661,7 @@
       "count": 1392,
       "byDataset": {
         "EVS2017": 1392
-      },
-      "sourceLabels": [
-        "Albania"
-      ]
+      }
     },
     {
       "id": "ROU",
@@ -1819,10 +1672,7 @@
       "count": 1391,
       "byDataset": {
         "EVS2017": 1391
-      },
-      "sourceLabels": [
-        "Romania"
-      ]
+      }
     },
     {
       "id": "BLR",
@@ -1833,10 +1683,7 @@
       "count": 1247,
       "byDataset": {
         "EVS2017": 1247
-      },
-      "sourceLabels": [
-        "Belarus"
-      ]
+      }
     },
     {
       "id": "SRB",
@@ -1847,10 +1694,7 @@
       "count": 1198,
       "byDataset": {
         "EVS2017": 1198
-      },
-      "sourceLabels": [
-        "Serbia"
-      ]
+      }
     },
     {
       "id": "ARG",
@@ -1861,10 +1705,7 @@
       "count": 1116,
       "byDataset": {
         "ISSP2009": 1116
-      },
-      "sourceLabels": [
-        "Argentina"
-      ]
+      }
     },
     {
       "id": "MKD",
@@ -1875,10 +1716,7 @@
       "count": 901,
       "byDataset": {
         "EVS2017": 901
-      },
-      "sourceLabels": [
-        "North Macedonia"
-      ]
+      }
     },
     {
       "id": "CYP",
@@ -1889,10 +1727,7 @@
       "count": 828,
       "byDataset": {
         "ISSP2009": 828
-      },
-      "sourceLabels": [
-        "Cyprus"
-      ]
+      }
     },
     {
       "id": "MNE",
@@ -1903,10 +1738,7 @@
       "count": 764,
       "byDataset": {
         "EVS2017": 764
-      },
-      "sourceLabels": [
-        "Montenegro"
-      ]
+      }
     }
   ]
 }

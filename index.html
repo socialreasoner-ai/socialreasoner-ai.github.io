@@ -4,144 +4,154 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#020711">
-  <meta name="description" content="SocialReasoner explores a foundation model of human social reasoning distilled from heterogeneous experts. Research preview; open release coming soon.">
-  <meta property="og:title" content="SocialReasoner — Human reasoning, in context">
-  <meta property="og:description" content="Learning a foundation model of human social reasoning from heterogeneous experts. Research preview.">
+  <meta name="description" content="SocialReasoner explores a foundation model of human social reasoning distilled from heterogeneous experts. Research preview; open release coming soon." data-i18n-content="meta.description">
+  <meta property="og:title" content="SocialReasoner — Human reasoning, in context" data-i18n-content="meta.title">
+  <meta property="og:description" content="Learning a foundation model of human social reasoning from heterogeneous experts. Research preview." data-i18n-content="meta.ogDescription">
+  <meta property="og:locale" content="en_US">
   <meta property="og:type" content="website">
-  <title>SocialReasoner — Human reasoning, in context</title>
-  <link rel="icon" href="assets/favicon.svg?v=20261103-space" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20261103-space">
-  <link rel="stylesheet" href="globe.css?v=20261103-space">
-  <script defer src="app.js?v=20261103-space"></script>
+  <title data-i18n="meta.title">SocialReasoner — Human reasoning, in context</title>
+  <link rel="icon" href="assets/favicon.svg?v=20261104-regions" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=20261104-regions">
+  <link rel="stylesheet" href="globe.css?v=20261104-regions">
+  <link rel="stylesheet" href="i18n.css?v=20261104-five-languages-r1">
+  <script defer src="globe-locales.js?v=20261104-five-languages-r1"></script>
+  <script defer src="i18n.js?v=20261104-five-languages-r1"></script>
+  <script defer src="app.js?v=20261104-five-languages-r1"></script>
   <script defer src="assets/vendor/d3.min.js"></script>
   <script defer src="assets/vendor/topojson-client.min.js"></script>
-  <script defer src="globe.js?v=20261103-space"></script>
+  <script defer src="globe.js?v=20261104-five-languages-r1"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main"><span data-i18n="nav.skip">Skip to content</span></a>
   <div class="grain" aria-hidden="true"></div>
   <canvas id="ambient-canvas" aria-hidden="true"></canvas>
   <div class="ambient ambient-one" aria-hidden="true"></div>
   <div class="ambient ambient-two" aria-hidden="true"></div>
 
   <header class="site-header" id="top">
-    <a class="brand" href="#top" aria-label="SocialReasoner, back to top">
+    <a class="brand" href="#top" aria-label="SocialReasoner, back to top" data-i18n-aria-label="nav.brandAria">
       <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       <span>socialreasoner<span class="brand-dot">.</span></span>
     </a>
-    <nav class="desktop-nav" aria-label="Primary">
-      <a href="#idea">The idea</a>
-      <a href="#approach">Approach</a>
-      <a href="#evidence">Evidence</a>
-      <a href="#coverage">Coverage</a>
-      <a href="#release">Release</a>
+    <nav class="desktop-nav" aria-label="Primary" data-i18n-aria-label="nav.primaryAria">
+      <a href="#idea"><span data-i18n="nav.idea">The idea</span></a>
+      <a href="#approach"><span data-i18n="nav.approach">Approach</span></a>
+      <a href="#evidence"><span data-i18n="nav.evidence">Evidence</span></a>
+      <a href="#coverage"><span data-i18n="nav.coverage">Coverage</span></a>
+      <a href="#release"><span data-i18n="nav.release">Release</span></a>
     </nav>
-    <a class="header-cta" href="#release">Explore resources <span aria-hidden="true">↗</span></a>
-    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile primary" hidden>
-      <a href="#idea">The idea</a><a href="#approach">Approach</a><a href="#evidence">Evidence</a>
-      <a href="#coverage">Coverage</a><a href="#release">Release</a>
-      <a href="#release">Resources ↗</a>
+    <a class="header-cta" href="#release"><span data-i18n="nav.resources">Explore resources</span> <span aria-hidden="true">↗</span></a>
+    <div class="language-control">
+      <label class="sr-only" for="site-language">Language / 语言 / Langue / Sprache / 언어</label>
+      <select id="site-language" aria-label="Choose site language" data-i18n-aria-label="nav.languageAria">
+        <option value="en">EN</option><option value="zh">中文</option><option value="fr">FR</option><option value="de">DE</option><option value="ko">한국어</option>
+      </select>
+    </div>
+    <button class="menu-toggle" type="button" aria-label="Open menu" data-i18n-aria-label="nav.openMenu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile primary" data-i18n-aria-label="nav.mobileAria" hidden>
+      <a href="#idea"><span data-i18n="nav.idea">The idea</span></a><a href="#approach"><span data-i18n="nav.approach">Approach</span></a><a href="#evidence"><span data-i18n="nav.evidence">Evidence</span></a>
+      <a href="#coverage"><span data-i18n="nav.coverage">Coverage</span></a><a href="#release"><span data-i18n="nav.release">Release</span></a>
+      <a href="#release"><span data-i18n="nav.resourcesShort">Resources ↗</span></a>
     </nav>
   </header>
 
   <main id="main">
     <section class="hero section-shell" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <div class="eyebrow hero-eyebrow"><span class="status-pulse" aria-hidden="true"></span> RESEARCH PREVIEW <span class="eyebrow-sep">/</span> OPEN RELEASE COMING SOON</div>
+        <div class="eyebrow hero-eyebrow"><span class="status-pulse" aria-hidden="true"></span> <span data-i18n="hero.preview">RESEARCH PREVIEW</span> <span class="eyebrow-sep">/</span> <span data-i18n="hero.releaseSoon">OPEN RELEASE COMING SOON</span></div>
         <h1 id="hero-title"><span class="hero-line">Social</span><span class="hero-line hero-line-em">Reasoner<span class="title-period">.</span></span></h1>
-        <p class="hero-subtitle">Learning a Foundation Model of Human Social Reasoning from Heterogeneous Experts</p>
-        <p class="hero-description">People rarely make choices from demographics alone. SocialReasoner brings together diverse predictive perspectives to model how context, perceptions, and choices connect.</p>
+        <p class="hero-subtitle"><span data-i18n="paper.title">Learning a Foundation Model of Human Social Reasoning from Heterogeneous Experts</span></p>
+        <p class="hero-description"><span data-i18n="hero.description">People rarely make choices from demographics alone. SocialReasoner brings together diverse predictive perspectives to model how context, perceptions, and choices connect.</span></p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#approach">Explore the method <span aria-hidden="true">↘</span></a>
-          <a class="button button-quiet" href="#evidence">See the evidence <span aria-hidden="true">↗</span></a>
+          <a class="button button-primary" href="#approach"><span data-i18n="hero.exploreMethod">Explore the method</span> <span aria-hidden="true">↘</span></a>
+          <a class="button button-quiet" href="#evidence"><span data-i18n="hero.seeEvidence">See the evidence</span> <span aria-hidden="true">↗</span></a>
         </div>
-        <div class="hero-resource-links" aria-label="Upcoming resources"><div data-release-mini="data"><span>01</span> Data <em>Hugging Face · Coming soon</em></div><div data-release-mini="code"><span>02</span> Code <em>GitHub · Coming soon</em></div><div data-release-mini="model"><span>03</span> Model <em>Hugging Face · Coming soon</em></div></div>
+        <div class="hero-resource-links" aria-label="Upcoming resources" data-i18n-aria-label="resource.upcomingAria"><div data-release-mini="data"><span>01</span> <span data-i18n="resource.data">Data</span> <em><span data-i18n="resource.hfSoon">Hugging Face · Coming soon</span></em></div><div data-release-mini="code"><span>02</span> <span data-i18n="resource.code">Code</span> <em><span data-i18n="resource.githubSoon">GitHub · Coming soon</span></em></div><div data-release-mini="model"><span>03</span> <span data-i18n="resource.model">Model</span> <em><span data-i18n="resource.hfSoon">Hugging Face · Coming soon</span></em></div></div>
       </div>
-      <div class="hero-visual globe-hero" aria-label="Interactive globe showing respondent counts by country or region">
+      <div class="hero-visual globe-hero" aria-label="Interactive globe showing respondent counts by survey region" data-i18n-aria-label="hero.globeAria">
         <div class="globe-orbit globe-orbit-one" aria-hidden="true"></div><div class="globe-orbit globe-orbit-two" aria-hidden="true"></div>
-        <div class="globe-frame"><canvas id="globe-canvas" aria-label="Drag to rotate the world globe. Select a dataset or region using the controls below for keyboard access."></canvas></div>
-        <div class="globe-hero-top"><span class="globe-light" aria-hidden="true"></span><span>GEOGRAPHIC COVERAGE <em>SURVEY DATA</em></span></div>
-        <div class="globe-filter"><label for="hero-dataset">EXPLORE DATASET</label><select id="hero-dataset" aria-label="Filter globe by dataset" disabled><option value="all">Loading coverage…</option></select></div>
-        <div class="globe-hero-detail" aria-live="polite"><span id="globe-region-kicker">WORLDWIDE / ALL DATASETS</span><strong id="globe-region-name">Loading coverage</strong><span id="globe-region-count">Please wait</span></div>
+        <div class="globe-frame"><canvas id="globe-canvas" aria-label="Drag to rotate the world globe. Select a dataset or region using the controls below for keyboard access." data-i18n-aria-label="hero.canvasAria"></canvas></div>
+        <div class="globe-hero-top"><span class="globe-light" aria-hidden="true"></span><span><span data-i18n="hero.geoCoverage">GEOGRAPHIC COVERAGE</span> <em><span data-i18n="hero.surveyData">SURVEY DATA</span></em></span></div>
+        <div class="globe-filter"><label for="hero-dataset"><span data-i18n="hero.exploreDataset">EXPLORE DATASET</span></label><select id="hero-dataset" aria-label="Filter globe by dataset" data-i18n-aria-label="hero.filterAria" disabled><option value="all" data-i18n="hero.loadingCoverage">Loading coverage…</option></select></div>
+        <div class="globe-hero-detail" aria-live="polite"><span id="globe-region-kicker"><span data-i18n="hero.worldwide">WORLDWIDE / ALL DATASETS</span></span><strong id="globe-region-name"><span data-i18n="hero.loading">Loading coverage</span></strong><span id="globe-region-count"><span data-i18n="hero.pleaseWait">Please wait</span></span></div>
         <div class="globe-tooltip" id="globe-tooltip" role="status" hidden></div>
-        <div class="globe-actions"><button type="button" id="globe-spin" aria-label="Pause globe rotation" disabled>Ⅱ <span>PAUSE</span></button><button type="button" id="globe-reset" aria-label="Reset globe view" disabled>↺ <span>RESET</span></button></div>
-        <div class="visual-caption">COUNTRY CENTROIDS INDICATE COVERAGE <span aria-hidden="true">·</span> DRAG TO EXPLORE</div>
+        <div class="globe-actions"><button type="button" id="globe-spin" aria-label="Pause globe rotation" data-i18n-aria-label="hero.pauseAria" disabled>Ⅱ <span><span data-i18n="hero.pause">PAUSE</span></span></button><button type="button" id="globe-reset" aria-label="Reset globe view" data-i18n-aria-label="hero.resetAria" disabled>↺ <span><span data-i18n="hero.reset">RESET</span></span></button></div>
+        <div class="visual-caption"><span data-i18n="hero.centroids">SURVEY REGION CENTERS INDICATE COVERAGE</span> <span aria-hidden="true">·</span> <span data-i18n="hero.drag">DRAG TO EXPLORE</span></div>
       </div>
-      <div class="hero-bottom"><span>SCROLL TO EXPLORE</span><span class="hero-scroll-line" aria-hidden="true"></span><span>01 / 05</span></div>
+      <div class="hero-bottom"><span><span data-i18n="hero.scroll">SCROLL TO EXPLORE</span></span><span class="hero-scroll-line" aria-hidden="true"></span><span>01 / 05</span></div>
     </section>
 
-    <section class="stats-strip" aria-label="Study scale">
+    <section class="stats-strip" aria-label="Study scale" data-i18n-aria-label="stats.aria">
       <div class="section-shell stats-inner">
-        <div class="stat"><strong>9</strong><span>datasets</span></div>
-        <div class="stat"><strong>281,995</strong><span>respondents · manuscript</span></div>
-        <div class="stat"><strong>8.7M<span class="stat-plus">+</span></strong><span>responses</span></div>
-        <div class="stat"><strong>365</strong><span>questions</span></div>
-        <div class="stat"><strong>13</strong><span>thematic areas</span></div>
+        <div class="stat"><strong>9</strong><span><span data-i18n="stats.datasets">datasets</span></span></div>
+        <div class="stat"><strong>281,995</strong><span><span data-i18n="stats.respondents">respondents · manuscript</span></span></div>
+        <div class="stat"><strong>8.7M<span class="stat-plus">+</span></strong><span><span data-i18n="stats.responses">responses</span></span></div>
+        <div class="stat"><strong>365</strong><span><span data-i18n="stats.questions">questions</span></span></div>
+        <div class="stat"><strong>13</strong><span><span data-i18n="stats.areas">thematic areas</span></span></div>
       </div>
     </section>
 
     <section class="idea section-shell section-pad reveal" id="idea" aria-labelledby="idea-title">
-      <div class="section-number"><span class="num-ring">01</span><span>THE QUESTION</span></div>
+      <div class="section-number"><span class="num-ring">01</span><span><span data-i18n="idea.number">THE QUESTION</span></span></div>
       <div class="idea-grid">
-        <div class="idea-heading"><p class="kicker">BEYOND A PROFILE</p><h2 id="idea-title">To understand a choice,<br><em>see the world around it.</em></h2></div>
-        <div class="idea-body"><p class="lede">Social decisions emerge from more than who someone is. What they believe, perceive, and experience can change the meaning of the same question.</p><p>The research asks whether a single language model can learn useful reasoning patterns from heterogeneous experts: interpretable additive models, tree ensembles, and neural networks.</p></div>
+        <div class="idea-heading"><p class="kicker"><span data-i18n="idea.kicker">BEYOND A PROFILE</span></p><h2 id="idea-title"><span data-i18n="idea.heading1">To understand a choice,</span><br><em><span data-i18n="idea.heading2">see the world around it.</span></em></h2></div>
+        <div class="idea-body"><p class="lede"><span data-i18n="idea.lede">Social decisions emerge from more than who someone is. What they believe, perceive, and experience can change the meaning of the same question.</span></p><p><span data-i18n="idea.body">The research asks whether a single language model can learn useful reasoning patterns from heterogeneous experts: interpretable additive models, tree ensembles, and neural networks.</span></p></div>
       </div>
-      <div class="idea-map" aria-label="Conceptual illustration: a person's context and perceptions shape a choice">
-        <div class="map-column map-input"><span class="map-label">INPUT / THE PERSON</span><span class="map-head">A lived context</span><span class="map-item">Demographics</span><span class="map-item">Perceptions</span><span class="map-item">Question</span></div>
+      <div class="idea-map" aria-label="Conceptual illustration: a person's context and perceptions shape a choice" data-i18n-aria-label="idea.mapAria">
+        <div class="map-column map-input"><span class="map-label"><span data-i18n="idea.input">INPUT / THE PERSON</span></span><span class="map-head"><span data-i18n="idea.context">A lived context</span></span><span class="map-item"><span data-i18n="idea.demographics">Demographics</span></span><span class="map-item"><span data-i18n="idea.perceptions">Perceptions</span></span><span class="map-item"><span data-i18n="idea.question">Question</span></span></div>
         <div class="map-link" aria-hidden="true"><span></span><span class="map-arrow">→</span></div>
-        <div class="map-column map-model"><span class="map-label">PROCESS / THE MODEL</span><span class="map-head">Multiple lenses</span><div class="map-lenses" aria-hidden="true"><span>A</span><span>T</span><span>N</span></div><span class="map-detail">Additive · Tree · Neural</span></div>
+        <div class="map-column map-model"><span class="map-label"><span data-i18n="idea.process">PROCESS / THE MODEL</span></span><span class="map-head"><span data-i18n="idea.lenses">Multiple lenses</span></span><div class="map-lenses" aria-hidden="true"><span>A</span><span>T</span><span>N</span></div><span class="map-detail"><span data-i18n="idea.experts">Additive · Tree · Neural</span></span></div>
         <div class="map-link" aria-hidden="true"><span></span><span class="map-arrow">→</span></div>
-        <div class="map-column map-output"><span class="map-label">OUTPUT / THE TASK</span><span class="map-head">A predicted response</span><span class="map-outcome">Choice <span aria-hidden="true">↗</span></span><span class="map-detail">Question-level prediction</span></div>
+        <div class="map-column map-output"><span class="map-label"><span data-i18n="idea.output">OUTPUT / THE TASK</span></span><span class="map-head"><span data-i18n="idea.predicted">A predicted response</span></span><span class="map-outcome"><span data-i18n="idea.choice">Choice</span> <span aria-hidden="true">↗</span></span><span class="map-detail"><span data-i18n="idea.questionLevel">Question-level prediction</span></span></div>
       </div>
-      <p class="figure-caveat">Conceptual overview. Generated reasoning is model-based evidence for prediction, not a verified account of any individual’s internal thought process.</p>
+      <p class="figure-caveat"><span data-i18n="idea.caveat">Conceptual overview. Generated reasoning is model-based evidence for prediction, not a verified account of any individual’s internal thought process.</span></p>
     </section>
 
-    <section class="statement section-pad reveal" aria-label="Research thesis"><div class="section-shell statement-inner"><span class="statement-asterisk" aria-hidden="true">✳</span><p>Many perspectives.<br><span>One foundation model.</span></p><span class="statement-side">DIVERSE EXPERTS<br>SHARED REASONING</span></div></section>
+    <section class="statement section-pad reveal" aria-label="Research thesis" data-i18n-aria-label="statement.aria"><div class="section-shell statement-inner"><span class="statement-asterisk" aria-hidden="true">✳</span><p><span data-i18n="statement.line1">Many perspectives.</span><br><span><span data-i18n="statement.line2">One foundation model.</span></span></p><span class="statement-side"><span data-i18n="statement.experts">DIVERSE EXPERTS</span><br><span data-i18n="statement.reasoning">SHARED REASONING</span></span></div></section>
 
     <section class="approach section-shell section-pad reveal" id="approach" aria-labelledby="approach-title">
-      <div class="section-number"><span class="num-ring">02</span><span>THE APPROACH</span></div>
-      <div class="section-heading-row"><div><p class="kicker">FROM SIGNAL TO LANGUAGE</p><h2 id="approach-title">A different kind<br>of supervision<span class="accent-punct">.</span></h2></div><p>Three model families surface complementary evidence. SocialReasoner distills their decision signals into language model training data.</p></div>
-      <div class="pipeline" role="tablist" aria-label="Method stages">
-        <button type="button" class="stage active" id="stage-tab-0" role="tab" aria-selected="true" aria-controls="stage-panel" data-stage="0"><span class="stage-num">01</span><span class="stage-title">Gather experts</span><span class="stage-arrow" aria-hidden="true">↗</span></button>
-        <button type="button" class="stage" id="stage-tab-1" role="tab" aria-selected="false" tabindex="-1" aria-controls="stage-panel" data-stage="1"><span class="stage-num">02</span><span class="stage-title">Read contributions</span><span class="stage-arrow" aria-hidden="true">↗</span></button>
-        <button type="button" class="stage" id="stage-tab-2" role="tab" aria-selected="false" tabindex="-1" aria-controls="stage-panel" data-stage="2"><span class="stage-num">03</span><span class="stage-title">Refine evidence</span><span class="stage-arrow" aria-hidden="true">↗</span></button>
-        <button type="button" class="stage" id="stage-tab-3" role="tab" aria-selected="false" tabindex="-1" aria-controls="stage-panel" data-stage="3"><span class="stage-num">04</span><span class="stage-title">Distill a model</span><span class="stage-arrow" aria-hidden="true">↗</span></button>
+      <div class="section-number"><span class="num-ring">02</span><span><span data-i18n="approach.number">THE APPROACH</span></span></div>
+      <div class="section-heading-row"><div><p class="kicker"><span data-i18n="approach.kicker">FROM SIGNAL TO LANGUAGE</span></p><h2 id="approach-title"><span data-i18n="approach.heading1">A different kind</span><br><span data-i18n="approach.heading2">of supervision</span><span class="accent-punct">.</span></h2></div><p><span data-i18n="approach.intro">Three model families surface complementary evidence. SocialReasoner distills their decision signals into language model training data.</span></p></div>
+      <div class="pipeline" role="tablist" aria-label="Method stages" data-i18n-aria-label="stage.aria">
+        <button type="button" class="stage active" id="stage-tab-0" role="tab" aria-selected="true" aria-controls="stage-panel" data-stage="0"><span class="stage-num">01</span><span class="stage-title"><span data-i18n="stage.0.label">Gather experts</span></span><span class="stage-arrow" aria-hidden="true">↗</span></button>
+        <button type="button" class="stage" id="stage-tab-1" role="tab" aria-selected="false" tabindex="-1" aria-controls="stage-panel" data-stage="1"><span class="stage-num">02</span><span class="stage-title"><span data-i18n="stage.1.label">Read contributions</span></span><span class="stage-arrow" aria-hidden="true">↗</span></button>
+        <button type="button" class="stage" id="stage-tab-2" role="tab" aria-selected="false" tabindex="-1" aria-controls="stage-panel" data-stage="2"><span class="stage-num">03</span><span class="stage-title"><span data-i18n="stage.2.label">Refine evidence</span></span><span class="stage-arrow" aria-hidden="true">↗</span></button>
+        <button type="button" class="stage" id="stage-tab-3" role="tab" aria-selected="false" tabindex="-1" aria-controls="stage-panel" data-stage="3"><span class="stage-num">04</span><span class="stage-title"><span data-i18n="stage.3.label">Distill a model</span></span><span class="stage-arrow" aria-hidden="true">↗</span></button>
       </div>
-      <div class="stage-panel" id="stage-panel" role="tabpanel" aria-labelledby="stage-tab-0" tabindex="0"><span class="panel-index">STEP 01 / 04</span><div class="panel-icon" aria-hidden="true">✳</div><div><h3 id="stage-panel-title">Experts see different structure.</h3><p id="stage-panel-body">An explainable boosting model, a LightGBM tree ensemble, and a multilayer perceptron each learn useful links between respondent context and choices.</p></div></div>
-      <details class="paper-figure"><summary><span>View the method figure from the manuscript</span><span aria-hidden="true">↗</span></summary><div class="paper-figure-inner"><img src="assets/method-from-manuscript.png" alt="Method diagram: three experts yield feature contributions, which are semantically denoised into reasoning records and combined for supervised fine-tuning." loading="lazy"><p>Figure 3 in the manuscript. The illustration shows the full expert-to-reasoning-to-SFT pipeline.</p></div></details>
+      <div class="stage-panel" id="stage-panel" role="tabpanel" aria-labelledby="stage-tab-0" tabindex="0"><span class="panel-index"><span data-i18n="stage.initialStep">STEP 01 / 04</span></span><div class="panel-icon" aria-hidden="true">✳</div><div><h3 id="stage-panel-title"><span data-i18n="stage.0.heading">Experts see different structure.</span></h3><p id="stage-panel-body"><span data-i18n="stage.0.body">An explainable boosting model, a LightGBM tree ensemble, and a multilayer perceptron each learn useful links between respondent context and choices.</span></p></div></div>
+      <details class="paper-figure"><summary><span><span data-i18n="approach.figureSummary">View the method figure from the manuscript</span></span><span aria-hidden="true">↗</span></summary><div class="paper-figure-inner"><img src="assets/method-from-manuscript.png" alt="Method diagram: three experts yield feature contributions, which are semantically denoised into reasoning records and combined for supervised fine-tuning." data-i18n-alt="approach.figureAlt" loading="lazy"><p><span data-i18n="approach.figureCaption">Figure 3 in the manuscript. The illustration shows the full expert-to-reasoning-to-SFT pipeline.</span></p></div></details>
     </section>
 
     <section class="evidence section-pad reveal" id="evidence" aria-labelledby="evidence-title">
       <div class="section-shell">
-        <div class="section-number"><span class="num-ring">03</span><span>THE EVIDENCE</span></div>
-        <div class="section-heading-row evidence-head"><div><p class="kicker">REPORTED RESULTS</p><h2 id="evidence-title">A clearer signal<br>across surveys<span class="accent-punct">.</span></h2></div><p>Compare base instruction models with SocialReasoner on the manuscript’s eight main evaluation datasets. Every bar shows reported accuracy.</p></div>
+        <div class="section-number"><span class="num-ring">03</span><span><span data-i18n="evidence.number">THE EVIDENCE</span></span></div>
+        <div class="section-heading-row evidence-head"><div><p class="kicker"><span data-i18n="evidence.kicker">REPORTED RESULTS</span></p><h2 id="evidence-title"><span data-i18n="evidence.heading1">A clearer signal</span><br><span data-i18n="evidence.heading2">across surveys</span><span class="accent-punct">.</span></h2></div><p><span data-i18n="evidence.intro">Compare base instruction models with SocialReasoner on the manuscript’s eight main evaluation datasets. Every bar shows reported accuracy.</span></p></div>
         <div class="benchmark-frame">
-          <div class="benchmark-top"><div><span class="overline">TABLE 1 / EIGHT DATASETS</span><h3>Respondent-level prediction</h3></div><div class="benchmark-selector" role="tablist" aria-label="Select base language model"><button type="button" class="model-tab active" role="tab" data-model="qwen3" aria-selected="true">Qwen3 · 4B</button><button type="button" class="model-tab" role="tab" data-model="qwen25" aria-selected="false" tabindex="-1">Qwen2.5 · 7B</button><button type="button" class="model-tab" role="tab" data-model="llama" aria-selected="false" tabindex="-1">Llama · 8B</button></div></div>
-          <div class="benchmark-summary" aria-live="polite"><div><span>AVERAGE RELATIVE GAIN</span><strong id="relative-gain">+34.37%</strong></div><div><span>MEAN BASE ACCURACY</span><strong id="mean-base">43.36%</strong></div><div><span>MEAN WITH SOCIALREASONER</span><strong id="mean-ours">58.27%</strong></div></div>
-          <div class="chart-header"><span>DATASET</span><span>ACCURACY (%) <i>0</i><i>70</i></span></div>
-          <div class="benchmark-chart" id="benchmark-chart" role="tabpanel" aria-live="polite" aria-label="Accuracy chart"></div>
-          <div class="chart-key"><span><i class="key-base"></i>Base</span><span><i class="key-ours"></i>With SocialReasoner</span></div>
-          <p class="chart-note">Accuracy (%) from Table 1 of the manuscript. The relative gain is reported by the paper; means above are arithmetic averages of the displayed rounded dataset values.</p>
+          <div class="benchmark-top"><div><span class="overline"><span data-i18n="evidence.table">TABLE 1 / EIGHT DATASETS</span></span><h3><span data-i18n="evidence.prediction">Respondent-level prediction</span></h3></div><div class="benchmark-selector" role="tablist" aria-label="Select base language model" data-i18n-aria-label="evidence.modelAria"><button type="button" class="model-tab active" role="tab" data-model="qwen3" aria-selected="true">Qwen3 · 4B</button><button type="button" class="model-tab" role="tab" data-model="qwen25" aria-selected="false" tabindex="-1">Qwen2.5 · 7B</button><button type="button" class="model-tab" role="tab" data-model="llama" aria-selected="false" tabindex="-1">Llama · 8B</button></div></div>
+          <div class="benchmark-summary" aria-live="polite"><div><span><span data-i18n="evidence.relativeGain">AVERAGE RELATIVE GAIN</span></span><strong id="relative-gain">+34.37%</strong></div><div><span><span data-i18n="evidence.meanBase">MEAN BASE ACCURACY</span></span><strong id="mean-base">43.36%</strong></div><div><span><span data-i18n="evidence.meanOurs">MEAN WITH SOCIALREASONER</span></span><strong id="mean-ours">58.27%</strong></div></div>
+          <div class="chart-header"><span><span data-i18n="evidence.dataset">DATASET</span></span><span><span data-i18n="evidence.accuracy">ACCURACY (%)</span> <i>0</i><i>70</i></span></div>
+          <div class="benchmark-chart" id="benchmark-chart" role="tabpanel" aria-live="polite" aria-label="Accuracy chart" data-i18n-aria-label="evidence.chartAriaInitial"></div>
+          <div class="chart-key"><span><i class="key-base"></i><span data-i18n="evidence.base">Base</span></span><span><i class="key-ours"></i><span data-i18n="evidence.withOurs">With SocialReasoner</span></span></div>
+          <p class="chart-note"><span data-i18n="evidence.note">Accuracy (%) from Table 1 of the manuscript. The relative gain is reported by the paper; means above are arithmetic averages of the displayed rounded dataset values.</span></p>
         </div>
-        <div class="evidence-after"><p><span class="small-kicker">OUTSIDE THE MAIN EIGHT</span><strong>Test the transfer, too.</strong></p><p>The manuscript also evaluates transfer to held-out GSS 2022 data and examines how well predicted group-level response distributions align with observed ones.</p></div>
+        <div class="evidence-after"><p><span class="small-kicker"><span data-i18n="evidence.outside">OUTSIDE THE MAIN EIGHT</span></span><strong><span data-i18n="evidence.transfer">Test the transfer, too.</span></strong></p><p><span data-i18n="evidence.transferBody">The manuscript also evaluates transfer to held-out GSS 2022 data and examines how well predicted group-level response distributions align with observed ones.</span></p></div>
       </div>
     </section>
 
     <section class="scale section-shell section-pad reveal" id="coverage" aria-labelledby="scale-title">
-      <div class="section-number"><span class="num-ring">04</span><span>THE GEOGRAPHY</span></div>
-      <div class="coverage-intro"><div><p class="kicker">EXPLORE THE SAMPLE</p><h2 id="scale-title">Social reasoning<br><em>across the world.</em></h2></div><p>Explore geographic coverage from the prepared research datasets. The globe uses country or region centers as map markers; they do not represent individual people or precise respondent locations.</p></div>
+      <div class="section-number"><span class="num-ring">04</span><span><span data-i18n="coverage.number">THE GEOGRAPHY</span></span></div>
+      <div class="coverage-intro"><div><p class="kicker"><span data-i18n="coverage.kicker">EXPLORE THE SAMPLE</span></p><h2 id="scale-title"><span data-i18n="coverage.heading1">Social reasoning</span><br><em><span data-i18n="coverage.heading2">across the world.</span></em></h2></div><p><span data-i18n="coverage.intro">Explore geographic coverage from the prepared research datasets. The globe uses survey region centers as map markers; they do not represent individual people or precise respondent locations.</span></p></div>
       <div class="coverage-explorer">
-        <div class="coverage-controls"><div><label for="coverage-dataset">DATASET</label><select id="coverage-dataset" disabled><option value="all">Loading coverage…</option></select></div><div><label for="coverage-region">COUNTRY / REGION</label><select id="coverage-region" disabled><option value="">Choose a region</option></select></div></div>
-        <div class="coverage-summary" aria-live="polite"><div><span>SURVEY RESPONDENTS</span><strong id="coverage-total">—</strong></div><div><span>COUNTRIES / REGIONS</span><strong id="coverage-regions">—</strong></div><div><span>SELECTED REGION</span><strong id="coverage-selected">All regions</strong></div></div>
-        <div class="coverage-list-head"><span>REGION</span><span>RESPONDENTS</span></div><ol class="coverage-list" id="coverage-list"><li class="coverage-loading">Preparing geographic index…</li></ol>
+        <div class="coverage-controls"><div><label for="coverage-dataset"><span data-i18n="evidence.dataset">DATASET</span></label><select id="coverage-dataset" disabled><option value="all" data-i18n="hero.loadingCoverage">Loading coverage…</option></select></div><div><label for="coverage-region"><span data-i18n="coverage.region">SURVEY REGION</span></label><select id="coverage-region" disabled><option value="" data-i18n="coverage.chooseRegion">Choose a region</option></select></div></div>
+        <div class="coverage-summary" aria-live="polite"><div><span><span data-i18n="coverage.respondents">SURVEY RESPONDENTS</span></span><strong id="coverage-total">—</strong></div><div><span><span data-i18n="coverage.regions">SURVEY REGIONS</span></span><strong id="coverage-regions">—</strong></div><div><span><span data-i18n="coverage.selectedRegion">SELECTED REGION</span></span><strong id="coverage-selected"><span data-i18n="coverage.allRegions">All regions</span></strong></div></div>
+        <div class="coverage-list-head"><span><span data-i18n="coverage.regionShort">REGION</span></span><span><span data-i18n="coverage.respondentsShort">RESPONDENTS</span></span></div><ol class="coverage-list" id="coverage-list"><li class="coverage-loading"><span data-i18n="coverage.preparing">Preparing geographic index…</span></li></ol>
         <p class="coverage-audit-short" id="coverage-audit-short" hidden></p>
-        <details class="coverage-details"><summary>How coverage is counted <span aria-hidden="true">↗</span></summary><p class="coverage-method" id="coverage-method">Loading source methodology.</p><p class="coverage-audit" id="coverage-audit" hidden></p></details>
+        <details class="coverage-details"><summary><span data-i18n="coverage.howCounted">How coverage is counted</span> <span aria-hidden="true">↗</span></summary><p class="coverage-method" id="coverage-method"><span data-i18n="coverage.loadingMethod">Loading source methodology.</span></p><p class="coverage-audit" id="coverage-audit" hidden></p></details>
       </div>
     </section>
 
-    <section class="release section-pad reveal" id="release" aria-labelledby="release-title"><div class="section-shell"><div class="section-number"><span class="num-ring">05</span><span>THE RELEASE</span></div><div class="release-main"><div><p class="kicker">MORE SOON</p><h2 id="release-title">The next chapter<br>is <em>open.</em></h2><p>We are preparing the research materials for public release. The three links below will activate as each resource becomes available.</p><div class="release-orbit" aria-hidden="true"><span>✳</span><span>OPEN RESEARCH / OPEN SOURCE / OPEN MODELS</span></div></div><div class="release-list" aria-label="Release status"><div class="release-item" data-release="data"><span>01</span><strong>Data</strong><span class="release-destination">Hugging Face</span><span class="coming">Coming soon</span></div><div class="release-item" data-release="code"><span>02</span><strong>Code</strong><span class="release-destination">GitHub</span><span class="coming">Coming soon</span></div><div class="release-item" data-release="model"><span>03</span><strong>Model</strong><span class="release-destination">Hugging Face</span><span class="coming">Coming soon</span></div></div></div></div></section>
+    <section class="release section-pad reveal" id="release" aria-labelledby="release-title"><div class="section-shell"><div class="section-number"><span class="num-ring">05</span><span><span data-i18n="release.number">THE RELEASE</span></span></div><div class="release-main"><div><p class="kicker"><span data-i18n="release.kicker">MORE SOON</span></p><h2 id="release-title"><span data-i18n="release.heading1">The next chapter</span><br><span data-i18n="release.heading2">will be</span> <em><span data-i18n="release.heading3">open.</span></em></h2><p><span data-i18n="release.intro">We are preparing the research materials for public release. The three links below will activate as each resource becomes available.</span></p><div class="release-orbit" aria-hidden="true"><span>✳</span><span><span data-i18n="release.openResearch">OPEN RESEARCH / OPEN SOURCE / OPEN MODELS</span></span></div></div><div class="release-list" aria-label="Release status" data-i18n-aria-label="resource.releaseAria"><div class="release-item" data-release="data"><span>01</span><strong><span data-i18n="resource.data">Data</span></strong><span class="release-destination">Hugging Face</span><span class="coming"><span data-i18n="resource.comingSoon">Coming soon</span></span></div><div class="release-item" data-release="code"><span>02</span><strong><span data-i18n="resource.code">Code</span></strong><span class="release-destination">GitHub</span><span class="coming"><span data-i18n="resource.comingSoon">Coming soon</span></span></div><div class="release-item" data-release="model"><span>03</span><strong><span data-i18n="resource.model">Model</span></strong><span class="release-destination">Hugging Face</span><span class="coming"><span data-i18n="resource.comingSoon">Coming soon</span></span></div></div></div></div></section>
   </main>
-  <footer class="site-footer"><div class="section-shell"><div class="footer-top"><a class="brand" href="#top" aria-label="SocialReasoner, back to top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>socialreasoner<span class="brand-dot">.</span></span></a><p>Learning a Foundation Model of Human Social Reasoning from Heterogeneous Experts</p><a href="#top" class="back-top">BACK TO TOP ↑</a></div><div class="footer-bottom"><span>© 2026 SocialReasoner</span><span>Research preview · Open release coming soon</span><a href="#release">Resources ↗</a></div></div></footer>
+  <footer class="site-footer"><div class="section-shell"><div class="footer-top"><a class="brand" href="#top" aria-label="SocialReasoner, back to top" data-i18n-aria-label="nav.brandAria"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>socialreasoner<span class="brand-dot">.</span></span></a><p><span data-i18n="paper.title">Learning a Foundation Model of Human Social Reasoning from Heterogeneous Experts</span></p><a href="#top" class="back-top"><span data-i18n="footer.backTop">BACK TO TOP ↑</span></a></div><div class="footer-bottom"><span>© 2026 SocialReasoner</span><span><span data-i18n="footer.preview">Research preview · Open release coming soon</span></span><a href="#release"><span data-i18n="nav.resourcesShort">Resources ↗</span></a></div></div></footer>
 </body>
 </html>

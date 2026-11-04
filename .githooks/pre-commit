@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+node --check i18n.js
+node --check globe-locales.js
+node --check app.js
+node --check globe.js
+node scripts/check-locales.mjs
+node scripts/check-geography.mjs
+git diff --check
+git diff --cached --check

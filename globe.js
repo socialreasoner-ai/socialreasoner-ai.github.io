@@ -1,15 +1,45 @@
 /* Geographic coverage uses only the audited, precomputed counts in assets/geography.json. */
 (() => {
+  const language = () => window.SiteI18n?.language || 'en';
+  const translate = (key, params = {}) => {
+    if (window.SiteI18n?.t) return window.SiteI18n.t(`globe.${key}`, params);
+    const copy = window.SOCIAL_GLOBE_MESSAGES?.[language()]?.[key]
+      || window.SOCIAL_GLOBE_MESSAGES?.en?.[key] || key;
+    return copy.replace(/\{(\w+)\}/g, (_, name) => params[name] ?? `{${name}}`);
+  };
+  const formatNumber = value => window.SiteI18n?.number
+    ? window.SiteI18n.number(value) : new Intl.NumberFormat(language()).format(value);
+  const countryCodes = {
+    USA: 'US', ZAF: 'ZA', CHE: 'CH', FRA: 'FR', DEU: 'DE', PHL: 'PH', DNK: 'DK', RUS: 'RU',
+    CZE: 'CZ', NOR: 'NO', JPN: 'JP', ISL: 'IS', FIN: 'FI', HRV: 'HR', SWE: 'SE', SVN: 'SI',
+    AUT: 'AT', ESP: 'ES', SVK: 'SK', AUS: 'AU', POL: 'PL', LTU: 'LT', ISR: 'IL', HUN: 'HU',
+    GEO: 'GE', ITA: 'IT', BEL: 'BE', CHL: 'CL', NZL: 'NZ', IND: 'IN', LVA: 'LV', THA: 'TH',
+    VEN: 'VE', SUR: 'SR', BGR: 'BG', UKR: 'UA', EST: 'EE', TUR: 'TR', KOR: 'KR', NLD: 'NL',
+    MEX: 'MX', AZE: 'AZ', BIH: 'BA', ARM: 'AM', PRT: 'PT', ALB: 'AL', ROU: 'RO', BLR: 'BY',
+    SRB: 'RS', ARG: 'AR', MKD: 'MK', CYP: 'CY', MNE: 'ME'
+  };
+  const displayNames = new Map();
+  function regionName(region) {
+    const lang = language();
+    const override = window.SOCIAL_REGION_NAMES?.[lang]?.[region.id];
+    if (override) return override;
+    if (lang === 'en' || !countryCodes[region.id] || !Intl.DisplayNames) return region.label;
+    if (!displayNames.has(lang)) displayNames.set(lang, new Intl.DisplayNames(lang, { type: 'region' }));
+    return displayNames.get(lang).of(countryCodes[region.id]) || region.label;
+  }
+
   const canvas = document.querySelector('#globe-canvas');
   const hero = document.querySelector('.globe-hero');
   if (!canvas || !hero) return;
   const ctx = canvas.getContext('2d');
   if (!ctx || !window.d3 || !window.topojson) {
-    document.querySelector('#globe-region-name').textContent = 'Map unavailable';
+    document.querySelector('#globe-region-name').textContent = translate('mapUnavailable');
+    window.addEventListener('site:languagechange', () => {
+      document.querySelector('#globe-region-name').textContent = translate('mapUnavailable');
+    });
     return;
   }
 
-  const number = new Intl.NumberFormat('en-US');
   const selects = [document.querySelector('#hero-dataset'), document.querySelector('#coverage-dataset')];
   const regionSelect = document.querySelector('#coverage-region');
   const tooltip = document.querySelector('#globe-tooltip');
@@ -33,10 +63,16 @@
   const selectedDataset = () => state.data.datasets.find(item => item.id === state.dataset);
   const selectedTotal = () => state.dataset === 'all' ? state.data.totalRespondents : selectedDataset()?.respondents || 0;
   const numericKey = value => String(Number(value));
+  // Map presentation can link survey regions while their respondent counts remain separate.
+  const highlightGroup = region => region?.highlightGroup || region?.id;
+  const sharesHighlight = (region, active) => Boolean(region && active && highlightGroup(region) === highlightGroup(active));
+  const mapCountFor = region => state.data.regions
+    .filter(item => sharesHighlight(item, region))
+    .reduce((sum, item) => sum + countFor(item), 0);
 
   function updateSpinButton() {
-    spinButton.innerHTML = state.spinning ? 'Ⅱ <span>PAUSE</span>' : '▶ <span>RESUME</span>';
-    spinButton.setAttribute('aria-label', state.spinning ? 'Pause globe rotation' : 'Resume globe rotation');
+    spinButton.innerHTML = `${state.spinning ? 'Ⅱ' : '▶'} <span>${translate(state.spinning ? 'pause' : 'resume')}</span>`;
+    spinButton.setAttribute('aria-label', translate(state.spinning ? 'pauseRotation' : 'resumeRotation'));
     spinButton.setAttribute('aria-pressed', String(!state.spinning));
   }
 
@@ -44,7 +80,7 @@
     if (value !== 'all' && !state.data.datasets.some(dataset => dataset.id === value)) return;
     state.dataset = value;
     selects.forEach(select => { select.value = value; });
-    if (state.selected && countFor(state.selected) === 0) {
+    if (state.selected && mapCountFor(state.selected) === 0) {
       state.selected = null;
       regionSelect.value = '';
     }
@@ -56,6 +92,8 @@
 
   function selectRegion(id) {
     state.selected = id ? state.regionById.get(id) || null : null;
+    state.hovered = null;
+    tooltip.hidden = true;
     regionSelect.value = state.selected?.id || '';
     if (state.selected) {
       const { lon, lat } = state.selected;
@@ -71,26 +109,26 @@
     if (!state.data) return;
     const regions = visibleRegions();
     const total = selectedTotal();
-    const datasetText = state.dataset === 'all' ? 'ALL DATASETS' : state.dataset;
-    labelKicker.textContent = state.selected ? `${datasetText} / SELECTED REGION` : `${datasetText} / COVERAGE`;
-    labelTitle.textContent = state.selected ? state.selected.label : 'World coverage';
+    const datasetText = state.dataset === 'all' ? translate('allDatasets') : state.dataset;
+    labelKicker.textContent = `${datasetText} / ${translate(state.selected ? 'selectedRegion' : 'coverage')}`;
+    labelTitle.textContent = state.selected ? regionName(state.selected) : translate('worldCoverage');
     labelCount.textContent = state.selected
-      ? `${number.format(countFor(state.selected))} survey respondents`
-      : `${number.format(total)} survey respondents · ${number.format(regions.length)} ${regions.length === 1 ? 'region' : 'regions'}`;
-    document.querySelector('#coverage-total').textContent = number.format(total);
-    document.querySelector('#coverage-regions').textContent = number.format(regions.length);
+      ? translate('respondentCount', { count: formatNumber(countFor(state.selected)) })
+      : `${translate('respondentCount', { count: formatNumber(total) })} · ${formatNumber(regions.length)} ${translate(regions.length === 1 ? 'regionSingle' : 'regionPlural')}`;
+    document.querySelector('#coverage-total').textContent = formatNumber(total);
+    document.querySelector('#coverage-regions').textContent = formatNumber(regions.length);
     document.querySelector('#coverage-selected').textContent = state.selected
-      ? `${state.selected.label} · ${number.format(countFor(state.selected))}` : 'All regions';
+      ? `${regionName(state.selected)} · ${formatNumber(countFor(state.selected))}` : translate('allRegions');
     chartList.replaceChildren();
-    regions.sort((a, b) => countFor(b) - countFor(a) || a.label.localeCompare(b.label)).slice(0, 12).forEach(region => {
+    regions.sort((a, b) => countFor(b) - countFor(a) || regionName(a).localeCompare(regionName(b), language())).slice(0, 12).forEach(region => {
       const li = document.createElement('li');
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'coverage-row' + (state.selected?.id === region.id ? ' is-selected' : '');
       const name = document.createElement('span');
-      name.textContent = region.label;
+      name.textContent = regionName(region);
       const count = document.createElement('strong');
-      count.textContent = number.format(countFor(region));
+      count.textContent = formatNumber(countFor(region));
       button.append(name, count);
       button.addEventListener('click', () => selectRegion(region.id));
       li.append(button);
@@ -99,12 +137,12 @@
     if (regions.length > 12) {
       const more = document.createElement('li');
       more.className = 'coverage-more';
-      more.textContent = `+ ${number.format(regions.length - 12)} more in the region selector above`;
+      more.textContent = translate('moreRegions', { count: formatNumber(regions.length - 12) });
       chartList.append(more);
     }
     if (!regions.length) {
       const li = document.createElement('li'); li.className = 'coverage-loading';
-      li.textContent = 'No geographic records in this dataset.'; chartList.append(li);
+      li.textContent = translate('noRecords'); chartList.append(li);
     }
   }
 
@@ -153,19 +191,25 @@
     ctx.strokeStyle = 'rgba(130,187,238,.16)'; ctx.lineWidth = .65;
     ctx.beginPath(); path(d3.geoGraticule10()); ctx.stroke();
 
+    const mapCounts = new Map();
+    state.data.regions.forEach(region => {
+      const group = highlightGroup(region);
+      mapCounts.set(group, (mapCounts.get(group) || 0) + countFor(region));
+    });
+    const maxMapCount = Math.max(1, ...mapCounts.values());
     const maxCount = Math.max(1, ...visibleRegions().map(countFor));
     state.countries.forEach(country => {
       // The survey label is Great Britain; a whole-UK fill would imply Northern Ireland.
       const region = state.regionByNumeric.get(numericKey(country.id));
       const fillRegion = region?.id === 'GBR' ? null : region;
-      const count = fillRegion ? countFor(fillRegion) : 0;
+      const count = fillRegion ? mapCounts.get(highlightGroup(fillRegion)) || 0 : 0;
       ctx.beginPath(); path(country);
-      if (fillRegion && state.selected?.numericId && numericKey(state.selected.numericId) === numericKey(country.id)) {
+      if (sharesHighlight(fillRegion, state.selected)) {
         ctx.fillStyle = '#e3b48f';
-      } else if (fillRegion && state.hovered?.numericId && numericKey(state.hovered.numericId) === numericKey(country.id)) {
+      } else if (sharesHighlight(fillRegion, state.hovered)) {
         ctx.fillStyle = '#9bdfff';
       } else if (count > 0) {
-        const alpha = .22 + .42 * Math.sqrt(count / maxCount);
+        const alpha = .22 + .42 * Math.sqrt(count / maxMapCount);
         ctx.fillStyle = `rgba(116,195,255,${alpha.toFixed(3)})`;
       } else {
         ctx.fillStyle = '#1b3452';
@@ -182,8 +226,8 @@
       const point = projection([region.lon, region.lat]);
       if (!point) return;
       const count = countFor(region);
-      const selected = state.selected?.id === region.id;
-      const hovered = state.hovered?.id === region.id;
+      const selected = sharesHighlight(region, state.selected);
+      const hovered = sharesHighlight(region, state.hovered);
       const size = (selected ? 6.5 : hovered ? 5.5 : 2.8) + Math.sqrt(count / maxCount) * 3;
       ctx.fillStyle = selected ? 'rgba(239,178,136,.22)' : 'rgba(152,213,255,.15)';
       ctx.beginPath(); ctx.arc(point[0], point[1], size * 3.1, 0, Math.PI * 2); ctx.fill();
@@ -211,15 +255,17 @@
     const country = state.countries.find(item => d3.geoContains(item, lonLat));
     if (!country) return null;
     const region = state.regionByNumeric.get(numericKey(country.id));
-    return region && region.id !== 'GBR' && countFor(region) > 0 ? region : null;
+    // Linked geometry stays interactive when only its paired survey region has samples.
+    return region && region.id !== 'GBR' && mapCountFor(region) > 0 ? region : null;
   }
 
   function showTooltip(event, region) {
     if (!region) { tooltip.hidden = true; return; }
     const box = hero.getBoundingClientRect();
     tooltip.replaceChildren();
-    const name = document.createElement('strong'); name.textContent = region.label;
-    const count = document.createElement('span'); count.textContent = `${number.format(countFor(region))} survey respondents`;
+    const name = document.createElement('strong'); name.textContent = regionName(region);
+    const count = document.createElement('span');
+    count.textContent = translate('respondentCount', { count: formatNumber(countFor(region)) });
     tooltip.append(name, count);
     tooltip.hidden = false;
     tooltip.style.left = `${Math.max(8, Math.min(box.width - 180, event.clientX - box.left + 12))}px`;
@@ -264,6 +310,98 @@
   canvas.addEventListener('pointercancel', () => { state.dragging = false; state.down = null; canvas.classList.remove('is-dragging'); });
   canvas.addEventListener('pointerleave', () => { state.hovered = null; tooltip.hidden = true; draw(); });
 
+  function updateOptions() {
+    if (!state.data) return;
+    const options = [{ id: 'all', label: translate('allDatasets') }, ...state.data.datasets];
+    selects.forEach(select => {
+      select.replaceChildren();
+      options.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.id;
+        option.textContent = item.label;
+        select.append(option);
+      });
+      select.value = state.dataset;
+      select.disabled = false;
+    });
+    regionSelect.replaceChildren();
+    const allOption = document.createElement('option');
+    allOption.value = '';
+    allOption.textContent = translate('allRegions');
+    regionSelect.append(allOption);
+    [...state.data.regions].sort((a, b) => regionName(a).localeCompare(regionName(b), language())).forEach(region => {
+      const option = document.createElement('option');
+      option.value = region.id;
+      option.textContent = regionName(region);
+      regionSelect.append(option);
+    });
+    regionSelect.value = state.selected?.id || '';
+    regionSelect.disabled = false;
+  }
+
+  function updateMethodAndAudit() {
+    if (!state.data) return;
+    document.querySelector('#coverage-method').textContent = translate('method');
+    const difference = state.data.paperRespondents - state.data.totalRespondents;
+    const audit = document.querySelector('#coverage-audit');
+    const short = document.querySelector('#coverage-audit-short');
+    audit.hidden = !difference;
+    short.hidden = !difference;
+    if (!difference) return;
+    const params = {
+      count: formatNumber(Math.abs(difference)),
+      prepared: formatNumber(state.data.totalRespondents),
+      manuscript: formatNumber(state.data.paperRespondents),
+      difference: formatNumber(Math.abs(difference))
+    };
+    short.textContent = translate(difference > 0 ? 'versionShortFewer' : 'versionShortMore', params);
+    const deltas = state.data.datasets.map(dataset => ({
+      id: dataset.id,
+      delta: dataset.respondents - dataset.paperRespondents
+    }));
+    const complete = deltas.every(item => Number.isFinite(item.delta))
+      && deltas.reduce((sum, item) => sum + item.delta, 0) === -difference;
+    const parts = deltas.filter(item => item.delta).map(item =>
+      `${item.id} ${item.delta < 0 ? '−' : '+'}${formatNumber(Math.abs(item.delta))}`);
+    if (complete && parts.length) {
+      const formatter = Intl.ListFormat
+        ? new Intl.ListFormat(language(), { style: 'long', type: 'conjunction' }) : null;
+      params.breakdown = formatter ? formatter.format(parts) : parts.join(', ');
+      audit.textContent = translate(difference > 0 ? 'versionDetailFewer' : 'versionDetailMore', params);
+    } else {
+      audit.textContent = short.textContent;
+    }
+  }
+
+  function updateLocalizedCopy() {
+    if (!state.data) return;
+    state.hovered = null;
+    tooltip.hidden = true;
+    updateOptions();
+    updateSpinButton();
+    resetButton.setAttribute('aria-label', translate('resetView'));
+    updatePanels();
+    updateMethodAndAudit();
+    draw();
+  }
+
+  let loadFailed = false;
+  function showLoadFailure() {
+    labelTitle.textContent = translate('coverageUnavailable');
+    labelCount.textContent = translate('tryAgain');
+    chartList.replaceChildren();
+    const li = document.createElement('li');
+    li.className = 'coverage-loading';
+    li.textContent = translate('indexUnavailable');
+    chartList.append(li);
+    document.querySelector('#coverage-method').textContent = translate('sourceUnavailable');
+  }
+
+  window.addEventListener('site:languagechange', () => {
+    if (state.data) updateLocalizedCopy();
+    else if (loadFailed) showLoadFailure();
+  });
+
   selects.forEach(select => select.addEventListener('change', event => syncDataset(event.target.value)));
   regionSelect.addEventListener('change', event => selectRegion(event.target.value));
   spinButton.addEventListener('click', () => { state.spinning = !state.spinning; updateSpinButton(); });
@@ -294,8 +432,8 @@
   }, { threshold: 0 }).observe(hero);
 
   Promise.all([
-    fetch('assets/world-110m.json').then(response => { if (!response.ok) throw new Error('World geometry unavailable'); return response.json(); }),
-    fetch('assets/geography.json').then(response => { if (!response.ok) throw new Error('Coverage data unavailable'); return response.json(); })
+    fetch('assets/world-110m.json?v=20261104-regions').then(response => { if (!response.ok) throw new Error('World geometry unavailable'); return response.json(); }),
+    fetch('assets/geography.json?v=20261104-regions').then(response => { if (!response.ok) throw new Error('Coverage data unavailable'); return response.json(); })
   ]).then(([topology, data]) => {
     if (data.schemaVersion !== 1 || !Array.isArray(data.regions) || !Array.isArray(data.datasets) || !topology.objects?.countries) throw new Error('Unexpected coverage format');
     state.data = data;
@@ -305,38 +443,15 @@
       state.regionById.set(region.id, region);
       if (region.numericId) state.regionByNumeric.set(numericKey(region.numericId), region);
     });
-    const options = [{ id: 'all', label: 'All datasets' }, ...data.datasets];
-    selects.forEach(select => {
-      select.replaceChildren();
-      options.forEach(item => { const option = document.createElement('option'); option.value = item.id; option.textContent = item.label; select.append(option); });
-      select.disabled = false;
-    });
-    regionSelect.replaceChildren();
-    const allOption = document.createElement('option'); allOption.value = ''; allOption.textContent = 'All regions'; regionSelect.append(allOption);
-    [...data.regions].sort((a, b) => a.label.localeCompare(b.label)).forEach(region => {
-      const option = document.createElement('option'); option.value = region.id; option.textContent = region.label; regionSelect.append(option);
-    });
-    regionSelect.disabled = false; spinButton.disabled = false; resetButton.disabled = false;
-    document.querySelector('#coverage-method').textContent = `${data.methodology} ${data.geographyNote}`;
-    const difference = data.paperRespondents - data.totalRespondents;
-    if (difference) {
-      const audit = document.querySelector('#coverage-audit');
-      const short = document.querySelector('#coverage-audit-short');
-      audit.hidden = false;
-      short.hidden = false;
-      short.textContent = `${number.format(Math.abs(difference))} ${difference > 0 ? 'fewer' : 'more'} survey respondents in the prepared index than in the manuscript; reason not established.`;
-      audit.textContent = data.versionNote || `Prepared geographic index: ${number.format(data.totalRespondents)} respondent records; the manuscript reports ${number.format(data.paperRespondents)}.`;
-    }
-    updateSpinButton(); updatePanels(); sizeCanvas();
+    spinButton.disabled = false;
+    resetButton.disabled = false;
+    updateLocalizedCopy();
+    sizeCanvas();
     if ('ResizeObserver' in window) new ResizeObserver(sizeCanvas).observe(canvas);
     else window.addEventListener('resize', sizeCanvas);
   }).catch(error => {
-    labelTitle.textContent = 'Coverage unavailable';
-    labelCount.textContent = 'Please try again later';
-    chartList.replaceChildren();
-    const li = document.createElement('li'); li.className = 'coverage-loading';
-    li.textContent = 'The geographic index could not be loaded.'; chartList.append(li);
-    document.querySelector('#coverage-method').textContent = 'Geographic source files are temporarily unavailable.';
+    loadFailed = true;
+    showLoadFailure();
     console.warn('Geographic coverage:', error.message);
   });
 })();

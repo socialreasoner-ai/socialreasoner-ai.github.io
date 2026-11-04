@@ -6,28 +6,10 @@ const RELEASE_URLS = {
 };
 
 document.documentElement.classList.add('has-js');
+const siteText = (key, params) => window.SiteI18n.t(key, params);
 
 const stages = [
-  {
-    title: 'Experts see different structure.',
-    body: 'An explainable boosting model, a LightGBM tree ensemble, and a multilayer perceptron each learn useful links between respondent context and choices.',
-    icon: '✳'
-  },
-  {
-    title: 'Local signals become evidence.',
-    body: 'The method identifies high-contribution features from each expert: additive effects, tree-path attributions, and grouped neural perturbations.',
-    icon: '⋈'
-  },
-  {
-    title: 'Language makes the signal legible.',
-    body: 'A language model filters noisy or implausible evidence and turns the remaining signals into several reasoning records for the same response.',
-    icon: '⌁'
-  },
-  {
-    title: 'One model learns from all three.',
-    body: 'The reasoning records are combined as supervised fine-tuning data, transferring complementary expert perspectives into SocialReasoner.',
-    icon: '◎'
-  }
+  { icon: '✳' }, { icon: '⋈' }, { icon: '⌁' }, { icon: '◎' }
 ];
 
 const datasets = ['ATP142','ATP152','EVS2017','ISSP2009','ISSP2015','ISSP2016','ISSP2019','ISSP2021'];
@@ -78,16 +60,19 @@ function bindTabs(selector, callback) {
   return buttons;
 }
 
-bindTabs('.stage', button => {
+function renderStage(button) {
   const index = Number(button.dataset.stage);
   const stage = stages[index];
   const panel = document.querySelector('#stage-panel');
   panel.setAttribute('aria-labelledby', button.id);
-  panel.querySelector('.panel-index').textContent = `STEP 0${index + 1} / 04`;
+  panel.querySelector('.panel-index').textContent = siteText('stage.step', { current: String(index + 1).padStart(2, '0'), total: '04' });
   panel.querySelector('.panel-icon').textContent = stage.icon;
-  panel.querySelector('#stage-panel-title').textContent = stage.title;
-  panel.querySelector('#stage-panel-body').textContent = stage.body;
-});
+  panel.querySelector('#stage-panel-title').textContent = siteText(`stage.${index}.heading`);
+  panel.querySelector('#stage-panel-body').textContent = siteText(`stage.${index}.body`);
+}
+
+bindTabs('.stage', renderStage);
+renderStage(document.querySelector('.stage.active'));
 
 function average(values) { return values.reduce((sum, value) => sum + value, 0) / values.length; }
 function percentMean(values) { return `${(Math.round(average(values) * 100 + 1e-8) / 100).toFixed(2)}%`; }
@@ -98,11 +83,11 @@ function renderResults(key) {
   document.querySelector('#relative-gain').textContent = `+${model.gain}`;
   document.querySelector('#mean-base').textContent = percentMean(model.base);
   document.querySelector('#mean-ours').textContent = percentMean(model.ours);
-  chart.setAttribute('aria-label', `${model.label} accuracy on eight datasets, Base versus SocialReasoner`);
+  chart.setAttribute('aria-label', siteText('evidence.chartAria', { model: model.label }));
   chart.innerHTML = datasets.map((name, i) => {
     const base = model.base[i].toFixed(2);
     const ours = model.ours[i].toFixed(2);
-    return `<div class="chart-row" aria-label="${name}: base ${base} percent, SocialReasoner ${ours} percent">
+    return `<div class="chart-row" aria-label="${siteText('evidence.rowAria', { dataset: name, base, ours })}">
       <span class="chart-label">${name}</span>
       <div class="chart-bars" aria-hidden="true">
         <div class="chart-bar base" style="width:${model.base[i] / 70 * 100}%"><span>${base}</span></div>
@@ -117,16 +102,19 @@ renderResults('qwen3');
 
 const menuToggle = document.querySelector('.menu-toggle');
 const mobileNav = document.querySelector('#mobile-nav');
+function renderMenuLabel() {
+  menuToggle.setAttribute('aria-label', siteText(menuToggle.getAttribute('aria-expanded') === 'true' ? 'nav.closeMenu' : 'nav.openMenu'));
+}
 menuToggle.addEventListener('click', () => {
   const open = menuToggle.getAttribute('aria-expanded') !== 'true';
   menuToggle.setAttribute('aria-expanded', String(open));
-  menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  renderMenuLabel();
   mobileNav.hidden = !open;
 });
 mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
   mobileNav.hidden = true;
   menuToggle.setAttribute('aria-expanded', 'false');
-  menuToggle.setAttribute('aria-label', 'Open menu');
+  renderMenuLabel();
 }));
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -161,7 +149,8 @@ Object.entries(RELEASE_URLS).forEach(([key, raw]) => {
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
   link.innerHTML = original.innerHTML;
-  link.querySelector('.coming').textContent = 'Open resource ↗';
+  link.querySelector('.coming').setAttribute('data-i18n', 'resource.open');
+  link.querySelector('.coming').textContent = siteText('resource.open');
   original.replaceWith(link);
   const heroItem = document.querySelector(`[data-release-mini="${key}"]`);
   if (heroItem) {
@@ -174,6 +163,12 @@ Object.entries(RELEASE_URLS).forEach(([key, raw]) => {
     heroLink.querySelector('em').textContent = key === 'code' ? 'GitHub ↗' : 'Hugging Face ↗';
     heroItem.replaceWith(heroLink);
   }
+});
+
+window.addEventListener('site:languagechange', () => {
+  renderStage(document.querySelector('.stage.active'));
+  renderResults(document.querySelector('.model-tab.active').dataset.model);
+  renderMenuLabel();
 });
 
 function setupCanvas(canvas, makePoints, draw) {
