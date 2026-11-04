@@ -59,7 +59,7 @@ const models = data.models.map((name, i) => {
 }).join('\n  ');
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="840" viewBox="0 0 1000 840" role="img" aria-labelledby="title desc">
   <title id="title">General reasoning and human social reasoning: manuscript Figure 1</title>
-  <desc id="desc">Fifteen axes in three model groups. The cyan reference radius is fixed at 1. Social reasoning uses the original nonlinear transform, 0.92 times (source score divided by 100) to the power 1.35. Radii are not a shared accuracy scale. Original scores are available in the accompanying table.</desc>
+  <desc id="desc">Fifteen axes in three model groups. The cyan reference radius is fixed at 1. Social reasoning uses the original nonlinear transform, 0.92 times (source score divided by 100) to the power 1.35. Radii are not a shared accuracy scale.</desc>
   <defs>
     <radialGradient id="halo"><stop stop-color="#285788" stop-opacity=".2"/><stop offset="1" stop-color="#14253f" stop-opacity="0"/></radialGradient>
     <radialGradient id="general-fill"><stop stop-color="#7ad8ff" stop-opacity=".025"/><stop offset="1" stop-color="#7ad8ff" stop-opacity=".1"/></radialGradient>
@@ -80,23 +80,15 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="840" v
   ${models}
 </svg>
 `;
-const table = data.rows.map(row => `<tr><th scope="row">${escape(row.model)}</th><td>${escape(row.general.name)}</td><td>${row.general.raw.toFixed(2)}</td><td>${escape(row.social.name)}</td><td>${row.social.raw.toFixed(2)}</td></tr>`).join('\n              ');
 const output = new URL('assets/reasoning-radar.svg', root);
-const indexUrl = new URL('index.html', root);
-const html = await readFile(indexUrl, 'utf8');
-const marker = /(<!-- radar-source-rows:start -->)[\s\S]*?(<!-- radar-source-rows:end -->)/;
-assert(marker.test(html), 'Missing radar table markers in index.html');
-const updated = html.replace(marker, (_, start, end) => `${start}\n              ${table}\n              ${end}`);
 if (process.argv.includes('--write')) {
   await writeFile(output, svg);
   await writeFile(new URL('radar-data.js', root), runtime);
-  await writeFile(indexUrl, updated);
   console.log('Rendered Figure 1: 15 axes, all 30 original input scores, original display transform.');
 } else if (process.argv.includes('--check')) {
   assert.equal(await readFile(new URL('radar-data.js', root), 'utf8'), runtime, 'Radar runtime data is out of sync');
   assert.equal(await readFile(output, 'utf8'), svg, 'Radar SVG is out of sync');
-  assert.equal(html, updated, 'Radar source table is out of sync');
-  console.log('Radar SVG and source table match the preserved Figure 1 data.');
+  console.log('Radar SVG and runtime data match the preserved Figure 1 inputs.');
 } else {
   throw Error('Choose --write or --check');
 }

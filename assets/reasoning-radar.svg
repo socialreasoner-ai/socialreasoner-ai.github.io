@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="840" viewBox="0 0 1000 840" role="img" aria-labelledby="title desc">
   <title id="title">General reasoning and human social reasoning: manuscript Figure 1</title>
-  <desc id="desc">Fifteen axes in three model groups. The cyan reference radius is fixed at 1. Social reasoning uses the original nonlinear transform, 0.92 times (source score divided by 100) to the power 1.35. Radii are not a shared accuracy scale. Original scores are available in the accompanying table.</desc>
+  <desc id="desc">Fifteen axes in three model groups. The cyan reference radius is fixed at 1. Social reasoning uses the original nonlinear transform, 0.92 times (source score divided by 100) to the power 1.35. Radii are not a shared accuracy scale.</desc>
   <defs>
     <radialGradient id="halo"><stop stop-color="#285788" stop-opacity=".2"/><stop offset="1" stop-color="#14253f" stop-opacity="0"/></radialGradient>
     <radialGradient id="general-fill"><stop stop-color="#7ad8ff" stop-opacity=".025"/><stop offset="1" stop-color="#7ad8ff" stop-opacity=".1"/></radialGradient>
