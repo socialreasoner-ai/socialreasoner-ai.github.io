@@ -77,7 +77,7 @@ body{background:radial-gradient(ellipse at 85% 5%,#12233b55,transparent 36%),var
 .coverage-row.is-selected{background:#7ad8ff0b;box-shadow:inset 2px 0 #7ad8ff;padding-left:9px;color:#eef5ff}
 .coverage-row:focus-visible{outline-offset:-2px}
 .coverage-summary strong{font-variant-numeric:tabular-nums}
-.coverage-details summary span{color:#b9d9ed}
+
 .release{background:#0b1423;border-top:1px solid #b2d6ff20;padding-block:64px}
 .release .coming{color:#a0b0c4}.site-footer{background:var(--bg)}
 .grain{opacity:.01}.ambient{display:none}#ambient-canvas{opacity:.17}

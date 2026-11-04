@@ -20,6 +20,7 @@ assert.equal(data.paperResponses, 8725666);
 assert.equal(data.totalRegions, 56);
 assert.equal(data.regions.length, data.totalRegions);
 assert.equal(data.versionNoteKey, 'manuscriptVersionNote');
+assert.ok(data.versionNote?.trim(), 'Aggregate index retains manuscript provenance');
 const manuscriptDatasetTotals = {
   ISSP2015: { respondents: 45096, responses: 682115 },
   ISSP2016: { respondents: 43439, responses: 1501834 },
@@ -77,12 +78,13 @@ class Element {
   setPointerCapture() {}
 }
 const elements = new Map();
+const removedCoverageElements = new Set(['#coverage-method', '#coverage-audit', '#coverage-audit-short', '.coverage-details']);
 const element = selector => { if (!elements.has(selector)) elements.set(selector, new Element()); return elements.get(selector); };
 let language = 'en';
 const events = {};
 const sandbox = {
   console, Intl, d3, topojson,
-  document: { querySelector: element, createElement: () => new Element(), hidden: false },
+  document: { querySelector: selector => removedCoverageElements.has(selector) ? null : element(selector), createElement: () => new Element(), hidden: false },
   requestAnimationFrame() {},
   ResizeObserver: class { observe() {} },
   window: { d3, topojson, devicePixelRatio: 1, matchMedia: () => ({ matches: true }), addEventListener(name, fn) { events[name] = fn; } },
@@ -104,8 +106,6 @@ vm.runInContext(source, sandbox);
 await new Promise(resolve => setImmediate(resolve));
 const api = sandbox.window.__globeTest;
 assert.ok(api.state.data, 'Globe data initialized');
-assert.equal(element('#coverage-audit').hidden, false, 'Version note remains visible at matching totals');
-assert.equal(element('#coverage-audit').textContent, data.versionNote, 'English note matches index provenance');
 api.state.path = feature => { context.geometry = feature.id == null ? null : Number(feature.id); };
 const colors = () => Object.fromEntries(fills.filter(f => f.id != null).map(f => [f.id, f.color]));
 const draw = () => { fills.length = 0; api.draw(); return colors(); };
@@ -154,9 +154,6 @@ for (const lang of ['zh', 'fr', 'de', 'ko', 'en']) {
   assert.equal(api.state.dataset, 'all'); assert.equal(api.state.selected.id, 'TWN');
   assert.equal(element('#globe-region-name').textContent, translatedNames[lang], `${lang}: selected region is translated`);
   assert.equal(element('#coverage-region').value, 'TWN', `${lang}: selector retains the selected region`);
-  assert.equal(element('#coverage-audit').hidden, false, `${lang}: version note remains visible`);
-  assert.ok(element('#coverage-audit').textContent.trim(), `${lang}: version note has text`);
-  assert.ok(!element('#coverage-audit').textContent.includes('{'), `${lang}: version note is interpolated`);
   c = draw(); assert.equal(c[156], '#e3b48f'); assert.equal(c[158], '#e3b48f');
 }
 api.syncDataset('ISSP2016');
@@ -173,7 +170,6 @@ for (const lang of ['zh', 'fr', 'de', 'ko', 'en']) {
   assert.equal(element('#coverage-dataset').value, 'ISSP2016');
   assert.equal(element('#globe-region-name').textContent, sandbox.window.SOCIAL_REGION_NAMES[lang].CHN);
   assert.equal(element('#globe-region-count').textContent, sandbox.window.SiteI18n.t('globe.respondentCount', { count: '0' }));
-  assert.ok(!element('#coverage-audit').textContent.includes('{'), 'Audit interpolation is complete');
   c = draw(); assert.equal(c[156], '#e3b48f'); assert.equal(c[158], '#e3b48f');
 }
 console.log('PASS: aggregate totals; China mainland/Taiwan linked fill, markers, hover, zero-sample hit testing, filters, and language-state preservation.');

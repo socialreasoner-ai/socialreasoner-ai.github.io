@@ -164,10 +164,7 @@ select:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visib
 .coverage-row>span { font-size: 14px; }
 .coverage-row strong { font: 500 14px 'DM Sans',sans-serif; }
 .coverage-more { font: 13px/1.5 'DM Sans',sans-serif; padding-top: 12px; }
-.coverage-audit-short { padding: 15px 26px; font: 13px/1.65 'DM Sans',sans-serif; color: #e0c19c; background: #e3b48f05; }
-.coverage-details summary { min-height: 48px; padding: 15px 26px; font: 500 14px/1.5 'DM Sans',sans-serif; letter-spacing: 0; }
-.coverage-details .coverage-method, .coverage-details .coverage-audit { font: 14px/1.7 'DM Sans',sans-serif; color: #afc2d7; padding: 0 26px 18px; }
-.coverage-details .coverage-audit { color: #e0c19c; }
+
 .release { background: #0c1727; border-top: 1px solid var(--line); padding-block: 56px; }
 .release-main { grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; }
 .release h2 { font-size: 44px; max-width: 600px; }
@@ -295,8 +292,7 @@ select:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visib
   #coverage-selected { font-size: 24px; }
   .coverage-list { grid-template-columns: 1fr; padding: 0 18px 12px; }
   .coverage-list-head { padding-inline: 18px; }
-  .coverage-audit-short, .coverage-details summary { padding-inline: 18px; }
-  .coverage-details .coverage-method, .coverage-details .coverage-audit { padding-inline: 18px; }
+
   .release-item { grid-template-columns: 22px 1fr auto; gap: 10px; padding-block: 14px; }
   .release-item strong { font-size: 23px; }
   .release-item .release-destination { font-size: 12px; }
