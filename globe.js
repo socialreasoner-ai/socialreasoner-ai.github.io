@@ -52,7 +52,6 @@
   const overlapPicker = document.querySelector('#globe-overlap-picker');
   const inspector = document.querySelector('.globe-inspector');
   const distribution = document.querySelector('#globe-region-distribution');
-  const scaleLegend = document.querySelector('#globe-legend-scale');
   const rotationControl = document.querySelector('#globe-control-rotation');
   const resetControl = document.querySelector('#globe-control-reset');
   const clearControl = document.querySelector('#globe-control-clear');
@@ -268,28 +267,6 @@
     });
   }
 
-  function updateScaleLegend() {
-    if (!scaleLegend) return;
-    const title = document.createElement('span');
-    title.className = 'globe-size-title';
-    title.textContent = translate('fixedScale');
-    const keys = [500, 5000, 20000].map(count => {
-      const key = document.createElement('span');
-      key.className = 'globe-size-key';
-      const dot = document.createElement('i');
-      dot.className = 'globe-size-dot';
-      dot.setAttribute('aria-hidden', 'true');
-      const size = markerRadius(count) * 2;
-      dot.style.width = `${size.toFixed(1)}px`;
-      dot.style.height = `${size.toFixed(1)}px`;
-      const label = document.createElement('span');
-      label.textContent = formatNumber(count);
-      key.append(dot, label);
-      return key;
-    });
-    scaleLegend.replaceChildren(title, ...keys);
-  }
-
   function updatePanels() {
     if (!state.data) return;
     const regions = visibleRegions();
@@ -312,7 +289,6 @@
     }
     if (viewDataLink) viewDataLink.hidden = !state.selected;
     updateDistribution();
-    updateScaleLegend();
     updateControls();
     updateControlCopy();
     if (listedDataset !== state.dataset || listedLanguage !== language()) rebuildRegionList(regions);

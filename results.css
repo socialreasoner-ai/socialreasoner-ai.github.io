@@ -5,9 +5,9 @@
 .results-heading .kicker{color:var(--accent2);margin:0 0 12px}
 .results-heading h2{font:600 clamp(42px,4.15vw,60px)/1.05 'Space Grotesk',sans-serif;letter-spacing:-.067em;margin:0;max-width:780px;overflow-wrap:break-word}
 .results-heading>p{font-size:clamp(16px,1.12vw,18px);line-height:1.65;color:#b5c6da;max-width:440px;margin:0 0 2px}
-.results-layout{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(300px,.9fr);gap:18px;align-items:stretch}
+.results-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:stretch}
 .results-layout>*{min-width:0}
-.evidence .benchmark-frame,.results-card,.expert-panel{border:1px solid rgba(158,202,245,.2);border-radius:12px;background:#101d30;box-shadow:none}
+.evidence .benchmark-frame,.expert-panel{border:1px solid rgba(158,202,245,.2);border-radius:12px;background:#101d30;box-shadow:none}
 .evidence .benchmark-frame{overflow:hidden}
 .evidence .benchmark-top{padding:23px 26px 18px;align-items:center;gap:16px}
 .evidence .overline{color:#8bd8ff;font:600 11px 'DM Mono',monospace;letter-spacing:.08em}
@@ -18,29 +18,25 @@
 .evidence .model-tab:hover:not(.active){border-color:#8bd8ff}
 .evidence .model-tab:focus-visible,.metric-details summary:focus-visible{outline:2px solid #8bd8ff;outline-offset:2px}
 .evidence .benchmark-summary{display:block;padding:19px 26px 15px;background:linear-gradient(115deg,#10283c,#112035 60%,#101d30);border-bottom:1px solid var(--line)}
-.evidence .benchmark-summary>div{padding:0;border:0;gap:0;min-width:0}
-.mean-trajectory{display:flex;align-items:center;gap:12px;font:600 clamp(34px,3vw,45px)/1 'Space Grotesk',sans-serif;letter-spacing:-.06em;white-space:nowrap}
-.evidence .benchmark-summary>.mean-trajectory{display:flex;flex-direction:row;align-items:center;gap:12px}
-.evidence .mean-trajectory>span{font:inherit;letter-spacing:inherit;line-height:inherit}
-.mean-trajectory>span:first-child{color:#a7b7ca}
-.evidence .mean-trajectory .mean-arrow{font-size:.7em;color:#85a9ca}
-.evidence .mean-trajectory strong{font:inherit;letter-spacing:inherit;color:#8bd8ff;font-weight:600}
-#mean-model-label{font-size:13px;color:#cbd9e8;line-height:1.4;margin:9px 0 13px}
-.mean-deltas{display:flex;flex-wrap:wrap;gap:8px 20px;color:#a9bed3;font-size:12px;line-height:1.45}
-.evidence .benchmark-summary>.mean-deltas{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px 20px}
-.mean-deltas p{margin:0}
-.evidence .mean-deltas span{font:inherit;letter-spacing:0;color:inherit}
-.evidence .mean-deltas strong{font:700 16px/1.45 'DM Sans',sans-serif;letter-spacing:0;color:#dcefff}
-.evidence .chart-header{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:15px 26px 8px;color:#b2c7d9;font:600 11px 'DM Mono',monospace;letter-spacing:.04em}
-.chart-axis-labels{grid-column:2;display:flex;justify-content:space-between;color:#849bb3;font-size:11px;font-weight:400;letter-spacing:0}
-.evidence .benchmark-chart{padding:2px 26px 16px}
-.evidence .chart-row{grid-template-columns:110px 1fr;gap:14px;min-height:50px}
-.evidence .chart-label{font:600 14px 'DM Sans',sans-serif;color:#e2ecf7}
-.evidence .chart-bars{height:40px;background:linear-gradient(to right,rgba(169,211,255,.13) 1px,transparent 1px) 0 0/50% 100%,linear-gradient(to right,rgba(169,211,255,.08) 1px,transparent 1px) 0 0/25% 100%;border-right:1px solid rgba(169,211,255,.2)}
-.evidence .chart-bar{height:17px;min-width:0;transition:width .24s ease-out;border-radius:0 3px 3px 0}
-.evidence .chart-bar.base{top:2px;background:#728ca5;color:#f5f8ff}
-.evidence .chart-bar.ours{top:21px;background:#8bd8ff;color:#071927}
-.evidence .chart-bar>span{font:600 14px/17px 'DM Mono',monospace;padding:0 6px}
+.evidence .relative-gain-summary{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 14px;margin:0}
+.evidence .relative-gain-summary strong{font:600 clamp(34px,3vw,45px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-.055em;color:#8bd8ff;white-space:nowrap}
+.evidence .relative-gain-summary span{font:500 14px/1.5 'DM Sans',sans-serif;letter-spacing:0;color:#cbd9e8}
+.evidence .chart-header{display:block;padding:18px 26px 0;color:#b2c7d9;font:600 11px 'DM Mono',monospace;letter-spacing:.04em}
+.benchmark-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#527796 #101d30}
+.benchmark-scroll:focus-visible{outline:2px solid #8bd8ff;outline-offset:-3px}
+.benchmark-plot{--accuracy-plot-height:320px;display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;min-width:940px;padding:26px 26px 0}
+.chart-y-axis{position:sticky;left:0;z-index:2;height:var(--accuracy-plot-height);background:#101d30;box-shadow:14px 0 #101d30;color:#9fb4ca;font:12px/1 'DM Mono',monospace;font-variant-numeric:tabular-nums}
+.chart-y-axis>span{position:absolute;right:0;transform:translateY(50%)}
+.evidence .benchmark-chart{position:relative;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:16px;padding:0;min-width:0}
+.evidence .benchmark-chart::before{content:'';position:absolute;inset:0 0 auto;height:var(--accuracy-plot-height);border-block:1px solid #6385a04d;background:repeating-linear-gradient(to top,#8faccc21 0 1px,transparent 1px calc(100% / 7));pointer-events:none}
+.evidence .chart-row{position:relative;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:var(--accuracy-plot-height) auto;gap:12px;min-height:0;align-items:stretch;padding-bottom:5px}
+.evidence .chart-label{grid-column:1;grid-row:2;display:block;text-align:center;font:600 14px/1.4 'DM Sans',sans-serif;color:#e2ecf7;white-space:nowrap}
+.evidence .chart-bars{grid-column:1;grid-row:1;display:flex;justify-content:center;align-items:flex-end;gap:8px;width:100%;height:var(--accuracy-plot-height);background:none;border:0}
+.evidence .chart-bar{position:relative;left:auto;top:auto;bottom:auto;display:block;width:min(36%,44px);min-width:0;flex:0 0 auto;border-radius:4px 4px 0 0}
+.evidence .chart-bar.base{top:auto;background:#728ca5;color:#c7d5e5}
+.evidence .chart-bar.ours{top:auto;background:#8bd8ff;color:#9ae4ff}
+.evidence .chart-bar>span{position:absolute;bottom:100%;left:50%;width:max-content;padding:0 0 7px;transform:translateX(-50%);text-align:center;font:600 13px/1.2 'DM Mono',monospace;white-space:nowrap}
+.chart-x-label{padding:12px 26px 8px;text-align:center;color:#b2c7d9;font:600 11px/1.4 'DM Mono',monospace;letter-spacing:.04em}
 .evidence .chart-key{padding:10px 26px 13px;font-size:12px;gap:20px;color:#cad9e9}
 .evidence .chart-key i{width:17px;height:11px;border-radius:2px}
 .evidence .key-base{background:#728ca5}.evidence .key-ours{background:#8bd8ff}
@@ -48,19 +44,6 @@
 .metric-details{padding:0 26px 17px;color:#afc3d9;font-size:12px;line-height:1.6}
 .metric-details summary{display:list-item;width:max-content;max-width:100%;cursor:pointer;color:#b6dfff;font-weight:600}
 .metric-details p{margin:8px 0 0;max-width:690px}
-.results-support{display:grid;grid-template-rows:auto;gap:18px;align-content:start}
-.results-card{padding:21px 23px;display:flex;flex-direction:column;min-width:0}
-.results-card-source{font:600 10px/1.4 'DM Mono',monospace;letter-spacing:.08em;color:#8bd8ff}
-.results-card h3{font:600 clamp(21px,1.55vw,25px)/1.12 'Space Grotesk',sans-serif;letter-spacing:-.045em;margin:14px 0 8px;overflow-wrap:break-word}
-.results-card-meta{font-size:12px;color:#b7c9dd;line-height:1.5;margin:0 0 8px}
-.results-card-metric{font-size:12px;color:#9bb6cf;line-height:1.5;margin:0 0 16px}
-.mini-comparison{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.mini-comparison>div{border-top:1px solid #3a536e;padding-top:9px;min-width:0}
-.mini-comparison span{display:block;font-size:12px;line-height:1.3;color:#bdd0e2}
-.results-card .mini-comparison strong{display:block;font:600 clamp(25px,2vw,32px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-.045em;margin-top:6px;color:#b8c7d8}
-.mini-comparison>div:last-child strong{color:#8bd8ff}
-.results-card-gain{margin:11px 0 0;color:#bad0e1;font-size:12px}.results-card-gain strong{color:#9de2ff;font-size:18px}
-.results-card-foot{font-size:11px;line-height:1.5;color:#aac0d3;margin:9px 0 0}
 .expert-panel{margin-top:18px;padding:25px 28px 21px}
 .expert-panel-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:16px}
 .expert-panel-head h3{font:600 clamp(24px,2.35vw,35px)/1.12 'Space Grotesk',sans-serif;letter-spacing:-.045em;margin:8px 0 0}
@@ -84,22 +67,16 @@
 .expert-trend-list li b{color:#d7e9f8;font:600 14px 'DM Mono',monospace;white-space:nowrap}
 .expert-trend-list li.is-default b{color:#d7e9f8}
 .expert-panel-foot{margin:14px 0 0;color:#aabfd2;font-size:12px;line-height:1.5}
-@media(max-width:1160px){.results-layout{grid-template-columns:1fr}.results-support{grid-template-columns:1fr;grid-template-rows:none}.expert-panel-grid{grid-template-columns:1fr 1fr}.results-card{min-height:240px}}
-@media(max-width:900px){.results-heading,.expert-panel-head{display:block}.results-heading>p,.expert-panel-head p{max-width:680px;margin-top:14px}.results-support{gap:14px}.expert-panel-grid{grid-template-columns:1fr}.expert-trend-list{grid-template-columns:1fr 1fr}.expert-trend-list li:last-child{grid-column:1/-1}}
-@media(max-width:620px){.results-heading h2{font-size:clamp(34px,9.2vw,43px)}.results-heading>p{font-size:15px}.evidence .benchmark-top{display:block;padding:20px 16px 15px}.evidence .benchmark-top h3{font-size:20px}.evidence .benchmark-selector{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;margin-top:15px}.evidence .model-tab{min-height:43px;font-size:10px;padding:6px 3px}.evidence .benchmark-summary{padding:18px 16px 14px}.mean-trajectory{font-size:clamp(30px,8.2vw,38px);gap:8px}.mean-deltas{display:block}.mean-deltas p+p{margin-top:4px}.evidence .chart-header{padding:14px 14px 8px;grid-template-columns:75px 1fr;gap:9px}.evidence .benchmark-chart{padding:2px 14px 13px}.evidence .chart-row{grid-template-columns:75px 1fr;gap:9px;min-height:53px}.evidence .chart-label{font-size:12px}.evidence .chart-bar>span{font-size:13px}.evidence .chart-key{padding:10px 14px;font-size:11px}.evidence .chart-note{padding:11px 14px}.metric-details{padding:0 14px 15px}.results-support{grid-template-columns:1fr}.results-card{padding:20px;min-height:0}.results-card h3{font-size:23px}.expert-panel{padding:20px 16px}.expert-panel-head h3{font-size:26px}.expert-trend-list{grid-template-columns:1fr}.expert-trend-list li:last-child{grid-column:auto}.expert-trend-list li{grid-template-columns:26px 1fr auto;gap:8px}.expert-trend-list li strong{font-size:12px}}
+@media(max-width:1160px){.results-layout{grid-template-columns:1fr}.expert-panel-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.results-heading,.expert-panel-head{display:block}.results-heading>p,.expert-panel-head p{max-width:680px;margin-top:14px}.expert-panel-grid{grid-template-columns:1fr}.expert-trend-list{grid-template-columns:1fr 1fr}.expert-trend-list li:last-child{grid-column:1/-1}}
+@media(max-width:620px){.results-heading h2{font-size:clamp(34px,9.2vw,43px)}.results-heading>p{font-size:15px}.evidence .benchmark-top{display:block;padding:20px 16px 15px}.evidence .benchmark-top h3{font-size:20px}.evidence .benchmark-selector{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;margin-top:15px}.evidence .model-tab{min-height:43px;font-size:10px;padding:6px 3px}.evidence .benchmark-summary{padding:18px 16px 14px}.evidence .relative-gain-summary{gap:7px 12px}.evidence .relative-gain-summary strong{font-size:36px}.evidence .chart-key{padding:10px 14px;font-size:11px}.evidence .chart-note{padding:11px 14px}.metric-details{padding:0 14px 15px}.expert-panel{padding:20px 16px}.expert-panel-head h3{font-size:26px}.expert-trend-list{grid-template-columns:1fr}.expert-trend-list li:last-child{grid-column:auto}.expert-trend-list li{grid-template-columns:26px 1fr auto;gap:8px}.expert-trend-list li strong{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.evidence .chart-bar,.evidence .model-tab{transition:none}}
-@media(max-width:620px){.evidence .benchmark-summary>.mean-trajectory{gap:8px}.evidence .benchmark-summary>.mean-deltas{display:block}}
-/* Keep nested numeric spans at the same size as their percent unit. */
-.mini-comparison strong span{display:inline;font:inherit;color:inherit;line-height:inherit}
-.results-card-meta{font-size:14px}
-.results-card-metric,.results-card-foot{font-size:13px;line-height:1.55}
 .expert-trend-list li strong{font-size:14px;line-height:1.4}
 .expert-trend-list li>div span{font-size:13px}
 .expert-axis-title{font-size:13px}
 .metric-details{font-size:13px}
-@media(max-width:620px){.evidence .chart-label{font-size:14px}}
 
-/* Keep the measured widths intact while the eight comparisons reveal in view. */
+/* Preserve heights while dataset groups reveal and model selections change. */
 .evidence .benchmark-chart .chart-row:nth-child(1){--chart-enter-delay:0ms;--chart-switch-delay:0ms;--chart-sheen-delay:0ms}
 .evidence .benchmark-chart .chart-row:nth-child(2){--chart-enter-delay:45ms;--chart-switch-delay:30ms;--chart-sheen-delay:-160ms}
 .evidence .benchmark-chart .chart-row:nth-child(3){--chart-enter-delay:90ms;--chart-switch-delay:60ms;--chart-sheen-delay:-320ms}
@@ -108,19 +85,20 @@
 .evidence .benchmark-chart .chart-row:nth-child(6){--chart-enter-delay:225ms;--chart-switch-delay:150ms;--chart-sheen-delay:-800ms}
 .evidence .benchmark-chart .chart-row:nth-child(7){--chart-enter-delay:270ms;--chart-switch-delay:180ms;--chart-sheen-delay:-960ms}
 .evidence .benchmark-chart .chart-row:nth-child(8){--chart-enter-delay:315ms;--chart-switch-delay:210ms;--chart-sheen-delay:-1120ms}
-.evidence .chart-bar{transition:width 760ms cubic-bezier(.22,1,.36,1);transition-delay:var(--chart-switch-delay,0ms)}
+.evidence .chart-bar{transition:height 420ms cubic-bezier(.22,1,.36,1);transition-delay:var(--chart-switch-delay,0ms)}
 .evidence .chart-bar.base{box-shadow:inset 0 1px #e8f4ff24,inset 0 -1px #07192745}
-.evidence .chart-bar.ours{background:linear-gradient(90deg,#65c8f8,#9ae4ff);box-shadow:0 0 15px #7ad8ff27,inset 0 1px #f2fcff65}
+.evidence .chart-bar.ours{background:linear-gradient(0deg,#65c8f8,#9ae4ff);box-shadow:0 0 15px #7ad8ff27,inset 0 1px #f2fcff65}
 .evidence .chart-bar.ours::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(100deg,transparent,#fff9,transparent) no-repeat -70% 0/30% 100%;opacity:.38;animation:accuracy-sheen 6s linear infinite;animation-play-state:paused;animation-delay:var(--chart-sheen-delay,0ms)}
-.evidence .chart-bar.ours::after{content:'';position:absolute;right:0;top:2px;bottom:2px;width:2px;border-radius:2px;background:#effcffba;box-shadow:0 0 9px 2px #b6f0ff90;pointer-events:none}
-.evidence .chart-bar>span{position:relative;z-index:1;font-variant-numeric:tabular-nums}
+.evidence .chart-bar.ours::after{content:'';position:absolute;left:2px;right:2px;top:0;bottom:auto;width:auto;height:2px;border-radius:2px;background:#effcffba;box-shadow:0 0 9px 2px #b6f0ff90;pointer-events:none}
+.evidence .chart-bar>span{z-index:1;font-variant-numeric:tabular-nums}
+.evidence .chart-bar>span.is-clipped{visibility:hidden}
 .evidence .chart-row:hover .chart-bars{background-color:#7ad8ff08}
 .evidence .chart-row:hover .chart-label{color:#aee8ff}
 .evidence .chart-row .chart-bars,.evidence .chart-row .chart-label{transition:background-color 220ms ease,color 220ms ease}
-.evidence .benchmark-chart.has-chart-motion .chart-row.is-entering .chart-bar{transform-origin:left center;animation:accuracy-reveal 620ms cubic-bezier(.16,1,.3,1) both;animation-delay:var(--chart-enter-delay,0ms);animation-play-state:paused}
+.evidence .benchmark-chart.has-chart-motion .chart-row.is-entering .chart-bar{transform-origin:center bottom;animation:accuracy-reveal 620ms cubic-bezier(.16,1,.3,1) both;animation-delay:var(--chart-enter-delay,0ms);animation-play-state:paused}
 .evidence .benchmark-chart.has-chart-motion .chart-row.is-entering .chart-bar.ours{animation-delay:calc(var(--chart-enter-delay,0ms) + 70ms)}
 .evidence .benchmark-chart.is-motion-active .chart-row.is-in-view.is-revealed .chart-bar,.evidence .benchmark-chart.is-motion-active .chart-row.is-in-view .chart-bar.ours::before{animation-play-state:running}
-@keyframes accuracy-reveal{from{opacity:.72;transform:scaleX(.92)}to{opacity:1;transform:scaleX(1)}}
+@keyframes accuracy-reveal{from{opacity:.72;transform:scaleY(.92)}to{opacity:1;transform:scaleY(1)}}
 @keyframes accuracy-sheen{0%,22%{background-position:-70% 0}48%,100%{background-position:175% 0}}
 
 /* The chart and the accessible list share one selected expert combination. */

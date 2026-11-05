@@ -4,6 +4,8 @@ node --check i18n.js
 node --check globe-locales.js
 node --check app.js
 node --check research-data.js
+node --check population-data.js
+node --check population-results.js
 node --check globe.js
 node --check launch.js
 node --check method-motion.js
@@ -13,6 +15,7 @@ node --check radar.js
 node --check radar-data.js
 node --check data-explorer.js
 node scripts/render-static-results.mjs --check
+node scripts/render-population-results.mjs --check
 node scripts/render-reasoning-radar.mjs --check
 node scripts/check-locales.mjs
 node scripts/check-geography.mjs

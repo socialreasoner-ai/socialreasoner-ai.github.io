@@ -18,16 +18,11 @@ const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 })[character]);
 const format = (value, digits) => Number(value).toFixed(digits);
-const average = values => values.reduce((sum, value) => sum + value, 0) / values.length;
-const mean = values => Math.round(average(values) * 100 + 1e-8) / 100;
 
 function renderSummary() {
   const model = research.models.qwen3;
-  const points = Number((average(model.ours) - average(model.base)).toFixed(1));
   return `<div class="benchmark-summary" aria-live="polite">
-          <div class="mean-trajectory"><span id="mean-base">${format(mean(model.base), 2)}%</span><span class="mean-arrow" aria-hidden="true">→</span><strong id="mean-ours">${format(mean(model.ours), 2)}%</strong></div>
-          <p id="mean-model-label">Mean accuracy across eight datasets · ${escapeHtml(model.shortLabel)}</p>
-          <div class="mean-deltas"><p><strong id="point-gain">+${format(points, 1)}</strong> <span><span data-i18n="evidence.points">percentage points</span></span></p><p><strong id="relative-gain">+${escapeHtml(model.reportedRelativeGain)}</strong> <span><span data-i18n="evidence.relativeGainDetail">relative gain in mean accuracy</span></span></p></div>
+          <p class="relative-gain-summary"><strong id="relative-gain">+${escapeHtml(model.reportedRelativeGain)}</strong> <span data-i18n="evidence.relativeGainDetail">relative gain in mean accuracy</span></p>
         </div>`;
 }
 
@@ -39,7 +34,7 @@ function renderBenchmark() {
   return research.datasets.map((dataset, index) => {
     const base = model.base[index];
     const ours = model.ours[index];
-    return `<div class="chart-row" data-dataset="${escapeHtml(dataset)}" aria-label="${escapeHtml(dataset)}: base ${format(base, 2)} percent, SocialReasoner ${format(ours, 2)} percent"><span class="chart-label">${escapeHtml(dataset)}</span><div class="chart-bars" aria-hidden="true"><div class="chart-bar base" style="width:${base / 70 * 100}%"><span>${format(base, 2)}</span></div><div class="chart-bar ours" style="width:${ours / 70 * 100}%"><span>${format(ours, 2)}</span></div></div></div>`;
+    return `<div class="chart-row" data-dataset="${escapeHtml(dataset)}" aria-label="${escapeHtml(dataset)}: base ${format(base, 2)} percent, SocialReasoner ${format(ours, 2)} percent"><span class="chart-label">${escapeHtml(dataset)}</span><div class="chart-bars" aria-hidden="true"><div class="chart-bar base" style="height:${base / 70 * 100}%"><span>${format(base, 2)}</span></div><div class="chart-bar ours" style="height:${ours / 70 * 100}%"><span>${format(ours, 2)}</span></div></div></div>`;
   }).join('\n          ');
 }
 

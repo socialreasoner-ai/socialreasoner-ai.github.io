@@ -57,9 +57,6 @@
 .globe-legend .legend-sampled{width:7px;height:7px;background:#aeeaff;box-shadow:none}
 .globe-legend .legend-selected{width:11px;height:11px;border:2px solid #f1c397;background:transparent}
 .globe-legend .legend-empty{width:10px;height:10px;border:1px dashed #e8ad7f;background:transparent}
-#globe-legend-scale{gap:8px;flex-wrap:wrap;color:#a8c9db}
-.globe-size-key{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
-.globe-size-dot{display:inline-block;flex:0 0 auto;border:1px solid #cbf0ff;background:#9cdbf2}
 .globe-hero :is(button,select,a):focus-visible,.coverage-explorer :is(button,select,a):focus-visible{outline:2px solid #8bd8ff;outline-offset:3px}
 @media(max-width:1150px){.globe-stage{height:clamp(410px,41vw,540px)}.globe-toolbar{grid-template-columns:1fr;gap:8px}.globe-toolbar .globe-filter{max-width:none}}
 @media(max-width:900px){.hero-visual.globe-hero{width:100%;max-width:690px;margin:0 auto 18px!important}.globe-stage{height:510px}}

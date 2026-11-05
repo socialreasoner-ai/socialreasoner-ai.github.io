@@ -61,23 +61,19 @@ function renderStage(button) {
 bindTabs('.stage', renderStage);
 renderStage(document.querySelector('.stage.active'));
 
-function average(values) { return values.reduce((sum, value) => sum + value, 0) / values.length; }
-// Match the existing page's half-up display rule at two decimal places.
-const mean = values => Math.round(average(values) * 100 + 1e-8) / 100;
-
 function makeChartBar(className, value) {
   const bar = document.createElement('div');
   bar.className = `chart-bar ${className}`;
   // All models share a zero-based 0–70% accuracy axis.
-  bar.style.width = `${value / 70 * 100}%`;
+  bar.style.height = `${value / 70 * 100}%`;
   const label = document.createElement('span');
   label.textContent = siteNumber(value, 2);
   bar.append(label);
   return bar;
 }
 
-// Keep the same eight rows mounted so CSS can interpolate each bar from its
-// current width, including when the next model is chosen mid-transition.
+// Keep all eight dataset groups mounted so bar heights can interpolate from
+// their current position when a model is selected mid-transition.
 function buildResultRows() {
   const chart = document.querySelector('#benchmark-chart');
   const existing = [...chart.querySelectorAll(':scope > .chart-row')];
@@ -106,14 +102,7 @@ function buildResultRows() {
 function renderResults(key) {
   const model = results[key];
   const chart = document.querySelector('#benchmark-chart');
-  const baseMean = mean(model.base);
-  const oursMean = mean(model.ours);
-  const points = Number((average(model.ours) - average(model.base)).toFixed(1));
   document.querySelector('#relative-gain').textContent = `+${model.reportedRelativeGain}`;
-  document.querySelector('#mean-base').textContent = `${siteNumber(baseMean, 2)}%`;
-  document.querySelector('#mean-ours').textContent = `${siteNumber(oursMean, 2)}%`;
-  document.querySelector('#point-gain').textContent = `+${siteNumber(points, 1)}`;
-  document.querySelector('#mean-model-label').textContent = siteText('evidence.meanScope', { model: model.shortLabel });
   chart.setAttribute('aria-label', siteText('evidence.chartAria', { model: model.label }));
   [...chart.querySelectorAll('.chart-row')].forEach((row, i) => {
     const name = datasets[i];
@@ -122,7 +111,7 @@ function renderResults(key) {
     }));
     for (const [kind, value] of [['base', model.base[i]], ['ours', model.ours[i]]]) {
       const bar = row.querySelector(`.chart-bar.${kind}`);
-      bar.style.width = `${value / 70 * 100}%`;
+      bar.style.height = `${value / 70 * 100}%`;
       bar.firstElementChild.textContent = siteNumber(value, 2);
     }
   });
@@ -171,19 +160,22 @@ function setupResultMotion() {
   window.addEventListener('pageshow', () => { pageActive = true; syncMotion(); });
 }
 
+function setupChartValueVisibility() {
+  const viewport = document.querySelector('.benchmark-scroll');
+  if (!viewport || !('IntersectionObserver' in window)) return;
+  // Hide a whole value when it crosses the viewport edge or the sticky axis,
+  // so a clipped leading digit can never read as a different accuracy.
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => entry.target.classList.toggle('is-clipped', entry.intersectionRatio < 1));
+  }, { root: viewport, rootMargin: '0px 0px 0px -48px', threshold: 1 });
+  viewport.querySelectorAll('.chart-bar > span').forEach(label => observer.observe(label));
+}
+
 buildResultRows();
 bindTabs('.model-tab', button => renderResults(button.dataset.model));
 renderResults('qwen3');
 setupResultMotion();
-
-function renderSupplementaryResults() {
-  const distribution = researchResults.distribution;
-  const text = (id, value, digits) => { document.getElementById(id).textContent = siteNumber(value, digits); };
-  text('distribution-base', distribution.base, 3);
-  text('distribution-ours', distribution.ours, 3);
-}
-
-renderSupplementaryResults();
+setupChartValueVisibility();
 
 let activeEvidence = null;
 let previewEvidence = null;
@@ -323,7 +315,6 @@ Object.entries(RELEASE_URLS).forEach(([key, raw]) => {
 window.addEventListener('site:languagechange', () => {
   renderStage(document.querySelector('.stage.active'));
   renderResults(document.querySelector('.model-tab.active').dataset.model);
-  renderSupplementaryResults();
   renderMenuLabel();
 });
 
