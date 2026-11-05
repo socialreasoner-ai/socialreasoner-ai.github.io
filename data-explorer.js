@@ -150,6 +150,7 @@
   }
 
   function setView(view, focus) {
+    api()?.enterCoverage?.();
     state.view = view;
     render();
     if (focus) nav.querySelector('[data-portrait-view="' + view + '"]')?.focus({ preventScroll: true });
@@ -196,6 +197,7 @@
       button.dataset.portraitGroup = id;
       button.setAttribute('aria-pressed', String(state.group === id));
       button.addEventListener('click', () => {
+        api()?.enterCoverage?.();
         state.group = id;
         if (id !== 'all') state.metric = 'respondents';
         render();
@@ -208,11 +210,17 @@
     const reset = element('button', 'portrait-reset', t('resetFilters'));
     reset.type = 'button';
     reset.addEventListener('click', () => {
+      api()?.enterCoverage?.();
       state.group = 'all';
       state.metric = 'respondents';
-      api()?.setDataset?.('all');
-      api()?.setRegion?.('');
-      render();
+      if (api()?.setSelection) {
+        if (!api().setSelection({ dataset: 'all', selectedRegion: '' }, 'coverage')) render();
+      }
+      else {
+        api()?.setDataset?.('all');
+        api()?.setRegion?.('');
+        render();
+      }
       panel.querySelector('.portrait-reset')?.focus({ preventScroll: true });
     });
     toolbar.append(reset);
@@ -431,6 +439,7 @@
         button.type = 'button';
         button.setAttribute('aria-label', t('ageCardZoom', { dataset: datasetName(dataset.id) }));
         button.addEventListener('click', () => {
+          api()?.enterCoverage?.();
           api()?.setDataset?.(dataset.id);
           panel.querySelector('.portrait-section-heading h3')?.focus({ preventScroll: true });
         });
@@ -506,6 +515,7 @@
       const button = element('button', 'portrait-rank-row');
       button.type = 'button';
       button.addEventListener('click', () => {
+        api()?.enterCoverage?.();
         api()?.setRegion?.(row.id);
         document.getElementById('coverage-region')?.focus({ preventScroll: true });
       });
@@ -536,6 +546,7 @@
       button.setAttribute('aria-pressed', String(state.metric === id));
       button.disabled = id === 'responses' && !canShowResponses;
       button.addEventListener('click', () => {
+        api()?.enterCoverage?.();
         state.metric = id;
         render();
         panel.querySelector('[data-portrait-metric="' + id + '"]')?.focus({ preventScroll: true });
@@ -564,6 +575,7 @@
       button.setAttribute('aria-label', t('surveyDatasetClick', { dataset: datasetName(row.id) }) + '. ' +
         t(state.metric === 'responses' ? 'surveyCountResponses' : 'surveyCountRespondents', { count: number(row.value) }));
       button.addEventListener('click', () => {
+        api()?.enterCoverage?.();
         api()?.setDataset?.(row.id);
         panel.querySelector('[data-portrait-survey-dataset="' + row.id + '"]')?.focus({ preventScroll: true });
       });
@@ -640,7 +652,15 @@
     if (state.view === 'ages') render();
   });
   Promise.all([
-    fetchJson('assets/geography.json?v=20261104-paper-cohort-r1'),
+    new Promise((resolve, reject) => {
+      const deadline = Date.now() + 5000;
+      const waitForSharedGeography = () => {
+        if (api()?.getGeographyPromise) Promise.resolve(api().getGeographyPromise()).then(resolve, reject);
+        else if (Date.now() >= deadline) reject(new Error('Shared geographic index unavailable'));
+        else setTimeout(waitForSharedGeography, 20);
+      };
+      waitForSharedGeography();
+    }),
     fetchJson('assets/economy-groups.json?v=20261104-portrait-r1'),
     fetchJson('assets/demographics.json?v=20261104-portrait-r1')
   ]).then(([geographyData, economyData, demographicsData]) => {

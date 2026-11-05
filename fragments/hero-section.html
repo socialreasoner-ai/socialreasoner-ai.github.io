@@ -1,0 +1,36 @@
+    <section class="hero section-shell globe-experience" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow hero-eyebrow"><span class="status-pulse" aria-hidden="true"></span> <span data-i18n="hero.preview">SOCIAL REASONING</span></div>
+        <h1 id="hero-title"><span class="hero-line">Social</span><span class="hero-line hero-line-em">Reasoner</span></h1>
+        <p class="hero-description"><span data-i18n="hero.description">SocialReasoner predicts survey responses from demographics and perceptions, with reasoning supervision built from expert evidence.</span></p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#approach"><span data-i18n="hero.exploreMethod">Explore the method</span> <span aria-hidden="true">↘</span></a>
+          <a class="button button-quiet" href="#evidence"><span data-i18n="hero.seeEvidence">View results</span> <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="hero-subtitle"><span data-i18n="paper.title">Learning a Foundation Model of Human Social Reasoning from Heterogeneous Experts</span></p>
+      </div>
+      <div class="hero-visual globe-hero" data-scene="overview" aria-label="Interactive globe showing respondent counts by survey region" data-i18n-aria-label="hero.globeAria">
+        <div class="cosmic-backdrop" aria-hidden="true"><div class="cosmic-nebula"></div><div class="cosmic-stars"></div></div>
+        <div class="globe-toolbar">
+          <div class="globe-hero-top"><span class="globe-light" aria-hidden="true"></span><span data-i18n="hero.geoCoverage">SURVEY COVERAGE</span></div>
+          <div class="globe-filter"><div><label for="hero-dataset"><span data-i18n="hero.exploreDataset">EXPLORE DATASET</span></label><select id="hero-dataset" aria-label="Filter globe by dataset" data-i18n-aria-label="hero.filterAria" disabled><option value="all" data-i18n="hero.loadingCoverage">Loading coverage…</option></select></div><div><label for="globe-region-select" data-globe-label="regionFilter">SURVEY REGION</label><select id="globe-region-select" aria-label="Choose a survey region" disabled><option value="">Choose a region</option></select></div></div>
+        </div>
+        <div class="showcase-actions" role="group" aria-label="Explore respondents" data-i18n-aria-label="respondent.actionsAria">
+          <button type="button" id="showcase-open" disabled><span data-i18n="respondent.open">Meet the respondents</span><span aria-hidden="true"> ↗</span></button>
+          <button type="button" id="showcase-back" hidden><span aria-hidden="true">← </span><span data-i18n="respondent.back">Back to globe</span></button>
+          <button type="button" id="showcase-skip" hidden><span data-i18n="respondent.skip">Skip animation</span></button>
+          <button type="button" id="showcase-all"><span data-i18n="respondent.all">All datasets</span></button>
+        </div>
+        <div class="globe-stage">
+          <div class="globe-frame"><canvas id="globe-canvas" aria-label="Drag to rotate the world globe. Select a dataset or region using the controls below for keyboard access." data-i18n-aria-label="hero.canvasAria"></canvas></div>
+          <div class="globe-tooltip" id="globe-tooltip" role="status" hidden></div>
+          <div class="globe-overlap-picker" id="globe-overlap-picker" hidden></div>
+        </div>
+        <div class="globe-controls" role="group" aria-label="Globe controls"><button type="button" id="globe-control-rotation" aria-pressed="false"><span data-globe-label="pause">Pause</span></button><button type="button" id="globe-control-reset"><span data-globe-label="resetView">Reset view</span></button><button type="button" id="globe-control-clear" disabled><span data-globe-label="clearSelection">Clear region</span></button><button type="button" id="globe-control-interaction" aria-pressed="false"><span data-globe-label="touchRotate">Rotate by touch</span></button></div>
+        <div class="globe-inspector"><div class="globe-inspector-head"><div class="globe-hero-detail" aria-live="polite"><span id="globe-region-kicker"><span data-i18n="hero.worldwide">WORLDWIDE / ALL DATASETS</span></span><strong id="globe-region-name"><span data-i18n="hero.loading">Loading coverage</span></strong><span id="globe-region-count"><span data-i18n="hero.pleaseWait">Please wait</span></span></div><a href="#coverage" id="globe-view-data"><span data-globe-label="viewData">View data</span> <span aria-hidden="true">↗</span></a></div>
+          <ul id="globe-region-distribution" aria-label="Respondents by dataset" hidden></ul>
+          <div class="globe-legend"><span><i class="legend-sampled" aria-hidden="true"></i><span data-globe-label="sampledRegion">Sampled region</span></span><span><i class="legend-selected" aria-hidden="true"></i><span data-globe-label="selectedRegion">Selected region</span></span><span><i class="legend-empty" aria-hidden="true"></i><span data-globe-label="noSample">No sample</span></span></div>
+        </div>
+        <section id="respondent-explorer" class="respondent-explorer" hidden></section>
+      </div>
+    </section>

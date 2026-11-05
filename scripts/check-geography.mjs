@@ -125,6 +125,7 @@ const element = selector => {
 };
 let language = 'en', now = 0, nextFrame = 1;
 const events = {}, documentEvents = {}, frames = new Map(), intersections = [];
+const publicEvents = [], fetches = [];
 const media = { matches: true, addEventListener(name, fn) { this[name] = fn; }, removeEventListener() {} };
 documentMock = {
   querySelector: selector => absent.has(selector) ? null : element(selector),
@@ -133,14 +134,17 @@ documentMock = {
   addEventListener(name, fn) { documentEvents[name] = fn; }, removeEventListener() {}
 };
 const sandbox = {
-  console, Intl, d3, topojson, AbortController, URL, setTimeout, clearTimeout,
+  console, Intl, d3, topojson, AbortController, DOMException, URL, URLSearchParams, setTimeout, clearTimeout,
+  CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options?.detail; } },
   performance: { now: () => now }, document: documentMock,
   requestAnimationFrame(fn) { const id = nextFrame++; frames.set(id, fn); return id; },
   cancelAnimationFrame(id) { frames.delete(id); },
   ResizeObserver: class { observe() {} disconnect() {} },
   IntersectionObserver: class { constructor(fn) { intersections.push(fn); } observe() {} disconnect() {} },
-  window: { d3, topojson, devicePixelRatio: 1, matchMedia: () => media, addEventListener(name, fn) { events[name] = fn; }, removeEventListener() {} },
-  fetch: async url => ({ ok: true, json: async () => JSON.parse(fs.readFileSync(root + String(url).split('?')[0], 'utf8')) })
+  window: { d3, topojson, devicePixelRatio: 1, matchMedia: () => media,
+    addEventListener(name, fn) { events[name] = fn; }, removeEventListener() {},
+    dispatchEvent(event) { publicEvents.push(event); events[event.type]?.(event); } },
+  fetch: async url => { fetches.push(String(url)); return { ok: true, json: async () => JSON.parse(fs.readFileSync(root + String(url).split('?')[0], 'utf8')) }; }
 };
 sandbox.window.ResizeObserver = sandbox.ResizeObserver;
 sandbox.window.IntersectionObserver = sandbox.IntersectionObserver;
@@ -154,11 +158,18 @@ sandbox.window.SiteI18n = {
 };
 vm.createContext(sandbox);
 vm.runInContext(fs.readFileSync(root + 'globe-locales.js', 'utf8'), sandbox);
-let source = fs.readFileSync(root + 'globe.js', 'utf8');
-source = source.replace(/\}\)\(\);\s*$/, 'window.__globeTest = { state, selectRegion, syncDataset, findRegion, findRegions, draw, countFor, sampleFor, markerRadius, resetView, clearSelection, toggleRotation }; })();');
+let source = fs.readFileSync(root + 'coverage-state.js', 'utf8').replace(/^export /gm, '');
 vm.runInContext(source, sandbox);
-await new Promise(resolve => setImmediate(resolve));
-const api = sandbox.window.__globeTest;
+source = fs.readFileSync(root + 'globe-renderer-2d.js', 'utf8').replace(/^export /gm, '');
+source = source.replace('return { ready, state, setPaused',
+  'return { debug: { state, selectRegion, syncDataset, findRegion, findRegions, draw, countFor, sampleFor, markerRadius, resetView, clearSelection, toggleRotation }, ready, state, setPaused');
+vm.runInContext(source, sandbox);
+vm.runInContext(`window.__coverageStore = createCoverageState();
+  window.__globeRenderer = createGlobeRenderer2d({ canvas: document.querySelector('#globe-canvas'),
+    host: document.querySelector('.globe-hero'), store: window.__coverageStore,
+    onHeroDataset: id => window.__coverageStore.openDatasetShowcase(id) });`, sandbox);
+await sandbox.window.__globeRenderer.ready;
+const api = sandbox.window.__globeRenderer.debug;
 assert.ok(api.state.data, 'Globe data initialized');
 assert.notEqual(element('#globe-region-name').textContent, 'Coverage unavailable', 'Complete controller initialization');
 api.state.path = feature => { context.geometry = feature.id == null ? null : Number(feature.id); };
@@ -259,4 +270,34 @@ canvas.events.pointerdown(overlapEvent); canvas.events.pointerup(overlapEvent);
 assert.equal(element('#globe-overlap-picker').hidden, false);
 assert.equal(api.state.spinning, false);
 assert.equal(element('#globe-control-rotation').getAttribute('aria-pressed'), 'false', 'Touch overlap selection updates rotation control');
+const store = sandbox.window.__coverageStore;
+const beforeAtomic = publicEvents.length;
+assert.equal(store.setSelection({ dataset: 'ATP152', selectedRegion: '' }, 'showcase'), true);
+assert.equal(publicEvents.length, beforeAtomic + 1, 'Atomic showcase selection emits one public event');
+assert.equal(publicEvents.at(-1).detail.dataset, 'ATP152');
+assert.equal(publicEvents.at(-1).detail.selectedRegion, '');
+assert.equal(store.setSelection({ dataset: 'ATP152', selectedRegion: '' }, 'showcase'), false);
+assert.equal(publicEvents.length, beforeAtomic + 1, 'No-op selection emits nothing');
+store.setRegion('FRA'); store.setDataset('ISSP2019');
+assert.equal(store.getSelection().selectedRegion, 'FRA', 'Public dataset setter preserves region');
+assert.equal(store.getGeographyPromise(), store.getGeographyPromise(), 'Data shares one geography promise');
+assert.equal(fetches.filter(url => url.includes('geography.json')).length, 1, 'Geography fetched once');
+const geometryFailureStore = vm.runInContext(`createCoverageState({ fetcher: url =>
+  String(url).includes('world-110m') ? Promise.reject(new Error('geometry failed')) : fetch(url) })`, sandbox);
+await geometryFailureStore.load();
+await assert.rejects(geometryFailureStore.getWorldPromise(), /geometry failed/);
+assert.equal(geometryFailureStore.getSelection().ready, true, 'Geography remains ready when world geometry fails');
+sandbox.window.__globeRenderer.dispose();
+sandbox.window.__nullCanvas = new Element('canvas');
+sandbox.window.__nullCanvas.getContext = () => null;
+vm.runInContext(`window.__dataOnlyRenderer = createGlobeRenderer2d({
+  canvas: window.__nullCanvas, host: document.querySelector('.globe-hero'), store: window.__coverageStore });`, sandbox);
+await sandbox.window.__dataOnlyRenderer.ready;
+assert.ok(sandbox.window.__dataOnlyRenderer.state.data, 'Coverage UI loads without a 2D canvas');
+assert.ok(element('#coverage-total').textContent.includes('40,245'), 'Counts remain readable without a 2D canvas');
+sandbox.window.__dataOnlyRenderer.dispose();
+const beforeDispose = publicEvents.length;
+store.dispose();
+assert.equal(store.setSelection({ dataset: 'all', selectedRegion: '' }), false, 'Disposed state rejects updates');
+assert.equal(publicEvents.length, beforeDispose, 'Disposed state emits no selection event');
 console.log('PASS: picking, touch-mode controller and interruptible focus; preserved aggregates; shared filters; zero/unknown semantics; independent counts with linked outlines; fixed marker scale; language state; rotation lifecycle.');

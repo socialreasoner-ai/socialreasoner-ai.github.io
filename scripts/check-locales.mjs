@@ -3,12 +3,14 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
 const root = new URL('../', import.meta.url);
-const [i18nSource, globeSource, html, appSource, portraitSource] = await Promise.all([
+const [i18nSource, globeSource, html, appSource, portraitSource, respondentSource, respondentExplorerSource] = await Promise.all([
   readFile(new URL('i18n.js', root), 'utf8'),
   readFile(new URL('globe-locales.js', root), 'utf8'),
   readFile(new URL('index.html', root), 'utf8'),
   readFile(new URL('app.js', root), 'utf8'),
-  readFile(new URL('data-explorer.js', root), 'utf8')
+  readFile(new URL('data-explorer.js', root), 'utf8'),
+  readFile(new URL('respondent-locales.js', root), 'utf8'),
+  readFile(new URL('respondent-explorer.js', root), 'utf8')
 ]);
 const languages = ['en', 'zh', 'fr', 'de', 'ko'];
 const issues = [];
@@ -16,6 +18,7 @@ const windowStub = { location: { search: '' } };
 const context = vm.createContext({ window: windowStub, URLSearchParams, Intl });
 try {
   vm.runInContext(globeSource, context, { filename: 'globe-locales.js' });
+  vm.runInContext(respondentSource, context, { filename: 'respondent-locales.js' });
   vm.runInContext(i18nSource, context, { filename: 'i18n.js' });
 } catch (error) {
   console.error(`Locale source could not be loaded: ${error.message}`);
@@ -64,8 +67,9 @@ for (const row of rows) {
 checkDictionary('site', windowStub.SOCIAL_I18N_MESSAGES);
 checkDictionary('globe', windowStub.SOCIAL_GLOBE_MESSAGES);
 checkDictionary('region names', windowStub.SOCIAL_REGION_NAMES);
+checkDictionary('respondent', windowStub.SOCIAL_RESPONDENT_MESSAGES);
 
-const siteKeys = windowStub.SOCIAL_I18N_MESSAGES?.en || {};
+const siteKeys = { ...(windowStub.SOCIAL_I18N_MESSAGES?.en || {}), ...Object.fromEntries(Object.entries(windowStub.SOCIAL_RESPONDENT_MESSAGES?.en || {}).map(([key, value]) => [`respondent.${key}`, value])) };
 for (const match of html.matchAll(/\bdata-i18n(?:-aria-label|-alt|-content|-title)?="([^"]+)"/g)) {
   if (!Object.hasOwn(siteKeys, match[1])) issues.push(`index.html: unknown DOM key ${match[1]}`);
 }
@@ -79,6 +83,9 @@ for (const match of appSource.matchAll(/\bsiteText\(['"]([^'"`]+)['"]/g)) {
 }
 for (const match of portraitSource.matchAll(/\bt\(['"]([^'"`]+)['"]/g)) {
   if (!Object.hasOwn(siteKeys, `portrait.${match[1]}`)) issues.push(`data-explorer.js: unknown dynamic key portrait.${match[1]}`);
+}
+for (const match of respondentExplorerSource.matchAll(/\bt\(['"]([^'"`]+)['"]/g)) {
+  if (!Object.hasOwn(windowStub.SOCIAL_RESPONDENT_MESSAGES.en, match[1])) issues.push(`respondent-explorer.js: unknown dynamic key ${match[1]}`);
 }
 for (let index = 0; index < 4; index++) {
   for (const part of ['label', 'heading', 'body', 'input', 'output']) {

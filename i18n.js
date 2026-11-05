@@ -636,8 +636,8 @@ function socialI18nInitialLanguage() {
 }
 let socialI18nLanguage = socialI18nInitialLanguage();
 function socialI18nT(key, params = {}) {
-  const source = key.startsWith("globe.") ? window.SOCIAL_GLOBE_MESSAGES : SOCIAL_I18N_MESSAGES;
-  const messageKey = key.startsWith("globe.") ? key.slice(6) : key;
+  const source = key.startsWith("respondent.") ? window.SOCIAL_RESPONDENT_MESSAGES : key.startsWith("globe.") ? window.SOCIAL_GLOBE_MESSAGES : SOCIAL_I18N_MESSAGES;
+  const messageKey = key.startsWith("respondent.") ? key.slice(11) : key.startsWith("globe.") ? key.slice(6) : key;
   const message = socialI18nLookup(source && source[socialI18nLanguage], messageKey)
     ?? socialI18nLookup(source && source.en, messageKey)
     ?? key;
