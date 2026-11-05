@@ -11,6 +11,8 @@ node --check launch.js
 node --check method-motion.js
 node --check method-example.js
 node scripts/check-method-example.mjs
+node --check method-demo.js
+node scripts/check-method-demo.mjs
 node --check radar.js
 node --check radar-data.js
 node --check data-explorer.js
