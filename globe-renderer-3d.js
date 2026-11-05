@@ -1,5 +1,5 @@
 import * as THREE from './assets/vendor/three/three.module.js';
-import { GlobeCharacters, geographicVector } from './globe-characters.js?v=20261105-glb-r1';
+import { GlobeCharacters, geographicVector, OVERVIEW_CHARACTER_SCALE } from './globe-characters.js?v=20261105-glb-r2';
 
 const RADIUS = 2;
 const DEFAULT_YAW = THREE.MathUtils.degToRad(-20);
@@ -10,6 +10,17 @@ const nearestYaw = (target, current) => current + Math.atan2(Math.sin(target - c
 const numericKey = value => String(Number(value));
 const validCount = value => Number.isInteger(value) && value >= 0;
 const groupOf = region => region?.highlightGroup || region?.id;
+
+export function globeViewportFor(width, height) {
+  const aspect = Math.max(.1, width / height);
+  const tangent = Math.tan(THREE.MathUtils.degToRad(20));
+  const readingSide = THREE.MathUtils.lerp(.76, 1.24, clamp((aspect - .72) / .66));
+  // The overview bound includes the tallest standing avatars; the reading bound
+  // includes the widest Wave/Turn pose and the full .7-unit forward walk.
+  const overviewZ = Math.max(8.25, 2.68 * Math.sqrt(1 + 1 / (tangent * .94 * Math.min(1, aspect)) ** 2));
+  const readingZ = Math.max(7.8, 3.65 + (readingSide + .98) / (tangent * aspect * .94));
+  return {width, height, aspect, fov: 40, overviewZ, readingZ, readingSide, cameraY: -.06};
+}
 
 export function vectorToGeographic(point) {
   const unit = point.clone().normalize();
@@ -127,8 +138,8 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
   webgl.setClearColor(0x030712, 0);
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(40, 1, .1, 80);
-  camera.position.set(0, .2, 8.5);
-  camera.lookAt(0, 0, 0);
+  camera.position.set(0, -.06, 8.25);
+  camera.lookAt(0, -.06, 0);
   scene.add(new THREE.AmbientLight(0xc4dfff, 1.25));
   const sunlight = new THREE.DirectionalLight(0xe4f3ff, 2.2);
   sunlight.position.set(-4, 4, 7);
@@ -199,12 +210,15 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
   let queuedEarthMotion = null;
   let sceneDeadline = 0;
   let manualDrag = null;
+  let viewport = globeViewportFor(1200, 700);
+  let cameraTargetZ = viewport.overviewZ;
   const aborter = new AbortController();
   const on = (target, event, fn, options = {}) => target.addEventListener(event, fn,
     {...options, signal: aborter.signal});
   const emitMode = next => {
     if (mode === next) return;
     mode = next;
+    cameraTargetZ = ['focusing', 'entering', 'reading'].includes(mode) ? viewport.readingZ : viewport.overviewZ;
     host.dataset.scene = mode;
     onSceneChange?.(mode);
   };
@@ -258,10 +272,15 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
     const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.25 : 1.5);
     webgl.setPixelRatio(dpr);
     webgl.setSize(width, height, false);
-    camera.aspect = width / height;
-    camera.fov = mobile ? 47 : 40;
-    camera.position.z = mobile ? 10.2 : 8.5;
+    viewport = globeViewportFor(width, height);
+    cameraTargetZ = ['focusing', 'entering', 'reading'].includes(mode) ? viewport.readingZ : viewport.overviewZ;
+    camera.aspect = viewport.aspect;
+    camera.fov = viewport.fov;
+    camera.position.set(0, viewport.cameraY, cameraTargetZ);
+    camera.lookAt(0, viewport.cameraY, 0);
     camera.updateProjectionMatrix();
+    camera.updateMatrixWorld(true);
+    characters.setStageSide(viewport.readingSide);
     updateTexture();
     start();
   }
@@ -291,6 +310,9 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
     if (disposed || document.hidden || !visible) {lastTime = 0; return;}
     const dt = lastTime ? Math.min(50, time - lastTime) : 16;
     lastTime = time;
+    camera.position.z = THREE.MathUtils.lerp(camera.position.z, cameraTargetZ,
+      motionReduced() ? 1 : Math.min(1, dt / 160));
+    camera.updateMatrixWorld(true);
     host.dataset.frameCount = String(++frameCount);
     frameAverage = frameAverage ? frameAverage * .92 + dt * .08 : dt;
     host.dataset.frameMs = frameAverage.toFixed(1);
@@ -545,6 +567,7 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
     getCharacterStatus: displayId => characters.getCharacterStatus(displayId),
     getDebug: () => ({mode, frameAverageMs: frameAverage, quality, selectedDataset: selection.dataset,
       selectedRegion: selection.selectedRegion, people: characters.entries.size,
+      viewport: {...viewport, cameraZ: camera.position.z, overviewCharacterScale: OVERVIEW_CHARACTER_SCALE},
       readyModels: [...characters.entries.values()].filter(entry => entry.modelStatus === 'ready').length,
       loadingModels: [...characters.entries.values()].filter(entry => entry.modelStatus === 'loading').length,
       activeActions: [...characters.entries.values()].filter(entry => entry.group.visible && entry.model)

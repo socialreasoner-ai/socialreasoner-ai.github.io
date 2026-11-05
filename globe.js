@@ -67,8 +67,10 @@
     const back = document.querySelector('#showcase-back');
     const skip = document.querySelector('#showcase-skip');
     if (open) {
-      open.hidden = reading || store?.getSelection().dataset === 'all';
-      open.disabled = !store?.getSelection().ready || store?.getSelection().dataset === 'all';
+      const selected = store?.getSelection().dataset;
+      const available = selected && selected !== 'all' && reader?.hasReadyPair(selected);
+      open.hidden = reading || !available;
+      open.disabled = !store?.getSelection().ready || !available;
     }
     if (back) back.hidden = !reading;
     if (skip) skip.hidden = !['focusing', 'entering'].includes(next);
@@ -104,7 +106,8 @@
   }
 
   function enterShowcase(dataset) {
-    if (disposed || !store?.getData() || dataset === 'all' || !store.getDataset(dataset)) return;
+    if (disposed || !store?.getData() || dataset === 'all' || !store.getDataset(dataset)
+      || !reader?.hasReadyPair(dataset)) return;
     if (showcaseDataset === dataset && ['focusing', 'entering', 'reading'].includes(scene)) return;
     showcaseDataset = dataset;
     requestNumber += 1;
@@ -153,6 +156,11 @@
       store.clearAll();
       return;
     }
+    if (!reader?.hasReadyPair(dataset)) {
+      closeShowcase();
+      store.setDataset(dataset);
+      return;
+    }
     const changed = store.openDatasetShowcase(dataset);
     if (!changed) enterShowcase(dataset);
   }
@@ -170,7 +178,7 @@
 
   function onSelection(selection, { intent } = {}) {
     if (disposed) return;
-    if (intent === 'showcase' && selection.dataset !== 'all') {
+    if (intent === 'showcase' && selection.dataset !== 'all' && reader?.hasReadyPair(selection.dataset)) {
       enterShowcase(selection.dataset);
     } else if (showcaseDataset) {
       closeShowcase();
@@ -246,6 +254,8 @@
       host: document.querySelector('#respondent-explorer'), store,
       onActivePersonChange: activatePerson
     }) || null;
+    reader?.ready?.then(() => { if (!disposed) setScene(scene); })
+      .catch(error => console.warn('Respondent display unavailable:', error));
     fallbackRenderer = createGlobeRenderer2d({
       canvas: originalCanvas, host, store, onHeroDataset: openDatasetShowcase,
       onCoverageAction: closeShowcase,
@@ -260,7 +270,7 @@
     if (disposed) return;
     if (new URLSearchParams(window.location?.search || '').get('renderer') === '2d') return;
     try {
-      const { createGlobeRenderer } = await import('./globe-renderer-3d.js?v=20261105-glb-r1');
+      const { createGlobeRenderer } = await import('./globe-renderer-3d.js?v=20261105-glb-r2');
       if (disposed) return;
       const frame = host.querySelector('.globe-frame');
       webglCanvas = document.createElement('canvas');

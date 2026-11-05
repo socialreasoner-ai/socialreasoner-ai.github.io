@@ -118,7 +118,7 @@
 
 
 /* Cosmic experience. This scope replaces the former three-column globe overlay. */
-.hero.globe-experience.section-shell{position:relative;display:flex;flex-direction:column;gap:30px;width:min(1320px,calc(100% - 64px));max-width:none;min-height:0;padding:48px 0 40px;overflow:visible}
+.hero.globe-experience.section-shell{position:relative;display:flex;flex-direction:column;gap:24px;width:min(1320px,calc(100% - 64px));max-width:none;min-height:0;padding:36px 0 40px;overflow:visible}
 .globe-experience::before{display:none}
 .globe-experience .hero-copy{display:grid;grid-template-columns:1fr 1fr;align-items:start;column-gap:70px;row-gap:16px;width:100%;max-width:none;padding:0 12px}
 .globe-experience .hero-eyebrow{grid-column:1;grid-row:1;margin:0;color:#a6b7cc;font-size:10px;letter-spacing:.19em}
@@ -139,7 +139,7 @@
 .globe-experience .globe-filter{grid-template-columns:1fr 1fr;gap:14px}
 .globe-experience .globe-filter select{background-color:#0c192c;border-color:#8cbbda36;border-radius:7px;min-height:44px;font-size:12px;color:#eaf2ff}
 .globe-experience .globe-filter label{font-size:9px;letter-spacing:.09em;color:#8eabc5}
-.globe-experience .globe-stage{height:550px;height:clamp(480px,42vw,580px);margin:0;isolation:isolate}
+.globe-experience .globe-stage{height:clamp(660px,54vw,760px);margin:0;isolation:isolate}
 .globe-experience .globe-stage::before{display:none}
 .globe-experience .globe-frame{inset:0}
 .globe-experience .globe-controls{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:-4px 0 22px}
@@ -167,7 +167,7 @@
 @media(max-width:1000px){
  .hero.globe-experience.section-shell{width:calc(100% - 40px);padding-top:34px}
  .globe-experience .hero-copy{column-gap:30px}.globe-experience h1{font-size:clamp(44px,6vw,62px)}
- .globe-experience .hero-description{font-size:14px}.globe-experience .globe-stage{height:470px}
+ .globe-experience .hero-description{font-size:14px}.globe-experience .globe-stage{height:650px}
 }
 @media(max-width:767px){
  .hero.globe-experience.section-shell{width:calc(100% - 28px);gap:24px;padding-top:30px}
@@ -178,7 +178,7 @@
  .globe-experience .hero-visual.globe-hero{padding:18px 16px;border-radius:16px}
  .globe-experience .globe-toolbar{grid-template-columns:1fr;gap:14px}
  .globe-experience .globe-filter{gap:10px}.globe-experience .globe-filter select{font-size:11px}
- .globe-experience .globe-stage{height:clamp(310px,75vw,430px)}
+ .globe-experience .globe-stage{height:clamp(420px,72vw,550px)}
  .globe-experience .globe-controls{gap:5px;margin:0 0 16px}.globe-experience .globe-controls button{font-size:10px;padding:6px 9px;min-height:40px}
  .globe-experience .showcase-actions{gap:6px}.globe-experience .showcase-actions button{font-size:10px;padding:7px 10px;min-height:40px}
  .globe-experience .globe-inspector{padding:14px}.globe-experience .globe-inspector-head{gap:12px;align-items:start}
@@ -189,7 +189,7 @@
 @media(max-width:420px){
  .globe-experience .hero-visual.globe-hero{padding-inline:12px}
  .globe-experience .globe-controls{display:grid;grid-template-columns:1fr 1fr}
- .globe-experience .globe-stage{height:320px}
+ .globe-experience .globe-stage{height:420px}
  .globe-experience .showcase-actions #showcase-all{margin-left:0}
 }
 .globe-experience #globe-canvas[hidden]{display:none}

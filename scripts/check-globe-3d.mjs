@@ -1,7 +1,34 @@
 import assert from 'node:assert/strict';
 import * as THREE from '../assets/vendor/three/three.module.js';
-import {geographicVector, GlobeCharacters} from '../globe-characters.js';
-import {vectorToGeographic, centerRotationFor} from '../globe-renderer-3d.js';
+import {geographicVector, GlobeCharacters, OVERVIEW_CHARACTER_SCALE} from '../globe-characters.js';
+import {vectorToGeographic, centerRotationFor, globeViewportFor} from '../globe-renderer-3d.js';
+
+for (const [width,height] of [[306,420],[336,420],[540,446],[705,540],[926,650],[1158,691],[1262,760]]) {
+  const layout = globeViewportFor(width,height);
+  const fitCamera = new THREE.PerspectiveCamera(layout.fov,layout.aspect,.1,80);
+  fitCamera.position.set(0,layout.cameraY,layout.overviewZ);
+  fitCamera.lookAt(0,layout.cameraY,0);
+  fitCamera.updateMatrixWorld(true);
+  for (let lat=-90;lat<=90;lat+=5) for (let lon=-180;lon<=180;lon+=5) {
+    const point=geographicVector(lon,lat,2.68).project(fitCamera);
+    assert.ok(Math.abs(point.x)<.98 && Math.abs(point.y)<.98,
+      `${width}: the globe and standing characters must fit the overview`);
+  }
+  fitCamera.position.z=layout.readingZ;
+  fitCamera.updateMatrixWorld(true);
+  for (const x of [-layout.readingSide-.98,layout.readingSide+.98])
+    for (const y of [-1.20,1.10]) for (const z of [1.55,3.65]) {
+      const point=new THREE.Vector3(x,y,z).project(fitCamera);
+      assert.ok(Math.abs(point.x)<=.941 && Math.abs(point.y)<.94,
+        `${width}: full bodies, Wave/Turn bounds and forward Walk must fit the reading scene`);
+    }
+}
+const projectedDiameter=(height,distance,fov)=>height*2/(Math.sqrt(distance*distance-4)*Math.tan(THREE.MathUtils.degToRad(fov/2)));
+const desktopGlobeGain=projectedDiameter(760,globeViewportFor(1262,760).overviewZ,40)/projectedDiameter(580,8.5,40);
+assert.ok(desktopGlobeGain>1.3 && desktopGlobeGain<1.5, 'desktop globe diameter grows visibly by 30–50%');
+const desktopPersonGain=desktopGlobeGain*OVERVIEW_CHARACTER_SCALE/.22;
+assert.ok(desktopPersonGain>1.5 && desktopPersonGain<2, 'overview people grow by 1.5–2 times');
+console.log('PASS: desktop and 360/390px mobile projection fit, complete Wave/Turn/Walk bounds, larger globe and people');
 
 const closeAngle = (a, b) => Math.abs((((a - b) + 540) % 360) - 180) < 1e-9;
 const sphere = new THREE.SphereGeometry(2, 180, 90);

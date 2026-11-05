@@ -11,6 +11,7 @@ const semantics = ['idle', 'turn', 'walk', 'wave'];
 const validModelPath = path => typeof path === 'string' &&
   /^assets\/avatars\/models\/[A-Za-z0-9_-]+\.glb$/.test(path);
 const hasModel = person => validModelPath(person.avatar?.modelPath) && person.avatar?.assetStatus === 'rigged-glb';
+export const OVERVIEW_CHARACTER_SCALE = .30;
 
 // East-positive longitude follows the representative points and the map's -PI/2 rotation.
 export function geographicVector(lon, lat, radius = 1) {
@@ -53,6 +54,7 @@ export class GlobeCharacters {
     this.selectedDataset = 'all';
     this.showcaseDataset = '';
     this.activePersonId = '';
+    this.stageSide = 1.24;
     this.motionReduced = false;
     this.suspended = false;
     this.disposed = false;
@@ -131,7 +133,7 @@ export class GlobeCharacters {
       this.entries.set(key, entry);
       this.earthGroup.add(group);
       group.position.copy(displaced);
-      group.scale.setScalar(.22);
+      group.scale.setScalar(OVERVIEW_CHARACTER_SCALE);
       this.hitMeshes.push(poster);
       this.setStatus(entry, hasModel(person) ? 'loading' : 'fallback');
       this.loadPoster(entry);
@@ -369,6 +371,23 @@ export class GlobeCharacters {
     this.applyVisibility();
   }
 
+  setStageSide(side) {
+    this.stageSide = side;
+    for (const entry of this.entries.values()) {
+      if (!entry.stageAnchor || !entry.side) continue;
+      const x = entry.side * side;
+      const delta = x - entry.stageAnchor.x;
+      entry.stageAnchor.x = x;
+      if (entry.transition?.kind === 'enter') {
+        entry.transition.target.x = x;
+        if (entry.transition.flightTarget) entry.transition.flightTarget.x = x;
+      } else if (entry.group.parent === this.scene && !entry.transition) {
+        entry.group.position.x += delta;
+        if (entry.travel) {entry.travel.from.x += delta; entry.travel.target.x += delta;}
+      }
+    }
+  }
+
   setMotionReduced(value) {
     this.motionReduced = Boolean(value);
     if (this.motionReduced) for (const entry of this.entries.values()) {
@@ -426,7 +445,8 @@ export class GlobeCharacters {
     selected.forEach((entry, i) => {
       void this.loadModel(entry, true);
       const side = i === 0 ? -1 : 1;
-      const target = new THREE.Vector3(side * 1.43, -1.55, 2.35);
+      entry.side = side;
+      const target = new THREE.Vector3(side * this.stageSide, -1.08, 2.25);
       entry.stageAnchor = target.clone();
       entry.transition = {kind: 'enter', target, side, initialized: false,
         start: now + (reduced || entry.group.parent === this.scene ? 0 : 420 + i * 110),
@@ -611,13 +631,13 @@ export class GlobeCharacters {
           sourceDirection, ease((e - .2) / .58)).multiplyScalar(3.25));
         else entry.group.position.copy(sourceOuter).lerp(source.position, ease((e - .78) / .22));
         entry.group.quaternion.copy(motion.fromQ).slerp(source.quaternion, e);
-        entry.group.scale.setScalar(THREE.MathUtils.lerp(motion.fromScale, .22 * this.earthGroup.scale.x, e));
+        entry.group.scale.setScalar(THREE.MathUtils.lerp(motion.fromScale, OVERVIEW_CHARACTER_SCALE * this.earthGroup.scale.x, e));
       }
       if (t >= 1) {
         if (motion.kind === 'return') {
           this.earthGroup.attach(entry.group);
           entry.group.position.copy(entry.source);
-          entry.group.scale.setScalar(.22);
+          entry.group.scale.setScalar(OVERVIEW_CHARACTER_SCALE);
         } else if (motion.walkOnArrival && !motion.skipGreeting) this.beginWalk(entry, motion.target.clone(), true);
         else {
           entry.group.position.copy(motion.target);

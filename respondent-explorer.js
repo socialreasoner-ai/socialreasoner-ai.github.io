@@ -58,6 +58,54 @@
     return manifest;
   }
 
+  function mergeRecordedExamples(base, overlay) {
+    validateManifest(base);
+    if (overlay?.schemaVersion !== 1 || !Array.isArray(overlay.datasets)
+      || overlay.datasets.length !== base.datasets.length) throw new Error('Invalid respondent CoT data');
+    const groups = new Map();
+    for (const group of overlay.datasets) {
+      if (!group.datasetId || groups.has(group.datasetId) || !Array.isArray(group.participants)) {
+        throw new Error('Duplicate or invalid respondent CoT dataset');
+      }
+      groups.set(group.datasetId, group);
+    }
+    const datasets = base.datasets.map(baseGroup => {
+      const group = groups.get(baseGroup.datasetId);
+      if (!group) throw new Error('Missing respondent CoT dataset');
+      if (group.datasetId === 'GSS2022') {
+        if (group.availability !== 'pending' || group.participants.length) {
+          throw new Error('GSS2022 cannot show respondents without matching CoTs');
+        }
+        return { ...baseGroup, availability: 'pending', participants: [] };
+      }
+      if (group.availability !== 'ready' || group.participants.length !== 2) {
+        throw new Error('Incomplete respondent CoT pair');
+      }
+      const artwork = new Map(baseGroup.participants.map(person => [person.displayId, person]));
+      const seen = new Set();
+      const participants = group.participants.map(person => {
+        const visual = artwork.get(person.displayId);
+        if (!visual || seen.has(person.displayId) || person.datasetId !== group.datasetId
+          || !person.regionId || person.mapAnchor?.regionId !== person.regionId
+          || !Array.isArray(person.demographics) || !Array.isArray(person.perceptions)
+          || !person.target?.questionId || !person.target?.question
+          || !Array.isArray(person.target?.options) || !person.target.options.length
+          || !person.target.options.some(option => option.id === person.observedOptionId)
+          || typeof person.cot !== 'string' || !person.cot.trim()
+          || person.sourceRef?.source !== 'thinking_data_posttrain'
+          || person.sourceRef?.targetQuestionId !== person.target.questionId
+          || !person.sourceRef?.sourcePersonId || person.sourceRef?.split !== 'train') {
+          throw new Error('Respondent CoT does not match an artwork slot or survey record');
+        }
+        seen.add(person.displayId);
+        return { ...person, avatar: visual.avatar, avatarIllustrative: visual.avatarIllustrative };
+      });
+      if (seen.size !== artwork.size) throw new Error('Respondent artwork slots do not match CoT records');
+      return { ...baseGroup, availability: 'ready', participants };
+    });
+    return validateManifest({ ...base, datasets });
+  }
+
   function createRespondentExplorer({ host, store, onActivePersonChange } = {}) {
     if (!host) throw new Error('Respondent explorer host is missing');
     const controller = new AbortController();
@@ -163,6 +211,13 @@
       perceptions.append(featured);
       card.append(perceptions);
 
+      const reasoning = element('section', 'respondent-cot');
+      reasoning.append(localized('h4', '', 'cot'));
+      const cot = element('p', 'respondent-cot-text', person.cot);
+      cot.lang = 'en';
+      reasoning.append(cot);
+      card.append(reasoning);
+
       const answer = element('p', 'respondent-recorded-answer');
       answer.append(localized('span', 'respondent-recorded-label', 'recordedAnswer'));
       answer.append(element('strong', '', recordedAnswer(person)));
@@ -241,8 +296,6 @@
       people.forEach((person, index) => cards.append(profileCard(person, index, shared)));
       host.append(cards);
       if (shared) host.append(questionBlock(people, true));
-      host.append(localized('p', 'respondent-original-language', 'originalLanguage'));
-      host.append(localized('p', 'respondent-source-note', 'sourceNote'));
       if (focusedPerson && focusedType) {
         const selector = focusedType === 'switch' ? '.respondent-switch-button' : 'summary[data-expand-summary]';
         [...host.querySelectorAll(selector)]
@@ -284,10 +337,14 @@
     };
     host.addEventListener('click', click, { signal: controller.signal });
     window.addEventListener('site:languagechange', render, { signal: controller.signal });
-    const ready = fetch('assets/respondent-showcase.json?v=20261105-glb-r1', { signal: controller.signal })
-      .then(response => {
-        if (!response.ok) throw new Error('Respondent showcase unavailable');
-        return response.json();
+    const ready = Promise.all([
+      fetch('assets/respondent-showcase.json?v=20261105-glb-r2', { signal: controller.signal }),
+      fetch('assets/respondent-cots.json?v=20261105-cot-r1', { signal: controller.signal })
+    ])
+      .then(async responses => {
+        if (responses.some(response => !response.ok)) throw new Error('Respondent records unavailable');
+        const [base, overlay] = await Promise.all(responses.map(response => response.json()));
+        return mergeRecordedExamples(base, overlay);
       })
       .then(data => {
         if (disposed) return;
@@ -305,6 +362,10 @@
     return {
       ready, setDataset, setVisible, getParticipants, setActivePerson,
       getActivePerson: () => activePersonId,
+      hasReadyPair: id => {
+        const group = groupFor(id);
+        return group?.availability === 'ready' && group.participants.length === 2;
+      },
       dispose() {
         if (disposed) return;
         disposed = true;

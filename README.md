@@ -93,3 +93,19 @@ Before publication, run `node scripts/check-locales.mjs` and `node scripts/check
 - world-atlas v2.0.2 (ISC), Natural Earth 1:110m geometry: https://github.com/topojson/world-atlas
 
 Bundled dependency license files are retained under `assets/`. Geographic boundaries are generalized cartographic reference geometry.
+
+## Respondent reasoning cards
+
+The Hero respondent explorer combines the original avatar descriptors in `assets/respondent-showcase.json` with `assets/respondent-cots.json`. The latter supplies exact respondent/question records from the eight `thinking_data_posttrain` datasets, including the full stored CoT, demographics, perception inputs, options and observed answer. Eleven original respondents are retained with eligible target questions; five are replaced by source respondents with complete records. GSS2022 remains in the geographic aggregates and has no respondent reasoning cards.
+
+The CoT is displayed directly in each card above its recorded answer. The source text retains its original English wording; headings and controls use the five shared respondent dictionaries. These stored CoTs are answer-conditioned training rationales. Artwork associations remain illustrative and independent of the source profiles.
+
+`python3 scripts/build-respondent-cots.py` rebuilds the overlay from local source records; see its arguments for source locations. Private byte offsets, source hashes and selection comparisons are retained in the local `review/respondent-cot-20261105` audit. `node scripts/check-respondent-cots.mjs` verifies complete A/B cards, shared target questions, source identities, response options, perception fields and localized headings. The raw survey and post-training files are unchanged.
+
+## Animated globe characters
+
+`assets/avatars/models/` contains 18 self-contained GLB 2.0 characters reconstructed from the supplied artwork. Each has a skinned volumetric mesh, 18 bones and `Idle`, `Turn`, `Walk`, `Wave` clips. The current CoT reader displays 16 characters across eight datasets; the two GSS2022 GLBs remain available in the asset set. These are simplified illustrated reconstructions, with inferred rear surfaces, rather than verified likenesses of survey respondents.
+
+`globe-characters.js` loads the selected pair first, clones independent skeletons and mixers, and uses PNGs as loading/error fallbacks. `Walk` is authored in place; the scene moves the character 0.7 units per cycle. Explicit animation buttons remain available when reduced motion is enabled, while automatic movement is skipped. Geometry, actions and resources are released when the renderer is disposed.
+
+Run `blender -b --python scripts/build-avatar-models.py -- --render --all-views --save-blend` to rebuild from the per-character specifications. `node scripts/check-avatar-models.mjs` loads every shipped GLB and samples actual skinned vertices across all 72 clips. `node scripts/check-globe-3d.mjs` covers loading priority, independent skeletons, interruption, fallback and cleanup.
