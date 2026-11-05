@@ -222,13 +222,6 @@
       perceptions.append(featured);
       card.append(perceptions);
 
-      const reasoning = element('section', 'respondent-cot');
-      reasoning.append(localized('h4', '', 'cot'));
-      const cot = element('p', 'respondent-cot-text', person.cot);
-      cot.lang = 'en';
-      reasoning.append(cot);
-      card.append(reasoning);
-
       const answer = element('p', 'respondent-recorded-answer');
       answer.append(localized('span', 'respondent-recorded-label', 'recordedAnswer'));
       answer.append(element('strong', '', recordedAnswer(person)));
