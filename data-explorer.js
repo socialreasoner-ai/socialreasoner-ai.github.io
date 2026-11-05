@@ -19,9 +19,9 @@
     surveyRegions: 'SURVEY REGIONS',
     knownAges: 'REPORTED AGES',
     agesTitle: 'Age profiles',
-    agesAllSubtitle: 'Each survey retains its reported age groups.',
+    agesAllSubtitle: 'Select a survey to explore its age profile.',
     agesDatasetSubtitle: 'Age groups reported in {dataset}.',
-    ageCoverage: 'Shares use respondents with a reported age.',
+    ageCoverage: 'Share of respondents with age data.',
     ageKnown: 'Reported age',
     ageUnknown: 'Age unavailable',
     ageBinDetail: '{count} respondents · {share}% of reported ages',
@@ -455,7 +455,7 @@
       content.append(grid);
     }
     const note = element('p', 'portrait-note');
-    note.append(element('span', '', t('ageReportedCategories') + ' · ' + t('ageCoverage')));
+    note.append(element('span', '', t('ageCoverage')));
     content.append(note);
   }
 
