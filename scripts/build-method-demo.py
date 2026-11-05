@@ -28,7 +28,7 @@ QUESTIONS = {
     "ISSP2019-perceived": ("Q00001", "Q00003", "Q00005", "Q00006"),
     "ISSP2021-perceived": ("Q00001", "Q00002", "Q00006", "Q00007"),
 }
-DEFAULT_DATASET = "ATP152-perceived"
+DEFAULT_DATASET = "ATP142-perceived"
 PROFILE_COUNT = 4
 MAX_VARIANTS_PER_PAIR = 12
 FAMILIAR_COUNTRIES = {
@@ -284,7 +284,7 @@ def build_dataset(path: Path, dataset: str, wanted_questions: tuple[str, ...]):
         "uniqueSourceVariants": sum(len(person["records"][question])
                                     for person in selected for question in wanted_questions),
     }
-    public = {"id": dataset, "label": dataset, "sourceType": "posttrain",
+    public = {"id": dataset, "label": dataset.removesuffix("-perceived"), "sourceType": "posttrain",
               "profiles": public_profiles}
     audit = {"dataset": dataset, "sourceFile": str(path), "profiles": audit_profiles,
              "summary": summary}
