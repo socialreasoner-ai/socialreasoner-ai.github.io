@@ -169,6 +169,32 @@ def load_profile_maps(package_path: Path) -> dict:
             if len(matches) != 1:
                 raise ValueError("expected one profile map for %s" % dataset)
             maps[dataset] = json.loads(package.read(matches[0]))
+        # Numeric middle responses are scores, not missing categorical labels.
+        # Copy their scale endpoints from the packaged survey options verbatim.
+        for name in names:
+            if "/people/" not in name or "/data/no-perception/" not in name or not name.endswith(".jsonl"):
+                continue
+            dataset = name.split("/people/", 1)[1].split("_", 1)[0]
+            if dataset not in maps:
+                continue
+            for line in package.read(name).splitlines():
+                row = json.loads(line)
+                options = row.get("option", {})
+                if not options or not all(str(key).isdigit() for key in options):
+                    continue
+                scores = sorted(map(int, options))
+                low, high = scores[0], scores[-1]
+                if (high - low < 3 or scores != list(range(low, high + 1))
+                        or any(options[str(score)] != str(score) for score in scores[1:-1])
+                        or str(options[str(low)]).isdigit() or str(options[str(high)]).isdigit()):
+                    continue
+                scale = {"min": low, "max": high,
+                         "minLabel": options[str(low)], "maxLabel": options[str(high)]}
+                for rule in maps[dataset].values():
+                    if rule.get("source_question_id") == row.get("question_id"):
+                        if rule.get("response_scale", scale) != scale:
+                            raise ValueError("inconsistent response scale: %s %s" % (dataset, row["question_id"]))
+                        rule["response_scale"] = scale
     return maps
 
 
@@ -190,8 +216,12 @@ def public_perceptions(profile: dict, mapping: dict, target_question: str) -> li
         if source_question == target_question:
             continue
         label = rule["display_name"]
-        items.append({"profileKey": key, "sourceQuestionId": source_question,
-                      "label": label, "question": label, "value": value})
+        item = {"profileKey": key, "sourceQuestionId": source_question,
+                "label": label, "question": label, "value": value}
+        scale = rule.get("response_scale")
+        if scale and str(value).isdigit() and scale["min"] <= int(value) <= scale["max"]:
+            item["responseScale"] = scale.copy()
+        items.append(item)
     if not items:
         raise ValueError("selected source profile has no non-target perceptions")
     return items

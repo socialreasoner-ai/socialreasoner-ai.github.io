@@ -25,6 +25,17 @@
     row.append(element('dt', '', label), element('dd', '', value));
     parent.append(row);
   };
+  const appendPerception = (parent, item) => {
+    const scale = item.responseScale;
+    if (!scale) return appendField(parent, item.question, item.value, item.profileKey);
+    const row = element('div', 'respondent-field');
+    row.dataset.field = item.profileKey;
+    const answer = element('dd', '', `${item.value} / ${scale.max}`);
+    answer.append(element('small', 'respondent-scale-endpoints',
+      `${scale.min} = ${scale.minLabel} · ${scale.max} = ${scale.maxLabel}`));
+    row.append(element('dt', '', item.question), answer);
+    parent.append(row);
+  };
   const safePoster = path => typeof path === 'string'
     && /^assets\/avatars\/[A-Za-z0-9_-]+(?:-preview)?\.png$/.test(path);
   const summaryQuestion = participant => participant?.target?.question || '';
@@ -206,7 +217,7 @@
       perceptions.append(localized('h4', '', 'perceptions'));
       const featured = element('dl', 'respondent-perceptions-list');
       for (const item of person.perceptions.slice(0, 3)) {
-        appendField(featured, item.question, item.value, item.profileKey);
+        appendPerception(featured, item);
       }
       perceptions.append(featured);
       card.append(perceptions);
@@ -239,7 +250,7 @@
       const allViews = element('section', 'respondent-all-views');
       allViews.append(localized('h4', '', 'perceptions'));
       const views = element('dl', 'respondent-all-views-list');
-      for (const item of person.perceptions) appendField(views, item.question, item.value, item.profileKey);
+      for (const item of person.perceptions) appendPerception(views, item);
       allViews.append(views);
       more.append(allViews);
       more.addEventListener('toggle', () => {
@@ -339,7 +350,7 @@
     window.addEventListener('site:languagechange', render, { signal: controller.signal });
     const ready = Promise.all([
       fetch('assets/respondent-showcase.json?v=20261105-glb-r2', { signal: controller.signal }),
-      fetch('assets/respondent-cots.json?v=20261105-cot-r1', { signal: controller.signal })
+      fetch('assets/respondent-cots.json?v=20261105-cot-r2', { signal: controller.signal })
     ])
       .then(async responses => {
         if (responses.some(response => !response.ok)) throw new Error('Respondent records unavailable');
