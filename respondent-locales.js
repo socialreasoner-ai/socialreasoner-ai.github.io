@@ -2,6 +2,9 @@
    the wording in their audited source records. */
 window.SOCIAL_RESPONDENT_MESSAGES = {
   en: {
+    animationAria: 'Character animation', chooseCharacter: 'Choose character',
+    turn: 'Turn around', walk: 'Walk', wave: 'Wave',
+    modelLoading: 'Loading 3D character…', modelUnavailable: '3D character unavailable',
     open: 'Meet the respondents', back: 'Back to globe', skip: 'Skip animation',
     all: 'All datasets', actionsAria: 'Explore respondents',
     kicker: 'TWO RESPONDENTS', title: 'People behind the responses',
@@ -42,6 +45,9 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     field_work_status: 'Work status', field_years_in_us: 'Years in the U.S.'
   },
   zh: {
+    animationAria: '人物动作', chooseCharacter: '选择人物',
+    turn: '转身', walk: '走路', wave: '挥手',
+    modelLoading: '正在载入三维人物…', modelUnavailable: '三维人物暂不可用',
     open: '认识受访者', back: '返回地球', skip: '跳过动画',
     all: '全部数据集', actionsAria: '探索受访者',
     kicker: '两位受访者', title: '回答背后的人',
@@ -81,6 +87,9 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     field_years_in_us: '在美国年数'
   },
   fr: {
+    animationAria: 'Animation du personnage', chooseCharacter: 'Choisir le personnage',
+    turn: 'Tourner', walk: 'Marcher', wave: 'Saluer',
+    modelLoading: 'Chargement du personnage 3D…', modelUnavailable: 'Personnage 3D indisponible',
     open: 'Rencontrer les personnes interrogées', back: 'Retour au globe',
     skip: 'Passer l’animation', all: 'Tous les jeux de données',
     actionsAria: 'Explorer les personnes interrogées',
@@ -123,6 +132,9 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     field_work_status: 'Statut professionnel', field_years_in_us: 'Années aux États-Unis'
   },
   de: {
+    animationAria: 'Figurenanimation', chooseCharacter: 'Figur wählen',
+    turn: 'Umdrehen', walk: 'Gehen', wave: 'Winken',
+    modelLoading: '3D-Figur wird geladen…', modelUnavailable: '3D-Figur nicht verfügbar',
     open: 'Befragte kennenlernen', back: 'Zurück zum Globus',
     skip: 'Animation überspringen', all: 'Alle Datensätze',
     actionsAria: 'Befragte erkunden',
@@ -165,6 +177,9 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     field_work_status: 'Erwerbsstatus', field_years_in_us: 'Jahre in den USA'
   },
   ko: {
+    animationAria: '캐릭터 동작', chooseCharacter: '캐릭터 선택',
+    turn: '돌아보기', walk: '걷기', wave: '손 흔들기',
+    modelLoading: '3D 캐릭터 불러오는 중…', modelUnavailable: '3D 캐릭터를 사용할 수 없습니다',
     open: '응답자 만나기', back: '지구본으로 돌아가기', skip: '애니메이션 건너뛰기',
     all: '전체 데이터셋', actionsAria: '응답자 살펴보기',
     kicker: '두 명의 응답자', title: '응답 뒤의 사람들',

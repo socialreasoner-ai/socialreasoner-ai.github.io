@@ -1,0 +1,770 @@
+{
+  "schemaVersion": 2,
+  "source": "Appearance specifications transcribed from the 18 supplied avatar PNGs and their artwork prompts. Appearance is not inferred from survey answers and does not establish the likeness of a survey respondent. Sixteen avatars were created as fictional illustrations; the two ISSP2016 illustrations have photo-reference provenance documented in their source artwork records.",
+  "avatars": [
+    {
+      "key": "ATP152_P0004761",
+      "displayId": "ATP152-A",
+      "posterPath": "assets/avatars/ATP152_P0004761.png",
+      "skin": "#E7AA7B",
+      "hair": "#2D2726",
+      "hairStyle": "short dense black-brown hair, thick layered side-swept quiff with several pointed locks and close-cut sides",
+      "glasses": "none",
+      "ageLook": "young adult, smooth face",
+      "bodyProportions": "large head, comparatively tall slim-average miniature body, full-length legs; less squat than ATP142-A",
+      "top": {
+        "style": "open muted-plum bomber jacket, tall standing collar, silver zipper, slanted welt pockets, ribbed cuffs and hem; plain off-white crew-neck tee underneath",
+        "primary": "#73566E",
+        "secondary": "#F0E8DF",
+        "closure": "zip"
+      },
+      "bottom": {
+        "style": "straight charcoal-gray trousers with turned-up ankle cuffs",
+        "color": "#65615E"
+      },
+      "shoes": {
+        "style": "chunky black-and-off-white low-top lace-up sneakers, off-white toe panels, white laces and thick cream soles",
+        "color": "#353436",
+        "secondary": "#E8E3DA",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [],
+      "pose": "gentle three-quarter turn, lightly raised chin, one hand in trouser pocket, the other down",
+      "notes": "Small dark mole on the viewer-right cheek. Dark thick eyebrows. Preserve high swept hair, jacket collar/zip and complete dark-and-white shoes.",
+      "eyeColor": "#4E2A11",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ATP152_P0004761/artwork/avatar.png",
+      "promptSources": [
+        "people/ATP152_P0004761/artwork/prompts/ATP152_P0004761.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "swept_short",
+      "facialHairType": "none"
+    },
+    {
+      "key": "ATP152_P0004934",
+      "displayId": "ATP152-B",
+      "posterPath": "assets/avatars/ATP152_P0004934.png",
+      "skin": "#BA723D",
+      "hair": "#C7C2BD",
+      "hairStyle": "short voluminous silver-gray natural curls, many rounded curled clusters around the crown and temples",
+      "glasses": "large thick dark-plum rounded-square frames with slightly upswept upper corners and tiny gold hinge pins",
+      "ageLook": "older adult with gentle mature facial features and smile",
+      "bodyProportions": "large rounded head and average soft miniature body, gently bent elbows, ankle-length legs",
+      "top": {
+        "style": "open amber knit cardigan, wide ribbed front bands/cuffs/hem, three large brown buttons and two patch pockets; plain cream crew-neck top",
+        "primary": "#D68A14",
+        "secondary": "#F3E7D1",
+        "closure": "buttons"
+      },
+      "bottom": {
+        "style": "straight medium-blue trousers with turned-up ankle cuffs",
+        "color": "#45658D"
+      },
+      "shoes": {
+        "style": "light gray knit slip-on walking shoes with cream trim and thick cream soles, no visible laces",
+        "color": "#B9AFA8",
+        "secondary": "#ECE3D5",
+        "construction": "knit_slip_on"
+      },
+      "accessory": [
+        "large gold hoop earrings"
+      ],
+      "pose": "gentle three-quarter turn, one hand at side and one palm open in a small greeting",
+      "notes": "Visible forehead and smile lines, gray eyebrows, a small cheek mole. Glasses are thick plum rounded-square frames rather than thin circular wire frames.",
+      "eyeColor": "#48250D",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ATP152_P0004934/artwork/avatar.png",
+      "promptSources": [
+        "people/ATP152_P0004934/artwork/prompts/ATP152_P0004934.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "short_curls",
+      "facialHairType": "none"
+    },
+    {
+      "key": "ATP142_P0007673",
+      "displayId": "ATP142-A",
+      "posterPath": "assets/avatars/ATP142_P0007673.png",
+      "skin": "#C27B45",
+      "hair": "#3E2A23",
+      "hairStyle": "very large high rounded puff composed of clustered dark curls, close curled hairline and pulled-back sides",
+      "glasses": "none",
+      "ageLook": "young adult with bright eyes and friendly smile",
+      "bodyProportions": "the most compact rounded toy proportions in the set: oversized head and puff, short stout torso, short tapered legs, large chunky shoes",
+      "top": {
+        "style": "open teal hooded casual bomber, rounded bulky sleeves, ribbed cuffs/hem and slanted pockets; coral crew-neck fitted tee",
+        "primary": "#228D80",
+        "secondary": "#F27C5B",
+        "closure": "zip"
+      },
+      "bottom": {
+        "style": "high-waisted warm-ivory ankle trousers, button waistband, wide folded cuffs",
+        "color": "#E9D8B8"
+      },
+      "shoes": {
+        "style": "teal-and-cream chunky low-top sneakers with cream laces, cream toe panels and thick cream soles",
+        "color": "#379D8C",
+        "secondary": "#F0E5CF",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [
+        "large thick gold hoop earrings"
+      ],
+      "pose": "viewer-left hand raised in an open wave, viewer-right hand on waist, head tilted, feet apart on the same plane",
+      "notes": "The square final PNG replaced an earlier taller version. Use its squat body, very tall curl puff, bare ankles and large shoes.",
+      "eyeColor": "#5B2C06",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ATP142_P0007673/artwork/avatar.png",
+      "promptSources": [
+        "people/ATP142_P0007673/artwork/prompts/ATP142_P0007673.txt",
+        "people/ATP142_P0007673/artwork/prompts/ATP142_P0007673_final.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "high_puff",
+      "facialHairType": "none"
+    },
+    {
+      "key": "ATP142_P0004968",
+      "displayId": "ATP142-B",
+      "posterPath": "assets/avatars/ATP142_P0004968.png",
+      "skin": "#E7AB7A",
+      "hair": "#D7D1C8",
+      "hairStyle": "short thick silver-white hair with large smooth side-swept waves, especially the high front curl",
+      "glasses": "thick dark charcoal rounded-rectangular frames",
+      "ageLook": "older adult, full neat white beard and moustache, forehead lines, warm smile",
+      "bodyProportions": "large head and rounded average miniature body; comparatively long straight legs and broad shoes",
+      "top": {
+        "style": "open teal-green zip bomber with folded collar, silver zipper, slanted welt pockets, ribbed cuffs and hem; cream crew-neck shirt",
+        "primary": "#278777",
+        "secondary": "#F1E8D8",
+        "closure": "zip"
+      },
+      "bottom": {
+        "style": "beige cuffed chinos, brown belt and rectangular silver buckle",
+        "color": "#D5BF9D"
+      },
+      "shoes": {
+        "style": "chunky olive-gray-and-charcoal lace-up walking sneakers, cream laces and soles with dark tread",
+        "color": "#737965",
+        "secondary": "#DCD3BC",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [
+        "brown belt with silver rectangular buckle"
+      ],
+      "pose": "one hand raised in a small greeting, other hand relaxed near pocket",
+      "notes": "Eyeglasses are rounded rectangles, not thin round frames. Mature forehead lines and small temple spots are visible; white beard covers the lower jaw.",
+      "eyeColor": "#4E2A0E",
+      "facialHair": "full neatly rounded white short beard joined to white moustache, dense white sideburns",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ATP142_P0004968/artwork/avatar.png",
+      "promptSources": [
+        "people/ATP142_P0004968/artwork/prompts/ATP142_P0004968.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "swept_short",
+      "facialHairType": "full_white_beard"
+    },
+    {
+      "key": "EVS2017_P0015007",
+      "displayId": "EVS2017-A",
+      "posterPath": "assets/avatars/EVS2017_P0015007.png",
+      "skin": "#E9A779",
+      "hair": "#A55434",
+      "hairStyle": "chin-to-nape length copper-brown bob with pronounced broad soft waves, deep side part and tall swept front wave",
+      "glasses": "none",
+      "ageLook": "young adult, rounded friendly face",
+      "bodyProportions": "large head, slim-average adult miniature, high waist and long wide trouser legs",
+      "top": {
+        "style": "cropped pale-mint jacket with folded collar, two chest flap pockets and ribbed cuffs/hem; plain cream tee",
+        "primary": "#A0C198",
+        "secondary": "#F0E4D2",
+        "closure": "buttons"
+      },
+      "bottom": {
+        "style": "high-waisted peach wide-leg trousers, button waistband and broad straight hems",
+        "color": "#EFA383"
+      },
+      "shoes": {
+        "style": "pale green-and-white low-top lace-up sneakers with thick cream soles",
+        "color": "#B3C78D",
+        "secondary": "#EEE8DA",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [
+        "gold hoop earrings",
+        "small blank cream notebook held vertically at the viewer-right hip"
+      ],
+      "pose": "viewer-left hand waves openly, viewer-right hand carries the blank notebook at the hip, head tilts and body shifts to one side",
+      "notes": "Preserve the blank notebook as a thin rounded rectangle and the very wide peach trousers. No letters on notebook.",
+      "eyeColor": "#613008",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/EVS2017_P0015007/artwork/avatar.png",
+      "promptSources": [
+        "people/EVS2017_P0015007/artwork/prompts/EVS2017_P0015007.txt",
+        "people/EVS2017_P0015007/artwork/prompts/EVS2017_P0015007_cleanup.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "wavy_bob",
+      "facialHairType": "none"
+    },
+    {
+      "key": "EVS2017_P0036451",
+      "displayId": "EVS2017-B",
+      "posterPath": "assets/avatars/EVS2017_P0036451.png",
+      "skin": "#E6AD7D",
+      "hair": "#D6D2CC",
+      "hairStyle": "short thick silver-white side-swept hair with broad sculpted waves and a raised front wave",
+      "glasses": "large thin brown round wire frames",
+      "ageLook": "older adult with gentle smile lines",
+      "bodyProportions": "large head, compact-average torso and full-length straight legs",
+      "top": {
+        "style": "burgundy cable-knit crew-neck pullover with ribbed neck/cuffs/hem; cream collared shirt visible at neck",
+        "primary": "#922C3D",
+        "secondary": "#ECDDC2",
+        "closure": "none"
+      },
+      "bottom": {
+        "style": "charcoal straight trousers with folded ankle cuffs",
+        "color": "#595656"
+      },
+      "shoes": {
+        "style": "taupe lace-up walking shoes with cream laces and thick cream soles",
+        "color": "#AD9582",
+        "secondary": "#EADCC7",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [],
+      "pose": "one hand in pocket, other palm open in greeting",
+      "notes": "Clean-shaven older face with forehead/smile lines. Keep a true crew-neck sweater and visible cream collar; no jacket front seam or cardigan buttons.",
+      "eyeColor": "#57300F",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/EVS2017_P0036451/artwork/avatar.png",
+      "promptSources": [
+        "people/EVS2017_P0036451/artwork/prompts/EVS2017_P0036451.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "swept_short",
+      "facialHairType": "none"
+    },
+    {
+      "key": "ISSP2009_P0033815",
+      "displayId": "ISSP2009-A",
+      "posterPath": "assets/avatars/ISSP2009_P0033815.png",
+      "skin": "#DDA06C",
+      "hair": "#574039",
+      "hairStyle": "long dark-brown wavy hair gathered into a very thick loose side braid over the viewer-right shoulder, dusty-rose double hair tie near the end",
+      "glasses": "none",
+      "ageLook": "young adult with lively smile",
+      "bodyProportions": "large head, slim-average miniature with high waist and long cuffed legs",
+      "top": {
+        "style": "cropped dusty-rose jacket with folded collar and chest flap pockets; warm-white crew-neck tee",
+        "primary": "#C96F75",
+        "secondary": "#F1E6D7",
+        "closure": "buttons"
+      },
+      "bottom": {
+        "style": "relaxed warm-cream pleated trousers with broad turned-up ankle cuffs",
+        "color": "#ECDCC0"
+      },
+      "shoes": {
+        "style": "coral-and-white lace-up low-top sneakers, white toe panels/laces and thick cream soles",
+        "color": "#E7796B",
+        "secondary": "#F2E7D8",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [
+        "dusty-rose hair tie at braid end"
+      ],
+      "pose": "viewer-left hand raised in a wave, viewer-right arm relaxed near hip, gentle head tilt and asymmetric stance",
+      "notes": "The final edit explicitly removed bindi and both gold hoop earrings. Preserve bare ears and clear forehead; show smiling open mouth with small visible upper teeth and the entire thick braid.",
+      "eyeColor": "#65310A",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ISSP2009_P0033815/artwork/avatar.png",
+      "promptSources": [
+        "people/ISSP2009_P0033815/artwork/prompts/ISSP2009_P0033815.txt",
+        "people/ISSP2009_P0033815/artwork/prompts/ISSP2009_P0033815_edits.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "side_braid",
+      "facialHairType": "none"
+    },
+    {
+      "key": "ISSP2009_P0005245",
+      "displayId": "ISSP2009-B",
+      "posterPath": "assets/avatars/ISSP2009_P0005245.png",
+      "skin": "#D69762",
+      "hair": "#C3BBB4",
+      "hairStyle": "short silver-gray hair shaped into large loose curls and waves around a high swept crown",
+      "glasses": "none",
+      "ageLook": "older adult, full rounded silver-gray beard and moustache, gentle eye lines",
+      "bodyProportions": "large rounded head, sturdy-average miniature torso, full-length cuffed legs and broad shoes",
+      "top": {
+        "style": "terracotta crew-neck knit sweater with ribbed collar/cuffs/hem and no front opening",
+        "primary": "#C76D48",
+        "secondary": "#C76D48",
+        "closure": "none"
+      },
+      "bottom": {
+        "style": "olive straight casual trousers with wide folded ankle cuffs",
+        "color": "#7C8151"
+      },
+      "shoes": {
+        "style": "sand/tan-and-cream low-top lace-up sneakers with white laces and thick cream soles",
+        "color": "#C4A077",
+        "secondary": "#F0DFC0",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [],
+      "pose": "both hands loosely clasped in front, calm stance",
+      "notes": "The visible beard is full around the lower face, not merely a tiny goatee. Both hands loosely clasp at abdomen; preserve that calm pose.",
+      "eyeColor": "#4B2509",
+      "facialHair": "full rounded silver-white short beard and thick matching moustache, beard outlines the jaw",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ISSP2009_P0005245/artwork/avatar.png",
+      "promptSources": [
+        "people/ISSP2009_P0005245/artwork/prompts/ISSP2009_P0005245.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "short_waves",
+      "facialHairType": "full_white_beard"
+    },
+    {
+      "key": "ISSP2015_P0010896",
+      "displayId": "ISSP2015-A",
+      "posterPath": "assets/avatars/ISSP2015_P0010896.png",
+      "skin": "#E2AA7C",
+      "hair": "#573729",
+      "hairStyle": "very full chestnut-brown short tousled hair, large layered lifted side-swept locks and pointed tips",
+      "glasses": "none",
+      "ageLook": "young adult with slightly amused expression",
+      "bodyProportions": "large head, slim-average adult miniature and comparatively long cuffed legs",
+      "top": {
+        "style": "open moss-green collared overshirt, rounded buttons down viewer-left front and single chest pocket on viewer-right; off-white tee",
+        "primary": "#7A8952",
+        "secondary": "#EEE6D5",
+        "closure": "buttons"
+      },
+      "bottom": {
+        "style": "relaxed deep-navy trousers with folded ankle cuffs",
+        "color": "#3F425A"
+      },
+      "shoes": {
+        "style": "off-white low-top sneakers with muted olive-green toe, side and heel accents, white laces and cream soles",
+        "color": "#E9E7D9",
+        "secondary": "#879366",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [],
+      "pose": "torso slightly turned, one hand palm-up, other hand in pocket",
+      "notes": "Swept sculpted chestnut hair is taller and lighter than ATP152-A. Preserve palm-up conversational gesture and opposite hand in pocket.",
+      "eyeColor": "#582A08",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ISSP2015_P0010896/artwork/avatar.png",
+      "promptSources": [
+        "people/ISSP2015_P0010896/artwork/prompts/ISSP2015_P0010896.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "tousled_short",
+      "facialHairType": "none"
+    },
+    {
+      "key": "ISSP2015_P0028390",
+      "displayId": "ISSP2015-B",
+      "posterPath": "assets/avatars/ISSP2015_P0028390.png",
+      "skin": "#E2AC7F",
+      "hair": "#C9C3BD",
+      "hairStyle": "chin-length silver-gray bob with a strong side-swept wave and curled outward ends, broad scalloped side silhouette",
+      "glasses": "none",
+      "ageLook": "older adult, lively eyes and subtle smile lines",
+      "bodyProportions": "large head, rounded average torso and tapered ankle-length legs; compact full-body miniature",
+      "top": {
+        "style": "open plum-purple knit cardigan with wide ribbed trim, three matching plum buttons and patch pockets; pale rose crew-neck shirt",
+        "primary": "#813866",
+        "secondary": "#DFA5AD",
+        "closure": "buttons"
+      },
+      "bottom": {
+        "style": "warm-ivory straight trousers with broad folded ankle cuffs",
+        "color": "#E6D9B8"
+      },
+      "shoes": {
+        "style": "burgundy-and-cream low-top lace-up sneakers, cream toe panels/laces and thick cream soles",
+        "color": "#8A4C62",
+        "secondary": "#F0E3CB",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [
+        "large round cream pearl stud earrings"
+      ],
+      "pose": "one hand lifted in a small wave, other on hip",
+      "notes": "No glasses in the final PNG. Broad silver bob, pearl studs, one hand on waist and one waving make this silhouette distinct.",
+      "eyeColor": "#542908",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ISSP2015_P0028390/artwork/avatar.png",
+      "promptSources": [
+        "people/ISSP2015_P0028390/artwork/prompts/ISSP2015_P0028390.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "wavy_bob",
+      "facialHairType": "none"
+    },
+    {
+      "key": "ISSP2016_P0019962",
+      "displayId": "ISSP2016-A",
+      "posterPath": "assets/avatars/ISSP2016_P0019962.png",
+      "skin": "#E9B08A",
+      "hair": "#2A211D",
+      "hairStyle": "very full dark tousled curly hair, clustered lifted curls with a broad uneven crown and pointed flyaway tips",
+      "glasses": "thin light silver rounded-rectangular glasses",
+      "ageLook": "young adult pixel-chibi face",
+      "bodyProportions": "small pixel-chibi sprite with large head, compact torso, short loose trouser legs and small sneakers",
+      "top": {
+        "style": "black full-zip T1 esports jacket, tall collar, white zipper and small white sponsor graphics, visible red T1 wing mark on viewer-right chest",
+        "primary": "#19191A",
+        "secondary": "#E6E3DB",
+        "accent": "#D62424",
+        "closure": "zip"
+      },
+      "bottom": {
+        "style": "loose gray-blue jeans with angular pixel folds and gathered/cuffed ankles",
+        "color": "#52617C"
+      },
+      "shoes": {
+        "style": "black-and-white low-top sneakers with white toe/lace details and light soles",
+        "color": "#29272A",
+        "secondary": "#ECE9DF",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [
+        "thin silver glasses",
+        "red T1 emblem and small white jacket sponsor marks"
+      ],
+      "pose": "nearly front-facing relaxed sprite; viewer-left arm down, viewer-right hand near pocket, both feet visible",
+      "notes": "192×208 source pixel-art sprite. The artwork request explicitly documents real-person photo reference, a T1 jacket and recognizable likeness. Preserve the approved stylized source without calling the depicted person an actual survey respondent. Final avatar pose is the visible arms-down/pocket pose, even though the archive request mentions pointing.",
+      "eyeColor": "#211711",
+      "facialHair": "none",
+      "artStyle": "crisp pixel-art/chibi illustration",
+      "sourceArtwork": "people/ISSP2016_P0019962/artwork/avatar.png",
+      "promptSources": [
+        "people/ISSP2016_P0019962/artwork/creation_archive/pet_request.json"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "tousled_curls",
+      "facialHairType": "none"
+    },
+    {
+      "key": "ISSP2016_P0035740",
+      "displayId": "ISSP2016-B",
+      "posterPath": "assets/avatars/ISSP2016_P0035740.png",
+      "skin": "#EEB18B",
+      "hair": "#292327",
+      "hairStyle": "short layered straight black hair with irregular fringe, asymmetrical swept tufts and pointed top locks; no curls",
+      "glasses": "thick black rounded-square eyeglasses",
+      "ageLook": "young adult pixel-chibi face",
+      "bodyProportions": "compact pixel-chibi miniature, large head, casual loose torso and short baggy jeans, oversized foreshortened pointing hand",
+      "top": {
+        "style": "black short-sleeve RNG esports crewneck jersey with muted-gold paired sleeve stripes, angular double-V torso accents and large central geometric gold RNG R emblem; small gold LPL badge on viewer-left chest and white circled three-pointed star on viewer-right chest",
+        "primary": "#242126",
+        "secondary": "#D1AC62",
+        "closure": "none"
+      },
+      "bottom": {
+        "style": "loose dark-blue jeans with pronounced angular folds and deep cuffed/gathered ankles",
+        "color": "#4A5C81"
+      },
+      "shoes": {
+        "style": "black-and-white skate-style low-top sneakers with white laces/toe areas, small white side motifs and thick white soles",
+        "color": "#272529",
+        "secondary": "#EEEAE3",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [
+        "black glasses",
+        "large gold RNG R chest emblem",
+        "small gold LPL badge",
+        "small white Mercedes star"
+      ],
+      "pose": "viewer-left hand tucked in trouser pocket; viewer-right arm bends forward and points index finger toward viewer; head counter-tilted and feet asymmetrical",
+      "notes": "Final v2 pixel-chibi illustration based on a user-supplied self-portrait and exact jersey reference. Preserve straight hair, black glasses, three visible jersey marks and compact asymmetrical pointing pose; never substitute T1 curls, silver glasses or a zip jacket.",
+      "eyeColor": "#272227",
+      "facialHair": "none",
+      "artStyle": "crisp pixel-art/chibi illustration",
+      "sourceArtwork": "people/ISSP2016_P0035740/artwork/avatar.png",
+      "promptSources": [
+        "people/ISSP2016_P0035740/artwork/prompts/RNG_v1_original_prompt.txt",
+        "people/ISSP2016_P0035740/artwork/prompts/RNG_v2_original_prompt.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "straight_fringe",
+      "facialHairType": "none"
+    },
+    {
+      "key": "ISSP2019_P0021593",
+      "displayId": "ISSP2019-A",
+      "posterPath": "assets/avatars/ISSP2019_P0021593.png",
+      "skin": "#D7945E",
+      "hair": "#513326",
+      "hairStyle": "two chunky dark-brown braided/looped round buns high on the sides, center part and long wavy face-framing tendrils",
+      "glasses": "none",
+      "ageLook": "young adult, wide eyes and playful smile",
+      "bodyProportions": "large head, slim-average high-waisted miniature, long wide cropped culotte legs with visible lower calves",
+      "top": {
+        "style": "cropped cobalt-blue sweatshirt, lavender ribbed neck/cuffs/hem and one wide lavender stripe around each upper sleeve",
+        "primary": "#4357D4",
+        "secondary": "#B58ADE",
+        "closure": "none"
+      },
+      "bottom": {
+        "style": "high-waisted warm-cream wide-leg culottes with front pleats, belt loops, button and wide folded calf-level hems",
+        "color": "#ECDABB"
+      },
+      "shoes": {
+        "style": "violet-and-white low-top lace-up sneakers with white toe panels/laces and thick cream soles",
+        "color": "#9972D5",
+        "secondary": "#EEE4D4",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [],
+      "pose": "viewer-right hand lightly pinches sweatshirt hem, viewer-left arm swings diagonally outward and down; playful head tilt",
+      "notes": "Expose a narrow strip of midriff between cropped sweatshirt and high waistband. Preserve broad lavender sleeve bands and big twin-bun silhouette.",
+      "eyeColor": "#5B2C08",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ISSP2019_P0021593/artwork/avatar.png",
+      "promptSources": [
+        "people/ISSP2019_P0021593/artwork/prompts/ISSP2019_P0021593.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "double_buns",
+      "facialHairType": "none"
+    },
+    {
+      "key": "ISSP2019_P0020926",
+      "displayId": "ISSP2019-B",
+      "posterPath": "assets/avatars/ISSP2019_P0020926.png",
+      "skin": "#D89B68",
+      "hair": "#C1BCB6",
+      "hairStyle": "short silver-gray wavy side-swept hair with high front wave and softly curled side locks",
+      "glasses": "none",
+      "ageLook": "older adult, faint gray stubble and warm smile",
+      "bodyProportions": "large head, average rounded miniature torso and full-length cuffed legs",
+      "top": {
+        "style": "open soft-navy collared overshirt with large dark buttons and one chest pocket; plain powder-blue crew-neck tee",
+        "primary": "#445477",
+        "secondary": "#A0C0DF",
+        "closure": "buttons"
+      },
+      "bottom": {
+        "style": "sand-colored straight trousers with folded ankle cuffs",
+        "color": "#D5BD95"
+      },
+      "shoes": {
+        "style": "light-brown lace-up walking sneakers with cream laces and thick cream soles",
+        "color": "#B38A63",
+        "secondary": "#EDE0C6",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [
+        "plain cream takeaway/reusable cup with dark taupe lid, no lettering"
+      ],
+      "pose": "viewer-left hand holds lidded cup near waist; viewer-right hand in trouser pocket, slight lean and head tilt",
+      "notes": "Preserve actual cup body and raised lid, pale gray moustache/stubble and navy overshirt; do not add glasses.",
+      "eyeColor": "#4F280B",
+      "facialHair": "fine pale gray stubble around jaw, small gray moustache and tiny chin patch; much finer than ATP142-B full beard",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ISSP2019_P0020926/artwork/avatar.png",
+      "promptSources": [
+        "people/ISSP2019_P0020926/artwork/prompts/ISSP2019_P0020926.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "swept_short",
+      "facialHairType": "light_gray_stubble"
+    },
+    {
+      "key": "ISSP2021_P0038614",
+      "displayId": "ISSP2021-A",
+      "posterPath": "assets/avatars/ISSP2021_P0038614.png",
+      "skin": "#CF8E59",
+      "hair": "#453027",
+      "hairStyle": "short thick dark-brown tousled side part with lifted layered waves and pointed ends",
+      "glasses": "none",
+      "ageLook": "young adult with relaxed smile",
+      "bodyProportions": "large head, slim-average miniature torso and comparatively long straight legs",
+      "top": {
+        "style": "open sky-blue lightweight collared overshirt, pale round buttons, single chest pocket and rolled sleeve ends; plain white crew-neck tee",
+        "primary": "#76B0D9",
+        "secondary": "#F0EBE3",
+        "closure": "buttons"
+      },
+      "bottom": {
+        "style": "sand straight-leg trousers extending over ankles, no pronounced folded cuffs",
+        "color": "#D6BF98"
+      },
+      "shoes": {
+        "style": "rust-and-cream low-top sneakers with cream toe panels, cream laces and thick cream soles",
+        "color": "#AC5838",
+        "secondary": "#EEE2CC",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [],
+      "pose": "one arm palm-up in gentle welcome, other hand near pocket",
+      "notes": "Conversational palm-up arm on viewer-left and opposite hand at pocket. Keep light-blue shirt distinctly brighter than ISSP2019-B navy.",
+      "eyeColor": "#4E280C",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ISSP2021_P0038614/artwork/avatar.png",
+      "promptSources": [
+        "people/ISSP2021_P0038614/artwork/prompts/ISSP2021_P0038614.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "tousled_short",
+      "facialHairType": "none"
+    },
+    {
+      "key": "ISSP2021_P0017638",
+      "displayId": "ISSP2021-B",
+      "posterPath": "assets/avatars/ISSP2021_P0017638.png",
+      "skin": "#DDA274",
+      "hair": "#CFCAC3",
+      "hairStyle": "silver-white hair swept back in large soft side waves to a low loose bun at viewer-left nape, wispy curled strands frame both cheeks",
+      "glasses": "none",
+      "ageLook": "older adult with gentle smile lines",
+      "bodyProportions": "large head, rounded-average miniature torso, loose ankle-length cuffed legs; one foot slightly forward",
+      "top": {
+        "style": "open lavender knit cardigan with ribbed edges, three large cream buttons and patch pockets; cream crew-neck top; teal scarf tied at front of neck",
+        "primary": "#AD8EC0",
+        "secondary": "#EEE1C8",
+        "closure": "buttons"
+      },
+      "bottom": {
+        "style": "loose ink-blue trousers with broad turned-up ankle cuffs",
+        "color": "#3F4B6C"
+      },
+      "shoes": {
+        "style": "plum-and-cream low-top lace-up walking sneakers, cream toe panels/laces and thick cream soles",
+        "color": "#80516C",
+        "secondary": "#EEE0C7",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [
+        "small teal scarf tied in a front knot with two short pointed ends",
+        "large cream pearl stud earrings"
+      ],
+      "pose": "one hand lifted in a modest wave, other behind back",
+      "notes": "Earrings are pearl studs, not gold hoops. Preserve low bun, visible side wisps and scarf knot/tails; viewer-right hand waves while other arm rests behind back.",
+      "eyeColor": "#4C260A",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/ISSP2021_P0017638/artwork/avatar.png",
+      "promptSources": [
+        "people/ISSP2021_P0017638/artwork/prompts/ISSP2021_P0017638.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "low_bun",
+      "facialHairType": "none"
+    },
+    {
+      "key": "GSS2022_P0000404",
+      "displayId": "GSS2022-A",
+      "posterPath": "assets/avatars/GSS2022_P0000404.png",
+      "skin": "#DEA06E",
+      "hair": "#573825",
+      "hairStyle": "short clustered chestnut-brown curls, large loose rounded curls on crown and shorter curled sides",
+      "glasses": "none",
+      "ageLook": "young adult, friendly open smile",
+      "bodyProportions": "large head, slim-average miniature torso and full-length cuffed legs; backpack adds width behind one shoulder",
+      "top": {
+        "style": "bright burnt-orange pullover hoodie with large soft hood, cream drawstrings with rounded ends, ribbed cuffs/hem and kangaroo pocket; thin white tee collar",
+        "primary": "#E77B21",
+        "secondary": "#EEE3D1",
+        "closure": "none"
+      },
+      "bottom": {
+        "style": "dark-navy relaxed trousers with folded ankle cuffs",
+        "color": "#3B435E"
+      },
+      "shoes": {
+        "style": "navy-and-white low-top lace-up sneakers, white toe panels/laces, orange heel lining and thin orange outsole edge",
+        "color": "#354460",
+        "secondary": "#EFECE0",
+        "accent": "#D86C25",
+        "construction": "lace_up_sneakers"
+      },
+      "accessory": [
+        "dark navy backpack with thick shoulder strap held by viewer-left hand, rounded bag body and small side pocket behind shoulder"
+      ],
+      "pose": "one hand gripping backpack strap, other relaxed",
+      "notes": "Preserve subtle facial hair and cheek mole, orange hood and white strings, complete backpack body (not strap only), and navy/white/orange shoe palette.",
+      "eyeColor": "#4C260A",
+      "facialHair": "short brown moustache and fine brown stubble around jaw and chin",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/GSS2022_P0000404/artwork/avatar.png",
+      "promptSources": [
+        "people/GSS2022_P0000404/artwork/prompts/GSS2022_P0000404.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "loose_curls",
+      "facialHairType": "light_brown_stubble"
+    },
+    {
+      "key": "GSS2022_P0000330",
+      "displayId": "GSS2022-B",
+      "posterPath": "assets/avatars/GSS2022_P0000330.png",
+      "skin": "#E6AC80",
+      "hair": "#D5D0CC",
+      "hairStyle": "chin-length silver-white bob with deep side part, large sweeping front wave and softly curled-under ends",
+      "glasses": "large thin dark-brown round eyeglasses with small gold hinge pins",
+      "ageLook": "older adult with gentle smile",
+      "bodyProportions": "large head, average miniature torso, comparatively long straight ankle-length trousers and slip-on shoes",
+      "top": {
+        "style": "open light-blue cardigan with ribbed edges, three cream buttons and two patch pockets; plain cream crew-neck top",
+        "primary": "#91B7D4",
+        "secondary": "#F0E8D9",
+        "closure": "buttons"
+      },
+      "bottom": {
+        "style": "dark-navy straight trousers cropped above ankle, no rolled cuff",
+        "color": "#3D4661"
+      },
+      "shoes": {
+        "style": "light-gray knit slip-on walking shoes with cream heel/toe trim and thick cream soles, no visible laces",
+        "color": "#B7B3B3",
+        "secondary": "#ECE5DA",
+        "construction": "knit_slip_on"
+      },
+      "accessory": [
+        "large round cream pearl stud earrings"
+      ],
+      "pose": "viewer-left hand lightly touches the glasses hinge/frame; viewer-right arm hangs naturally",
+      "notes": "Only this illustrated woman has clearly blue-gray irises. Frames are brown rather than blue. Preserve pearl studs and gray slip-on shoes.",
+      "eyeColor": "#527185",
+      "facialHair": "none",
+      "artStyle": "rounded matte 3D collectible illustration",
+      "sourceArtwork": "people/GSS2022_P0000330/artwork/avatar.png",
+      "promptSources": [
+        "people/GSS2022_P0000330/artwork/prompts/GSS2022_P0000330.txt"
+      ],
+      "rearModeling": "Rear of head, clothing, hands/feet and any accessories must be completed as volumetric geometry; no rear-view reference is provided in the final avatar PNG.",
+      "hairModelType": "wavy_bob",
+      "facialHairType": "none"
+    }
+  ],
+  "modelingNotes": {
+    "sourcePriority": "Preserve the final supplied avatar.png when an earlier prompt or earlier artwork differs.",
+    "palette": "Hex colors are approximate local material colors chosen from the visible illustration; shading in the raster is not a material measurement.",
+    "geometry": "Create complete volumetric bodies and clothing, including rear surfaces. These PNGs show only a front or three-quarter front; unobserved rear shapes are new modeling work rather than recovered source geometry.",
+    "identity": "Dataset keys are display associations only. Do not identify a depicted face as an actual survey respondent or infer appearance from respondent race, nationality, religion, politics, or other questionnaire answers.",
+    "branding": "The supplied ISSP2016 illustrations visibly include esports team and sponsor graphics. Do not describe those two source illustrations as generic unbranded fictional faces."
+  },
+  "sourcePackage": "socialreasoner_18_person_complete_20261105; sourceArtwork and promptSources are paths relative to this package."
+}

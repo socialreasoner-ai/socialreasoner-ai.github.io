@@ -1,54 +1,51 @@
-SocialReasoner 宇宙地球与人物展示 — 实现记录
-2026-11-05
+SocialReasoner 宇宙地球与人物展示
+2026-11-05 · GLB 三维重建版
 
-交付范围
-在现有正式首页接入 Three.js 地球、深空舞台、九组十八人的案例阅读。
-选择 Hero 数据集会清除地区筛选并打开对应两人；返回地球保留数据集。
-普通 Data 筛选退出人物阅读；“全部数据集”保留 Data 的经济分组、标签和指标；Data 的 Reset filters 才复位经济分组与指标。
-独立演示入口为 cosmic-demo.html，正式站仍为 index.html。
+本轮范围
+9个数据集、18名人物已制作完整三维网格、蒙皮骨骼和Idle / Turn / Walk / Wave四段动作。
+EVS2017核对后恢复制作：两位受访者及原画未变化，只将展示题更换为具有完整CoT的Q00006。
+网站沿用最新CoT展示的八组16人；GSS2022保留地图统计，两份GLB仍完整保留于资源包。
+模型根据原画重建；原画未展示的背面与遮挡部分补建。造型采用简约圆润卡通风格，细节精度低于原PNG插画，不能描述为无损图像转三维。
+这些是网页示意人物，不据此认定调查受访者的真实相貌。两张ISSP2016原画具有照片参照来源，其余16张原画的记录将其描述为虚构插画。
 
-资源与真实资料
-18人均为 ready，来自 SocialReasoner_18人完整资料包_20261105.zip；809个输入文件与已解压副本逐字节一致。
-每人画像、perceived记录、目标题和实际回答均经源包核对。两人目标题只有ID、题面和选项完全一致才合并。
-UI支持 en/zh/fr/de/ko；问卷原文、原始画像值与回答保持来源语言。
-没有创建预测，没有运行模型，没有修改原始标签或汇总计数。
-18张透明PNG为示意人物，320px预览用于舞台；非受访者照片。
-当前人物是地块承载的透明面片，使用程序轨迹移动。未接入GLB、骨骼、Idle/Walk/Wave动作；不能称为真实行走动画。
-ISSP2019_P0021593 的另一个原始Q00022记录缺少subjective_class字段；本次选用的Q00018画像完整且与profile一致，源文件未被修改。
+人物与动画
+assets/avatars/models/保存18个自包含GLB 2.0文件，约2.1单位高、Y向上、+Z朝前、脚底为零。
+每人18根骨骼；主体使用真实有厚度的网格和顶点色PBR材质。没有用PNG贴片充当三维模型。
+Idle为轻微待机；Turn完成360度展示；Walk为原地完整步态周期；Wave为抬臂挥手后恢复站姿。
+模型根没有平移，网页负责每个Walk周期0.7单位的前进距离，避免双重位移。
+页面支持A/B选择及“转身、走路、挥手”。进入前景时有短步和招手；动作结束后回到待机。
+减少动态效果偏好会省略自动运动，用户主动点击仍可播放一次动作。
 
-文件职责
-- globe.js：唯一协调入口、选择意图、人物阅读、切换与失败回退、整体清理。
-- coverage-state.js：唯一 geography Promise、原子筛选、地区/数据集索引、计数与unknown语义；保留SocialCoverage公开行为。
-- globe-renderer-2d.js：原正交地图降级、指针交互、Coverage统计/选项/Equal Earth地图。UI仍在此适配器内，未单独拆出coverage-ui.js；统计已脱离2D上下文创建是否成功。
-- globe-renderer-3d.js：真实球体、覆盖纹理、灯光/星点/边缘大气、拾取、视角与单一舞台循环。
-- globe-characters.js：真实地区锚点、同地区排布、PNG缓存、小地块、球外入场/返回路径、连续切换与旧资源取消。
-- respondent-explorer.js / respondent-locales.js：资料卡、A/B选择、折叠内容、题目选项、五语言文案。
-- globe.css / respondent-explorer.css：明确作用域与正常文档流的桌面/手机布局；移除旧globe-centered覆盖布局。
-- data-explorer.js：复用共享geography，维持view/group/metric；Reset filters原子更新。
-- i18n.js / index.html：新文案路由和正式首页挂接。
-- cosmic-demo.html / fragments/：独立演示与Hero/Coverage集成片段。
-- assets/respondent-showcase.json / assets/avatars/：源记录派生清单、透明原图与轻量预览、资源来源说明。
-- assets/vendor/three/：固定 Three.js 0.181.2 核心ES modules与MIT许可证。
-- scripts/build-showcase.py：从保留的完整资料包重建展示清单。
-- scripts/check-showcase.mjs：记录同源、实际答案、正式组完整性、资源摘要与五语言字段标签。
-- scripts/check-geography.mjs：共享状态和2D适配器测试入口，保留原拾取/中断/零值/未知值等断言，增加单次fetch、原子事件、无画布统计和清理检查。
-- scripts/check-globe-3d.mjs：经纬往返、纹理UV/东西方向、焦点、日期线、同地区排布、入场打断及球外返回。
-- scripts/check-locales.mjs / .githooks/pre-commit：将新增模块纳入校验。
+运行时
+GLTFLoader和SkeletonUtils与本地Three.js 0.181.2同版本。
+先加载当前两人，再以两路并发加载总览人物；每人独立骨骼、动画混合器与材质。
+PNG用于模型加载/失败后备及资料卡缩略图。模型加载失败时不显示可误触的动作。
+窗口不可见或场景离屏时暂停。快速切换、返回、销毁不会让旧请求恢复已离开的角色。
+WebGL失败时回退到二维地图，资料卡保持可用。
 
-已执行核验
-1. check-geography、check-region-points、check-data-explorer、check-showcase、check-globe-3d、check-locales均通过。
-2. 所有新增JS语法检查与git diff --check通过。原方法示例、静态结果、人口结果、雷达图校验保持通过。
-3. geography.json、demographics.json、economy-groups.json、world-110m.json的SHA-256与修改前一致。
-4. 正式首页Hero之后的所有章节与开始工作时的页面逐字节一致。
-5. 本机内嵌浏览器：1440×1000、1366×768、1280×720、768×1024、390×844、360×800，无新增横向溢出。手机A/B切换与长题选项换行通过。
-6. ATP152同地区、ISSP2019跨国、ISSP2016补齐案例、快速切换、五语言不重播、展开状态保留、零样本法国/ATP152、重新打开案例均实际操作通过。
-7. 美国、日本、丹麦、新西兰底图与锚点逐一肉眼核对；修正过东西镜像及聚焦纬度符号。
-8. 本地故障服务器实际注入WebGL初始化错误、运行中context lost、头像404、1.5秒慢头像；二维回退与资料阅读可用，迟到资源未恢复旧人物。
-9. ?motion=reduce验证无大幅入场且暂停旋转；离屏帧计数保持9不变，返回后恢复。独立演示已操作验证。
-10. 本机1440宽读取到舞台平均帧间隔约5.5–13.4ms、CPU提交绘制约0.1–0.4ms；这些是当前桌面会话观察值，不是GPU耗时或实体手机性能承诺。
+数据与来源
+本轮GLB制作不改变调查原始记录、答案标签、数值结果或汇总计数，也未运行预测模型。
+地理统计仍来自共享coverage-state；地图纹理、地区锚点及CHN/TWN关联高亮保持原有定义。
+原始18张PNG保留，原包和问卷资料未被模型制作脚本改写。
+UI文案包含英文、中文、法文、德文、韩文；问卷原文和答案保留来源语言。
 
-具体剩余工作
-- 正式18人GLB及每人Idle/Walk或Jog/Wave或Present动作尚缺；当前没有GLTF骨骼加载器和动作混合实现。接入时按manifest映射动作名称，并补实际骨骼动作、脚步与根位移测试。
-- 窄屏经过浏览器尺寸测试，未在实体手机、低端GPU或所有浏览器上做性能基准。
-- 当前Coverage UI仍由2D适配器统一维护；可在后续维护中独立提取，公共选择状态和无画布统计已经解耦。
-- 自有本机故障测试服务器位于review目录，不进入生产包。
+关键文件
+- globe.js：唯一协调入口、人物选择、动作按钮、加载状态、回退与清理。
+- globe-renderer-3d.js：球体、地理纹理、镜头、光照、拾取和唯一动画循环。
+- globe-characters.js：GLB缓存、独立蒙皮、动作混合、地理锚点和入场/返回轨迹。
+- respondent-explorer.js / respondent-locales.js：资料阅读与五语言文案。
+- assets/respondent-showcase.json：人物资料与头像资源映射。
+- scripts/avatar-model-specs.json：逐人原画特征和资源来源。
+- scripts/build-avatar-models.py：Blender重建脚本，默认制作18人。
+- scripts/check-avatar-models.mjs：二进制GLB、三维体积、真实蒙皮和72段动作采样检查。
+- scripts/check-globe-3d.mjs：地理对齐、模型实例、动作、地面位移、队列及异步清理检查。
+- scripts/check-showcase.mjs：资料来源、实际回答、人数和模型映射检查。
+- cosmic-demo.html / fragments/：独立演示和可复用页面片段。
+
+复现
+安装Blender后，在仓库目录运行：
+  blender -b --python scripts/build-avatar-models.py -- --render --all-views --save-blend
+  node scripts/check-avatar-models.mjs
+  node scripts/check-showcase.mjs
+  sh .githooks/pre-commit
+模型源文件、三视图、动作轨迹与标准glTF验证报告放在本机review/glb-20261105，不作为网站运行资源。

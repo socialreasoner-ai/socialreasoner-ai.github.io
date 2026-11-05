@@ -1,8 +1,8 @@
 {
   "sourcePackage": "SocialReasoner_18人完整资料包_20261105.zip",
-  "role": "Fictional illustrative avatars supplied with the respondent package; not photographs of respondents.",
-  "format": "Transparent PNG; 320px previews are resized derivatives of the corresponding source PNG.",
-  "modelStatus": "No GLB, skeleton or animation clips were supplied.",
+  "role": "Illustrative characters supplied with the respondent package; not verified portraits of survey respondents.",
+  "format": "Self-contained rigged GLB 2.0 characters with Idle, Turn, Walk and Wave clips; original transparent PNGs and 320px derivatives retained as loading/error fallbacks and profile thumbnails.",
+  "modelStatus": "18 skinned GLB reconstructions, each with Idle, Turn, Walk and Wave. The current CoT reader uses 16 artwork slots across eight datasets; the two GSS2022 models remain available as assets.",
   "licenseStatus": "No standalone public redistribution license was included in the source package. Included here for the website modification requested by the package owner.",
   "files": {
     "ATP142_P0004968-preview.png": "b372d2e896119852ce85f8c65bab26a9df22c88c1ae31646291c28e7cd70c204",
@@ -41,5 +41,82 @@
     "ISSP2021_P0017638.png": "6adb638f17c9ade83ae684a2268f877ef40c6b6b2fc558f7920a36475a8d68ef",
     "ISSP2021_P0038614-preview.png": "78c7dc54521d42ee70ca2261ad3459fb3c7749eee6d93619b06fba3cc5bdde3a",
     "ISSP2021_P0038614.png": "ecbe135b2949465b99edbf1a58769d37cc6caf8285024d95d04d64d1f687f9ae"
+  },
+  "modelSource": "Procedural Blender mesh reconstruction from the supplied artwork; unseen rear surfaces are artistically completed. Models do not establish the likeness of survey respondents.",
+  "modelBuilder": "scripts/build-avatar-models.py",
+  "modelSpecifications": "scripts/avatar-model-specs.json",
+  "models": {
+    "ATP142_P0004968.glb": {
+      "sha256": "262a815e334f629aed106a881967f69249fa06e5aeaa7cd01827cd11b245730b",
+      "bytes": 1396136
+    },
+    "ATP142_P0007673.glb": {
+      "sha256": "e10b8cb5e597f1add0d31499de6130d5aecbdc173cacdb39c4e48606dfa3b80f",
+      "bytes": 1556200
+    },
+    "ATP152_P0004761.glb": {
+      "sha256": "106783b0948507e657c485ee2dfa133238125653f6fd6f7a1115d36984a1357f",
+      "bytes": 1248136
+    },
+    "ATP152_P0004934.glb": {
+      "sha256": "c9dfe34c20d6d1945bc7ca2dcdd43cd070c46c093426972c506cffede9c63bd6",
+      "bytes": 1517396
+    },
+    "EVS2017_P0015007.glb": {
+      "sha256": "5bd9e2d2e11e29592e3bfaa14133dae8dc09e06794d6c20acdea200b16585a96",
+      "bytes": 1413480
+    },
+    "EVS2017_P0036451.glb": {
+      "sha256": "16a51c40885de35db2022ac039e66032e3fbd0e4be57e5850eeeb7223db8f6ca",
+      "bytes": 1321592
+    },
+    "GSS2022_P0000330.glb": {
+      "sha256": "b92444434d7efceb95a8bdae84e00488ed608d246f3d0ed43cd3684a80eb5240",
+      "bytes": 1445044
+    },
+    "GSS2022_P0000404.glb": {
+      "sha256": "0c4c7149372b71180525b312d2b041f8ed98e994a4a06509026311cf096920f7",
+      "bytes": 1540188
+    },
+    "ISSP2009_P0005245.glb": {
+      "sha256": "163361330980fb4a1bc94a20f708601fbe31e26efc37b681fa0ce08a78434160",
+      "bytes": 1220172
+    },
+    "ISSP2009_P0033815.glb": {
+      "sha256": "c968412ba6dfad61c68d0788939f064b8094792b9ac9dd8ad1be5da0baced762",
+      "bytes": 1362884
+    },
+    "ISSP2015_P0010896.glb": {
+      "sha256": "138f152962734019b09a464e6add7cf8032d9cdd5fdf63b5d229f9cfb36aaa95",
+      "bytes": 1184536
+    },
+    "ISSP2015_P0028390.glb": {
+      "sha256": "c2c974388b0cc362e85d52c4f9aee33c3a76809c284c647b84bae4cf32620ec1",
+      "bytes": 1377616
+    },
+    "ISSP2016_P0019962.glb": {
+      "sha256": "de94ac36ba5f6fa2c251ce51b1dcc74daa0ef252721b92a76e9e054d864f1ad5",
+      "bytes": 1463320
+    },
+    "ISSP2016_P0035740.glb": {
+      "sha256": "ee9e297175d569f175973495b87d0e664efb569871749a1d72707590eeed68d0",
+      "bytes": 1265784
+    },
+    "ISSP2019_P0020926.glb": {
+      "sha256": "13e3698257751c3605e6751feb2f68d2a52d1692c1f414f89a6308ad7f04cd4a",
+      "bytes": 1261600
+    },
+    "ISSP2019_P0021593.glb": {
+      "sha256": "65576b395bc501f85400b159dea229ed5a38d04bb0104cd831f786624e3c5356",
+      "bytes": 1241560
+    },
+    "ISSP2021_P0017638.glb": {
+      "sha256": "72d2edc7b101c20e2d6facdcf45432c1899e47d0f07b3d4ab2bc907e7e699511",
+      "bytes": 1256876
+    },
+    "ISSP2021_P0038614.glb": {
+      "sha256": "d619bc110e9ef41f61d432d6e5524ba02e8b7e241fcc6806dd6cbcf84e84c1ae",
+      "bytes": 1184536
+    }
   }
 }

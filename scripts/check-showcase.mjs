@@ -45,8 +45,12 @@ for (const group of manifest.datasets) {
     assert(regions.has(person.regionId), person.displayId);
     assert.equal(person.mapAnchor.regionId, person.regionId);
     assert.equal(person.avatarIllustrative, true);
-    assert.equal(person.avatar.modelPath, null);
-    assert.equal(person.avatar.assetStatus, 'poster-only');
+    const artworkKey = person.avatar.fullPath.split('/').at(-1).replace(/\.png$/, '');
+    assert.equal(person.avatar.modelPath, `assets/avatars/models/${artworkKey}.glb`);
+    assert.equal(person.avatar.assetStatus, 'rigged-glb');
+    assert(existsSync(resolve(site, person.avatar.modelPath)), person.avatar.modelPath);
+    assert.deepEqual(person.avatar.animations, { idle: 'Idle', turn: 'Turn', walk: 'Walk', wave: 'Wave' });
+    assert.equal(person.avatar.groundTravel, 0.7);
     assert(Array.isArray(person.demographics) && person.demographics.length > 0);
     assert(Array.isArray(person.perceptions));
     assert(person.target.questionId && person.target.question);

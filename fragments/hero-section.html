@@ -21,6 +21,18 @@
           <button type="button" id="showcase-skip" hidden><span data-i18n="respondent.skip">Skip animation</span></button>
           <button type="button" id="showcase-all"><span data-i18n="respondent.all">All datasets</span></button>
         </div>
+        <div class="avatar-controls" id="avatar-controls" hidden aria-label="Character animation" data-i18n-aria-label="respondent.animationAria">
+          <div class="avatar-person-switch" role="group" aria-label="Choose character" data-i18n-aria-label="respondent.chooseCharacter">
+            <button type="button" data-avatar-person="0" aria-pressed="true" data-i18n="respondent.personA">Person A</button>
+            <button type="button" data-avatar-person="1" aria-pressed="false" data-i18n="respondent.personB">Person B</button>
+          </div>
+          <div class="avatar-motion-switch" role="group" aria-label="Character animation" data-i18n-aria-label="respondent.animationAria">
+            <button type="button" data-avatar-action="turn" disabled data-i18n="respondent.turn">Turn around</button>
+            <button type="button" data-avatar-action="walk" disabled data-i18n="respondent.walk">Walk</button>
+            <button type="button" data-avatar-action="wave" disabled data-i18n="respondent.wave">Wave</button>
+          </div>
+          <span class="avatar-model-status" role="status"></span>
+        </div>
         <div class="globe-stage">
           <div class="globe-frame"><canvas id="globe-canvas" aria-label="Drag to rotate the world globe. Select a dataset or region using the controls below for keyboard access." data-i18n-aria-label="hero.canvasAria"></canvas></div>
           <div class="globe-tooltip" id="globe-tooltip" role="status" hidden></div>

@@ -203,3 +203,15 @@
 @media(max-width:767px){.globe-experience .globe-fallback-person img{max-height:225px}.globe-experience .globe-fallback-people{padding:5% 2%;gap:8%}}
 .globe-experience .globe-person-tooltip{position:absolute;z-index:8;max-width:240px;padding:9px 13px;border:1px solid #73deff75;border-radius:8px;background:#071527ee;color:#eaf2ff;font:500 12px/1.5 'DM Sans',sans-serif;pointer-events:none;box-shadow:0 8px 24px #0005}
 .globe-experience .globe-person-tooltip[hidden]{display:none}
+
+/* Model actions stay beside the scene, including on narrow screens. */
+.globe-experience .avatar-controls{position:relative;z-index:4;display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px}
+.globe-experience .avatar-controls[hidden]{display:none}
+.globe-experience .avatar-person-switch,.globe-experience .avatar-motion-switch{display:flex;gap:5px}
+.globe-experience .avatar-motion-switch[hidden]{display:none}
+.globe-experience .avatar-controls button{min-height:40px;border:1px solid #85b3d033;border-radius:7px;padding:8px 12px;background:#0b1c31;color:#c6d8eb;font:500 12px/1.4 'DM Sans',sans-serif;cursor:pointer}
+.globe-experience .avatar-controls button:hover:not(:disabled),.globe-experience .avatar-controls button[aria-pressed="true"]{color:#eafaff;border-color:#73deff88;background:#17344a}
+.globe-experience .avatar-controls button:focus-visible{outline:2px solid #73deff;outline-offset:3px}
+.globe-experience .avatar-controls button:disabled{opacity:.4;cursor:default}
+.globe-experience .avatar-model-status{color:#8ca4bd;font-size:12px}
+@media(max-width:620px){.globe-experience .avatar-controls{gap:7px}.globe-experience .avatar-controls button{padding:8px 10px;font-size:11px}}

@@ -1,12 +1,18 @@
 Three.js 0.181.2
 Source: https://www.npmjs.com/package/three/v/0.181.2
-Files copied unchanged from the official npm package:
+License: MIT (see LICENSE).
+
+Vendored official modules:
   build/three.module.js
   build/three.core.js
-  LICENSE
+  examples/jsm/loaders/GLTFLoader.js
+  examples/jsm/utils/SkeletonUtils.js
+  examples/jsm/utils/BufferGeometryUtils.js
 
-The current showcase renders PNG posters on standing planes. It does not load
-GLB files, so GLTFLoader and decoder addons are not bundled in this prototype.
-If animated GLB assets are added, bundle addons from this same Three.js version.
+Addon imports use the local core module. One upstream indentation-only
+space-before-tab was normalized for the repository whitespace check.
 
-One upstream indentation-only space-before-tab was normalized for the repository whitespace check.
+The globe loads self-contained GLB assets with GLTFLoader, clones independent
+skeletons with SkeletonUtils, and plays their animation clips with
+AnimationMixer. The authored GLBs use ordinary mesh buffers and PBR vertex
+colors; no external texture, Draco decoder, or hosted model service is needed.

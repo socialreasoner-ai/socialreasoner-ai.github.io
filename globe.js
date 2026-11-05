@@ -14,6 +14,7 @@
   let fallbackRenderer = null;
   let activeRenderer = null;
   let reader = null;
+  let activePersonId = '';
   let scene = 'overview';
   let showcaseDataset = '';
   let requestNumber = 0;
@@ -28,6 +29,33 @@
   stage.append(fallbackPeople);
 
   const bind = (element, type, fn) => element?.addEventListener(type, fn, { signal: controller.signal });
+  function refreshAvatarControls() {
+    const controls = document.querySelector('#avatar-controls');
+    if (!controls) return;
+    controls.hidden = !['entering', 'reading'].includes(scene) || activeRenderer === fallbackRenderer;
+    const people = reader?.getParticipants(showcaseDataset) || [];
+    if (!people.some(person => person.displayId === activePersonId)) activePersonId = people[0]?.displayId || '';
+    controls.querySelectorAll('[data-avatar-person]').forEach(button => {
+      const person = people[Number(button.dataset.avatarPerson)];
+      button.disabled = !person;
+      button.setAttribute('aria-pressed', String(person?.displayId === activePersonId));
+    });
+    const modeled = Boolean(people.find(person => person.displayId === activePersonId)?.avatar?.modelPath);
+    const motionControls = controls.querySelector('.avatar-motion-switch');
+    if (motionControls) motionControls.hidden = !modeled;
+    const status = activeRenderer?.getCharacterStatus?.(activePersonId) || 'loading';
+    controls.querySelectorAll('[data-avatar-action]').forEach(button => { button.disabled = status !== 'ready' || scene !== 'reading'; });
+    const label = controls.querySelector('.avatar-model-status');
+    if (label) {
+      label.textContent = status === 'ready' ? '' : window.SiteI18n?.t?.(`respondent.${status === 'fallback' ? 'modelUnavailable' : 'modelLoading'}`) || '';
+      label.hidden = !modeled || status === 'ready';
+    }
+  }
+  function activatePerson(id) {
+    activePersonId = id;
+    activeRenderer?.setActivePerson?.(id);
+    refreshAvatarControls();
+  }
   function setScene(next) {
     scene = next;
     host.dataset.scene = next;
@@ -44,6 +72,7 @@
     }
     if (back) back.hidden = !reading;
     if (skip) skip.hidden = !['focusing', 'entering'].includes(next);
+    refreshAvatarControls();
   }
   setScene('overview');
 
@@ -83,6 +112,7 @@
     const request = requestNumber;
     reader?.setDataset(dataset);
     const participants = reader?.getParticipants(dataset) || [];
+    activePersonId = reader?.getActivePerson?.() || participants[0]?.displayId || '';
     paintFallbackPeople(participants);
     setScene(reducedMotion() ? 'reading' : 'focusing');
     if (activeRenderer === fallbackRenderer) {
@@ -94,12 +124,15 @@
     reader?.ready?.then(() => {
       if (disposed || request !== requestNumber || showcaseDataset !== dataset) return;
       const readyParticipants = reader.getParticipants(dataset) || [];
+      if (!readyParticipants.some(person => person.displayId === activePersonId)) activePersonId = reader?.getActivePerson?.() || readyParticipants[0]?.displayId || '';
       paintFallbackPeople(readyParticipants);
       activeRenderer?.setParticipants?.(allParticipants());
       if (activeRenderer !== fallbackRenderer) {
         showOnRenderer(dataset, readyParticipants);
+        activeRenderer?.setActivePerson?.(activePersonId);
         if (skippedRequest === request) activeRenderer?.skip?.();
       }
+      refreshAvatarControls();
     }).catch(error => console.warn('Respondent display unavailable:', error));
   }
 
@@ -148,6 +181,17 @@
   }
 
   function wireControls() {
+    bind(stage, 'avatar:statuschange', refreshAvatarControls);
+    bind(window, 'site:languagechange', refreshAvatarControls);
+    bind(document.querySelector('#avatar-controls'), 'click', event => {
+      const personButton = event.target.closest?.('[data-avatar-person]');
+      if (personButton) {
+        const person = reader?.getParticipants(showcaseDataset)?.[Number(personButton.dataset.avatarPerson)];
+        if (person) { reader?.setActivePerson(person.displayId); activatePerson(person.displayId); }
+      }
+      const actionButton = event.target.closest?.('[data-avatar-action]');
+      if (actionButton && !actionButton.disabled) activeRenderer?.playAction?.(actionButton.dataset.avatarAction, activePersonId);
+    });
     bind(document.querySelector('#showcase-open'), 'click', () => openDatasetShowcase(store?.getSelection().dataset));
     bind(document.querySelector('#showcase-back'), 'click', closeShowcase);
     bind(document.querySelector('#showcase-skip'), 'click', () => {
@@ -200,7 +244,7 @@
     wireControls();
     reader = window.createRespondentExplorer?.({
       host: document.querySelector('#respondent-explorer'), store,
-      onActivePersonChange: id => activeRenderer?.setActivePerson?.(id)
+      onActivePersonChange: activatePerson
     }) || null;
     fallbackRenderer = createGlobeRenderer2d({
       canvas: originalCanvas, host, store, onHeroDataset: openDatasetShowcase,
@@ -216,7 +260,7 @@
     if (disposed) return;
     if (new URLSearchParams(window.location?.search || '').get('renderer') === '2d') return;
     try {
-      const { createGlobeRenderer } = await import('./globe-renderer-3d.js');
+      const { createGlobeRenderer } = await import('./globe-renderer-3d.js?v=20261105-glb-r1');
       if (disposed) return;
       const frame = host.querySelector('.globe-frame');
       webglCanvas = document.createElement('canvas');

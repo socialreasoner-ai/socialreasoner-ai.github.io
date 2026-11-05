@@ -284,7 +284,7 @@
     };
     host.addEventListener('click', click, { signal: controller.signal });
     window.addEventListener('site:languagechange', render, { signal: controller.signal });
-    const ready = fetch('assets/respondent-showcase.json', { signal: controller.signal })
+    const ready = fetch('assets/respondent-showcase.json?v=20261105-glb-r1', { signal: controller.signal })
       .then(response => {
         if (!response.ok) throw new Error('Respondent showcase unavailable');
         return response.json();
@@ -304,6 +304,7 @@
     render();
     return {
       ready, setDataset, setVisible, getParticipants, setActivePerson,
+      getActivePerson: () => activePersonId,
       dispose() {
         if (disposed) return;
         disposed = true;

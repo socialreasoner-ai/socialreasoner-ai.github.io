@@ -62,8 +62,19 @@ def perceived_profile(key, target_id):
     return target_row["profile"], target_row["dataset"], chosen_path.relative_to(SOURCE).as_posix()
 
 
+def avatar_descriptor(key):
+    model_path = f"assets/avatars/models/{key}.glb"
+    ready = (SITE / model_path).is_file()
+    return {"posterPath": f"assets/avatars/{key}-preview.png",
+            "fullPath": f"assets/avatars/{key}.png",
+            "modelPath": model_path if ready else None,
+            "assetStatus": "rigged-glb" if ready else "poster-only",
+            "animations": {"idle": "Idle", "turn": "Turn", "walk": "Walk", "wave": "Wave"} if ready else {},
+            **({"groundTravel": 0.7} if ready else {})}
+
+
 output = {"schemaVersion": 1, "sourceVersion": "SocialReasoner_18人完整资料包_20261105",
-          "avatarBasis": "Fictional illustrations; not portraits of respondents",
+          "avatarBasis": "Illustrative characters reconstructed from the supplied artwork; not verified portraits of survey respondents",
           "datasets": []}
 for dataset in (item["id"] for item in geography["datasets"]):
     people = by_dataset[dataset]
@@ -151,9 +162,7 @@ for dataset in (item["id"] for item in geography["datasets"]):
                 "options": [{"id": option_id, "text": text} for option_id, text in answer["options"].items()],
             },
             "observedOptionId": answer["answer_id"],
-            "avatar": {"posterPath": f"assets/avatars/{key}-preview.png",
-                       "fullPath": f"assets/avatars/{key}.png",
-                       "modelPath": None, "assetStatus": "poster-only", "animations": {}},
+            "avatar": avatar_descriptor(key),
             "mapAnchor": {"regionId": region_id, "displayOffset": None},
             "avatarIllustrative": True,
         })

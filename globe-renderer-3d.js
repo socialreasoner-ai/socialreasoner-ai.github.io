@@ -1,5 +1,5 @@
 import * as THREE from './assets/vendor/three/three.module.js';
-import { GlobeCharacters, geographicVector } from './globe-characters.js';
+import { GlobeCharacters, geographicVector } from './globe-characters.js?v=20261105-glb-r1';
 
 const RADIUS = 2;
 const DEFAULT_YAW = THREE.MathUtils.degToRad(-20);
@@ -172,7 +172,15 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
   const motionReduced = () => reduceMotion.matches || forceReduced;
   const characters = new GlobeCharacters({scene, earthGroup, camera,
     regionFor: id => store.getRegion(id), onPersonSelect,
-    onResourceError: detail => { host.dispatchEvent(new CustomEvent('social:postererror', {detail})); }});
+    onResourceError: detail => {
+      console.warn('Character resource unavailable', detail.type, detail.path, detail.error);
+      host.dispatchEvent(new CustomEvent('social:postererror', {detail}));
+    },
+    onStatusChange: detail => {
+      host.dispatchEvent(new CustomEvent('avatar:statuschange', {detail}));
+      start();
+    }});
+  characters.setMotionReduced(motionReduced());
   let selection = store.getSelection();
   let selectedRegion = store.getRegion(selection.selectedRegion);
   let texture = null;
@@ -273,7 +281,7 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
     }
     queuedEarthMotion = null;
     earthMotion = null;
-    characters.skip(now);
+    characters.finishTransitions(now);
     sceneDeadline = 0;
     emitMode(mode === 'exiting' ? 'overview' : 'reading');
   }
@@ -355,7 +363,7 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
       scale: .63, position: new THREE.Vector3(0, .25, -1.25)};
     if (firstRegion && !motionReduced()) queuedEarthMotion = {target: readingTarget, duration: 1050};
     else motionTo(readingTarget, 1050);
-    sceneDeadline = performance.now() + (motionReduced() ? 1 : 1650);
+    sceneDeadline = performance.now() + (motionReduced() ? 1 : 2600);
     start();
   }
 
@@ -483,10 +491,12 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
   on(canvas, 'pointerleave', () => {tooltip.hidden = true;});
   on(document, 'visibilitychange', () => {
     lastTime = 0;
+    characters.setSuspended(document.hidden || !visible);
     if (!document.hidden) finishExpiredScene(performance.now());
     start();
   });
   on(reduceMotion, 'change', () => {
+    characters.setMotionReduced(motionReduced());
     if (motionReduced()) skip();
     start();
   });
@@ -500,6 +510,7 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
   if ('IntersectionObserver' in window) {
     observer = new IntersectionObserver(entries => {
       visible = entries[0]?.isIntersecting ?? true;
+      characters.setSuspended(document.hidden || !visible);
       if (!visible) {cancelAnimationFrame(raf); raf = 0; lastTime = 0;}
       else {finishExpiredScene(performance.now()); start();}
     }, {threshold: .01});
@@ -526,8 +537,19 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
     setSelection, setParticipants, setShowcase, closeShowcase, skip, resetView,
     toggleRotation, setTouchRotate, setPaused, resize,
     setActivePerson: id => characters.setActivePerson(id),
+    playAction: (name, displayId) => {
+      const played = characters.playAction(name, displayId);
+      if (played) start();
+      return played;
+    },
+    getCharacterStatus: displayId => characters.getCharacterStatus(displayId),
     getDebug: () => ({mode, frameAverageMs: frameAverage, quality, selectedDataset: selection.dataset,
-      selectedRegion: selection.selectedRegion, people: characters.entries.size}),
+      selectedRegion: selection.selectedRegion, people: characters.entries.size,
+      readyModels: [...characters.entries.values()].filter(entry => entry.modelStatus === 'ready').length,
+      loadingModels: [...characters.entries.values()].filter(entry => entry.modelStatus === 'loading').length,
+      activeActions: [...characters.entries.values()].filter(entry => entry.group.visible && entry.model)
+        .map(entry => ({displayId: entry.person.displayId, action: entry.currentClip,
+          traveling: Boolean(entry.travel), status: entry.modelStatus}))}),
     dispose() {
       if (disposed) return;
       disposed = true;
