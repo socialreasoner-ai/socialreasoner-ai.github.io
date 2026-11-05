@@ -118,7 +118,9 @@ select:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visib
 .method-details summary>span:last-child { color: var(--accent); }
 .method-details>div { max-width: 1100px; padding: 0 0 12px; }
 .method-details p { color: var(--muted); font-size: 15px; line-height: 1.75; margin: 0 0 12px; }
-.paper-figure-inner { padding: 18px; margin-bottom: 20px; }
+.paper-figure-inner { padding: clamp(10px,1.4vw,22px); margin-bottom: 20px; background: #0b1423; border: 1px solid #7ad8ff29; border-radius: 12px; }
+.paper-figure-inner img { aspect-ratio: 1285 / 500; }
+.paper-figure-inner p { color: var(--muted); margin-top: 12px; }
 .worked-example { margin-top: 36px; padding: 28px; border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(120deg,#0e1b2d,#101d30); }
 .example-heading { margin-bottom: 25px; }
 .example-heading h3 { font: 500 32px/1.2 'Space Grotesk',sans-serif; letter-spacing: -.035em; margin: 0; max-width: 900px; }
