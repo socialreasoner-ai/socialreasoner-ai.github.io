@@ -88,7 +88,7 @@
     const title = t(item.titleKey);
     const note = aggregate ? t("population.harmonized") : t(item.questionKey);
     return `<article class="population-case${aggregate ? " population-case-aggregate" : ""}" data-population-case="${escapeHtml(item.id)}" aria-label="${escapeHtml(title)}">
-      <header class="population-case-head"><div class="population-case-copy"><h4>${escapeHtml(title)}</h4><p>${escapeHtml(note)}</p></div><div class="population-source">${escapeHtml(item.source)}<span aria-hidden="true">·</span>${escapeHtml(item.dataset)}<span aria-hidden="true">·</span>${escapeHtml(item.backbone)}</div></header>
+      <header class="population-case-head"><div class="population-case-copy"><h4>${escapeHtml(title)}</h4><p>${escapeHtml(note)}</p></div><div class="population-source">${escapeHtml(item.dataset)}<span aria-hidden="true">·</span>${escapeHtml(item.backbone)}</div></header>
       <div class="population-case-body"><div class="population-donut-grid">${SERIES.map(series => renderDonut(item, series, t, number)).join("")}</div>${renderTable(item, t, number)}</div>
     </article>`;
   }
@@ -118,9 +118,9 @@
     return `<div class="population-results">
       <div class="population-results-head"><p class="population-overline">${escapeHtml(translate("population.kicker"))}</p><h3>${escapeHtml(translate("population.heading"))}</h3></div>
       ${renderCase(data.aggregate, translate, formatNumber, true)}
-      <div class="population-group-head"><h3>${escapeHtml(translate("population.examplesTitle"))}</h3><span>${escapeHtml(data.cases[0]?.source || "")}</span></div>
+      <div class="population-group-head"><h3>${escapeHtml(translate("population.examplesTitle"))}</h3></div>
       <div class="population-case-list">${data.cases.map(item => renderCase(item, translate, formatNumber, false)).join("")}</div>
-      <section class="population-comparison" aria-label="${escapeHtml(translate("population.comparisonTitle"))}"><header class="population-comparison-head"><div><p class="population-overline">${escapeHtml(comparison.source)} <span aria-hidden="true">·</span> ${escapeHtml(comparison.dataset)} <span aria-hidden="true">·</span> ${escapeHtml(comparison.backbone)}</p><h3>${escapeHtml(translate("population.comparisonTitle"))}</h3></div><p>${escapeHtml(translate("population.comparisonNote"))}</p></header><div class="population-metric-grid">${comparison.metrics.map(metric => renderMetric(metric, translate, formatNumber)).join("")}</div></section>
+      <section class="population-comparison" aria-label="${escapeHtml(translate("population.comparisonTitle"))}"><header class="population-comparison-head"><div><p class="population-overline">${escapeHtml(comparison.dataset)} <span aria-hidden="true">·</span> ${escapeHtml(comparison.backbone)}</p><h3>${escapeHtml(translate("population.comparisonTitle"))}</h3></div><p>${escapeHtml(translate("population.comparisonNote"))}</p></header><div class="population-metric-grid">${comparison.metrics.map(metric => renderMetric(metric, translate, formatNumber)).join("")}</div></section>
     </div>`;
   }
 
