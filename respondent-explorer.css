@@ -62,6 +62,9 @@
 .globe-experience .respondent-card .respondent-perceptions-list,.globe-experience .respondent-card .respondent-all-views-list{grid-template-columns:1fr;gap:14px}
 .globe-experience .respondent-field dd{margin-top:3px}
 .globe-experience .respondent-card .respondent-recorded-answer{display:flex;flex-direction:column;gap:5px;margin:20px 0 0;padding:13px 15px;border-left:2px solid #73deff;background:#73deff09}
+.globe-experience .respondent-cot{margin-top:22px;padding:17px 18px;border:1px solid #73deff30;border-radius:9px;background:#071525b8}
+.globe-experience .respondent-cot h4{margin:0 0 10px;color:#8fd8ef}
+.globe-experience .respondent-cot .respondent-cot-text{margin:0;color:#d5e3f0;font-size:13px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
 .globe-experience .respondent-recorded-label{font-size:10px;color:#8ca3bc}
 .globe-experience .respondent-recorded-answer strong{font-size:13px;font-weight:500;color:#eaf2ff}
 .globe-experience .respondent-option-text{flex:1;min-width:0}
@@ -69,3 +72,4 @@
 .globe-experience .respondent-original-language,.globe-experience .respondent-source-note{font-size:11px;color:#839ab3;line-height:1.7;margin:14px 0 0}
 .globe-experience .respondent-source-note{margin-top:4px}
 @media(max-width:620px){.globe-experience .respondent-head{gap:8px 12px}.globe-experience .respondent-head .respondent-title{font-size:22px}}
+@media(max-width:620px){.globe-experience .respondent-cot{padding:15px 14px}.globe-experience .respondent-cot .respondent-cot-text{font-size:12px;line-height:1.75}}

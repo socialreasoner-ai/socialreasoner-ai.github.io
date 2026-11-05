@@ -93,3 +93,11 @@ Before publication, run `node scripts/check-locales.mjs` and `node scripts/check
 - world-atlas v2.0.2 (ISC), Natural Earth 1:110m geometry: https://github.com/topojson/world-atlas
 
 Bundled dependency license files are retained under `assets/`. Geographic boundaries are generalized cartographic reference geometry.
+
+## Respondent reasoning cards
+
+The Hero respondent explorer combines the original avatar descriptors in `assets/respondent-showcase.json` with `assets/respondent-cots.json`. The latter supplies exact respondent/question records from the eight `thinking_data_posttrain` datasets, including the full stored CoT, demographics, perception inputs, options and observed answer. Eleven original respondents are retained with eligible target questions; five are replaced by source respondents with complete records. GSS2022 remains in the geographic aggregates and has no respondent reasoning cards.
+
+The CoT is displayed directly in each card above its recorded answer. The source text retains its original English wording; headings and controls use the five shared respondent dictionaries. These stored CoTs are answer-conditioned training rationales. Artwork associations remain illustrative and independent of the source profiles.
+
+`python3 scripts/build-respondent-cots.py` rebuilds the overlay from local source records; see its arguments for source locations. Private byte offsets, source hashes and selection comparisons are retained in the local `review/respondent-cot-20261105` audit. `node scripts/check-respondent-cots.mjs` verifies complete A/B cards, shared target questions, source identities, response options, perception fields and localized headings. The raw survey and post-training files are unchanged.
