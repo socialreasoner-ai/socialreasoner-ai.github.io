@@ -27,27 +27,14 @@ QUESTIONS = {
     "ISSP2016-perceived": ("Q00001", "Q00002", "Q00005", "Q00006"),
     "ISSP2019-perceived": ("Q00001", "Q00003", "Q00005", "Q00006"),
     "ISSP2021-perceived": ("Q00001", "Q00002", "Q00006", "Q00007"),
-    "GSS2022-perceived": ("Q00003", "Q00005", "Q00006", "Q00010"),
 }
 DEFAULT_DATASET = "ATP152-perceived"
-GSS_TOPIC = {
-    "Q00003": re.compile(r"health|medical|care", re.I),
-    "Q00005": re.compile(r"drug|addiction|substance|rehab", re.I),
-    "Q00006": re.compile(r"educat|school|teacher|student", re.I),
-    "Q00010": re.compile(r"highway|bridge|road|infrastructure", re.I),
-}
 PROFILE_COUNT = 4
 MAX_VARIANTS_PER_PAIR = 12
 FAMILIAR_COUNTRIES = {
     "United States", "China", "Germany", "France", "Great Britain",
     "United Kingdom", "Japan", "South Korea", "Australia", "Italy",
     "Spain", "Canada", "Netherlands", "Sweden",
-}
-GSS_PERCEPTION_PRIORITY = {
-    "Q00003": ("confidence in medicine", "drug addiction treatment", "government spending on welfare", "financial satisfaction"),
-    "Q00005": ("government spending on national health", "solving big-city problems", "government spending on welfare", "financial satisfaction"),
-    "Q00006": ("confidence in education", "children's future standard", "government spending on child care", "government spending on national health"),
-    "Q00010": ("government spending on mass transportation", "solving big-city problems", "government spending on alternative energy", "financial satisfaction"),
 }
 STOPWORDS = set("a an and are as at be by do does for from how i if in is it of on or our that the their this to we what when which who with would you your think people respondent reports about important importance life much country extent agree disagree".split())
 WORD_RE = re.compile(r"[a-z0-9]+")
@@ -197,15 +184,6 @@ def candidate_score(person: dict, chosen: list[dict]) -> int:
     return score
 
 
-def gss_perceptions(row: dict) -> list[dict]:
-    items = perceptions_from_prompt(row, [row])
-    priorities = GSS_PERCEPTION_PRIORITY[row["question_id"]]
-    def priority(item: dict) -> int:
-        label = item["question"].lower()
-        return next((index for index, phrase in enumerate(priorities) if phrase in label), len(priorities))
-    return sorted(items, key=priority)
-
-
 def build_dataset(path: Path, dataset: str, wanted_questions: tuple[str, ...]):
     pairs, counts, total_rows = scan_source(path, wanted_questions)
     people = defaultdict(dict)
@@ -313,115 +291,6 @@ def build_dataset(path: Path, dataset: str, wanted_questions: tuple[str, ...]):
     return public, audit
 
 
-def build_gss_dataset(prediction_path: Path, prompt_path: Path):
-    """Join saved GSS inference to survey prompts; keep only coherent correct rows."""
-    dataset = "GSS2022-perceived"
-    wanted_questions = QUESTIONS[dataset]
-    matched = defaultdict(dict)
-    total_rows = 0
-    source_questions = set()
-    with prediction_path.open("rb") as predictions, prompt_path.open("rb") as prompts:
-        while True:
-            pred_offset, prompt_offset = predictions.tell(), prompts.tell()
-            pred_line, prompt_line = predictions.readline(), prompts.readline()
-            if not pred_line and not prompt_line:
-                break
-            if not pred_line or not prompt_line:
-                raise ValueError("GSS inference and survey files have different row counts")
-            total_rows += 1
-            pred, prompt = json.loads(pred_line), json.loads(prompt_line)
-            person, question = pred["person_id"], pred["question_id"]
-            if (person != prompt["person_id"] or question != prompt["question_id"]
-                    or pred["groundtruth"] != prompt["groundtruth_id"]):
-                raise ValueError("GSS inference and survey rows are out of alignment at line %d" % total_rows)
-            source_questions.add(question)
-            if question not in wanted_questions or pred["prediction"] != pred["groundtruth"]:
-                continue
-            match = re.search(r"<think>(.*?)</think>", pred.get("response", ""), re.S | re.I)
-            if not match:
-                continue
-            cot = match.group(1).strip()
-            low = cot.lower()
-            if (len(cot) < 60 or len(cot) > 900 or "force force" in low
-                    or "job market will integrate" in low or "job force landscape" in low
-                    or not GSS_TOPIC[question].search(cot)):
-                continue
-            if pred["prediction"] not in prompt["option"]:
-                continue
-            selected = dict(prompt, cot=cot)
-            matched[person][question] = (selected, pred_offset, prompt_offset, total_rows)
-
-    candidates = [person for person, records in matched.items()
-                  if all(question in records for question in wanted_questions)]
-    if len(candidates) < PROFILE_COUNT:
-        raise ValueError("only %d GSS profiles have four coherent correct inference rows" % len(candidates))
-    selected_people = []
-    remaining = sorted(candidates)
-    while len(selected_people) < PROFILE_COUNT:
-        def ranking(person):
-            row = matched[person][wanted_questions[0]][0]
-            candidate = {"labelFields": demographics(row),
-                         "firstAnswer": row["groundtruth_id"]}
-            return (candidate_score(candidate, selected_people), -int(person.removeprefix("P")))
-        best = max(remaining, key=ranking)
-        row = matched[best][wanted_questions[0]][0]
-        selected_people.append({"person": best, "labelFields": demographics(row),
-                                "firstAnswer": row["groundtruth_id"]})
-        remaining.remove(best)
-
-    public_profiles = []
-    audit_profiles = []
-    for profile_number, person in enumerate(selected_people, 1):
-        profile_id = "profile-%02d" % profile_number
-        public_records, audit_records = [], []
-        for question in wanted_questions:
-            row, pred_offset, prompt_offset, source_line = matched[person["person"]][question]
-            record_id = "%s-%s" % (profile_id, question.lower())
-            answer = row["groundtruth_id"]
-            answer_label = row["option"][answer]
-            experts = {expert: {"cot": row["cot"], "answerId": answer,
-                                "answerLabel": answer_label} for expert in EXPERTS}
-            public_records.append({
-                "id": record_id,
-                "questionId": question,
-                "question": row["question"],
-                "options": row["option"],
-                "perceptions": gss_perceptions(row),
-                "sourceVariantCount": 1,
-                "experts": experts,
-            })
-            source_ref = {
-                "byteOffset": pred_offset,
-                "promptByteOffset": prompt_offset,
-                "sourceLine": source_line,
-                "cotSha256": hashlib.sha256(row["cot"].encode("utf-8")).hexdigest(),
-                "answerId": answer,
-            }
-            audit_records.append({"id": record_id, "questionId": question,
-                                  "variants": {expert: source_ref for expert in EXPERTS}})
-        public_profiles.append({"id": profile_id, "labelFields": person["labelFields"],
-                                "records": public_records})
-        audit_profiles.append({"id": profile_id, "sourcePersonId": person["person"],
-                               "records": audit_records})
-
-    summary = {
-        "dataset": dataset,
-        "sourceRows": total_rows,
-        "sourceQuestions": len(source_questions),
-        "candidateProfilesWithAllQuestions": len(candidates),
-        "fullyCleanCandidateProfiles": len(candidates),
-        "selectedProfiles": PROFILE_COUNT,
-        "selectedQuestionsPerProfile": len(wanted_questions),
-        "storedCotVariants": PROFILE_COUNT * len(wanted_questions) * len(EXPERTS),
-        "uniqueSourceVariants": PROFILE_COUNT * len(wanted_questions),
-    }
-    public = {"id": dataset, "label": dataset, "sourceType": "test_inference",
-              "profiles": public_profiles}
-    audit = {"dataset": dataset, "sourceFile": str(prediction_path),
-             "promptFile": str(prompt_path), "profiles": audit_profiles, "summary": summary}
-    return public, audit
-
-
 def main():
     repo = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(description=__doc__)
@@ -430,10 +299,6 @@ def main():
     parser.add_argument("--output", type=Path, default=repo / "assets" / "method-demo.json")
     parser.add_argument("--audit-output", type=Path,
                         default=repo.parent / "review" / "method-demo-20261105" / "source-mapping.json")
-    parser.add_argument("--gss-predictions", type=Path,
-                        default=Path("/Users/jaylen/Desktop/AAAI2027/aaai27/对Harpo分析/ATP152_harpo_global_step_1000_gss2022/gss2022_predictions.jsonl"))
-    parser.add_argument("--gss-prompts", type=Path,
-                        default=Path("/Users/jaylen/Desktop/AAAI2027/aaai27/Data/GSS2022-perceived/test.jsonl"))
     args = parser.parse_args()
 
     datasets = []
@@ -441,13 +306,10 @@ def main():
     dataset_order = (DEFAULT_DATASET,) + tuple(name for name in QUESTIONS if name != DEFAULT_DATASET)
     for dataset in dataset_order:
         questions = QUESTIONS[dataset]
-        if dataset == "GSS2022-perceived":
-            public, audit = build_gss_dataset(args.gss_predictions, args.gss_prompts)
-        else:
-            path = args.source_root / dataset / "target_positive" / SOURCE_BASENAME
-            if not path.is_file():
-                raise FileNotFoundError(path)
-            public, audit = build_dataset(path, dataset, questions)
+        path = args.source_root / dataset / "target_positive" / SOURCE_BASENAME
+        if not path.is_file():
+            raise FileNotFoundError(path)
+        public, audit = build_dataset(path, dataset, questions)
         datasets.append(public)
         audit_datasets.append(audit)
         print(json.dumps(audit["summary"], ensure_ascii=False), flush=True)
@@ -455,8 +317,8 @@ def main():
     public_data = {
         "version": 1,
         "modelAssignment": "illustrative",
-        "source": "thinking_data_posttrain and GSS2022 saved inference",
-        "sourceGenerator": "answer-conditioned GLM rewrite for eight surveys; HARPO test inference for GSS2022",
+        "source": "thinking_data_posttrain",
+        "sourceGenerator": "answer-conditioned GLM rewrite",
         "datasets": datasets,
     }
     audit_data = {"modelAssignment": "illustrative", "datasets": audit_datasets}

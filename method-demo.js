@@ -191,7 +191,7 @@
     else status.textContent = t(loadState === 'failed' ? 'demo.loadError' : 'demo.loading');
   });
 
-  fetch('assets/method-demo.json?v=20261105-demo-r1', { cache: 'no-store' })
+  fetch('assets/method-demo.json?v=20261105-demo-r3', { cache: 'no-store' })
     .then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); })
     .then(source => {
       datasets = verify(source);
