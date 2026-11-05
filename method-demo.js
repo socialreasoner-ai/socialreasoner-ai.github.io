@@ -19,6 +19,13 @@
   const perceptions = root.querySelector('#demo-perceptions');
   const more = root.querySelector('#demo-more');
   const morePerceptions = root.querySelector('#demo-more-perceptions');
+  const cueSection = root.querySelector('#demo-cue-section');
+  const cues = root.querySelector('#demo-cues');
+  const filteredCues = root.querySelector('#demo-filtered-cues');
+  const filteredCuesSummary = root.querySelector('#demo-filtered-cues-summary');
+  const filteredCueList = root.querySelector('#demo-filtered-cue-list');
+  const supplemental = root.querySelector('#demo-supplemental');
+  const supplementalEvidence = root.querySelector('#demo-supplemental-evidence');
   const cot = root.querySelector('#demo-cot');
   const answer = root.querySelector('#demo-answer');
   const t = (key, params) => window.SiteI18n?.t(key, params) || key;
@@ -98,6 +105,55 @@
     });
   }
 
+  function renderCueList(list, items) {
+    list.replaceChildren();
+    items.forEach(item => {
+      const row = document.createElement('li');
+      const number = document.createElement('span');
+      const fact = document.createElement('span');
+      row.dataset.cueId = item.id;
+      number.className = 'demo-cue-number';
+      number.textContent = item.id;
+      fact.className = 'demo-cue-fact';
+      fact.textContent = item.fact;
+      fact.lang = 'en';
+      row.append(number, fact);
+      list.append(row);
+    });
+  }
+
+  function renderCues(expert) {
+    if (!cueSection) return;
+    const items = expert?.cues || [];
+    const evidence = expert?.supplementalEvidence || [];
+    const retained = items.filter(item => item.retained);
+    const filtered = items.filter(item => !item.retained);
+    renderCueList(cues, retained);
+    if (expert && !retained.length) {
+      const empty = document.createElement('li');
+      empty.className = 'demo-cue-empty';
+      empty.textContent = t('demo.noRetainedCues');
+      cues.append(empty);
+    }
+    renderCueList(filteredCueList, filtered);
+    filteredCues.hidden = !filtered.length;
+    filteredCuesSummary.textContent = t('demo.filteredCues', { count: filtered.length });
+    supplementalEvidence.replaceChildren();
+    evidence.forEach(item => {
+      const row = document.createElement('li');
+      row.textContent = item.fact;
+      row.lang = 'en';
+      supplementalEvidence.append(row);
+    });
+    supplemental.hidden = !evidence.length;
+    cueSection.hidden = !expert;
+  }
+
+  function resetDisclosure() {
+    more.open = false;
+    if (filteredCues) filteredCues.open = false;
+  }
+
   function render() {
     const { profile, record, expert } = current();
     populateControls();
@@ -136,6 +192,7 @@
     renderPerception(morePerceptions, additional);
     more.hidden = !additional.length;
     perceptionCount.textContent = t('demo.perceptionCount', { count: record.perceptions.length });
+    renderCues(expert);
     cot.textContent = expert?.cot || '';
     cot.lang = 'en';
     answer.textContent = expert ? `${expert.answerId} · ${expert.answerLabel}` : '';
@@ -155,6 +212,13 @@
           for (const model of modelIds) {
             const expert = record.experts?.[model];
             if (!expert?.cot || !expert.answerId || !expert.answerLabel || record.options[String(expert.answerId)] !== expert.answerLabel) throw new Error('Missing model record');
+            if (!Array.isArray(expert.cues)) throw new Error('Missing model cues');
+            const cueIds = new Set();
+            for (const cue of expert.cues) {
+              if (!cue || typeof cue.id !== 'string' || !cue.id.trim() || cueIds.has(cue.id) || typeof cue.fact !== 'string' || !cue.fact.trim() || typeof cue.retained !== 'boolean') throw new Error('Invalid model cue');
+              cueIds.add(cue.id);
+            }
+            if (expert.supplementalEvidence !== undefined && (!Array.isArray(expert.supplementalEvidence) || expert.supplementalEvidence.some(item => !item || typeof item.fact !== 'string' || !item.fact.trim()))) throw new Error('Invalid supplemental evidence');
           }
         }
       }
@@ -166,7 +230,7 @@
     state.dataset = datasetSelect.value;
     state.profile = datasets.find(item => item.id === state.dataset)?.profiles[0]?.id || '';
     state.question = current().profile?.records[0]?.id || '';
-    more.open = false;
+    resetDisclosure();
     render();
   });
   profileSelect.addEventListener('change', () => {
@@ -174,16 +238,17 @@
     state.profile = profileSelect.value;
     const records = current().profile?.records || [];
     state.question = records.find(item => item.questionId === previousQuestion)?.id || records[0]?.id || '';
-    more.open = false;
+    resetDisclosure();
     render();
   });
   questionSelect.addEventListener('change', () => {
     state.question = questionSelect.value;
-    more.open = false;
+    resetDisclosure();
     render();
   });
   modelButtons.forEach(button => button.addEventListener('click', () => {
     state.model = button.dataset.demoModel;
+    if (filteredCues) filteredCues.open = false;
     render();
   }));
   window.addEventListener('site:languagechange', () => {
@@ -191,7 +256,7 @@
     else status.textContent = t(loadState === 'failed' ? 'demo.loadError' : 'demo.loading');
   });
 
-  fetch('assets/method-demo.json?v=20261105-demo-r4', { cache: 'no-store' })
+  fetch('assets/method-demo.json?v=20261105-cues-r1', { cache: 'no-store' })
     .then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); })
     .then(source => {
       datasets = verify(source);

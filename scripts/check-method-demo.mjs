@@ -13,6 +13,9 @@ const datasetIds = new Set();
 let profiles = 0;
 let combinations = 0;
 let variants = 0;
+let cueCount = 0;
+let retainedCount = 0;
+let supplementalCount = 0;
 const uniqueCots = new Set();
 for (const dataset of data.datasets) {
   assert.ok(dataset.id && dataset.label && !datasetIds.has(dataset.id));
@@ -54,6 +57,21 @@ for (const dataset of data.datasets) {
         const expert = record.experts[model];
         assert.ok(typeof expert.cot === 'string' && expert.cot.trim().length > 60);
         assert.equal(record.options[String(expert.answerId)], expert.answerLabel, 'Preserve source answer labels.');
+        assert.ok(Array.isArray(expert.cues), 'Each reasoning record includes its own source cues.');
+        const cueIds = new Set();
+        for (const cue of expert.cues) {
+          assert.ok(typeof cue.id === 'string' && cue.id.trim() && !cueIds.has(cue.id));
+          cueIds.add(cue.id);
+          assert.ok(typeof cue.fact === 'string' && cue.fact.trim());
+          assert.equal(typeof cue.retained, 'boolean');
+          cueCount++;
+          retainedCount += Number(cue.retained);
+        }
+        assert.ok(Array.isArray(expert.supplementalEvidence), 'Supplemental profile evidence stays separate from cues.');
+        for (const item of expert.supplementalEvidence) {
+          assert.ok(typeof item.fact === 'string' && item.fact.trim());
+          supplementalCount++;
+        }
         cots.push(expert.cot);
         uniqueCots.add(expert.cot);
         variants++;
@@ -64,3 +82,4 @@ for (const dataset of data.datasets) {
 }
 assert.ok(!/"(?:person_id|prompt|original_cot)"\s*:/.test(raw), 'Do not publish original participant IDs or full prompts.');
 console.log(`Method demo: ${datasetIds.size} surveys, ${profiles} profiles, ${combinations} profile/question combinations, ${variants} model choices, ${uniqueCots.size} unique CoTs; complete choices and source labels verified.`);
+console.log(`Reasoning evidence: ${cueCount} source cues, ${retainedCount} retained, ${supplementalCount} separate supplemental facts.`);

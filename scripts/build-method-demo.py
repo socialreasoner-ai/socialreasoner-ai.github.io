@@ -109,6 +109,23 @@ def clean_row(row: dict) -> bool:
     )
 
 
+def reasoning_evidence(row: dict) -> dict:
+    """Keep evidence tied to the exact saved reasoning, without model attribution."""
+    used = row["used_cues"]
+    result = row["cot_rewrite_audit"]["result"]
+    retained = set(result["retained_cue_ids"])
+    ids = [cue["id"] for cue in used]
+    if len(ids) != len(set(ids)) or not retained.issubset(ids):
+        raise ValueError("reasoning cue IDs do not match source candidates")
+    cues = [{"id": cue["id"], "fact": cue["fact"],
+             "retained": cue["id"] in retained} for cue in used]
+    extra = [{"fact": fact} for fact in result.get("supplemental_evidence", [])]
+    if any(not isinstance(item["fact"], str) or not item["fact"].strip()
+           for item in cues + extra):
+        raise ValueError("reasoning evidence contains an empty source fact")
+    return {"cues": cues, "supplementalEvidence": extra}
+
+
 def read_at(handle, offset: int) -> dict:
     handle.seek(offset)
     return json.loads(handle.readline())
@@ -249,6 +266,7 @@ def build_dataset(path: Path, dataset: str, wanted_questions: tuple[str, ...]):
                     "cot": row["cot"],
                     "answerId": answer,
                     "answerLabel": row["option"][answer],
+                    **reasoning_evidence(row),
                 }
                 variant_audit[expert] = {
                     "byteOffset": offset,
