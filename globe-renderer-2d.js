@@ -99,6 +99,7 @@ export function createGlobeRenderer2d({ canvas, host: hero, store, onHeroDataset
     state.dataset = selection.dataset;
     state.selected = store.getRegion(selection.selectedRegion);
     selects.forEach(select => { if (select) select.value = state.dataset; });
+    if (oldDataset !== state.dataset) updateRegionOptions();
     regionSelect.value = state.selected?.id || '';
     if (heroRegionSelect) heroRegionSelect.value = state.selected?.id || '';
     state.hovered = null;
@@ -111,6 +112,7 @@ export function createGlobeRenderer2d({ canvas, host: hero, store, onHeroDataset
     } else if (oldRegion !== selection.selectedRegion && !state.selected) {
       state.flight = null;
       state.pulseUntil = 0;
+      if (oldDataset !== state.dataset) focusDataset();
       updateMotion();
     } else if (oldDataset !== state.dataset) {
       if (state.selected && sampleFor(state.selected).status === 'covered') focusRegion(state.selected);
@@ -700,13 +702,18 @@ export function createGlobeRenderer2d({ canvas, host: hero, store, onHeroDataset
       select.value = state.dataset;
       select.disabled = false;
     });
+    updateRegionOptions();
+  }
+
+  function updateRegionOptions() {
+    const regions = visibleRegions().sort((a, b) => regionName(a).localeCompare(regionName(b), language()));
     [regionSelect, heroRegionSelect].filter(Boolean).forEach(select => {
       select.replaceChildren();
       const allOption = document.createElement('option');
       allOption.value = '';
       allOption.textContent = select === regionSelect ? translate('allRegions') : translate('chooseRegion');
       select.append(allOption);
-      [...state.data.regions].sort((a, b) => regionName(a).localeCompare(regionName(b), language())).forEach(region => {
+      regions.forEach(region => {
         const option = document.createElement('option');
         option.value = region.id;
         option.textContent = regionName(region);

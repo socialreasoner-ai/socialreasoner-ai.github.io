@@ -81,9 +81,13 @@ export function createCoverageState({ fetcher = globalThis.fetch, eventTarget = 
   function setSelection(next, intent = 'coverage') {
     if (disposed || !data) return false;
     const nextDataset = next.dataset === undefined ? dataset : next.dataset;
-    const nextRegion = next.selectedRegion === undefined ? selectedRegion : next.selectedRegion;
+    let nextRegion = next.selectedRegion === undefined ? selectedRegion : next.selectedRegion;
     if (nextDataset !== 'all' && !getDataset(nextDataset)) return false;
     if (nextRegion && !getRegion(nextRegion)) return false;
+    if (nextRegion && sampleFor(getRegion(nextRegion), nextDataset).status !== 'covered') {
+      if (nextDataset === dataset) return false;
+      nextRegion = '';
+    }
     if (dataset === nextDataset && selectedRegion === nextRegion) return false;
     dataset = nextDataset;
     selectedRegion = nextRegion;
