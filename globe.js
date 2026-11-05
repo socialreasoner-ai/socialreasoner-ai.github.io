@@ -57,8 +57,6 @@
   const resetControl = document.querySelector('#globe-control-reset');
   const clearControl = document.querySelector('#globe-control-clear');
   const interactionControl = document.querySelector('#globe-control-interaction');
-  const infoControl = document.querySelector('#globe-info-toggle');
-  const infoPanel = document.querySelector('#globe-info');
   const viewDataLink = document.querySelector('#globe-view-data');
   const chartList = document.querySelector('#coverage-list');
   const coverageControls = document.querySelector('.coverage-controls');
@@ -227,8 +225,6 @@
 
   function updateControlCopy() {
     hero.querySelector('.globe-controls')?.setAttribute('aria-label', translate('controls'));
-    if (infoControl) infoControl.setAttribute('aria-label', translate('coverageInfo'));
-    if (infoPanel) infoPanel.textContent = translate('coverageInfoText');
     if (viewDataLink) {
       viewDataLink.setAttribute('aria-label', translate('viewData'));
       const label = viewDataLink.querySelector('[data-globe-label]');
@@ -511,7 +507,7 @@
     const ratio = Math.min(window.devicePixelRatio || 1, 2);
     state.width = box.width;
     state.height = box.height;
-    state.radius = Math.min(box.width, box.height) * .42;
+    state.radius = Math.min(box.width, box.height) * .47;
     canvas.width = Math.max(1, Math.round(box.width * ratio));
     canvas.height = Math.max(1, Math.round(box.height * ratio));
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
@@ -831,11 +827,6 @@
     state.down = null;
     updateControls();
   });
-  on(infoControl, 'click', () => {
-    if (!infoPanel) return;
-    infoPanel.hidden = !infoPanel.hidden;
-    infoControl.setAttribute('aria-expanded', String(!infoPanel.hidden));
-  });
   on(viewDataLink, 'click', event => {
     event.preventDefault();
     const coverage = document.querySelector('#coverage');
@@ -847,11 +838,6 @@
     if (overlapPicker && !overlapPicker.hidden) {
       overlapPicker.hidden = true;
       heroRegionSelect?.focus({ preventScroll: true });
-    }
-    if (infoPanel && !infoPanel.hidden) {
-      infoPanel.hidden = true;
-      infoControl?.setAttribute('aria-expanded', 'false');
-      infoControl?.focus({ preventScroll: true });
     }
   });
 

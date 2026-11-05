@@ -167,7 +167,6 @@ const SOCIAL_I18N_ROWS = [
   ["coverage.kicker", "EXPLORE THE SAMPLE", "探索样本", "EXPLORER L’ÉCHANTILLON", "STICHPROBE ERKUNDEN", "표본 살펴보기"],
   ["coverage.heading1", "Social reasoning", "社会推理", "Le raisonnement social", "Soziales Schlussfolgern", "사회적 추론"],
   ["coverage.heading2", "across the world.", "遍及世界。", "à travers le monde.", "weltweit.", "전 세계에 걸쳐."],
-  ["coverage.intro", "Explore ages, economic groups and survey scale.", "查看年龄、经济体分组与调查规模。", "Explorez les âges, les groupes d’économies et la taille des enquêtes.", "Entdecken Sie Altersgruppen, Wirtschaftsgruppen und den Umfang der Erhebungen.", "연령, 경제권 분류, 설문 규모를 살펴보세요."],
   ["portrait.tabAges", "Age profiles", "年龄分布", "Profils d’âge", "Altersprofile", "연령 분포"],
   ["portrait.tabEconomies", "Economic groups", "经济体分组", "Groupes d’économies", "Wirtschaftsgruppen", "경제권 분류"],
   ["portrait.tabSurveys", "Survey landscape", "调查概览", "Panorama des enquêtes", "Überblick über die Erhebungen", "설문 조사 현황"],
