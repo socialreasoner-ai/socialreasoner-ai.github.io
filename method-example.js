@@ -207,7 +207,6 @@
     for (const name of expertNames) {
       const section = root.querySelector(`[data-expert-detail="${name}"]`);
       if (!section) continue;
-      bind(section.querySelector('.ml-illustrative-note'), 'method.real.structure');
       const expert = data.experts[name];
       panelInput(section, expert);
       panelPrediction(section, expert);

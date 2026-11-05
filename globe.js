@@ -254,12 +254,6 @@
       row.className = `globe-distribution-row is-${sample.status}`;
       const name = document.createElement('span');
       name.textContent = dataset.label;
-      if (dataset.heldOut) {
-        const badge = document.createElement('small');
-        badge.className = 'globe-heldout';
-        badge.textContent = translate('heldOut');
-        name.append(' ', badge);
-      }
       const count = document.createElement('strong');
       count.textContent = sample.status === 'covered' ? formatNumber(sample.count)
         : sample.status === 'none' ? '0' : translate('unknownCount');
