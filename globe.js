@@ -233,7 +233,7 @@
 
   async function initialize() {
     const [{ createCoverageState }, { createGlobeRenderer2d }] = await Promise.all([
-      import('./coverage-state.js'), import('./globe-renderer-2d.js')
+      import('./coverage-state.js?v=20261123-behavioral'), import('./globe-renderer-2d.js?v=20261123-behavioral')
     ]);
     if (disposed) return;
     store = createCoverageState();
@@ -257,7 +257,12 @@
     reader?.ready?.then(() => { if (!disposed) setScene(scene); })
       .catch(error => console.warn('Respondent display unavailable:', error));
     fallbackRenderer = createGlobeRenderer2d({
-      canvas: originalCanvas, host, store, onHeroDataset: openDatasetShowcase,
+      canvas: originalCanvas, host, store,
+      onHeroDataset: id => {
+        closeShowcase();
+        if (id === 'all') store.clearAll();
+        else store.setDataset(id);
+      },
       onCoverageAction: closeShowcase,
       onResetView: () => { if (activeRenderer !== fallbackRenderer) activeRenderer?.resetView?.(); },
       onRotationChange: spinning => { if (activeRenderer !== fallbackRenderer) activeRenderer?.setPaused?.(!spinning); },
@@ -268,9 +273,12 @@
     setScene('overview');
     await store.load();
     if (disposed) return;
-    if (new URLSearchParams(window.location?.search || '').get('renderer') === '2d') return;
+    const params = new URLSearchParams(window.location?.search || '');
+    const initialDataset = params.get('dataset');
+    if (initialDataset && store.getDataset(initialDataset)) store.setDataset(initialDataset);
+    if (params.get('renderer') === '2d') return;
     try {
-      const { createGlobeRenderer } = await import('./globe-renderer-3d.js?v=20261105-glb-r2');
+      const { createGlobeRenderer } = await import('./globe-renderer-3d.js?v=20261123-behavioral');
       if (disposed) return;
       const frame = host.querySelector('.globe-frame');
       webglCanvas = document.createElement('canvas');

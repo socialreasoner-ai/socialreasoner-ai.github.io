@@ -13,16 +13,6 @@ export function createGlobeRenderer2d({ canvas, host: hero, store, onHeroDataset
   const formatNumber = value => window.SiteI18n?.number
     ? window.SiteI18n.number(value) : new Intl.NumberFormat(language()).format(value);
   const clockNow = () => typeof performance === 'undefined' ? Date.now() : performance.now();
-  const countryCodes = {
-    USA: 'US', ZAF: 'ZA', CHE: 'CH', FRA: 'FR', DEU: 'DE', PHL: 'PH', DNK: 'DK', RUS: 'RU',
-    CZE: 'CZ', NOR: 'NO', JPN: 'JP', ISL: 'IS', FIN: 'FI', HRV: 'HR', SWE: 'SE', SVN: 'SI',
-    AUT: 'AT', ESP: 'ES', SVK: 'SK', AUS: 'AU', POL: 'PL', LTU: 'LT', ISR: 'IL', HUN: 'HU',
-    GEO: 'GE', ITA: 'IT', BEL: 'BE', CHL: 'CL', NZL: 'NZ', IND: 'IN', LVA: 'LV', THA: 'TH',
-    VEN: 'VE', SUR: 'SR', BGR: 'BG', UKR: 'UA', EST: 'EE', TUR: 'TR', KOR: 'KR', NLD: 'NL',
-    MEX: 'MX', AZE: 'AZ', BIH: 'BA', ARM: 'AM', PRT: 'PT', ALB: 'AL', ROU: 'RO', BLR: 'BY',
-    SRB: 'RS', ARG: 'AR', MKD: 'MK', CYP: 'CY', MNE: 'ME'
-  };
-  const displayNames = new Map();
   function regionName(region) { return store.regionName(region?.id); }
 
   if (!canvas || !hero) throw new Error('Globe canvas unavailable');
@@ -54,10 +44,10 @@ export function createGlobeRenderer2d({ canvas, host: hero, store, onHeroDataset
   const motionReduced = () => reduceMotion.matches || forceReduced;
   const defaultRotation = [-20, -15, 0];
   const state = {
-    data: null, countries: [], countryByNumeric: new Map(), regionByNumeric: new Map(), regionById: new Map(),
+    data: null, countries: [], regionById: new Map(),
     dataset: 'all', selected: null, hovered: null, rotation: [...defaultRotation],
     spinning: !motionReduced() && visualReady, dragging: false, down: null, touchRotate: false,
-    flight: null, pulseUntil: 0, maxRegionCount: 1, datasetIndex: new Map(),
+    flight: null, pulseUntil: 0, maxRegionCount: 1,
     width: 0, height: 0, radius: 0, projection: null, path: null,
     lastFrame: 0, visible: true, dirty: true
   };
@@ -80,7 +70,6 @@ export function createGlobeRenderer2d({ canvas, host: hero, store, onHeroDataset
   const visibleRegions = () => state.data.regions.filter(region => countFor(region) > 0);
   const selectedDataset = () => state.data.datasets.find(item => item.id === state.dataset);
   const selectedTotal = () => state.dataset === 'all' ? state.data.totalRespondents : selectedDataset()?.respondents;
-  const numericKey = value => String(Number(value));
   // Map presentation can link survey regions while their respondent counts remain separate.
   const highlightGroup = region => region?.highlightGroup || region?.id;
   const sharesHighlight = (region, active) => Boolean(region && active && highlightGroup(region) === highlightGroup(active));
@@ -325,13 +314,17 @@ export function createGlobeRenderer2d({ canvas, host: hero, store, onHeroDataset
     coverageMapSvg.setAttribute('viewBox', '0 0 1100 470');
     coverageMapSvg.setAttribute('role', 'img');
     coverageMapSvg.setAttribute('focusable', 'false');
+    on(coverageMapSvg, 'click', event => {
+      const id = event.target.getAttribute('data-region-id');
+      if (id && countFor(store.getRegion(id)) > 0) selectRegion(id);
+    });
     const projection = d3.geoEqualEarth().fitExtent([[24, 20], [1076, 448]], { type: 'Sphere' });
     const geoPath = d3.geoPath(projection);
     for (const country of state.countries) {
       const path = document.createElementNS(svgNS, 'path');
       path.setAttribute('d', geoPath(country) || '');
       path.classList.add('coverage-map-country');
-      const region = state.regionByNumeric.get(numericKey(country.id));
+      const region = store.getRegionForFeature(country);
       if (region) path.setAttribute('data-region-id', region.id);
       coverageMapSvg.append(path);
       coverageMapPaths.push({ node: path, region });
@@ -371,16 +364,14 @@ export function createGlobeRenderer2d({ canvas, host: hero, store, onHeroDataset
       ? `${regionName(state.selected)}. ${sampleLabel(sampleFor(state.selected))}`
       : translate('worldCoverage')}.`);
     for (const { node, region } of coverageMapPaths) {
-      // Great Britain is a survey grouping, so do not color all of the UK.
-      const fillRegion = region?.id === 'GBR' ? null : region;
-      const sample = sampleFor(fillRegion);
+      const sample = sampleFor(region);
       const covered = sample.status === 'covered';
-      const selected = sharesHighlight(fillRegion, state.selected);
+      const selected = sharesHighlight(region, state.selected);
       node.classList.toggle('is-covered', covered);
       node.classList.toggle('is-selected', covered && selected);
       node.classList.toggle('is-selected-empty', selected && sample.status === 'none');
       node.classList.toggle('is-selected-unknown', selected && sample.status === 'unknown');
-      node.classList.toggle('is-unknown', sample.status === 'unknown' && Boolean(fillRegion));
+      node.classList.toggle('is-unknown', sample.status === 'unknown' && Boolean(region));
     }
     for (const { node, region } of coverageMapMarkers) {
       const sample = sampleFor(region);
@@ -474,9 +465,7 @@ export function createGlobeRenderer2d({ canvas, host: hero, store, onHeroDataset
     ctx.beginPath(); path(d3.geoGraticule10()); ctx.stroke();
 
     state.countries.forEach(country => {
-      // The survey label is Great Britain; a whole-UK fill would imply Northern Ireland.
-      const region = state.regionByNumeric.get(numericKey(country.id));
-      const fillRegion = region?.id === 'GBR' ? null : region;
+      const fillRegion = store.getRegionForFeature(country);
       // A country outside the survey index is background geography, not a
       // survey region whose count is unavailable.
       const sample = fillRegion ? sampleFor(fillRegion) : { status: 'unmapped', count: null };
@@ -586,9 +575,8 @@ export function createGlobeRenderer2d({ canvas, host: hero, store, onHeroDataset
     if (!lonLat) return [];
     const country = state.countries.find(item => d3.geoContains(item, lonLat));
     if (!country) return [];
-    const region = state.regionByNumeric.get(numericKey(country.id));
-    // Great Britain is narrower than this atlas's United Kingdom geometry.
-    return region && region.id !== 'GBR' ? [region] : [];
+    const region = store.getRegionForFeature(country);
+    return region && countFor(region) > 0 ? [region] : [];
   }
 
   function findRegion(event) { return findRegions(event)[0] || null; }
@@ -893,10 +881,6 @@ export function createGlobeRenderer2d({ canvas, host: hero, store, onHeroDataset
     const topology = await store.getWorldPromise();
     if (disposed) return;
     state.countries = topojson.feature(topology, topology.objects.countries).features;
-    state.countries.forEach(feature => state.countryByNumeric.set(numericKey(feature.id), feature));
-    data.regions.forEach(region => {
-      if (region.numericId) state.regionByNumeric.set(numericKey(region.numericId), region);
-    });
     buildCoverageMap();
     updateLocalizedCopy();
   }).catch(error => {

@@ -1,4 +1,4 @@
-// Validate the public portrait aggregates against the unchanged geographic cohort.
+// Validate the public portrait aggregates against the published geographic cohort.
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 const read = async path => JSON.parse(await readFile(new URL(`../${path}`, import.meta.url), 'utf8'));
@@ -15,8 +15,11 @@ for (const item of economy.regions) {
 assert.equal(classifications.size, regions.size);
 assert.equal(classifications.get('CHN'), 'emerging_developing');
 assert.equal(classifications.get('TWN'), 'advanced');
-assert.equal(sum(geo.regions.filter(r => classifications.get(r.id) === 'advanced').map(r => r.count)), 186722);
-assert.equal(sum(geo.regions.filter(r => classifications.get(r.id) === 'emerging_developing').map(r => r.count)), 95273);
+assert.equal(classifications.get('BGR'), 'advanced');
+assert.equal(classifications.get('UK'), 'advanced');
+assert.equal(classifications.get('XKX'), 'emerging_developing');
+assert.deepEqual([...classifications].filter(([, group]) => group === 'unknown').map(([id]) => id), ['VGB']);
+assert.equal(regions.get('VGB').count, 1);
 assert.equal(ages.schemaVersion, 1);
 assert.deepEqual([...ages.datasets.map(d => d.id)].sort(), [...geo.datasets.map(d => d.id)].sort());
 let known = 0, unknown = 0, source = 0;
@@ -51,7 +54,24 @@ for (const dataset of ages.datasets) {
   assert.equal(schemeRegions.size, seenRegions.size);
 }
 assert.equal(known + unknown, geo.totalRespondents);
-assert.equal(source, 281977);
+assert.equal(ages.audit.sourceRespondents, source);
+assert.equal(ages.audit.coverageRespondents, known + unknown);
+assert.equal(ages.audit.manuscriptRespondents, 281995);
+assert.equal(ages.audit.releaseRespondents, 67430);
+assert.equal(ages.audit.known, known);
+assert.equal(ages.audit.unknown, unknown);
+for (const [id, count, usable, rows] of [
+  ['CPS', 39931, 39931, 359379],
+  ['VAPP', 23084, 23084, 135841],
+  ['SDI', 4415, 4388, 17660]
+]) {
+  const d = ages.datasets.find(dataset => dataset.id === id);
+  assert.equal(d.sourceRows, rows);
+  assert.equal(d.totals.releaseRespondents, count);
+  assert.equal(d.totals.known, usable);
+  assert.equal(d.totals.sourceAgeOutsideStudyRange, count - usable);
+  assert.deepEqual(d.bins.map(b => b.label), ['18-29', '30-39', '40-49', '50-59', '60-69', '70+']);
+}
 assert.equal(geo.totalRespondents - source, 18);
 const issp = ages.datasets.find(d => d.id === 'ISSP2015');
 assert.deepEqual(issp.nativeSchemes.find(s => s.id === 'denmark').regionIds, ['DNK']);

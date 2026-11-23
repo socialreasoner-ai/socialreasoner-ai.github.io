@@ -10,17 +10,47 @@ const d3 = require('../assets/vendor/d3.min.js');
 const topojson = require('../assets/vendor/topojson-client.min.js');
 const data = JSON.parse(fs.readFileSync(root + 'assets/geography.json', 'utf8'));
 const sum = values => values.reduce((a, b) => a + b, 0);
+const homepage = fs.readFileSync(root + 'index.html', 'utf8');
+const homepageCounts = {
+  datasets: data.datasets.length,
+  respondents: data.totalRespondents,
+  responses: data.totalResponses,
+  questions: data.totalQuestions,
+  regions: data.totalRegions
+};
+const cards = [...homepage.matchAll(/<strong\s+data-study-count="(\d+)">([\d,]+)<\/strong>\s*<span>\s*<span\s+data-i18n="stats\.(\w+)">/g)];
+assert.equal(cards.length, Object.keys(homepageCounts).length, 'All five homepage statistics are present');
+assert.equal(new Set(cards.map(([, , , key]) => key)).size, cards.length);
+for (const [, attribute, visible, key] of cards) {
+  assert.equal(Number(attribute), homepageCounts[key], `Localized homepage ${key} matches the geographic index`);
+  assert.equal(visible, new Intl.NumberFormat('en').format(homepageCounts[key]), `Static homepage ${key} matches the geographic index`);
+}
 assert.equal(sum(data.regions.map(r => r.count)), data.totalRespondents);
 assert.equal(sum(data.datasets.map(d => d.respondents)), data.totalRespondents);
 assert.equal(sum(data.datasets.map(d => d.responses)), data.totalResponses);
-assert.equal(data.totalRespondents, 281995);
+assert.equal(data.totalRespondents, 349425);
 assert.equal(data.paperRespondents, 281995);
-assert.equal(data.totalResponses, 8725666);
+assert.equal(data.totalResponses, 9238546);
 assert.equal(data.paperResponses, 8725666);
-assert.equal(data.totalRegions, 56);
+assert.equal(data.totalRegions, 88);
 assert.equal(data.regions.length, data.totalRegions);
 assert.equal(data.versionNoteKey, 'manuscriptVersionNote');
 assert.ok(data.versionNote?.trim(), 'Aggregate index retains manuscript provenance');
+const behavioralDatasets = {
+  CPS:  { respondents: 39931, responses: 359379, regions: 60 },
+  SDI:  { respondents:  4415, responses:  17660, regions: 65 },
+  VAPP: { respondents: 23084, responses: 135841, regions: 23 }
+};
+for (const [id, expected] of Object.entries(behavioralDatasets)) {
+  const dataset = data.datasets.find(item => item.id === id);
+  assert.equal(dataset.respondents, expected.respondents, id);
+  assert.equal(dataset.responses, expected.responses, id);
+  assert.equal(dataset.regions.length, expected.regions, id);
+}
+const manuscriptDatasets = data.datasets.filter(item => !Object.hasOwn(behavioralDatasets, item.id));
+assert.equal(manuscriptDatasets.length, 9);
+assert.equal(sum(manuscriptDatasets.map(item => item.respondents)), data.paperRespondents);
+assert.equal(sum(manuscriptDatasets.map(item => item.responses)), data.paperResponses);
 const manuscriptDatasetTotals = {
   ISSP2015: { respondents: 45096, responses: 682115 },
   ISSP2016: { respondents: 43439, responses: 1501834 },
@@ -94,7 +124,7 @@ class Element {
   append(...items) { for (let item of items) { if (typeof item === 'string') { const text = new Element('span'); text.textContent = item; item = text; } item.parentElement = this; this.children.push(item); } }
   appendChild(item) { this.append(item); return item; }
   replaceChildren(...items) { this._text = ''; this.children = []; this.append(...items); }
-  after() {}
+  after(node) { this.nextElementSibling = node; }
   remove() { if (this.parentElement) this.parentElement.children = this.parentElement.children.filter(x => x !== this); }
   focus() { documentMock.activeElement = this; }
   contains(node) { return this === node || this.children.some(c => c.contains?.(node)); }
@@ -130,7 +160,7 @@ const media = { matches: true, addEventListener(name, fn) { this[name] = fn; }, 
 documentMock = {
   querySelector: selector => absent.has(selector) ? null : element(selector),
   querySelectorAll: selector => [...elements.values()].filter(n => n.classList.contains(selector.slice(1))),
-  createElement: tag => new Element(tag), hidden: false, activeElement: null,
+  createElement: tag => new Element(tag), createElementNS: (_, tag) => new Element(tag), hidden: false, activeElement: null,
   addEventListener(name, fn) { documentEvents[name] = fn; }, removeEventListener() {}
 };
 const sandbox = {
@@ -167,7 +197,7 @@ vm.runInContext(source, sandbox);
 vm.runInContext(`window.__coverageStore = createCoverageState();
   window.__globeRenderer = createGlobeRenderer2d({ canvas: document.querySelector('#globe-canvas'),
     host: document.querySelector('.globe-hero'), store: window.__coverageStore,
-    onHeroDataset: id => window.__coverageStore.openDatasetShowcase(id) });`, sandbox);
+    onHeroDataset: id => window.__coverageStore.setDataset(id) });`, sandbox);
 await sandbox.window.__globeRenderer.ready;
 const api = sandbox.window.__globeRenderer.debug;
 const store = sandbox.window.__coverageStore;
@@ -186,6 +216,34 @@ const assertRegionOptions = datasetId => {
   }
 };
 assertRegionOptions('all');
+for (const selector of ['#hero-dataset', '#coverage-dataset']) {
+  assert.deepEqual(optionIds(selector), ['all', ...data.datasets.map(item => item.id)].sort());
+}
+const svgMap = element('.coverage-summary').nextElementSibling.querySelector('.coverage-map-svg');
+for (const [id, expected] of Object.entries(behavioralDatasets)) {
+  element('#hero-dataset').events.change({target: {value: id}});
+  assert.equal(element('#coverage-dataset').value, id);
+  assertRegionOptions(id);
+  assert.equal(element('#coverage-total').textContent, new Intl.NumberFormat('en').format(expected.respondents));
+  assert.equal(element('#coverage-regions').textContent, String(expected.regions));
+  const markers = svgMap.querySelectorAll('circle').filter(node => node.getAttribute('visibility') === 'visible');
+  assert.equal(markers.length, expected.regions, `${id}: map dots cover all sampled regions`);
+  const marker = markers.find(node => store.getRegion(node.dataset.regionId).markerOnly) || markers[0];
+  svgMap.events.click({target: marker});
+  assert.equal(store.getSelection().selectedRegion, marker.dataset.regionId);
+  api.clearSelection();
+}
+assert.equal(store.getRegionForFeature({id:826,properties:{name:'United Kingdom'}})?.id, 'UK');
+assert.equal(store.getRegionForFeature({properties:{name:'Kosovo'}})?.id, 'XKX');
+assert.equal(store.getRegionForFeature({properties:{name:'Somaliland'}}), null);
+for (const lang of ['zh','fr','de','ko','en']) {
+  language=lang; events['site:languagechange']({ detail: { language: lang } });
+  const selected = store.getSelection();
+  assert.equal(selected.dataset, 'VAPP');
+  const region = data.regions.find(item => item.id === 'BRA');
+  const translated = lang === 'en' ? region.label : new Intl.DisplayNames(lang,{type:'region'}).of('BR');
+  assert.equal(store.regionName('BRA'), translated);
+}
 for (const dataset of data.datasets) {
   api.syncDataset(dataset.id);
   assertRegionOptions(dataset.id);
@@ -331,4 +389,28 @@ const beforeDispose = publicEvents.length;
 store.dispose();
 assert.equal(store.setSelection({ dataset: 'all', selectedRegion: '' }), false, 'Disposed state rejects updates');
 assert.equal(publicEvents.length, beforeDispose, 'Disposed state emits no selection event');
+// Exercise the public share URLs through the homepage controller, with its real 2D fallback.
+const controllerSource = fs.readFileSync(root + 'globe.js', 'utf8')
+  .replace(/import\('\.\/coverage-state\.js[^']*'\)/, 'Promise.resolve({createCoverageState: globalThis.createCoverageState})')
+  .replace(/import\('\.\/globe-renderer-2d\.js[^']*'\)/, 'Promise.resolve({createGlobeRenderer2d: globalThis.createGlobeRenderer2d})');
+const host = element('.globe-hero');
+const stage = element('.globe-stage');
+host.append(stage);
+sandbox.window.createRespondentExplorer = () => ({
+  hasReadyPair: () => true, getParticipants: () => [], setDataset() {}, setVisible() {}
+});
+for (const id of ['CPS', 'SDI', 'VAPP', 'invalid']) {
+  sandbox.window.location = {search: `?lang=zh&dataset=${id}&renderer=2d`};
+  vm.runInContext(controllerSource, sandbox);
+  await new Promise(resolve => setImmediate(resolve));
+  const coverage = sandbox.window.SocialCoverage;
+  assert.equal(coverage.getSelection().dataset, id === 'invalid' ? 'all' : id);
+  assert.equal(host.dataset.scene, 'overview', 'A shared URL opens the coverage map');
+  element('#hero-dataset').events.change({target: {value: 'CPS'}});
+  assert.equal(coverage.getSelection().dataset, 'CPS');
+  assert.equal(host.dataset.scene, 'overview', 'The dataset filter leaves the map visible');
+  element('#showcase-open').events.click({});
+  assert.equal(host.dataset.scene, 'reading', 'Reader opens from its own control');
+  sandbox.window.__globeCleanup();
+}
 console.log('PASS: picking, touch-mode controller and interruptible focus; preserved aggregates; shared filters; zero/unknown semantics; independent counts with linked outlines; fixed marker scale; language state; rotation lifecycle.');

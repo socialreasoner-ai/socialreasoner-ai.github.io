@@ -32,6 +32,9 @@ const SOCIAL_I18N_ROWS = [
   ["resource.vaccines", "Vaccine attitudes and pandemic preparedness", "疫苗态度与大流行准备", "Attitudes vaccinales et préparation aux pandémies", "Einstellungen zu Impfungen und Pandemievorsorge", "백신에 대한 태도와 팬데믹 대비"],
   ["resource.distancing", "Social distancing intentions", "保持社交距离的意愿", "Intention de respecter la distanciation physique", "Bereitschaft zur Kontaktbeschränkung", "사회적 거리 두기 실천 의향"],
   ["resource.downloadZip", "Download ZIP", "下载 ZIP", "Télécharger le ZIP", "ZIP herunterladen", "ZIP 다운로드"],
+  ["resource.viewGlobe", "View on globe", "在地球上查看", "Voir sur le globe", "Auf dem Globus ansehen", "지구본에서 보기"],
+  ["resource.downloads", "Dataset downloads", "下载数据集", "Télécharger les données", "Datensätze herunterladen", "데이터셋 다운로드"],
+  ["stats.regions", "survey regions", "个调查地区", "régions d’enquête", "Erhebungsregionen", "개 조사 지역"],
   ["resource.source", "Original data", "原始数据", "Données d’origine", "Originaldaten", "원본 데이터"],
   ["resource.hfSoon", "Hugging Face · Coming soon", "Hugging Face · 即将开放", "Hugging Face · Bientôt disponible", "Hugging Face · Demnächst", "Hugging Face · 공개 예정"],
   ["resource.githubSoon", "GitHub · Coming soon", "GitHub · 即将开放", "GitHub · Bientôt disponible", "GitHub · Demnächst", "GitHub · 공개 예정"],
@@ -186,7 +189,10 @@ const SOCIAL_I18N_ROWS = [
   ["portrait.agesTitle", "Age profiles", "年龄分布", "Profils d’âge", "Altersprofile", "연령 분포"],
   ["portrait.agesAllSubtitle", "Select a survey to explore its age profile.", "选择一项调查，查看其年龄分布。", "Sélectionnez une enquête pour explorer son profil d’âge.", "Wählen Sie eine Erhebung, um ihr Altersprofil zu erkunden.", "설문을 선택해 연령 분포를 살펴보세요."],
   ["portrait.agesDatasetSubtitle", "Age groups reported in {dataset}.", "{dataset} 报告的年龄组。", "Groupes d’âge déclarés dans {dataset}.", "In {dataset} berichtete Altersgruppen.", "{dataset}에 보고된 연령 구간입니다."],
-  ["portrait.ageCoverage", "Share of respondents with age data.", "有年龄数据的受访者占比。", "Part des répondants disposant de données d’âge.", "Anteil der Befragten mit Altersangabe.", "연령 정보가 있는 응답자의 비율입니다."],
+  ["portrait.ageCoverage", "Percentages use respondents with a valid age.", "百分比按有有效年龄的受访者计算。", "Les pourcentages portent sur les répondants dont l’âge est valide.", "Die Prozentwerte beziehen sich auf Befragte mit gültiger Altersangabe.", "유효한 연령 정보가 있는 응답자를 기준으로 비율을 계산합니다."],
+  ["portrait.groupUnlisted", "Outside the WEO classification", "WEO 未单列", "Hors classement du WEO", "Vom WEO nicht gesondert erfasst", "WEO 미분류"],
+  ["portrait.agesGroupedYears", "Respondents grouped by age in years.", "按受访者填写的年龄分组。", "Répartition des répondants selon leur âge en années.", "Befragte nach angegebenem Alter in Jahren.", "응답자가 기입한 나이를 구간별로 표시합니다."],
+  ["portrait.outsideStudyAge", "{count} respondents in this selection have recorded ages outside the study’s 18–89 range. They are included in the sample total.", "当前选择中有 {count} 人的记录年龄超出原研究报告的 18–89 岁范围，样本总人数包含这些受访者。", "Pour cette sélection, {count} réponses indiquent un âge en dehors de la plage de 18 à 89 ans publiée dans l’étude. Ces personnes sont incluses dans l’effectif total.", "In dieser Auswahl liegen {count} Altersangaben außerhalb der in der Studie genannten Spanne von 18 bis 89 Jahren. Diese Personen sind in der Gesamtzahl enthalten.", "선택한 표본에서 {count}명의 기록 연령이 원 연구에서 보고한 18~89세 범위를 벗어납니다. 이 응답자들도 전체 표본 수에 포함됩니다."],
   ["portrait.ageKnown", "Reported age", "已报告年龄", "Âge déclaré", "Alter angegeben", "연령 보고됨"],
   ["portrait.ageUnknown", "Age unavailable", "年龄缺失", "Âge indisponible", "Alter nicht verfügbar", "연령 정보 없음"],
   ["portrait.ageBinDetail", "{count} respondents · {share}% of reported ages", "{count} 名受访者 · 占已报告年龄的 {share}%", "{count} répondants · {share} % des âges déclarés", "{count} Befragte · {share} % mit Altersangabe", "응답자 {count}명 · 연령 보고 응답자의 {share}%"],
@@ -207,10 +213,10 @@ const SOCIAL_I18N_ROWS = [
   ["portrait.economySource", "IMF WEO · October 2026", "IMF WEO · 2026 年 10 月", "FMI WEO · octobre 2026", "IWF WEO · Oktober 2026", "IMF WEO · 2026년 10월"],
   ["portrait.economyEmpty", "No respondents for this selection.", "当前选择没有受访者。", "Aucun répondant pour cette sélection.", "Für diese Auswahl gibt es keine Befragten.", "이 선택에는 응답자가 없습니다."],
   ["portrait.surveyTitle", "Survey landscape", "调查概览", "Panorama des enquêtes", "Überblick über die Erhebungen", "설문 조사 현황"],
-  ["portrait.surveySubtitle", "Compare sample sizes across nine surveys.", "比较九项调查的样本量。", "Comparez les tailles d’échantillon des neuf enquêtes.", "Vergleichen Sie die Stichprobengrößen der neun Erhebungen.", "아홉 개 설문의 표본 규모를 비교해 보세요."],
+  ["portrait.surveySubtitle", "Compare sample sizes across {count} datasets.", "比较 {count} 个数据集的样本量。", "Comparez les tailles d’échantillon de {count} jeux de données.", "Vergleichen Sie die Stichprobengrößen von {count} Datensätzen.", "{count}개 데이터셋의 표본 규모를 비교하세요."],
   ["portrait.surveyRespondents", "Respondents", "受访者", "Répondants", "Befragte", "응답자"],
   ["portrait.surveyResponses", "Responses", "回答", "Réponses", "Antworten", "응답"],
-  ["portrait.surveyResponsesUnavailable", "Select all regions and economies to compare responses.", "选择所有地区和所有经济体后可比较回答总量。", "Sélectionnez toutes les régions et toutes les économies pour comparer les réponses.", "Wählen Sie alle Regionen und Volkswirtschaften, um die Antworten zu vergleichen.", "응답을 비교하려면 모든 지역과 경제권을 선택하세요."],
+  ["portrait.surveyResponsesUnavailable", "A dash marks a response count unavailable for this selection.", "破折号表示当前筛选范围内的回答数未知。", "Un tiret indique un nombre de réponses indisponible pour cette sélection.", "Ein Strich kennzeichnet eine für diese Auswahl unbekannte Antwortzahl.", "대시(—)는 현재 선택에서 응답 건수를 확인할 수 없음을 뜻합니다."],
   ["portrait.surveyDatasetClick", "Filter to {dataset}", "筛选至 {dataset}", "Filtrer sur {dataset}", "Nach {dataset} filtern", "{dataset}(으)로 필터링"],
   ["portrait.surveyEmpty", "No respondents for this selection.", "当前选择没有受访者。", "Aucun répondant pour cette sélection.", "Für diese Auswahl gibt es keine Befragten.", "이 선택에는 응답자가 없습니다."],
   ["portrait.surveyCountRespondents", "{count} respondents", "{count} 名受访者", "{count} répondants", "{count} Befragte", "응답자 {count}명"],
@@ -669,6 +675,15 @@ function socialI18nApply() {
   for (const [attribute, property] of [["data-i18n-aria-label", "aria-label"], ["data-i18n-alt", "alt"], ["data-i18n-content", "content"], ["data-i18n-title", "title"]]) {
     document.querySelectorAll(`[${attribute}]`).forEach(node => node.setAttribute(property, socialI18nT(node.getAttribute(attribute))));
   }
+  const numberFormat = new Intl.NumberFormat(SOCIAL_INTL_LOCALES[socialI18nLanguage]);
+  document.querySelectorAll("[data-study-count]").forEach(node => {
+    node.textContent = numberFormat.format(Number(node.dataset.studyCount));
+  });
+  document.querySelectorAll("[data-globe-link]").forEach(link => {
+    const url = new URL(link.href);
+    url.searchParams.set("lang", socialI18nLanguage);
+    link.href = url.href;
+  });
   const select = document.getElementById("site-language");
   if (select) select.value = socialI18nLanguage;
   const ogLocale = document.querySelector('meta[property="og:locale"]');

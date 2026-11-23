@@ -12,7 +12,7 @@ for (const language of ['en', 'zh', 'fr', 'de', 'ko']) {
   assert.ok(locales.window.SOCIAL_RESPONDENT_MESSAGES[language].cot, `${language}: CoT heading missing.`);
 }
 assert.equal(data.schemaVersion, 1);
-assert.deepEqual(data.datasets.map(group => group.datasetId).sort(), geography.datasets.map(group => group.id).sort());
+assert.deepEqual(data.datasets.map(group => group.datasetId).sort(), base.datasets.map(group => group.datasetId).sort());
 const regionIds = new Set(geography.regions.map(region => region.id));
 const regions = new Map(geography.regions.map(region => [region.id, region]));
 const people = new Set();

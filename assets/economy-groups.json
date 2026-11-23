@@ -19,6 +19,9 @@
     },
     {
       "id": "emerging_developing"
+    },
+    {
+      "id": "unknown"
     }
   ],
   "regions": [
@@ -204,7 +207,7 @@
     },
     {
       "regionId": "BGR",
-      "group": "emerging_developing",
+      "group": "advanced",
       "matchType": "economy"
     },
     {
@@ -300,6 +303,167 @@
     },
     {
       "regionId": "MNE",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "ARE",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "BGD",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "BHR",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "BRA",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "CAN",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "COL",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "CRI",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "DZA",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "ECU",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "EGY",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "GHA",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "GMB",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "GRC",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "HKG",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "IRL",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "IRN",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "KEN",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "LKA",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "MAR",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "MDA",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "MYS",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "NGA",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "PAK",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "PER",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "SAU",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "SDN",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "SGP",
+      "group": "advanced",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "UK",
+      "group": "advanced",
+      "matchType": "economy",
+      "sourceEconomy": "United Kingdom"
+    },
+    {
+      "regionId": "URY",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "VGB",
+      "group": "unknown",
+      "matchType": "not_listed"
+    },
+    {
+      "regionId": "VNM",
+      "group": "emerging_developing",
+      "matchType": "economy"
+    },
+    {
+      "regionId": "XKX",
       "group": "emerging_developing",
       "matchType": "economy"
     }

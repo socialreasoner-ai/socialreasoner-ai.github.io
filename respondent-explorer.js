@@ -37,7 +37,7 @@
     parent.append(row);
   };
   const safePoster = path => typeof path === 'string'
-    && /^assets\/avatars\/[A-Za-z0-9_-]+(?:-preview)?\.png$/.test(path);
+    && /^assets\/avatars\/(?:[A-Za-z0-9_-]+\.png|participant-[ab]\.svg)$/.test(path);
   const summaryQuestion = participant => participant?.target?.question || '';
   const matchingQuestion = (a, b) => Boolean(a && b && a.target?.questionId === b.target?.questionId
     && summaryQuestion(a) === summaryQuestion(b)
@@ -185,7 +185,7 @@
       const head = element('div', 'respondent-card-head');
       const avatar = element('img', 'respondent-avatar');
       avatar.src = person.avatar.posterPath;
-      avatar.alt = t('illustrativeAvatar');
+      avatar.alt = person.inputPrompt ? '' : t('illustrativeAvatar');
       avatar.loading = 'lazy';
       avatar.decoding = 'async';
       avatar.addEventListener('error', () => {
@@ -251,6 +251,13 @@
         summary.textContent = t(more.open ? 'showLess' : 'showAll');
       }, { signal: controller.signal });
       card.append(more);
+      if (person.inputPrompt) {
+        const input = element('details', 'respondent-input');
+        const prompt = element('p', 'respondent-input-text', person.inputPrompt);
+        prompt.lang = 'en';
+        input.append(localized('summary', '', 'fullInput'), prompt);
+        card.append(input);
+      }
       return card;
     }
 
@@ -281,7 +288,7 @@
       const head = element('header', 'respondent-head');
       head.append(localized('p', 'respondent-kicker', 'kicker'));
       head.append(localized('h2', 'respondent-title', 'title'));
-      head.append(element('p', 'respondent-dataset-name', dataset));
+      head.append(element('p', 'respondent-dataset-name', group.label ? `${group.label} · ${dataset}` : dataset));
       host.append(head);
       const switcher = element('div', 'respondent-switch');
       switcher.setAttribute('role', 'group');
@@ -348,7 +355,10 @@
       .then(async responses => {
         if (responses.some(response => !response.ok)) throw new Error('Respondent records unavailable');
         const [base, overlay] = await Promise.all(responses.map(response => response.json()));
-        return mergeRecordedExamples(base, overlay);
+        const original = mergeRecordedExamples(base, overlay);
+        if (!window.SocialBehavioralExamples) return original;
+        const behavioral = await window.SocialBehavioralExamples.load();
+        return { ...original, datasets: [...original.datasets, ...behavioral.map(window.SocialBehavioralExamples.globeGroup)] };
       })
       .then(data => {
         if (disposed) return;

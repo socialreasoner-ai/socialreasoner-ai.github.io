@@ -70,3 +70,7 @@
 .globe-experience .respondent-original-language,.globe-experience .respondent-source-note{font-size:11px;color:#839ab3;line-height:1.7;margin:14px 0 0}
 .globe-experience .respondent-source-note{margin-top:4px}
 @media(max-width:620px){.globe-experience .respondent-head{gap:8px 12px}.globe-experience .respondent-head .respondent-title{font-size:22px}}
+
+.respondent-input { margin-top: 12px; }
+.respondent-input summary { cursor: pointer; color: #aad5ee; }
+.respondent-input-text { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; line-height: 1.6; }

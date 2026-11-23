@@ -2,6 +2,7 @@
    the wording in their audited source records. */
 window.SOCIAL_RESPONDENT_MESSAGES = {
   en: {
+    fullInput: 'Full survey prompt', observedHeading: 'Observed response', testExample: 'Test example',
     animationAria: 'Character animation', chooseCharacter: 'Choose character',
     turn: 'Turn around', walk: 'Walk', wave: 'Wave',
     modelLoading: 'Loading 3D character…', modelUnavailable: '3D character unavailable',
@@ -45,6 +46,7 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     field_work_status: 'Work status', field_years_in_us: 'Years in the U.S.'
   },
   zh: {
+    fullInput: '完整问卷提示词', observedHeading: '受访者的实际回答', testExample: '测试样例',
     animationAria: '人物动作', chooseCharacter: '选择人物',
     turn: '转身', walk: '走路', wave: '挥手',
     modelLoading: '正在载入三维人物…', modelUnavailable: '三维人物暂不可用',
@@ -87,6 +89,7 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     field_years_in_us: '在美国年数'
   },
   fr: {
+    fullInput: 'Consigne complète du questionnaire', observedHeading: 'Réponse observée', testExample: 'Exemple de test',
     animationAria: 'Animation du personnage', chooseCharacter: 'Choisir le personnage',
     turn: 'Tourner', walk: 'Marcher', wave: 'Saluer',
     modelLoading: 'Chargement du personnage 3D…', modelUnavailable: 'Personnage 3D indisponible',
@@ -132,6 +135,7 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     field_work_status: 'Statut professionnel', field_years_in_us: 'Années aux États-Unis'
   },
   de: {
+    fullInput: 'Vollständige Befragungsvorlage', observedHeading: 'Beobachtete Antwort', testExample: 'Testbeispiel',
     animationAria: 'Figurenanimation', chooseCharacter: 'Figur wählen',
     turn: 'Umdrehen', walk: 'Gehen', wave: 'Winken',
     modelLoading: '3D-Figur wird geladen…', modelUnavailable: '3D-Figur nicht verfügbar',
@@ -177,6 +181,7 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     field_work_status: 'Erwerbsstatus', field_years_in_us: 'Jahre in den USA'
   },
   ko: {
+    fullInput: '전체 설문 프롬프트', observedHeading: '실제 응답', testExample: '테스트 사례',
     animationAria: '캐릭터 동작', chooseCharacter: '캐릭터 선택',
     turn: '돌아보기', walk: '걷기', wave: '손 흔들기',
     modelLoading: '3D 캐릭터 불러오는 중…', modelUnavailable: '3D 캐릭터를 사용할 수 없습니다',

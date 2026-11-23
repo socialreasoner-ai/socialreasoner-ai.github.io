@@ -11,6 +11,12 @@
   const status = root.querySelector('#demo-status');
   const content = root.querySelector('#demo-content');
   const result = root.querySelector('#demo-result');
+  const modelControls = root.querySelector('#demo-model-controls');
+  const expertHeading = root.querySelector('#demo-expert-heading');
+  const observedPanel = root.querySelector('#demo-observed');
+  const observedAnswer = root.querySelector('#demo-observed-answer');
+  const inputText = root.querySelector('#demo-input-text');
+  const inputDisclosure = root.querySelector('#demo-input-disclosure');
   const outputIntro = root.querySelector('#demo-output-intro');
   const facts = root.querySelector('#demo-profile-facts');
   const questionText = root.querySelector('#demo-question-text');
@@ -225,6 +231,7 @@
 
   function resetDisclosure() {
     more.open = false;
+    inputDisclosure.open = false;
     if (filteredCues) filteredCues.open = false;
   }
 
@@ -232,7 +239,12 @@
     cancelTransition();
     const openDetails = new Set(preserveDetails ? [...root.querySelectorAll('.demo-evidence-original[open]')].map(element => element.parentElement.dataset.cueId) : []);
     selectAvailableExpert(current().record);
-    const { profile, record, expert } = current();
+    const { dataset, profile, record, expert } = current();
+    const isObserved = dataset?.sourceType === 'testResponse';
+    root.dataset.exampleKind = isObserved ? 'response' : 'supervision';
+    modelControls.hidden = isObserved;
+    expertHeading.hidden = isObserved;
+    observedPanel.hidden = !isObserved;
     root.dataset.expert = state.model;
     populateControls();
     if (!profile || !record) {
@@ -246,7 +258,7 @@
     status.hidden = false;
     status.classList.add('sr-only');
     const modelName = modelNames[state.model];
-    status.textContent = modelName ? t('demo.modelSelected', { model: modelName }) : t('demo.noExperts');
+    status.textContent = isObserved ? t('respondent.testExample') : modelName ? t('demo.modelSelected', { model: modelName }) : t('demo.noExperts');
     facts.replaceChildren();
     addFact('demo.age', profile.labelFields?.age);
     addFact('demo.gender', profile.labelFields?.gender);
@@ -285,7 +297,9 @@
     }
     answer.lang = 'en';
     result.hidden = !expert;
-    outputIntro.hidden = !!expert;
+    observedAnswer.textContent = isObserved ? `${record.observedId} · ${record.options[record.observedId]}` : '';
+    inputText.textContent = isObserved ? record.inputPrompt : '';
+    outputIntro.hidden = !!expert || isObserved;
     outputIntro.textContent = t('demo.noExperts');
     if (animate) animateSelection();
   }
@@ -351,9 +365,10 @@
     fetch('assets/method-demo.json?v=20261105-cues-r1', { cache: 'no-store' })
       .then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); }),
     fetch('assets/method-evidence-display.json?v=20261106-method-redesign-r1')
-      .then(response => response.ok ? response.json() : null).catch(() => null)
+      .then(response => response.ok ? response.json() : null).catch(() => null),
+    window.SocialBehavioralExamples?.load().then(groups => groups.map(window.SocialBehavioralExamples.methodGroup)) || []
   ])
-    .then(([source, display]) => {
+    .then(([source, display, behavioral]) => {
       if (display?.version === 1 && Array.isArray(display.entries)) {
         for (const item of display.entries) {
           if (typeof item.fact === 'string' && typeof item.question === 'string' && typeof item.response === 'string') {
@@ -361,7 +376,7 @@
           }
         }
       }
-      datasets = verify(source);
+      datasets = [...verify(source), ...behavioral];
       loadState = 'ready';
       state.dataset = datasets[0].id;
       state.profile = datasets[0].profiles[0].id;

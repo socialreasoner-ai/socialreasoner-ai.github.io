@@ -105,6 +105,7 @@
 .coverage-map-swatch.selected{background:#e3b48f}
 .coverage-map-svg{display:block;width:100%;height:auto;overflow:visible}
 .coverage-map-country{fill:#173047;stroke:#6d99b04d;stroke-width:.9;vector-effect:non-scaling-stroke;transition:fill .22s ease,stroke .22s ease}
+.coverage-map-marker.is-covered,.coverage-map-country.is-covered{cursor:pointer}
 .coverage-map-country.is-covered{fill:#357493;stroke:#a5d9ef9c}
 .coverage-map-country.is-selected{fill:#e3b48f;stroke:#ffe1b8;stroke-width:1.4}
 .coverage-map-country.is-selected-empty{fill:#173047;stroke:#e3b48f;stroke-width:1.5;stroke-dasharray:4 3}

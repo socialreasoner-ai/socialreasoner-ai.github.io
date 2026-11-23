@@ -175,6 +175,9 @@ select:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visib
 .release-item strong { font-size: 24px; }
 .release-item .release-destination { font: 13px 'DM Sans',sans-serif; color: #adc1d8; }
 .release-item .coming { font: 12px 'DM Sans',sans-serif; color: #b7c8dd; margin-top: 0; grid-column: auto; }
+#globe, #behavioral-datasets { scroll-margin-top: 88px; }
+.coverage-downloads { color: #bdddfc; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; align-self: end; }
+.coverage-downloads:hover { color: #fff; }
 .behavioral-downloads { margin-top: 42px; }
 .behavioral-downloads h3 { margin: 0 0 18px; font-size: 24px; }
 .behavioral-downloads ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px 30px; padding: 0; margin: 0; }

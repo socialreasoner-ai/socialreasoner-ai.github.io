@@ -5,6 +5,8 @@ import vm from 'node:vm';
 const rootUrl = new URL('../', import.meta.url);
 const source = readFileSync(new URL('method-demo.js', rootUrl), 'utf8');
 const data = JSON.parse(readFileSync(new URL('assets/method-demo.json', rootUrl), 'utf8'));
+const behavioral = JSON.parse(readFileSync(new URL('assets/behavioral-examples.json', rootUrl), 'utf8'));
+const behavioralSource = readFileSync(new URL('behavioral-examples.js', rootUrl), 'utf8');
 const display = JSON.parse(readFileSync(new URL('assets/method-evidence-display.json', rootUrl), 'utf8'));
 const localeWindow = { location: { search: '' } };
 vm.runInNewContext(readFileSync(new URL('i18n.js', rootUrl), 'utf8'), { window: localeWindow, URLSearchParams, Intl });
@@ -61,7 +63,7 @@ async function mount(input = data, motion = false, displayAvailable = true) {
   const events = {};
   const media = { matches: motion, addEventListener: (_, fn) => { media.change = fn; } };
   const errors = [];
-  vm.runInNewContext(source, {
+  const context = {
     document: { getElementById: () => root, createElement: tag => new Element(tag), createTextNode: text => { const node = new Element('#text'); node.textContent = text; return node; } },
     window: { matchMedia: () => media, SiteI18n: { t: (key, params = {}) => {
       let value = localeWindow.SOCIAL_I18N_MESSAGES[lang][key] || key;
@@ -69,9 +71,11 @@ async function mount(input = data, motion = false, displayAvailable = true) {
       return value;
     } }, addEventListener: (name, fn) => { events[name] = fn; } },
     fetch: async url => ({ ok: !url.includes('evidence-display') || displayAvailable, status: 404,
-      json: async () => structuredClone(url.includes('evidence-display') ? display : input) }),
+      json: async () => structuredClone(url.includes('behavioral-examples') ? behavioral : url.includes('evidence-display') ? display : input) }),
     console: { error: (...args) => errors.push(args) }
-  });
+  };
+  vm.runInNewContext(behavioralSource, context);
+  vm.runInNewContext(source, context);
   await new Promise(resolve => setImmediate(resolve));
   assert.equal(errors.length, 0, 'Valid or missing-expert records load without errors.');
   return { ids, root, models, timeline, media, setLanguage(value) { lang = value; events['site:languagechange'](); } };
@@ -123,6 +127,26 @@ for (const language of ['zh', 'fr', 'de', 'ko', 'en']) {
   ui.setLanguage(language);
   assert.deepEqual(['demo-dataset', 'demo-profile', 'demo-question'].map(id => ui.ids.get(id).value).concat(ui.root.dataset.expert), chosen);
 }
+let observed = 0;
+for (const group of behavioral.datasets) {
+  choose('demo-dataset', group.datasetId);
+  for (const person of group.participants) {
+    choose('demo-profile', person.displayId);
+    for (const record of person.records) {
+      choose('demo-question', record.questionId);
+      assert.equal(ui.ids.get('demo-model-controls').hidden, true);
+      assert.equal(ui.ids.get('demo-result').hidden, true);
+      assert.equal(ui.ids.get('demo-observed').hidden, false);
+      assert.equal(ui.ids.get('demo-input-text').textContent, record.prompt);
+      assert.equal(ui.ids.get('demo-observed-answer').textContent, `${record.answerId} · ${record.options[record.answerId]}`);
+      observed++;
+    }
+  }
+}
+choose('demo-dataset', data.datasets[0].id);
+assert.equal(ui.ids.get('demo-model-controls').hidden, false);
+assert.equal(ui.ids.get('demo-observed').hidden, true);
+assert.equal(ui.ids.get('demo-result').hidden, false);
 const sparse = structuredClone(data);
 delete sparse.datasets[0].profiles[0].records[0].experts.ebm;
 const fallback = await mount(sparse);
@@ -140,4 +164,4 @@ assert.equal(reduced.root.dataset.expert, 'lgbm');
 const unmapped = await mount(data, false, false);
 assert.equal(unmapped.root.dataset.expert, 'ebm', 'Missing presentation lookup still displays the original sample.');
 assert.ok(unmapped.ids.get('demo-cues').children.every(row => row.className.includes('demo-evidence-fallback')), JSON.stringify(unmapped.ids.get('demo-cues').children.map(row => ({className:row.className,text:row.textContent}))));
-console.log(`Method UI passed: ${verified} exact reasoning/answer/evidence views, five-language selection preservation, available-expert fallback, empty state, rapid-switch cancellation, reduced motion and missing-display-data fallback.`);
+console.log(`Method UI passed: ${verified} exact reasoning/answer/evidence views, ${observed} exact behavioral test examples, five-language selection preservation, available-expert fallback, empty state, rapid-switch cancellation, reduced motion and missing-display-data fallback.`);

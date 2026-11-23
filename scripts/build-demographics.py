@@ -12,6 +12,8 @@ import json
 from pathlib import Path
 import re
 
+from behavioral_demographics import append_behavioral_portraits
+
 DATASETS = (
     "ATP142", "ATP152", "EVS2017", "ISSP2009", "ISSP2015",
     "ISSP2016", "ISSP2019", "ISSP2021", "GSS2022",
@@ -145,7 +147,7 @@ def build(source_root, mapping_path, geography_path):
         raise ValueError("Duplicate geography label mapping")
     geography = json.loads(geography_path.read_text(encoding="utf-8"))
     paper_datasets = {row["id"]: row for row in geography["datasets"]}
-    if set(paper_datasets) != set(DATASETS):
+    if not set(DATASETS).issubset(paper_datasets):
         raise ValueError("Manuscript geography does not contain the expected nine datasets")
 
     result = {
@@ -288,13 +290,22 @@ def build(source_root, mapping_path, geography_path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source-root", type=Path, required=True)
-    parser.add_argument("--mapping", type=Path, required=True, help="Local audited geography/label_mapping.json")
+    parser.add_argument("--source-root", type=Path)
+    parser.add_argument("--mapping", type=Path, help="Local audited geography/label_mapping.json")
     parser.add_argument("--geography", type=Path, default=Path(__file__).resolve().parents[1] / "assets/geography.json")
     parser.add_argument("--output", type=Path, default=Path(__file__).resolve().parents[1] / "assets/demographics.json")
     parser.add_argument("--check", action="store_true", help="Compare the aggregate with --output without writing")
+    repo = Path(__file__).resolve().parents[1]
+    parser.add_argument("--release-dir", type=Path, default=repo / "downloads/behavioral")
+    parser.add_argument("--region-mapping", type=Path, default=repo / "scripts/behavioral-regions.json")
     args = parser.parse_args()
-    result = build(args.source_root, args.mapping, args.geography)
+    if args.source_root is not None and args.mapping is not None:
+        result = build(args.source_root, args.mapping, args.geography)
+    elif args.source_root is None and args.mapping is None:
+        result = json.loads(args.output.read_text(encoding="utf-8"))
+    else:
+        parser.error("--source-root and --mapping must be used together")
+    result = append_behavioral_portraits(result, args.geography, args.release_dir, args.region_mapping)
     serialized = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
     if args.check:
         if args.output.read_text(encoding="utf-8") != serialized:

@@ -1,4 +1,4 @@
-/* Survey portraits use the manuscript cohort and the surveys' own age categories. */
+/* Portraits use per-survey respondents from the manuscript cohort and published downloads. */
 (() => {
   const nav = document.getElementById('portrait-nav');
   const panel = document.getElementById('data-portrait');
@@ -12,6 +12,7 @@
     tabGeography: 'Geography',
     groupLabel: 'ECONOMY GROUP',
     groupAll: 'All economies',
+    groupUnlisted: 'Outside the WEO classification',
     groupAdvanced: 'Advanced',
     groupEmerging: 'Emerging & developing',
     resetFilters: 'Reset filters',
@@ -21,7 +22,9 @@
     agesTitle: 'Age profiles',
     agesAllSubtitle: 'Select a survey to explore its age profile.',
     agesDatasetSubtitle: 'Age groups reported in {dataset}.',
-    ageCoverage: 'Share of respondents with age data.',
+    ageCoverage: 'Percentages use respondents with a valid age.',
+    agesGroupedYears: 'Respondents grouped by age in years.',
+    outsideStudyAge: '{count} respondents in this selection have recorded ages outside the study’s 18–89 range. They are included in the sample total.',
     ageKnown: 'Reported age',
     ageUnknown: 'Age unavailable',
     ageBinDetail: '{count} respondents · {share}% of reported ages',
@@ -42,10 +45,10 @@
     economySource: 'IMF WEO · October 2026',
     economyEmpty: 'No respondents for this selection.',
     surveyTitle: 'Survey landscape',
-    surveySubtitle: 'Compare sample sizes across nine surveys.',
+    surveySubtitle: 'Compare sample sizes across {count} datasets.',
     surveyRespondents: 'Respondents',
     surveyResponses: 'Responses',
-    surveyResponsesUnavailable: 'Select all regions and economies to compare responses.',
+    surveyResponsesUnavailable: 'A dash marks a response count unavailable for this selection.',
     surveyDatasetClick: 'Filter to {dataset}',
     surveyEmpty: 'No respondents for this selection.',
     surveyCountRespondents: '{count} respondents',
@@ -95,7 +98,8 @@
   const groups = [
     ['all', 'groupAll'],
     ['advanced', 'groupAdvanced'],
-    ['emerging_developing', 'groupEmerging']
+    ['emerging_developing', 'groupEmerging'],
+    ['unknown', 'groupUnlisted']
   ];
   const api = () => window.SocialCoverage;
   const currentSelection = () => api()?.getSelection?.() || { ready: false, dataset: 'all', selectedRegion: '' };
@@ -112,8 +116,6 @@
     data.geography.regions
       .filter(region => regionFits(region.id, selection, group) && countFor(region, datasetId) > 0)
       .map(region => ({ id: region.id, count: countFor(region, datasetId), group: data.economyMap.get(region.id) }));
-  const datasetCount = (datasetId, selection, group) =>
-    regionRows(selection, group, datasetId).reduce((sum, row) => sum + row.count, 0);
   const scopeLabel = selection => selection.selectedRegion
     ? t('selectedRegionLabel', { region: regionName(selection.selectedRegion) })
     : selection.dataset === 'all' ? t('surveyAllDatasets') : datasetName(selection.dataset);
@@ -199,7 +201,6 @@
       button.addEventListener('click', () => {
         api()?.enterCoverage?.();
         state.group = id;
-        if (id !== 'all') state.metric = 'respondents';
         render();
         panel.querySelector('[data-portrait-group="' + id + '"]')?.focus({ preventScroll: true });
       });
@@ -411,7 +412,9 @@
   function renderAges(selection, content) {
     const selected = selection.dataset === 'all' ? null : data.demoDatasets.get(selection.dataset);
     const subtitle = selected
-      ? t('agesDatasetSubtitle', { dataset: datasetName(selected.id) })
+      ? selected.nativeSchemes.some(scheme => scheme.id === 'from_years')
+        ? t('agesGroupedYears')
+        : t('agesDatasetSubtitle', { dataset: datasetName(selected.id) })
       : t('agesAllSubtitle');
     content.append(sectionHeading('agesTitle', subtitle, selection));
     if (selected) {
@@ -465,6 +468,11 @@
     }
     const note = element('p', 'portrait-note');
     note.append(element('span', '', t('ageCoverage')));
+    if (selected) {
+      const outside = selected.regions.filter(row => regionFits(row.regionId, selection, state.group))
+        .reduce((sum, row) => sum + (row.audit?.sourceAgeOutsideStudyRange || 0), 0);
+      if (outside) note.append(document.createTextNode(' ' + t('outsideStudyAge', {count: number(outside)})));
+    }
     content.append(note);
   }
 
@@ -485,9 +493,11 @@
     const groupCards = element('div', 'portrait-economy-grid');
     [
       ['advanced', 'economyAdvanced'],
-      ['emerging_developing', 'economyEmerging']
+      ['emerging_developing', 'economyEmerging'],
+      ['unknown', 'groupUnlisted']
     ].forEach(([id, label]) => {
       const groupRows = rows.filter(row => row.group === id);
+      if (id === 'unknown' && !groupRows.length) return;
       const count = groupRows.reduce((sum, row) => sum + row.count, 0);
       const share = total ? count / total * 100 : 0;
       const card = element('article', 'portrait-economy-card is-' + id);
@@ -533,8 +543,19 @@
   }
 
   function renderSurveys(selection, content) {
-    const heading = sectionHeading('surveyTitle', t('surveySubtitle'), selection);
-    const canShowResponses = !selection.selectedRegion && state.group === 'all';
+    const heading = sectionHeading('surveyTitle', t('surveySubtitle', {count: number(data.geography.datasets.length)}), selection);
+    const rows = data.geography.datasets.map(dataset => {
+      const selected = dataset.regions.filter(region => regionFits(region.id, selection, state.group));
+      const respondents = selected.reduce((sum, r) => sum + r.count, 0);
+      let responses = null;
+      if (selected.length === dataset.regions.length) {
+        responses = dataset.responses;
+      } else if (selected.every(region => Number.isInteger(region.responses))) {
+        responses = selected.reduce((sum, region) => sum + region.responses, 0);
+      }
+      return { id: dataset.id, respondents, responses };
+    });
+    const canShowResponses = rows.some(row => row.responses > 0);
     if (!canShowResponses) state.metric = 'respondents';
     const switcher = element('div', 'portrait-metric-switch');
     switcher.setAttribute('role', 'group');
@@ -555,14 +576,11 @@
     });
     heading.append(switcher);
     content.append(heading);
-    if (!canShowResponses) content.append(element('p', 'portrait-note portrait-response-note', t('surveyResponsesUnavailable')));
-    const values = data.geography.datasets.map(dataset => ({
-      id: dataset.id,
-      value: state.metric === 'responses'
-        ? Number(dataset.responses || 0)
-        : datasetCount(dataset.id, selection, state.group)
-    }));
-    const max = Math.max(0, ...values.map(row => row.value));
+    if (state.metric === 'responses' && rows.some(row => row.responses == null)) {
+      content.append(element('p', 'portrait-note portrait-response-note', t('surveyResponsesUnavailable')));
+    }
+    const values = rows.map(row => ({ id: row.id, value: row[state.metric] }));
+    const max = Math.max(0, ...values.map(row => row.value ?? 0));
     if (!max) {
       content.append(element('p', 'portrait-empty', t('surveyEmpty')));
       return;
@@ -572,8 +590,10 @@
       const button = element('button', 'portrait-survey-row' + (selection.dataset === row.id ? ' is-selected' : ''));
       button.type = 'button';
       button.dataset.portraitSurveyDataset = row.id;
-      button.setAttribute('aria-label', t('surveyDatasetClick', { dataset: datasetName(row.id) }) + '. ' +
-        t(state.metric === 'responses' ? 'surveyCountResponses' : 'surveyCountRespondents', { count: number(row.value) }));
+      const displayValue = row.value == null ? '—' : number(row.value);
+      const spokenValue = row.value == null ? t('surveyResponsesUnavailable')
+        : t(state.metric === 'responses' ? 'surveyCountResponses' : 'surveyCountRespondents', { count: displayValue });
+      button.setAttribute('aria-label', t('surveyDatasetClick', { dataset: datasetName(row.id) }) + '. ' + spokenValue);
       button.addEventListener('click', () => {
         api()?.enterCoverage?.();
         api()?.setDataset?.(row.id);
@@ -583,9 +603,11 @@
       button.append(element('strong', 'portrait-survey-name', datasetName(row.id)));
       const track = element('span', 'portrait-survey-track');
       const fill = element('span', 'portrait-survey-fill');
-      fill.style.width = row.value / max * 100 + '%';
-      track.append(fill);
-      button.append(track, element('span', 'portrait-survey-value', number(row.value)));
+      if (row.value > 0) {
+        fill.style.width = row.value / max * 100 + '%';
+        track.append(fill);
+      }
+      button.append(track, element('span', 'portrait-survey-value', displayValue));
       chart.append(button);
     });
     content.append(chart);
@@ -624,7 +646,7 @@
     const geoRegions = new Map(geographyData.regions.map(region => [region.id, region]));
     const economyMap = new Map(economyData.regions.map(region => [region.regionId, region.group]));
     const demoDatasets = new Map(demographicsData.datasets.map(dataset => [dataset.id, dataset]));
-    if (geoDatasets.size !== 9 || demoDatasets.size !== geoDatasets.size ||
+    if (!geoDatasets.size || geoDatasets.size !== geographyData.datasets.length || demoDatasets.size !== geoDatasets.size ||
       [...geoDatasets.keys()].some(id => !demoDatasets.has(id)) ||
       [...geoRegions.keys()].some(id => !economyMap.has(id))) {
       throw new Error('Portrait datasets or economy regions do not match geography');
@@ -661,8 +683,8 @@
       };
       waitForSharedGeography();
     }),
-    fetchJson('assets/economy-groups.json?v=20261104-portrait-r1'),
-    fetchJson('assets/demographics.json?v=20261104-portrait-r1')
+    fetchJson('assets/economy-groups.json?v=20261123-behavioral-r1'),
+    fetchJson('assets/demographics.json?v=20261123-behavioral-r1')
   ]).then(([geographyData, economyData, demographicsData]) => {
     data = validate(geographyData, economyData, demographicsData);
     render();

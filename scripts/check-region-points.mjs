@@ -12,6 +12,7 @@ const data = JSON.parse(readFileSync(root + 'assets/geography.json', 'utf8'));
 const atlas = JSON.parse(readFileSync(root + 'assets/world-110m.json', 'utf8'));
 const countries = topojson.feature(atlas, atlas.objects.countries).features;
 const byNumeric = new Map(countries.map(country => [String(Number(country.id)), country]));
+const byName = new Map(countries.map(country => [country.properties.name, country]));
 const point = region => [region.lon, region.lat];
 
 function largestPart(country) {
@@ -25,7 +26,11 @@ assert.equal(data.regions.length, data.totalRegions);
 for (const region of data.regions) {
   assert.ok(Number.isFinite(region.lon) && region.lon >= -180 && region.lon <= 180);
   assert.ok(Number.isFinite(region.lat) && region.lat >= -90 && region.lat <= 90);
-  const country = byNumeric.get(String(Number(region.numericId)));
+  if (region.markerOnly) {
+    assert.equal(region.numericId, null, `${region.id}: point-only region cannot claim a polygon`);
+    continue;
+  }
+  const country = region.numericId ? byNumeric.get(String(Number(region.numericId))) : byName.get(region.atlasName);
   assert.ok(country, `${region.id}: atlas country missing`);
   assert.ok(d3.geoContains(country, point(region)), `${region.id}: point is outside its atlas outline`);
 }
@@ -34,7 +39,7 @@ for (const region of data.regions) {
 // This also prevents a whole-country centroid drifting toward overseas parts.
 for (const id of ['FRA', 'PHL', 'NOR', 'JPN', 'GBR', 'USA']) {
   const region = data.regions.find(item => item.id === id);
-  const country = byNumeric.get(String(Number(region.numericId)));
+  const country = byNumeric.get(String(Number(id === 'GBR' ? 826 : region.numericId)));
   assert.ok(d3.geoContains(largestPart(country), point(region)), `${id}: not on the main land component`);
 }
 
@@ -47,4 +52,4 @@ for (const id of ['HRV', 'ISR']) {
   }
 }
 
-console.log(`PASS: ${data.regions.length} representative points are in their atlas country; selected main land components and narrow-boundary buffers verified.`);
+console.log(`PASS: ${data.regions.length} representative points verified, including point-only regions, atlas polygons and narrow-boundary buffers.`);

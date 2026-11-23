@@ -186,3 +186,9 @@
 @media(prefers-reduced-motion:reduce){
   #approach .demo-select-wrap select,#approach .demo-model-choices button,#approach .demo-evidence-card,#approach .demo-evidence-original summary{transition:none}
 }
+
+#approach .method-demo[data-example-kind="response"] .demo-input-panel .demo-panel-heading .demo-index { display: none; }
+#approach .demo-input-text { margin-top: 16px; white-space: pre-wrap; overflow-wrap: anywhere; color: #bfd1df; font: 14px/1.65 'DM Sans', sans-serif; }
+@media (min-width: 981px) {
+  #approach .method-demo[data-example-kind="response"] .demo-controls { grid-template-columns: minmax(0, .9fr) minmax(0, .9fr) minmax(0, 1.2fr); }
+}

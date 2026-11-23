@@ -221,6 +221,17 @@ function safeReleaseUrl(key, raw) {
   } catch { return null; }
 }
 
+// Revisiting the current URL can be a same-document navigation after a manual filter change.
+document.querySelectorAll('[data-globe-link]').forEach(link => {
+  link.addEventListener('click', event => {
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const target = new URL(link.href);
+    if (target.search !== window.location.search) return;
+    window.SocialCoverage?.enterCoverage();
+    window.SocialCoverage?.setSelection({ dataset: target.searchParams.get('dataset'), selectedRegion: '' });
+  });
+});
+
 Object.entries(RELEASE_URLS).forEach(([key, raw]) => {
   const href = safeReleaseUrl(key, raw);
   if (!href) return;

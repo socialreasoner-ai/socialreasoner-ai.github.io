@@ -7,7 +7,6 @@ const DEFAULT_PITCH = THREE.MathUtils.degToRad(15);
 const ease = t => t * t * (3 - 2 * t);
 const clamp = value => Math.max(0, Math.min(1, value));
 const nearestYaw = (target, current) => current + Math.atan2(Math.sin(target - current), Math.cos(target - current));
-const numericKey = value => String(Number(value));
 const validCount = value => Number.isInteger(value) && value >= 0;
 const groupOf = region => region?.highlightGroup || region?.id;
 
@@ -64,7 +63,7 @@ function makeStars(scene) {
   return points;
 }
 
-function buildMapTexture(THREERef, countries, store, selection, regionByNumeric, selectedRegion, quality) {
+function buildMapTexture(THREERef, countries, store, selection, selectedRegion, quality) {
   const width = quality === 'mobile' ? 1024 : 2048;
   const height = width / 2;
   const canvas = document.createElement('canvas');
@@ -88,9 +87,7 @@ function buildMapTexture(THREERef, countries, store, selection, regionByNumeric,
   ctx.stroke();
   const maxCount = Math.max(1, ...store.getData().regions.map(r => validCount(r.count) ? r.count : 0));
   for (const country of countries) {
-    const region = regionByNumeric.get(numericKey(country.id));
-    // The atlas polygon contains Northern Ireland; survey GBR means Great Britain.
-    const fillRegion = region?.id === 'GBR' ? null : region;
+    const fillRegion = store.getRegionForFeature(country);
     const sample = fillRegion ? store.sampleFor(fillRegion, selection.dataset) : {status: 'unmapped', count: null};
     const selected = fillRegion && selectedRegion && groupOf(fillRegion) === groupOf(selectedRegion);
     ctx.beginPath();
@@ -124,8 +121,6 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
   const topology = await store.getWorldPromise();
   if (!topology?.objects?.countries) throw new Error('World geometry unavailable');
   const countries = window.topojson.feature(topology, topology.objects.countries).features;
-  const regionByNumeric = new Map(store.getData().regions.filter(r => r.numericId)
-    .map(r => [numericKey(r.numericId), r]));
   let webgl;
   try {
     webgl = new THREE.WebGLRenderer({canvas, antialias: true, alpha: true, powerPreference: 'high-performance'});
@@ -163,6 +158,7 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
   const markerMaterial = new THREE.MeshBasicMaterial({color: 0xa5eaff});
   const selectedMarkerMaterial = new THREE.MeshBasicMaterial({color: 0xffdbaf});
   const markers = new Map();
+  const visibleMarkers = [];
   for (const region of store.getData().regions) {
     if (!Number.isFinite(region.lon) || !Number.isFinite(region.lat)) continue;
     const mesh = new THREE.Mesh(markerGeometry, markerMaterial);
@@ -227,7 +223,7 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
     const nextQuality = host.clientWidth < 600 ? 'mobile' : 'desktop';
     const key = `${selection.dataset}|${selection.selectedRegion}|${nextQuality}`;
     if (key === lastTextureKey) return;
-    const next = buildMapTexture(THREE, countries, store, selection, regionByNumeric, selectedRegion, nextQuality);
+    const next = buildMapTexture(THREE, countries, store, selection, selectedRegion, nextQuality);
     sphereMaterial.map = next;
     sphereMaterial.needsUpdate = true;
     texture?.dispose();
@@ -238,10 +234,12 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
   }
 
   function updateMarkers() {
+    visibleMarkers.length = 0;
     for (const [id, marker] of markers) {
       const region = store.getRegion(id);
       const sample = store.sampleFor(region, selection.dataset);
       marker.visible = sample.status === 'covered' || id === selection.selectedRegion;
+      if (marker.visible) visibleMarkers.push(marker);
       marker.material = id === selection.selectedRegion ? selectedMarkerMaterial : markerMaterial;
       marker.scale.setScalar(id === selection.selectedRegion ? 1.65 : 1);
     }
@@ -452,18 +450,22 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
     const earthHit = raycaster.intersectObject(sphere, false)[0];
     const person = characters.pick(raycaster, earthHit?.distance ?? Infinity);
     if (person) return {person};
+    const marker = raycaster.intersectObjects(visibleMarkers, false)[0];
+    if (marker && marker.distance < (earthHit?.distance ?? Infinity)) {
+      return {region: store.getRegion(marker.object.userData.regionId)};
+    }
     if (!earthHit) return null;
     const local = earthGroup.worldToLocal(earthHit.point.clone());
     const lonLat = vectorToGeographic(local);
     const country = countries.find(feature => window.d3.geoContains(feature, lonLat));
     if (!country) return null;
-    const region = regionByNumeric.get(numericKey(country.id));
-    return region?.id === 'GBR' ? null : region ? {region} : null;
+    const region = store.getRegionForFeature(country);
+    return region && store.countFor(region) > 0 ? {region} : null;
   }
 
-  function showTooltip(event, person) {
-    if (!person) {tooltip.hidden = true; return;}
-    tooltip.textContent = `${person.datasetId} · ${person.displayId}`;
+  function showTooltip(event, hit) {
+    if (!hit) {tooltip.hidden = true; return;}
+    tooltip.textContent = hit.person ? `${hit.person.datasetId} · ${hit.person.displayId}` : store.regionName(hit.region);
     const rect = host.getBoundingClientRect();
     tooltip.style.left = `${Math.max(8, Math.min(rect.width - 170, event.clientX - rect.left + 12))}px`;
     tooltip.style.top = `${Math.max(8, event.clientY - rect.top - 30)}px`;
@@ -495,7 +497,7 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
     if (event.pointerType === 'touch') return;
     const hit = pick(event);
     canvas.style.cursor = hit ? 'pointer' : 'grab';
-    showTooltip(event, hit?.person);
+    showTooltip(event, hit);
   });
   on(canvas, 'pointerup', event => {
     const moved = manualDrag?.id === event.pointerId && manualDrag.moved;

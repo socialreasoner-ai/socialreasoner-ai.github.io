@@ -6,8 +6,16 @@
     "respondentKey": "person_id within each dataset across train and test",
     "geographyCohort": "manuscript geography counts",
     "countUnit": "unweighted respondents",
-    "scope": "Age labels are kept in their native survey groups. No age ranges are subdivided or estimated.",
-    "cohortDifference": "The clean source has 18 fewer respondents than the manuscript geography; those ages are unknown."
+    "scope": "The nine original surveys retain their reported age groups. Age sources for the three behavioral downloads are documented below.",
+    "cohortDifference": "The clean source has 18 fewer respondents than the manuscript geography; those ages are unknown.",
+    "behavioralRelease": {
+      "respondentKey": "respondent_id within each release across train.jsonl and test.jsonl",
+      "ageField": "Personal Information in the release prompt",
+      "CPS": "Age in years, displayed in six age bands.",
+      "SDI": "Age in years, displayed in six age bands. Ages outside the published sample range of 18–89 are unavailable in the histogram.",
+      "SDIStudy": "https://doi.org/10.1073/pnas.2111091119",
+      "VAPP": "Six age groups provided in the survey data."
+    }
   },
   "datasets": [
     {
@@ -5496,16 +5504,3328 @@
         "manuscriptCohortGap": 0
       },
       "sourceRows": 24649
+    },
+    {
+      "id": "CPS",
+      "bins": [
+        {
+          "id": "age_18_29",
+          "label": "18-29",
+          "lower": 18,
+          "upper": 29
+        },
+        {
+          "id": "age_30_39",
+          "label": "30-39",
+          "lower": 30,
+          "upper": 39
+        },
+        {
+          "id": "age_40_49",
+          "label": "40-49",
+          "lower": 40,
+          "upper": 49
+        },
+        {
+          "id": "age_50_59",
+          "label": "50-59",
+          "lower": 50,
+          "upper": 59
+        },
+        {
+          "id": "age_60_69",
+          "label": "60-69",
+          "lower": 60,
+          "upper": 69
+        },
+        {
+          "id": "age_70_plus",
+          "label": "70+",
+          "lower": 70,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "from_years",
+          "regionIds": [
+            "ARE",
+            "ARM",
+            "AUS",
+            "AUT",
+            "BEL",
+            "BGR",
+            "BRA",
+            "CAN",
+            "CHE",
+            "CHL",
+            "CHN",
+            "CZE",
+            "DEU",
+            "DNK",
+            "DZA",
+            "ECU",
+            "ESP",
+            "FIN",
+            "FRA",
+            "GHA",
+            "GMB",
+            "GRC",
+            "IND",
+            "IRL",
+            "ISR",
+            "ITA",
+            "JPN",
+            "KOR",
+            "LKA",
+            "LVA",
+            "MAR",
+            "MEX",
+            "MKD",
+            "NGA",
+            "NLD",
+            "NOR",
+            "NZL",
+            "PER",
+            "PHL",
+            "POL",
+            "PRT",
+            "ROU",
+            "RUS",
+            "SAU",
+            "SDN",
+            "SGP",
+            "SRB",
+            "SVK",
+            "SVN",
+            "SWE",
+            "THA",
+            "TUR",
+            "TWN",
+            "UK",
+            "UKR",
+            "URY",
+            "USA",
+            "VEN",
+            "VNM",
+            "ZAF"
+          ],
+          "binIds": [
+            "age_18_29",
+            "age_30_39",
+            "age_40_49",
+            "age_50_59",
+            "age_60_69",
+            "age_70_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "ARE",
+          "schemeId": "from_years",
+          "counts": [
+            126,
+            203,
+            61,
+            26,
+            8,
+            0
+          ],
+          "known": 424,
+          "unknown": 0,
+          "sourceRespondents": 424,
+          "releaseRespondents": 424,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ARM",
+          "schemeId": "from_years",
+          "counts": [
+            141,
+            26,
+            19,
+            16,
+            8,
+            3
+          ],
+          "known": 213,
+          "unknown": 0,
+          "sourceRespondents": 213,
+          "releaseRespondents": 213,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "AUS",
+          "schemeId": "from_years",
+          "counts": [
+            145,
+            199,
+            138,
+            140,
+            163,
+            57
+          ],
+          "known": 842,
+          "unknown": 0,
+          "sourceRespondents": 842,
+          "releaseRespondents": 842,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "AUT",
+          "schemeId": "from_years",
+          "counts": [
+            82,
+            89,
+            51,
+            43,
+            25,
+            2
+          ],
+          "known": 292,
+          "unknown": 0,
+          "sourceRespondents": 292,
+          "releaseRespondents": 292,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "BEL",
+          "schemeId": "from_years",
+          "counts": [
+            53,
+            64,
+            45,
+            49,
+            74,
+            33
+          ],
+          "known": 318,
+          "unknown": 0,
+          "sourceRespondents": 318,
+          "releaseRespondents": 318,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "BGR",
+          "schemeId": "from_years",
+          "counts": [
+            124,
+            145,
+            146,
+            117,
+            52,
+            6
+          ],
+          "known": 590,
+          "unknown": 0,
+          "sourceRespondents": 590,
+          "releaseRespondents": 590,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "BRA",
+          "schemeId": "from_years",
+          "counts": [
+            256,
+            197,
+            156,
+            115,
+            60,
+            18
+          ],
+          "known": 802,
+          "unknown": 0,
+          "sourceRespondents": 802,
+          "releaseRespondents": 802,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CAN",
+          "schemeId": "from_years",
+          "counts": [
+            564,
+            63,
+            48,
+            50,
+            45,
+            22
+          ],
+          "known": 792,
+          "unknown": 0,
+          "sourceRespondents": 792,
+          "releaseRespondents": 792,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CHE",
+          "schemeId": "from_years",
+          "counts": [
+            117,
+            154,
+            156,
+            145,
+            85,
+            37
+          ],
+          "known": 694,
+          "unknown": 0,
+          "sourceRespondents": 694,
+          "releaseRespondents": 694,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CHL",
+          "schemeId": "from_years",
+          "counts": [
+            106,
+            49,
+            37,
+            41,
+            38,
+            39
+          ],
+          "known": 310,
+          "unknown": 0,
+          "sourceRespondents": 310,
+          "releaseRespondents": 310,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CHN",
+          "schemeId": "from_years",
+          "counts": [
+            455,
+            259,
+            38,
+            16,
+            0,
+            0
+          ],
+          "known": 768,
+          "unknown": 0,
+          "sourceRespondents": 768,
+          "releaseRespondents": 768,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CZE",
+          "schemeId": "from_years",
+          "counts": [
+            284,
+            38,
+            12,
+            10,
+            10,
+            1
+          ],
+          "known": 355,
+          "unknown": 0,
+          "sourceRespondents": 355,
+          "releaseRespondents": 355,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "DEU",
+          "schemeId": "from_years",
+          "counts": [
+            169,
+            208,
+            155,
+            258,
+            200,
+            79
+          ],
+          "known": 1069,
+          "unknown": 0,
+          "sourceRespondents": 1069,
+          "releaseRespondents": 1069,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "DNK",
+          "schemeId": "from_years",
+          "counts": [
+            71,
+            62,
+            58,
+            69,
+            75,
+            59
+          ],
+          "known": 394,
+          "unknown": 0,
+          "sourceRespondents": 394,
+          "releaseRespondents": 394,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "DZA",
+          "schemeId": "from_years",
+          "counts": [
+            155,
+            100,
+            72,
+            20,
+            1,
+            0
+          ],
+          "known": 348,
+          "unknown": 0,
+          "sourceRespondents": 348,
+          "releaseRespondents": 348,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ECU",
+          "schemeId": "from_years",
+          "counts": [
+            172,
+            141,
+            89,
+            41,
+            9,
+            1
+          ],
+          "known": 453,
+          "unknown": 0,
+          "sourceRespondents": 453,
+          "releaseRespondents": 453,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ESP",
+          "schemeId": "from_years",
+          "counts": [
+            58,
+            71,
+            68,
+            45,
+            48,
+            24
+          ],
+          "known": 314,
+          "unknown": 0,
+          "sourceRespondents": 314,
+          "releaseRespondents": 314,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "FIN",
+          "schemeId": "from_years",
+          "counts": [
+            99,
+            104,
+            94,
+            70,
+            65,
+            18
+          ],
+          "known": 450,
+          "unknown": 0,
+          "sourceRespondents": 450,
+          "releaseRespondents": 450,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "FRA",
+          "schemeId": "from_years",
+          "counts": [
+            172,
+            221,
+            206,
+            213,
+            250,
+            79
+          ],
+          "known": 1141,
+          "unknown": 0,
+          "sourceRespondents": 1141,
+          "releaseRespondents": 1141,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "GHA",
+          "schemeId": "from_years",
+          "counts": [
+            180,
+            100,
+            22,
+            7,
+            4,
+            0
+          ],
+          "known": 313,
+          "unknown": 0,
+          "sourceRespondents": 313,
+          "releaseRespondents": 313,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "GMB",
+          "schemeId": "from_years",
+          "counts": [
+            204,
+            35,
+            7,
+            1,
+            2,
+            0
+          ],
+          "known": 249,
+          "unknown": 0,
+          "sourceRespondents": 249,
+          "releaseRespondents": 249,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "GRC",
+          "schemeId": "from_years",
+          "counts": [
+            104,
+            118,
+            132,
+            92,
+            18,
+            3
+          ],
+          "known": 467,
+          "unknown": 0,
+          "sourceRespondents": 467,
+          "releaseRespondents": 467,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "IND",
+          "schemeId": "from_years",
+          "counts": [
+            392,
+            142,
+            27,
+            13,
+            4,
+            1
+          ],
+          "known": 579,
+          "unknown": 0,
+          "sourceRespondents": 579,
+          "releaseRespondents": 579,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "IRL",
+          "schemeId": "from_years",
+          "counts": [
+            354,
+            140,
+            45,
+            16,
+            6,
+            0
+          ],
+          "known": 561,
+          "unknown": 0,
+          "sourceRespondents": 561,
+          "releaseRespondents": 561,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ISR",
+          "schemeId": "from_years",
+          "counts": [
+            235,
+            198,
+            173,
+            150,
+            73,
+            0
+          ],
+          "known": 829,
+          "unknown": 0,
+          "sourceRespondents": 829,
+          "releaseRespondents": 829,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ITA",
+          "schemeId": "from_years",
+          "counts": [
+            565,
+            231,
+            159,
+            112,
+            82,
+            20
+          ],
+          "known": 1169,
+          "unknown": 0,
+          "sourceRespondents": 1169,
+          "releaseRespondents": 1169,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "JPN",
+          "schemeId": "from_years",
+          "counts": [
+            77,
+            250,
+            377,
+            265,
+            115,
+            35
+          ],
+          "known": 1119,
+          "unknown": 0,
+          "sourceRespondents": 1119,
+          "releaseRespondents": 1119,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "KOR",
+          "schemeId": "from_years",
+          "counts": [
+            89,
+            130,
+            104,
+            128,
+            106,
+            1
+          ],
+          "known": 558,
+          "unknown": 0,
+          "sourceRespondents": 558,
+          "releaseRespondents": 558,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "LKA",
+          "schemeId": "from_years",
+          "counts": [
+            166,
+            68,
+            20,
+            6,
+            1,
+            0
+          ],
+          "known": 261,
+          "unknown": 0,
+          "sourceRespondents": 261,
+          "releaseRespondents": 261,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "LVA",
+          "schemeId": "from_years",
+          "counts": [
+            31,
+            48,
+            50,
+            41,
+            46,
+            17
+          ],
+          "known": 233,
+          "unknown": 0,
+          "sourceRespondents": 233,
+          "releaseRespondents": 233,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "MAR",
+          "schemeId": "from_years",
+          "counts": [
+            127,
+            93,
+            67,
+            25,
+            9,
+            2
+          ],
+          "known": 323,
+          "unknown": 0,
+          "sourceRespondents": 323,
+          "releaseRespondents": 323,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "MEX",
+          "schemeId": "from_years",
+          "counts": [
+            106,
+            105,
+            72,
+            60,
+            21,
+            2
+          ],
+          "known": 366,
+          "unknown": 0,
+          "sourceRespondents": 366,
+          "releaseRespondents": 366,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "MKD",
+          "schemeId": "from_years",
+          "counts": [
+            192,
+            21,
+            37,
+            13,
+            3,
+            4
+          ],
+          "known": 270,
+          "unknown": 0,
+          "sourceRespondents": 270,
+          "releaseRespondents": 270,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "NGA",
+          "schemeId": "from_years",
+          "counts": [
+            442,
+            402,
+            153,
+            52,
+            13,
+            0
+          ],
+          "known": 1062,
+          "unknown": 0,
+          "sourceRespondents": 1062,
+          "releaseRespondents": 1062,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "NLD",
+          "schemeId": "from_years",
+          "counts": [
+            473,
+            168,
+            129,
+            222,
+            175,
+            72
+          ],
+          "known": 1239,
+          "unknown": 0,
+          "sourceRespondents": 1239,
+          "releaseRespondents": 1239,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "NOR",
+          "schemeId": "from_years",
+          "counts": [
+            48,
+            99,
+            159,
+            176,
+            150,
+            104
+          ],
+          "known": 736,
+          "unknown": 0,
+          "sourceRespondents": 736,
+          "releaseRespondents": 736,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "NZL",
+          "schemeId": "from_years",
+          "counts": [
+            147,
+            173,
+            149,
+            145,
+            137,
+            75
+          ],
+          "known": 826,
+          "unknown": 0,
+          "sourceRespondents": 826,
+          "releaseRespondents": 826,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "PER",
+          "schemeId": "from_years",
+          "counts": [
+            145,
+            20,
+            4,
+            4,
+            0,
+            0
+          ],
+          "known": 173,
+          "unknown": 0,
+          "sourceRespondents": 173,
+          "releaseRespondents": 173,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "PHL",
+          "schemeId": "from_years",
+          "counts": [
+            76,
+            21,
+            6,
+            3,
+            0,
+            0
+          ],
+          "known": 106,
+          "unknown": 0,
+          "sourceRespondents": 106,
+          "releaseRespondents": 106,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "POL",
+          "schemeId": "from_years",
+          "counts": [
+            339,
+            312,
+            260,
+            242,
+            258,
+            125
+          ],
+          "known": 1536,
+          "unknown": 0,
+          "sourceRespondents": 1536,
+          "releaseRespondents": 1536,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "PRT",
+          "schemeId": "from_years",
+          "counts": [
+            300,
+            67,
+            35,
+            7,
+            1,
+            0
+          ],
+          "known": 410,
+          "unknown": 0,
+          "sourceRespondents": 410,
+          "releaseRespondents": 410,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ROU",
+          "schemeId": "from_years",
+          "counts": [
+            65,
+            89,
+            75,
+            63,
+            29,
+            11
+          ],
+          "known": 332,
+          "unknown": 0,
+          "sourceRespondents": 332,
+          "releaseRespondents": 332,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "RUS",
+          "schemeId": "from_years",
+          "counts": [
+            421,
+            179,
+            116,
+            47,
+            18,
+            4
+          ],
+          "known": 785,
+          "unknown": 0,
+          "sourceRespondents": 785,
+          "releaseRespondents": 785,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SAU",
+          "schemeId": "from_years",
+          "counts": [
+            96,
+            164,
+            59,
+            13,
+            7,
+            0
+          ],
+          "known": 339,
+          "unknown": 0,
+          "sourceRespondents": 339,
+          "releaseRespondents": 339,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SDN",
+          "schemeId": "from_years",
+          "counts": [
+            160,
+            258,
+            59,
+            6,
+            0,
+            0
+          ],
+          "known": 483,
+          "unknown": 0,
+          "sourceRespondents": 483,
+          "releaseRespondents": 483,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SGP",
+          "schemeId": "from_years",
+          "counts": [
+            137,
+            130,
+            96,
+            43,
+            9,
+            2
+          ],
+          "known": 417,
+          "unknown": 0,
+          "sourceRespondents": 417,
+          "releaseRespondents": 417,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SRB",
+          "schemeId": "from_years",
+          "counts": [
+            32,
+            35,
+            54,
+            37,
+            18,
+            1
+          ],
+          "known": 177,
+          "unknown": 0,
+          "sourceRespondents": 177,
+          "releaseRespondents": 177,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SVK",
+          "schemeId": "from_years",
+          "counts": [
+            129,
+            201,
+            151,
+            95,
+            109,
+            54
+          ],
+          "known": 739,
+          "unknown": 0,
+          "sourceRespondents": 739,
+          "releaseRespondents": 739,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SVN",
+          "schemeId": "from_years",
+          "counts": [
+            121,
+            98,
+            68,
+            25,
+            8,
+            0
+          ],
+          "known": 320,
+          "unknown": 0,
+          "sourceRespondents": 320,
+          "releaseRespondents": 320,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SWE",
+          "schemeId": "from_years",
+          "counts": [
+            501,
+            461,
+            318,
+            302,
+            200,
+            67
+          ],
+          "known": 1849,
+          "unknown": 0,
+          "sourceRespondents": 1849,
+          "releaseRespondents": 1849,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "THA",
+          "schemeId": "from_years",
+          "counts": [
+            107,
+            99,
+            87,
+            42,
+            17,
+            1
+          ],
+          "known": 353,
+          "unknown": 0,
+          "sourceRespondents": 353,
+          "releaseRespondents": 353,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "TUR",
+          "schemeId": "from_years",
+          "counts": [
+            208,
+            94,
+            74,
+            60,
+            14,
+            3
+          ],
+          "known": 453,
+          "unknown": 0,
+          "sourceRespondents": 453,
+          "releaseRespondents": 453,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "TWN",
+          "schemeId": "from_years",
+          "counts": [
+            105,
+            57,
+            23,
+            10,
+            3,
+            0
+          ],
+          "known": 198,
+          "unknown": 0,
+          "sourceRespondents": 198,
+          "releaseRespondents": 198,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "UK",
+          "schemeId": "from_years",
+          "counts": [
+            481,
+            364,
+            260,
+            214,
+            200,
+            66
+          ],
+          "known": 1585,
+          "unknown": 0,
+          "sourceRespondents": 1585,
+          "releaseRespondents": 1585,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "UKR",
+          "schemeId": "from_years",
+          "counts": [
+            174,
+            68,
+            38,
+            11,
+            4,
+            1
+          ],
+          "known": 296,
+          "unknown": 0,
+          "sourceRespondents": 296,
+          "releaseRespondents": 296,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "URY",
+          "schemeId": "from_years",
+          "counts": [
+            87,
+            85,
+            70,
+            44,
+            14,
+            0
+          ],
+          "known": 300,
+          "unknown": 0,
+          "sourceRespondents": 300,
+          "releaseRespondents": 300,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "USA",
+          "schemeId": "from_years",
+          "counts": [
+            1109,
+            1550,
+            1203,
+            1090,
+            1144,
+            570
+          ],
+          "known": 6666,
+          "unknown": 0,
+          "sourceRespondents": 6666,
+          "releaseRespondents": 6666,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "VEN",
+          "schemeId": "from_years",
+          "counts": [
+            4,
+            10,
+            13,
+            20,
+            6,
+            9
+          ],
+          "known": 62,
+          "unknown": 0,
+          "sourceRespondents": 62,
+          "releaseRespondents": 62,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "VNM",
+          "schemeId": "from_years",
+          "counts": [
+            185,
+            9,
+            10,
+            4,
+            1,
+            0
+          ],
+          "known": 209,
+          "unknown": 0,
+          "sourceRespondents": 209,
+          "releaseRespondents": 209,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ZAF",
+          "schemeId": "from_years",
+          "counts": [
+            144,
+            119,
+            76,
+            55,
+            19,
+            1
+          ],
+          "known": 414,
+          "unknown": 0,
+          "sourceRespondents": 414,
+          "releaseRespondents": 414,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        }
+      ],
+      "totals": {
+        "known": 39931,
+        "unknown": 0,
+        "sourceRespondents": 39931,
+        "releaseRespondents": 39931,
+        "sourceMissingAge": 0,
+        "sourceAgeOutsideStudyRange": 0
+      },
+      "sourceRows": 359379
+    },
+    {
+      "id": "VAPP",
+      "bins": [
+        {
+          "id": "age_18_29",
+          "label": "18-29",
+          "lower": 18,
+          "upper": 29
+        },
+        {
+          "id": "age_30_39",
+          "label": "30-39",
+          "lower": 30,
+          "upper": 39
+        },
+        {
+          "id": "age_40_49",
+          "label": "40-49",
+          "lower": 40,
+          "upper": 49
+        },
+        {
+          "id": "age_50_59",
+          "label": "50-59",
+          "lower": 50,
+          "upper": 59
+        },
+        {
+          "id": "age_60_69",
+          "label": "60-69",
+          "lower": 60,
+          "upper": 69
+        },
+        {
+          "id": "age_70_plus",
+          "label": "70+",
+          "lower": 70,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "native",
+          "regionIds": [
+            "BRA",
+            "CAN",
+            "CHN",
+            "DEU",
+            "ECU",
+            "ESP",
+            "FRA",
+            "GHA",
+            "IND",
+            "ITA",
+            "KEN",
+            "KOR",
+            "MEX",
+            "NGA",
+            "PER",
+            "POL",
+            "RUS",
+            "SGP",
+            "SWE",
+            "TUR",
+            "UK",
+            "USA",
+            "ZAF"
+          ],
+          "binIds": [
+            "age_18_29",
+            "age_30_39",
+            "age_40_49",
+            "age_50_59",
+            "age_60_69",
+            "age_70_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "BRA",
+          "schemeId": "native",
+          "counts": [
+            150,
+            177,
+            124,
+            232,
+            224,
+            93
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CAN",
+          "schemeId": "native",
+          "counts": [
+            144,
+            136,
+            165,
+            198,
+            222,
+            135
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CHN",
+          "schemeId": "native",
+          "counts": [
+            162,
+            207,
+            105,
+            228,
+            185,
+            113
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "DEU",
+          "schemeId": "native",
+          "counts": [
+            149,
+            138,
+            173,
+            197,
+            213,
+            130
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ECU",
+          "schemeId": "native",
+          "counts": [
+            303,
+            264,
+            168,
+            186,
+            64,
+            15
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ESP",
+          "schemeId": "native",
+          "counts": [
+            124,
+            228,
+            285,
+            107,
+            167,
+            89
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "FRA",
+          "schemeId": "native",
+          "counts": [
+            149,
+            117,
+            188,
+            191,
+            240,
+            115
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "GHA",
+          "schemeId": "native",
+          "counts": [
+            366,
+            495,
+            84,
+            38,
+            13,
+            4
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "IND",
+          "schemeId": "native",
+          "counts": [
+            178,
+            209,
+            109,
+            246,
+            199,
+            59
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ITA",
+          "schemeId": "native",
+          "counts": [
+            150,
+            129,
+            172,
+            233,
+            205,
+            111
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "KEN",
+          "schemeId": "native",
+          "counts": [
+            308,
+            332,
+            85,
+            208,
+            53,
+            14
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "KOR",
+          "schemeId": "native",
+          "counts": [
+            166,
+            139,
+            193,
+            245,
+            225,
+            32
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "MEX",
+          "schemeId": "native",
+          "counts": [
+            191,
+            199,
+            143,
+            265,
+            145,
+            57
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "NGA",
+          "schemeId": "native",
+          "counts": [
+            260,
+            298,
+            96,
+            262,
+            69,
+            15
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "PER",
+          "schemeId": "native",
+          "counts": [
+            524,
+            158,
+            126,
+            107,
+            73,
+            12
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "POL",
+          "schemeId": "native",
+          "counts": [
+            150,
+            160,
+            140,
+            225,
+            214,
+            111
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "RUS",
+          "schemeId": "native",
+          "counts": [
+            205,
+            287,
+            246,
+            215,
+            112,
+            19
+          ],
+          "known": 1084,
+          "unknown": 0,
+          "sourceRespondents": 1084,
+          "releaseRespondents": 1084,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SGP",
+          "schemeId": "native",
+          "counts": [
+            177,
+            181,
+            185,
+            267,
+            146,
+            44
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SWE",
+          "schemeId": "native",
+          "counts": [
+            130,
+            224,
+            215,
+            125,
+            162,
+            144
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "TUR",
+          "schemeId": "native",
+          "counts": [
+            234,
+            361,
+            244,
+            113,
+            46,
+            2
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "UK",
+          "schemeId": "native",
+          "counts": [
+            148,
+            148,
+            155,
+            199,
+            208,
+            142
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "USA",
+          "schemeId": "native",
+          "counts": [
+            149,
+            133,
+            165,
+            182,
+            211,
+            160
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ZAF",
+          "schemeId": "native",
+          "counts": [
+            183,
+            213,
+            116,
+            227,
+            197,
+            64
+          ],
+          "known": 1000,
+          "unknown": 0,
+          "sourceRespondents": 1000,
+          "releaseRespondents": 1000,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        }
+      ],
+      "totals": {
+        "known": 23084,
+        "unknown": 0,
+        "sourceRespondents": 23084,
+        "releaseRespondents": 23084,
+        "sourceMissingAge": 0,
+        "sourceAgeOutsideStudyRange": 0
+      },
+      "sourceRows": 135841
+    },
+    {
+      "id": "SDI",
+      "bins": [
+        {
+          "id": "age_18_29",
+          "label": "18-29",
+          "lower": 18,
+          "upper": 29
+        },
+        {
+          "id": "age_30_39",
+          "label": "30-39",
+          "lower": 30,
+          "upper": 39
+        },
+        {
+          "id": "age_40_49",
+          "label": "40-49",
+          "lower": 40,
+          "upper": 49
+        },
+        {
+          "id": "age_50_59",
+          "label": "50-59",
+          "lower": 50,
+          "upper": 59
+        },
+        {
+          "id": "age_60_69",
+          "label": "60-69",
+          "lower": 60,
+          "upper": 69
+        },
+        {
+          "id": "age_70_plus",
+          "label": "70+",
+          "lower": 70,
+          "upper": null
+        }
+      ],
+      "nativeSchemes": [
+        {
+          "id": "from_years",
+          "regionIds": [
+            "ARE",
+            "ARG",
+            "ARM",
+            "AUS",
+            "AUT",
+            "BEL",
+            "BGD",
+            "BGR",
+            "BHR",
+            "BIH",
+            "BRA",
+            "CAN",
+            "CHE",
+            "CHL",
+            "CHN",
+            "COL",
+            "CRI",
+            "CYP",
+            "CZE",
+            "DEU",
+            "ECU",
+            "EGY",
+            "ESP",
+            "FIN",
+            "FRA",
+            "GRC",
+            "HKG",
+            "HRV",
+            "HUN",
+            "IND",
+            "IRL",
+            "IRN",
+            "ISR",
+            "ITA",
+            "JPN",
+            "KEN",
+            "KOR",
+            "MAR",
+            "MDA",
+            "MEX",
+            "MKD",
+            "MYS",
+            "NGA",
+            "NLD",
+            "NOR",
+            "NZL",
+            "PAK",
+            "PHL",
+            "POL",
+            "PRT",
+            "ROU",
+            "RUS",
+            "SGP",
+            "SRB",
+            "SVK",
+            "SVN",
+            "SWE",
+            "THA",
+            "TUR",
+            "TWN",
+            "UK",
+            "USA",
+            "VGB",
+            "XKX",
+            "ZAF"
+          ],
+          "binIds": [
+            "age_18_29",
+            "age_30_39",
+            "age_40_49",
+            "age_50_59",
+            "age_60_69",
+            "age_70_plus"
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "regionId": "ARE",
+          "schemeId": "from_years",
+          "counts": [
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 2,
+          "unknown": 0,
+          "sourceRespondents": 2,
+          "releaseRespondents": 2,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ARG",
+          "schemeId": "from_years",
+          "counts": [
+            8,
+            5,
+            4,
+            3,
+            3,
+            0
+          ],
+          "known": 23,
+          "unknown": 0,
+          "sourceRespondents": 23,
+          "releaseRespondents": 23,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ARM",
+          "schemeId": "from_years",
+          "counts": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "known": 3,
+          "unknown": 0,
+          "sourceRespondents": 3,
+          "releaseRespondents": 3,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "AUS",
+          "schemeId": "from_years",
+          "counts": [
+            96,
+            14,
+            6,
+            2,
+            1,
+            0
+          ],
+          "known": 119,
+          "unknown": 4,
+          "sourceRespondents": 123,
+          "releaseRespondents": 123,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 4
+          }
+        },
+        {
+          "regionId": "AUT",
+          "schemeId": "from_years",
+          "counts": [
+            46,
+            20,
+            11,
+            18,
+            15,
+            0
+          ],
+          "known": 110,
+          "unknown": 1,
+          "sourceRespondents": 111,
+          "releaseRespondents": 111,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 1
+          }
+        },
+        {
+          "regionId": "BEL",
+          "schemeId": "from_years",
+          "counts": [
+            29,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "known": 30,
+          "unknown": 0,
+          "sourceRespondents": 30,
+          "releaseRespondents": 30,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "BGD",
+          "schemeId": "from_years",
+          "counts": [
+            5,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 6,
+          "unknown": 0,
+          "sourceRespondents": 6,
+          "releaseRespondents": 6,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "BGR",
+          "schemeId": "from_years",
+          "counts": [
+            13,
+            4,
+            0,
+            2,
+            0,
+            0
+          ],
+          "known": 19,
+          "unknown": 0,
+          "sourceRespondents": 19,
+          "releaseRespondents": 19,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "BHR",
+          "schemeId": "from_years",
+          "counts": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 1,
+          "unknown": 0,
+          "sourceRespondents": 1,
+          "releaseRespondents": 1,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "BIH",
+          "schemeId": "from_years",
+          "counts": [
+            3,
+            0,
+            2,
+            0,
+            0,
+            0
+          ],
+          "known": 5,
+          "unknown": 0,
+          "sourceRespondents": 5,
+          "releaseRespondents": 5,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "BRA",
+          "schemeId": "from_years",
+          "counts": [
+            9,
+            11,
+            1,
+            1,
+            2,
+            0
+          ],
+          "known": 24,
+          "unknown": 0,
+          "sourceRespondents": 24,
+          "releaseRespondents": 24,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CAN",
+          "schemeId": "from_years",
+          "counts": [
+            56,
+            4,
+            2,
+            0,
+            0,
+            0
+          ],
+          "known": 62,
+          "unknown": 2,
+          "sourceRespondents": 64,
+          "releaseRespondents": 64,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 2
+          }
+        },
+        {
+          "regionId": "CHE",
+          "schemeId": "from_years",
+          "counts": [
+            18,
+            22,
+            10,
+            10,
+            12,
+            9
+          ],
+          "known": 81,
+          "unknown": 0,
+          "sourceRespondents": 81,
+          "releaseRespondents": 81,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CHL",
+          "schemeId": "from_years",
+          "counts": [
+            26,
+            17,
+            9,
+            3,
+            5,
+            1
+          ],
+          "known": 61,
+          "unknown": 0,
+          "sourceRespondents": 61,
+          "releaseRespondents": 61,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CHN",
+          "schemeId": "from_years",
+          "counts": [
+            45,
+            12,
+            12,
+            13,
+            11,
+            0
+          ],
+          "known": 93,
+          "unknown": 0,
+          "sourceRespondents": 93,
+          "releaseRespondents": 93,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "COL",
+          "schemeId": "from_years",
+          "counts": [
+            14,
+            4,
+            2,
+            2,
+            0,
+            0
+          ],
+          "known": 22,
+          "unknown": 0,
+          "sourceRespondents": 22,
+          "releaseRespondents": 22,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CRI",
+          "schemeId": "from_years",
+          "counts": [
+            19,
+            10,
+            6,
+            2,
+            1,
+            0
+          ],
+          "known": 38,
+          "unknown": 2,
+          "sourceRespondents": 40,
+          "releaseRespondents": 40,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 2
+          }
+        },
+        {
+          "regionId": "CYP",
+          "schemeId": "from_years",
+          "counts": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "known": 1,
+          "unknown": 0,
+          "sourceRespondents": 1,
+          "releaseRespondents": 1,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "CZE",
+          "schemeId": "from_years",
+          "counts": [
+            41,
+            16,
+            3,
+            3,
+            0,
+            0
+          ],
+          "known": 63,
+          "unknown": 0,
+          "sourceRespondents": 63,
+          "releaseRespondents": 63,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "DEU",
+          "schemeId": "from_years",
+          "counts": [
+            56,
+            7,
+            5,
+            1,
+            0,
+            0
+          ],
+          "known": 69,
+          "unknown": 0,
+          "sourceRespondents": 69,
+          "releaseRespondents": 69,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ECU",
+          "schemeId": "from_years",
+          "counts": [
+            8,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 9,
+          "unknown": 0,
+          "sourceRespondents": 9,
+          "releaseRespondents": 9,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "EGY",
+          "schemeId": "from_years",
+          "counts": [
+            26,
+            34,
+            41,
+            33,
+            22,
+            1
+          ],
+          "known": 157,
+          "unknown": 0,
+          "sourceRespondents": 157,
+          "releaseRespondents": 157,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ESP",
+          "schemeId": "from_years",
+          "counts": [
+            2,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "known": 3,
+          "unknown": 0,
+          "sourceRespondents": 3,
+          "releaseRespondents": 3,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "FIN",
+          "schemeId": "from_years",
+          "counts": [
+            12,
+            5,
+            9,
+            7,
+            9,
+            0
+          ],
+          "known": 42,
+          "unknown": 0,
+          "sourceRespondents": 42,
+          "releaseRespondents": 42,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "FRA",
+          "schemeId": "from_years",
+          "counts": [
+            100,
+            10,
+            9,
+            9,
+            15,
+            4
+          ],
+          "known": 147,
+          "unknown": 0,
+          "sourceRespondents": 147,
+          "releaseRespondents": 147,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "GRC",
+          "schemeId": "from_years",
+          "counts": [
+            13,
+            3,
+            2,
+            1,
+            0,
+            0
+          ],
+          "known": 19,
+          "unknown": 0,
+          "sourceRespondents": 19,
+          "releaseRespondents": 19,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "HKG",
+          "schemeId": "from_years",
+          "counts": [
+            7,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 7,
+          "unknown": 0,
+          "sourceRespondents": 7,
+          "releaseRespondents": 7,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "HRV",
+          "schemeId": "from_years",
+          "counts": [
+            160,
+            29,
+            30,
+            20,
+            6,
+            2
+          ],
+          "known": 247,
+          "unknown": 2,
+          "sourceRespondents": 249,
+          "releaseRespondents": 249,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 2
+          }
+        },
+        {
+          "regionId": "HUN",
+          "schemeId": "from_years",
+          "counts": [
+            24,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 25,
+          "unknown": 0,
+          "sourceRespondents": 25,
+          "releaseRespondents": 25,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "IND",
+          "schemeId": "from_years",
+          "counts": [
+            5,
+            0,
+            6,
+            0,
+            0,
+            0
+          ],
+          "known": 11,
+          "unknown": 0,
+          "sourceRespondents": 11,
+          "releaseRespondents": 11,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "IRL",
+          "schemeId": "from_years",
+          "counts": [
+            4,
+            2,
+            1,
+            0,
+            1,
+            1
+          ],
+          "known": 9,
+          "unknown": 0,
+          "sourceRespondents": 9,
+          "releaseRespondents": 9,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "IRN",
+          "schemeId": "from_years",
+          "counts": [
+            14,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "known": 16,
+          "unknown": 0,
+          "sourceRespondents": 16,
+          "releaseRespondents": 16,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ISR",
+          "schemeId": "from_years",
+          "counts": [
+            16,
+            7,
+            2,
+            2,
+            1,
+            0
+          ],
+          "known": 28,
+          "unknown": 0,
+          "sourceRespondents": 28,
+          "releaseRespondents": 28,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ITA",
+          "schemeId": "from_years",
+          "counts": [
+            17,
+            6,
+            5,
+            1,
+            0,
+            0
+          ],
+          "known": 29,
+          "unknown": 0,
+          "sourceRespondents": 29,
+          "releaseRespondents": 29,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "JPN",
+          "schemeId": "from_years",
+          "counts": [
+            22,
+            49,
+            71,
+            55,
+            34,
+            9
+          ],
+          "known": 240,
+          "unknown": 0,
+          "sourceRespondents": 240,
+          "releaseRespondents": 240,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "KEN",
+          "schemeId": "from_years",
+          "counts": [
+            66,
+            62,
+            21,
+            9,
+            1,
+            0
+          ],
+          "known": 159,
+          "unknown": 0,
+          "sourceRespondents": 159,
+          "releaseRespondents": 159,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "KOR",
+          "schemeId": "from_years",
+          "counts": [
+            15,
+            9,
+            11,
+            11,
+            9,
+            0
+          ],
+          "known": 55,
+          "unknown": 0,
+          "sourceRespondents": 55,
+          "releaseRespondents": 55,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "MAR",
+          "schemeId": "from_years",
+          "counts": [
+            7,
+            5,
+            2,
+            1,
+            2,
+            0
+          ],
+          "known": 17,
+          "unknown": 0,
+          "sourceRespondents": 17,
+          "releaseRespondents": 17,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "MDA",
+          "schemeId": "from_years",
+          "counts": [
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 2,
+          "unknown": 0,
+          "sourceRespondents": 2,
+          "releaseRespondents": 2,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "MEX",
+          "schemeId": "from_years",
+          "counts": [
+            36,
+            18,
+            22,
+            12,
+            7,
+            0
+          ],
+          "known": 95,
+          "unknown": 0,
+          "sourceRespondents": 95,
+          "releaseRespondents": 95,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "MKD",
+          "schemeId": "from_years",
+          "counts": [
+            27,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 28,
+          "unknown": 0,
+          "sourceRespondents": 28,
+          "releaseRespondents": 28,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "MYS",
+          "schemeId": "from_years",
+          "counts": [
+            15,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 15,
+          "unknown": 0,
+          "sourceRespondents": 15,
+          "releaseRespondents": 15,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "NGA",
+          "schemeId": "from_years",
+          "counts": [
+            62,
+            53,
+            27,
+            4,
+            5,
+            0
+          ],
+          "known": 151,
+          "unknown": 0,
+          "sourceRespondents": 151,
+          "releaseRespondents": 151,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "NLD",
+          "schemeId": "from_years",
+          "counts": [
+            30,
+            0,
+            3,
+            1,
+            0,
+            0
+          ],
+          "known": 34,
+          "unknown": 0,
+          "sourceRespondents": 34,
+          "releaseRespondents": 34,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "NOR",
+          "schemeId": "from_years",
+          "counts": [
+            7,
+            13,
+            16,
+            13,
+            8,
+            3
+          ],
+          "known": 60,
+          "unknown": 0,
+          "sourceRespondents": 60,
+          "releaseRespondents": 60,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "NZL",
+          "schemeId": "from_years",
+          "counts": [
+            33,
+            3,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 36,
+          "unknown": 0,
+          "sourceRespondents": 36,
+          "releaseRespondents": 36,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "PAK",
+          "schemeId": "from_years",
+          "counts": [
+            59,
+            4,
+            0,
+            1,
+            0,
+            0
+          ],
+          "known": 64,
+          "unknown": 1,
+          "sourceRespondents": 65,
+          "releaseRespondents": 65,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 1
+          }
+        },
+        {
+          "regionId": "PHL",
+          "schemeId": "from_years",
+          "counts": [
+            71,
+            3,
+            1,
+            1,
+            0,
+            0
+          ],
+          "known": 76,
+          "unknown": 1,
+          "sourceRespondents": 77,
+          "releaseRespondents": 77,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 1
+          }
+        },
+        {
+          "regionId": "POL",
+          "schemeId": "from_years",
+          "counts": [
+            239,
+            62,
+            57,
+            28,
+            11,
+            1
+          ],
+          "known": 398,
+          "unknown": 7,
+          "sourceRespondents": 405,
+          "releaseRespondents": 405,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 7
+          }
+        },
+        {
+          "regionId": "PRT",
+          "schemeId": "from_years",
+          "counts": [
+            12,
+            9,
+            17,
+            8,
+            0,
+            0
+          ],
+          "known": 46,
+          "unknown": 0,
+          "sourceRespondents": 46,
+          "releaseRespondents": 46,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ROU",
+          "schemeId": "from_years",
+          "counts": [
+            31,
+            19,
+            12,
+            13,
+            11,
+            0
+          ],
+          "known": 86,
+          "unknown": 0,
+          "sourceRespondents": 86,
+          "releaseRespondents": 86,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "RUS",
+          "schemeId": "from_years",
+          "counts": [
+            20,
+            26,
+            17,
+            12,
+            10,
+            0
+          ],
+          "known": 85,
+          "unknown": 0,
+          "sourceRespondents": 85,
+          "releaseRespondents": 85,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SGP",
+          "schemeId": "from_years",
+          "counts": [
+            18,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 18,
+          "unknown": 0,
+          "sourceRespondents": 18,
+          "releaseRespondents": 18,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SRB",
+          "schemeId": "from_years",
+          "counts": [
+            6,
+            3,
+            3,
+            1,
+            0,
+            0
+          ],
+          "known": 13,
+          "unknown": 0,
+          "sourceRespondents": 13,
+          "releaseRespondents": 13,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SVK",
+          "schemeId": "from_years",
+          "counts": [
+            37,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "known": 39,
+          "unknown": 1,
+          "sourceRespondents": 40,
+          "releaseRespondents": 40,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 1
+          }
+        },
+        {
+          "regionId": "SVN",
+          "schemeId": "from_years",
+          "counts": [
+            3,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 5,
+          "unknown": 0,
+          "sourceRespondents": 5,
+          "releaseRespondents": 5,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "SWE",
+          "schemeId": "from_years",
+          "counts": [
+            22,
+            17,
+            17,
+            12,
+            11,
+            0
+          ],
+          "known": 79,
+          "unknown": 0,
+          "sourceRespondents": 79,
+          "releaseRespondents": 79,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "THA",
+          "schemeId": "from_years",
+          "counts": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 1,
+          "unknown": 0,
+          "sourceRespondents": 1,
+          "releaseRespondents": 1,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "TUR",
+          "schemeId": "from_years",
+          "counts": [
+            35,
+            8,
+            5,
+            0,
+            1,
+            0
+          ],
+          "known": 49,
+          "unknown": 0,
+          "sourceRespondents": 49,
+          "releaseRespondents": 49,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "TWN",
+          "schemeId": "from_years",
+          "counts": [
+            11,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 13,
+          "unknown": 1,
+          "sourceRespondents": 14,
+          "releaseRespondents": 14,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 1
+          }
+        },
+        {
+          "regionId": "UK",
+          "schemeId": "from_years",
+          "counts": [
+            71,
+            31,
+            20,
+            19,
+            13,
+            8
+          ],
+          "known": 162,
+          "unknown": 2,
+          "sourceRespondents": 164,
+          "releaseRespondents": 164,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 2
+          }
+        },
+        {
+          "regionId": "USA",
+          "schemeId": "from_years",
+          "counts": [
+            586,
+            32,
+            24,
+            17,
+            22,
+            3
+          ],
+          "known": 684,
+          "unknown": 3,
+          "sourceRespondents": 687,
+          "releaseRespondents": 687,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 3
+          }
+        },
+        {
+          "regionId": "VGB",
+          "schemeId": "from_years",
+          "counts": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 1,
+          "unknown": 0,
+          "sourceRespondents": 1,
+          "releaseRespondents": 1,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "XKX",
+          "schemeId": "from_years",
+          "counts": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "known": 1,
+          "unknown": 0,
+          "sourceRespondents": 1,
+          "releaseRespondents": 1,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        },
+        {
+          "regionId": "ZAF",
+          "schemeId": "from_years",
+          "counts": [
+            30,
+            17,
+            10,
+            14,
+            15,
+            9
+          ],
+          "known": 95,
+          "unknown": 0,
+          "sourceRespondents": 95,
+          "releaseRespondents": 95,
+          "audit": {
+            "sourceMissingAge": 0,
+            "sourceAgeOutsideStudyRange": 0
+          }
+        }
+      ],
+      "totals": {
+        "known": 4388,
+        "unknown": 27,
+        "sourceRespondents": 4415,
+        "releaseRespondents": 4415,
+        "sourceMissingAge": 0,
+        "sourceAgeOutsideStudyRange": 27
+      },
+      "sourceRows": 17660
     }
   ],
   "audit": {
-    "known": 280409,
-    "unknown": 1586,
-    "sourceRespondents": 281977,
+    "known": 347812,
+    "unknown": 1613,
+    "sourceRespondents": 349407,
     "manuscriptRespondents": 281995,
     "sourceMissingAge": 1568,
     "sourceAgeConflicts": 0,
     "manuscriptCohortGap": 18,
-    "sourceRows": 8725648
+    "sourceRows": 9238528,
+    "releaseRespondents": 67430,
+    "sourceAgeOutsideStudyRange": 27,
+    "coverageRespondents": 349425
   }
 }

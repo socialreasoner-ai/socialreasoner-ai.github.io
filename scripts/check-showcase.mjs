@@ -27,7 +27,10 @@ for (const lang of ['en', 'zh', 'fr', 'de', 'ko']) {
 assert(!/(?:\/Users\/|\/Volumes\/|file:\/\/|\/home\/)/.test(JSON.stringify(manifest)),
   'Public showcase includes a local filesystem path');
 assert.equal(manifest.schemaVersion, 1);
-assert.deepEqual(manifest.datasets.map(dataset => dataset.datasetId), datasetIds);
+const behavioral = JSON.parse(readFileSync(resolve(site, 'assets/behavioral-examples.json'), 'utf8'));
+const allIds = [...manifest.datasets, ...behavioral.datasets].map(dataset => dataset.datasetId);
+assert.equal(new Set(allIds).size, allIds.length);
+assert.deepEqual([...allIds].sort(), [...datasetIds].sort());
 const regions = new Map(geography.regions.map(region => [region.id, region]));
 const personKeys = new Set();
 let people = 0;
@@ -121,6 +124,23 @@ for (const group of manifest.datasets) {
   }
   if (group.availability === 'ready') assert.equal(targets[0], targets[1], group.datasetId);
 }
+const helperWindow = {};
+vm.runInNewContext(readFileSync(resolve(site, 'behavioral-examples.js'), 'utf8'), { window: helperWindow });
+for (const fixture of behavioral.datasets) {
+  const group = helperWindow.SocialBehavioralExamples.globeGroup(fixture);
+  const [a, b] = group.participants;
+  assert.equal(group.availability, 'ready');
+  assert.equal(group.participants.length, 2);
+  assert.notEqual(a.regionId, b.regionId);
+  assert.equal(a.target.questionId, b.target.questionId);
+  assert.equal(a.target.question, b.target.question);
+  for (const person of group.participants) {
+    assert.ok(regions.get(person.regionId)?.byDataset[group.datasetId] > 0, `${person.displayId}: map coverage`);
+    assert.ok(existsSync(resolve(site, person.avatar.posterPath)));
+    assert.ok(person.inputPrompt && person.target.options.some(option => option.id === person.observedOptionId));
+    assert.ok(!person.cot);
+  }
+}
 assert.equal(manifest.datasets.length, 9);
 assert.equal(people, 18);
-console.log(`Showcase passed: 9 datasets, 18 participants, sources ${sourcePresent ? 'verified' : 'unavailable locally'}.`);
+console.log(`Showcase passed: 9 survey artwork pairs and 3 behavioral response pairs; survey sources ${sourcePresent ? 'verified' : 'unavailable locally'}.`);

@@ -23,6 +23,7 @@ export function createCoverageState({ fetcher = globalThis.fetch, eventTarget = 
   let selectedRegion = '';
   const regionById = new Map();
   const regionByNumeric = new Map();
+  const regionByAtlasName = new Map();
   const datasetIndex = new Map();
   const displayNames = new Map();
   const subscribers = new Set();
@@ -30,7 +31,10 @@ export function createCoverageState({ fetcher = globalThis.fetch, eventTarget = 
   function getSelection() { return { ready: Boolean(data), dataset, selectedRegion }; }
   function getData() { return data; }
   function getRegion(id) { return regionById.get(id) || null; }
-  function getRegionByNumeric(id) { return regionByNumeric.get(String(Number(id))) || null; }
+  function getRegionByNumeric(id) { return id == null ? null : regionByNumeric.get(String(Number(id))) || null; }
+  function getRegionForFeature(feature) {
+    return getRegionByNumeric(feature?.id) || regionByAtlasName.get(feature?.properties?.name) || null;
+  }
   function getDataset(id = dataset) { return data?.datasets.find(item => item.id === id) || null; }
   function getSelectedTotal() { return dataset === 'all' ? data?.totalRespondents : getDataset()?.respondents; }
   function regionName(id) {
@@ -39,9 +43,10 @@ export function createCoverageState({ fetcher = globalThis.fetch, eventTarget = 
     const lang = eventTarget?.SiteI18n?.language || 'en';
     const override = eventTarget?.SOCIAL_REGION_NAMES?.[lang]?.[region.id];
     if (override) return override;
-    if (lang === 'en' || !COUNTRY_CODES[region.id] || !Intl.DisplayNames) return region.label;
+    const iso2 = region.iso2 || COUNTRY_CODES[region.id];
+    if (lang === 'en' || !iso2 || !Intl.DisplayNames) return region.label;
     if (!displayNames.has(lang)) displayNames.set(lang, new Intl.DisplayNames(lang, { type: 'region' }));
-    return displayNames.get(lang).of(COUNTRY_CODES[region.id]) || region.label;
+    return displayNames.get(lang).of(iso2) || region.label;
   }
   function sampleFor(region, selectedDataset = dataset) {
     if (!region) return { status: 'unknown', count: null };
@@ -101,7 +106,7 @@ export function createCoverageState({ fetcher = globalThis.fetch, eventTarget = 
   function subscribe(fn) { subscribers.add(fn); return () => subscribers.delete(fn); }
 
   function getGeographyPromise() {
-    if (!geographyPromise) geographyPromise = Promise.resolve().then(() => fetcher('assets/geography.json?v=20261104-point-audit-r1', { credentials: 'same-origin', signal: aborter.signal }))
+    if (!geographyPromise) geographyPromise = Promise.resolve().then(() => fetcher('assets/geography.json?v=20261123-behavioral', { credentials: 'same-origin', signal: aborter.signal }))
       .then(response => { if (!response.ok) throw new Error('Coverage data unavailable'); return response.json(); })
       .then(value => {
         if (disposed) throw new DOMException('Coverage state disposed', 'AbortError');
@@ -109,7 +114,9 @@ export function createCoverageState({ fetcher = globalThis.fetch, eventTarget = 
         data = value;
         for (const region of value.regions) {
           regionById.set(region.id, region);
+          if (region.markerOnly) continue;
           if (region.numericId) regionByNumeric.set(String(Number(region.numericId)), region);
+          if (region.atlasName) regionByAtlasName.set(region.atlasName, region);
         }
         for (const item of value.datasets) {
           const counts = new Map();
@@ -134,6 +141,6 @@ export function createCoverageState({ fetcher = globalThis.fetch, eventTarget = 
   }
   function dispose() { if (disposed) return; disposed = true; subscribers.clear(); aborter.abort(); }
   return Object.freeze({ load: getGeographyPromise, getGeographyPromise, getWorldPromise, getData, getSelection,
-    getRegion, getRegionByNumeric, getDataset, getSelectedTotal, sampleFor, countFor, visibleRegions,
+    getRegion, getRegionByNumeric, getRegionForFeature, getDataset, getSelectedTotal, sampleFor, countFor, visibleRegions,
     regionName, setSelection, setDataset, setRegion, openDatasetShowcase, clearAll, subscribe, dispose });
 }
