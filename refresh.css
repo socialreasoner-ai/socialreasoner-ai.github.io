@@ -175,6 +175,14 @@ select:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visib
 .release-item strong { font-size: 24px; }
 .release-item .release-destination { font: 13px 'DM Sans',sans-serif; color: #adc1d8; }
 .release-item .coming { font: 12px 'DM Sans',sans-serif; color: #b7c8dd; margin-top: 0; grid-column: auto; }
+.behavioral-downloads { margin-top: 42px; }
+.behavioral-downloads h3 { margin: 0 0 18px; font-size: 24px; }
+.behavioral-downloads ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px 30px; padding: 0; margin: 0; }
+.behavioral-downloads li { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 8px; padding-top: 16px; border-top: 1px solid var(--line); }
+.behavioral-downloads strong { font-size: 18px; line-height: 1.4; }
+.dataset-links { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 18px; }
+.dataset-links a { padding: 6px 0; color: #bdddfc; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; }
+.dataset-links a:hover { color: #fff; }
 .site-footer { padding: 24px 0; background: #070d18; }
 .footer-simple { display: flex; justify-content: space-between; align-items: center; gap: 24px; color: #93abc2; font-size: 12px; }
 .footer-simple .brand { color: #d7e7f6; font-size: 18px; }
