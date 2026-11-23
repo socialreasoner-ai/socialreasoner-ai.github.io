@@ -37,6 +37,7 @@
     if (!people.some(person => person.displayId === activePersonId)) activePersonId = people[0]?.displayId || '';
     controls.querySelectorAll('[data-avatar-person]').forEach(button => {
       const person = people[Number(button.dataset.avatarPerson)];
+      button.textContent = person ? window.SocialRespondentLabels.name(person) : '';
       button.disabled = !person;
       button.setAttribute('aria-pressed', String(person?.displayId === activePersonId));
     });
@@ -80,7 +81,7 @@
 
   function paintFallbackPeople(participants) {
     fallbackPeople.replaceChildren();
-    participants.forEach((person, index) => {
+    participants.forEach(person => {
       const figure = document.createElement('figure');
       figure.className = 'globe-fallback-person';
       const image = document.createElement('img');
@@ -88,7 +89,7 @@
       image.loading = 'lazy';
       image.src = person.avatar?.posterPath || '';
       const label = document.createElement('figcaption');
-      label.textContent = `${index ? 'B' : 'A'} · ${person.displayId || ''}`;
+      label.textContent = window.SocialRespondentLabels.name(person);
       figure.append(image, label);
       fallbackPeople.append(figure);
     });
@@ -190,7 +191,10 @@
 
   function wireControls() {
     bind(stage, 'avatar:statuschange', refreshAvatarControls);
-    bind(window, 'site:languagechange', refreshAvatarControls);
+    bind(window, 'site:languagechange', () => {
+      refreshAvatarControls();
+      if (showcaseDataset) paintFallbackPeople(reader?.getParticipants(showcaseDataset) || []);
+    });
     bind(document.querySelector('#avatar-controls'), 'click', event => {
       const personButton = event.target.closest?.('[data-avatar-person]');
       if (personButton) {
@@ -278,7 +282,7 @@
     if (initialDataset && store.getDataset(initialDataset)) store.setDataset(initialDataset);
     if (params.get('renderer') === '2d') return;
     try {
-      const { createGlobeRenderer } = await import('./globe-renderer-3d.js?v=20261123-behavioral');
+      const { createGlobeRenderer } = await import('./globe-renderer-3d.js?v=20261123-portraits');
       if (disposed) return;
       const frame = host.querySelector('.globe-frame');
       webglCanvas = document.createElement('canvas');

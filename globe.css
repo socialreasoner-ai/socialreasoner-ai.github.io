@@ -209,6 +209,7 @@
 .globe-experience .avatar-controls{position:relative;z-index:4;display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px}
 .globe-experience .avatar-controls[hidden]{display:none}
 .globe-experience .avatar-person-switch,.globe-experience .avatar-motion-switch{display:flex;gap:5px}
+.globe-experience .avatar-person-switch{max-width:100%;flex-wrap:wrap}
 .globe-experience .avatar-motion-switch[hidden]{display:none}
 .globe-experience .avatar-controls button{min-height:40px;border:1px solid #85b3d033;border-radius:7px;padding:8px 12px;background:#0b1c31;color:#c6d8eb;font:500 12px/1.4 'DM Sans',sans-serif;cursor:pointer}
 .globe-experience .avatar-controls button:hover:not(:disabled),.globe-experience .avatar-controls button[aria-pressed="true"]{color:#eafaff;border-color:#73deff88;background:#17344a}

@@ -126,8 +126,10 @@ for (const group of manifest.datasets) {
 }
 const helperWindow = {};
 vm.runInNewContext(readFileSync(resolve(site, 'behavioral-examples.js'), 'utf8'), { window: helperWindow });
+const surveyArtwork = new Set(manifest.datasets.flatMap(group => group.participants.map(person => person.avatar)));
+const behavioralArtwork = new Set();
 for (const fixture of behavioral.datasets) {
-  const group = helperWindow.SocialBehavioralExamples.globeGroup(fixture);
+  const group = helperWindow.SocialBehavioralExamples.globeGroup(fixture, manifest);
   const [a, b] = group.participants;
   assert.equal(group.availability, 'ready');
   assert.equal(group.participants.length, 2);
@@ -136,7 +138,10 @@ for (const fixture of behavioral.datasets) {
   assert.equal(a.target.question, b.target.question);
   for (const person of group.participants) {
     assert.ok(regions.get(person.regionId)?.byDataset[group.datasetId] > 0, `${person.displayId}: map coverage`);
-    assert.ok(existsSync(resolve(site, person.avatar.posterPath)));
+    assert.equal(person.avatarIllustrative, true);
+    assert.ok(surveyArtwork.has(person.avatar), `${person.displayId}: missing survey artwork and animation model`);
+    assert.ok(!behavioralArtwork.has(person.avatar), `${person.displayId}: repeated illustration`);
+    behavioralArtwork.add(person.avatar);
     assert.ok(person.inputPrompt && person.target.options.some(option => option.id === person.observedOptionId));
     assert.ok(!person.cot);
   }

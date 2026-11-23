@@ -6,6 +6,7 @@ const rootUrl = new URL('../', import.meta.url);
 const source = readFileSync(new URL('method-demo.js', rootUrl), 'utf8');
 const data = JSON.parse(readFileSync(new URL('assets/method-demo.json', rootUrl), 'utf8'));
 const behavioral = JSON.parse(readFileSync(new URL('assets/behavioral-examples.json', rootUrl), 'utf8'));
+const respondentSource = readFileSync(new URL('respondent-locales.js', rootUrl), 'utf8');
 const behavioralSource = readFileSync(new URL('behavioral-examples.js', rootUrl), 'utf8');
 const display = JSON.parse(readFileSync(new URL('assets/method-evidence-display.json', rootUrl), 'utf8'));
 const localeWindow = { location: { search: '' } };
@@ -66,7 +67,9 @@ async function mount(input = data, motion = false, displayAvailable = true) {
   const context = {
     document: { getElementById: () => root, createElement: tag => new Element(tag), createTextNode: text => { const node = new Element('#text'); node.textContent = text; return node; } },
     window: { matchMedia: () => media, SiteI18n: { t: (key, params = {}) => {
-      let value = localeWindow.SOCIAL_I18N_MESSAGES[lang][key] || key;
+      const respondentKey = key.startsWith('respondent.') && key.slice('respondent.'.length);
+      let value = (respondentKey ? context.window.SOCIAL_RESPONDENT_MESSAGES[lang][respondentKey]
+        : localeWindow.SOCIAL_I18N_MESSAGES[lang][key]) || key;
       for (const [name, replacement] of Object.entries(params)) value = value.replaceAll(`{${name}}`, String(replacement));
       return value;
     } }, addEventListener: (name, fn) => { events[name] = fn; } },
@@ -74,6 +77,7 @@ async function mount(input = data, motion = false, displayAvailable = true) {
       json: async () => structuredClone(url.includes('behavioral-examples') ? behavioral : url.includes('evidence-display') ? display : input) }),
     console: { error: (...args) => errors.push(args) }
   };
+  vm.runInNewContext(respondentSource, context);
   vm.runInNewContext(behavioralSource, context);
   vm.runInNewContext(source, context);
   await new Promise(resolve => setImmediate(resolve));
@@ -130,6 +134,9 @@ for (const language of ['zh', 'fr', 'de', 'ko', 'en']) {
 let observed = 0;
 for (const group of behavioral.datasets) {
   choose('demo-dataset', group.datasetId);
+  const names = ui.ids.get('demo-profile').children.map(option => option.textContent);
+  assert.equal(new Set(names).size, group.participants.length);
+  assert.ok(names.every(label => / · age \d+$/.test(label)), 'Show age and country for each test respondent.');
   for (const person of group.participants) {
     choose('demo-profile', person.displayId);
     for (const record of person.records) {

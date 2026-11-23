@@ -6,7 +6,7 @@
 .globe-experience .respondent-head p{margin:0;color:#a6b7cc;font-size:12px;line-height:1.7}
 .globe-experience .respondent-kicker{color:#73deff;font:600 10px/1.5 'DM Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase}
 .globe-experience .respondent-switch{display:flex;gap:8px;flex-shrink:0}
-.globe-experience .respondent-switch button{min-height:42px;padding:9px 17px;border:1px solid #92bddb33;border-radius:7px;background:#0b1b2e;color:#a6b7cc;font-size:12px;cursor:pointer}
+.globe-experience .respondent-switch button{min-width:0;min-height:42px;padding:9px 17px;border:1px solid #92bddb33;border-radius:7px;background:#0b1b2e;color:#a6b7cc;font-size:12px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;cursor:pointer}
 .globe-experience .respondent-switch button[aria-selected="true"],.globe-experience .respondent-switch button[aria-pressed="true"]{border-color:#73deff90;background:#11364a;color:#eaf2ff}
 .globe-experience .respondent-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;min-width:0;align-items:start}
 .globe-experience .respondent-card{min-width:0;border:1px solid #8fb3d02d;border-radius:14px;padding:24px;background:linear-gradient(145deg,#0c1b2ff0,#081323ed);overflow-wrap:anywhere}
@@ -28,7 +28,7 @@
 .globe-experience .respondent-question h3,.globe-experience .respondent-question h4{margin:8px 0 18px;font:500 19px/1.6 'DM Sans',sans-serif;color:#eaf2ff;text-transform:none;letter-spacing:0}
 .globe-experience .respondent-question>p{color:#91aac3;font-size:11px;line-height:1.7;margin:0 0 12px}
 .globe-experience .respondent-options{display:grid;grid-template-columns:1fr 1fr;gap:9px;list-style:none;padding:0;margin:18px 0}
-.globe-experience .respondent-option{display:flex;align-items:start;gap:12px;min-width:0;padding:13px 14px;border:1px solid #98bbd22b;border-radius:8px;background:#091627;color:#b8cadd;font:400 13px/1.6 'DM Sans',sans-serif;overflow-wrap:anywhere}
+.globe-experience .respondent-option{display:grid;grid-template-columns:max-content minmax(0,1fr);align-content:start;align-items:start;gap:6px 12px;min-width:0;padding:13px 14px;border:1px solid #98bbd22b;border-radius:8px;background:#091627;color:#b8cadd;font:400 13px/1.6 'DM Sans',sans-serif;overflow-wrap:anywhere}
 .globe-experience .respondent-option.is-observed,.globe-experience .respondent-option[data-observed="true"]{border-color:#73deff75;background:#103144;color:#eaf2ff}
 .globe-experience .respondent-option-id{flex:0 0 auto;display:grid;place-items:center;min-width:24px;min-height:24px;border:1px solid #98bbd23b;border-radius:5px;color:#73deff;font-size:11px}
 .globe-experience .respondent-observed{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;font-size:12px;color:#bdddec}
@@ -44,7 +44,7 @@
  .globe-experience .respondent-head{align-items:start;flex-direction:column;gap:15px}
  .globe-experience .respondent-switch{width:100%}.globe-experience .respondent-switch button{flex:1}
  .globe-experience .respondent-cards{grid-template-columns:1fr}
- .globe-experience .respondent-explorer[data-active-person="A"] .respondent-card[data-person-slot="B"],.globe-experience .respondent-explorer[data-active-person="B"] .respondent-card[data-person-slot="A"]{display:none}
+ .globe-experience .respondent-card:not(.is-active){display:none}
  .globe-experience .respondent-card{padding:18px 16px}
  .globe-experience .respondent-card dl{grid-template-columns:minmax(80px,.65fr) minmax(0,1fr);gap:9px 12px}
  .globe-experience .respondent-card dd{margin:0}
@@ -65,8 +65,7 @@
 .globe-experience .respondent-card .respondent-recorded-answer{display:flex;flex-direction:column;gap:5px;margin:20px 0 0;padding:13px 15px;border-left:2px solid #73deff;background:#73deff09}
 .globe-experience .respondent-recorded-label{font-size:10px;color:#8ca3bc}
 .globe-experience .respondent-recorded-answer strong{font-size:13px;font-weight:500;color:#eaf2ff}
-.globe-experience .respondent-option-text{flex:1;min-width:0}
-.globe-experience .respondent-option-markers{flex:0 0 auto;min-width:21px;min-height:21px;padding:0 4px;border-radius:4px;background:#73deff22;color:#9ce8ff;text-align:center;font-weight:600;font-size:10px;line-height:21px}
+.globe-experience .respondent-option-markers{grid-column:2;justify-self:start;padding:2px 6px;border-radius:4px;background:#73deff22;color:#9ce8ff;font-weight:600;font-size:11px;line-height:1.5}
 .globe-experience .respondent-original-language,.globe-experience .respondent-source-note{font-size:11px;color:#839ab3;line-height:1.7;margin:14px 0 0}
 .globe-experience .respondent-source-note{margin-top:4px}
 @media(max-width:620px){.globe-experience .respondent-head{gap:8px 12px}.globe-experience .respondent-head .respondent-title{font-size:22px}}

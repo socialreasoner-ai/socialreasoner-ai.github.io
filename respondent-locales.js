@@ -9,7 +9,7 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     open: 'Meet the respondents', back: 'Back to globe', skip: 'Skip animation',
     all: 'All datasets', actionsAria: 'Explore respondents',
     kicker: 'TWO RESPONDENTS', title: 'People behind the responses',
-    personA: 'Person A', personB: 'Person B',
+    ageLabel: 'age {age}',
     profile: 'Profile', perceptions: 'Reported views', cot: 'Chain of thought', question: 'Survey question',
     recordedAnswer: 'Recorded answer', showAll: 'Show full profile and views',
     showLess: 'Show less', originalLanguage: 'Survey wording and responses retain their source language.',
@@ -53,7 +53,7 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     open: '认识受访者', back: '返回地球', skip: '跳过动画',
     all: '全部数据集', actionsAria: '探索受访者',
     kicker: '两位受访者', title: '回答背后的人',
-    personA: '人物 A', personB: '人物 B',
+    ageLabel: '{age} 岁',
     profile: '基本画像', perceptions: '自述看法', cot: '思维链', question: '调查题目',
     recordedAnswer: '实际回答', showAll: '展开完整画像与看法',
     showLess: '收起', originalLanguage: '调查题面和回答保留来源问卷的原文。',
@@ -97,7 +97,7 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     skip: 'Passer l’animation', all: 'Tous les jeux de données',
     actionsAria: 'Explorer les personnes interrogées',
     kicker: 'DEUX PERSONNES INTERROGÉES', title: 'Les personnes derrière les réponses',
-    personA: 'Personne A', personB: 'Personne B',
+    ageLabel: '{age} ans',
     profile: 'Profil', perceptions: 'Opinions déclarées', cot: 'Chaîne de raisonnement', question: 'Question d’enquête',
     recordedAnswer: 'Réponse enregistrée', showAll: 'Voir le profil et les opinions complets',
     showLess: 'Réduire', originalLanguage: 'Le libellé et les réponses de l’enquête restent dans leur langue d’origine.',
@@ -143,7 +143,7 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     skip: 'Animation überspringen', all: 'Alle Datensätze',
     actionsAria: 'Befragte erkunden',
     kicker: 'ZWEI BEFRAGTE', title: 'Menschen hinter den Antworten',
-    personA: 'Person A', personB: 'Person B',
+    ageLabel: '{age} Jahre',
     profile: 'Profil', perceptions: 'Geäußerte Ansichten', cot: 'Gedankengang', question: 'Umfragefrage',
     recordedAnswer: 'Erfasste Antwort', showAll: 'Ganzes Profil und Ansichten anzeigen',
     showLess: 'Weniger anzeigen', originalLanguage: 'Fragetexte und Antworten bleiben in der Originalsprache.',
@@ -188,7 +188,7 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     open: '응답자 만나기', back: '지구본으로 돌아가기', skip: '애니메이션 건너뛰기',
     all: '전체 데이터셋', actionsAria: '응답자 살펴보기',
     kicker: '두 명의 응답자', title: '응답 뒤의 사람들',
-    personA: '인물 A', personB: '인물 B',
+    ageLabel: '{age}세',
     profile: '프로필', perceptions: '응답자가 밝힌 생각', cot: '사고 과정', question: '설문 문항',
     recordedAnswer: '실제 응답', showAll: '전체 프로필과 생각 보기',
     showLess: '접기', originalLanguage: '설문 문구와 응답은 원래 언어로 표시됩니다.',
@@ -223,5 +223,16 @@ window.SOCIAL_RESPONDENT_MESSAGES = {
     field_volunteer_activity: '자원봉사 활동', field_voted_last_election: '최근 선거 투표',
     field_voter_registration: '유권자 등록', field_work_status: '취업 상태',
     field_years_in_us: '미국 거주 연수'
+  }
+};
+
+window.SocialRespondentLabels = {
+  name(person) {
+    const fields = Object.fromEntries(person.demographics.map(({ key, value }) => [key, value]));
+    const region = window.SocialCoverage?.regionName(person.regionId);
+    const country = region && region !== person.regionId ? region : fields.country || region;
+    const age = String(fields.age || fields.age_group || '').replace(/^(\d+)\.0+$/, '$1').replace(/(\d)-(\d)/, '$1–$2');
+    const ageLabel = age && window.SiteI18n.t('respondent.ageLabel', { age });
+    return [country, ageLabel].filter(Boolean).join(' · ') || window.SiteI18n.t('respondent.profile');
   }
 };

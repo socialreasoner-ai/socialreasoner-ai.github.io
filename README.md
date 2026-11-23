@@ -96,11 +96,11 @@ Bundled dependency license files are retained under `assets/`. Geographic bounda
 
 ## Respondent cards
 
-The Hero respondent explorer uses `assets/respondent-showcase.json` and `assets/respondent-cots.json` for examples from the eight training surveys. For CPS, SDI and VAPP, `assets/behavioral-examples.json` supplies anonymized profiles, survey prompts, answer options and observed responses. The globe and Method section use the same examples. Rebuild them with `python3 scripts/build-behavioral-examples.py`. GSS2022 contributes geographic aggregates.
+The Hero respondent explorer uses `assets/respondent-showcase.json` and `assets/respondent-cots.json` for examples from the eight training surveys. For CPS, SDI and VAPP, `assets/behavioral-examples.json` supplies anonymized profiles, survey prompts, answer options and observed responses. The globe and Method section use the same examples. The globe labels each illustrated respondent by country and age or age group. Rebuild them with `python3 scripts/build-behavioral-examples.py`. GSS2022 contributes geographic aggregates.
 
 Cards display the profile, reported views and recorded answer, followed by the shared survey question. Stored CoTs remain in the source overlay and are not rendered in these cards. Survey text retains its original English wording; headings and controls use the five shared respondent dictionaries. The Method demo retains its separate model-reasoning display. Artwork associations remain illustrative and independent of the source profiles. Numeric scale responses show their score and the original endpoint labels copied from the packaged survey options; raw profile values and CoTs are retained unchanged.
 
-`python3 scripts/build-respondent-cots.py` rebuilds the overlay from local source records; see its arguments for source locations. Private byte offsets, source hashes and selection comparisons are retained in the local `review/respondent-cot-20261105` audit. `node scripts/check-respondent-cots.mjs` verifies complete A/B cards, shared target questions, source identities, response options, perception fields and localized headings. The raw survey and post-training files are unchanged.
+`python3 scripts/build-respondent-cots.py` rebuilds the overlay from local source records; see its arguments for source locations. Private byte offsets, source hashes and selection comparisons are retained in the local `review/respondent-cot-20261105` audit. `node scripts/check-respondent-cots.mjs` verifies both respondent cards, shared target questions, source identities, response options, perception fields and localized headings. The raw survey and post-training files are unchanged.
 
 ## Animated globe characters
 

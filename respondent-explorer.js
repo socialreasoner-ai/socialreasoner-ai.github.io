@@ -37,7 +37,7 @@
     parent.append(row);
   };
   const safePoster = path => typeof path === 'string'
-    && /^assets\/avatars\/(?:[A-Za-z0-9_-]+\.png|participant-[ab]\.svg)$/.test(path);
+    && /^assets\/avatars\/[A-Za-z0-9_-]+\.png$/.test(path);
   const summaryQuestion = participant => participant?.target?.question || '';
   const matchingQuestion = (a, b) => Boolean(a && b && a.target?.questionId === b.target?.questionId
     && summaryQuestion(a) === summaryQuestion(b)
@@ -117,7 +117,7 @@
     return validateManifest({ ...base, datasets });
   }
 
-  function createRespondentExplorer({ host, store, onActivePersonChange } = {}) {
+  function createRespondentExplorer({ host, onActivePersonChange } = {}) {
     if (!host) throw new Error('Respondent explorer host is missing');
     const controller = new AbortController();
     let manifest = null;
@@ -132,10 +132,6 @@
     }
     function getParticipants(id = dataset) {
       return groupFor(id)?.participants || [];
-    }
-    function activeSlot() {
-      const people = getParticipants();
-      return people[1]?.displayId === activePersonId ? 'B' : 'A';
     }
     function fieldLabel(field) {
       const key = `field_${field.key}`;
@@ -161,13 +157,12 @@
         row.dataset.optionId = option.id;
         row.append(element('span', 'respondent-option-id', option.id));
         row.append(element('span', 'respondent-option-text', option.text));
-        const selected = people
-          .map((person, index) => person.observedOptionId === option.id ? (index === 0 ? 'A' : 'B') : '')
-          .filter(Boolean);
+        const selected = people.filter(person => person.observedOptionId === option.id)
+          .map(person => window.SocialRespondentLabels.name(person));
         if (selected.length) {
           row.classList.add('is-observed');
-          const marker = element('span', 'respondent-option-markers', selected.join(' · '));
-          marker.setAttribute('aria-label', t('selectedBy', { people: selected.join(' and ') }));
+          const names = new Intl.ListFormat(language()).format(selected);
+          const marker = element('span', 'respondent-option-markers', t('selectedBy', { people: names }));
           row.append(marker);
         }
         options.append(row);
@@ -176,16 +171,14 @@
       return block;
     }
 
-    function profileCard(person, index, sharedQuestion) {
-      const slot = index === 0 ? 'A' : 'B';
+    function profileCard(person, sharedQuestion) {
       const card = element('article', 'respondent-card');
-      card.dataset.personSlot = slot;
       card.dataset.personId = person.displayId;
       card.classList.toggle('is-active', activePersonId === person.displayId);
       const head = element('div', 'respondent-card-head');
       const avatar = element('img', 'respondent-avatar');
       avatar.src = person.avatar.posterPath;
-      avatar.alt = person.inputPrompt ? '' : t('illustrativeAvatar');
+      avatar.alt = t('illustrativeAvatar');
       avatar.loading = 'lazy';
       avatar.decoding = 'async';
       avatar.addEventListener('error', () => {
@@ -193,11 +186,7 @@
         card.classList.add('is-avatar-unavailable');
       }, { once: true, signal: controller.signal });
       head.append(avatar);
-      const heading = element('div', 'respondent-person-heading');
-      heading.append(element('p', 'respondent-person-slot', `${t('respondentId')} · ${person.displayId}`));
-      heading.append(element('h3', 'respondent-person-id', t(slot === 'A' ? 'personA' : 'personB')));
-      heading.append(element('p', 'respondent-region', `${t('region')} · ${store?.regionName?.(person.regionId) || person.regionId}`));
-      head.append(heading);
+      head.append(element('h3', 'respondent-person-id', window.SocialRespondentLabels.name(person)));
       card.append(head);
 
       const profile = element('section', 'respondent-profile');
@@ -272,7 +261,6 @@
         if (detail && card.dataset.personId) expandedById.set(card.dataset.personId, detail.open);
       });
       host.hidden = !visible;
-      host.dataset.activePerson = activeSlot();
       if (!visible) return;
       host.replaceChildren();
       if (!manifest) {
@@ -293,18 +281,17 @@
       const switcher = element('div', 'respondent-switch');
       switcher.setAttribute('role', 'group');
       switcher.setAttribute('aria-label', t('actionsAria'));
-      people.forEach((person, index) => {
-        const slot = index === 0 ? 'A' : 'B';
-        const button = element('button', 'respondent-switch-button', t(index === 0 ? 'personA' : 'personB'));
+      people.forEach(person => {
+        const button = element('button', 'respondent-switch-button', window.SocialRespondentLabels.name(person));
         button.type = 'button';
         button.dataset.personId = person.displayId;
-        button.setAttribute('aria-pressed', String(activeSlot() === slot));
+        button.setAttribute('aria-pressed', String(activePersonId === person.displayId));
         switcher.append(button);
       });
       host.append(switcher);
       const cards = element('div', 'respondent-cards');
       const shared = matchingQuestion(people[0], people[1]);
-      people.forEach((person, index) => cards.append(profileCard(person, index, shared)));
+      people.forEach(person => cards.append(profileCard(person, shared)));
       host.append(cards);
       if (shared) host.append(questionBlock(people, true));
       if (focusedPerson && focusedType) {
@@ -358,7 +345,8 @@
         const original = mergeRecordedExamples(base, overlay);
         if (!window.SocialBehavioralExamples) return original;
         const behavioral = await window.SocialBehavioralExamples.load();
-        return { ...original, datasets: [...original.datasets, ...behavioral.map(window.SocialBehavioralExamples.globeGroup)] };
+        const groups = behavioral.map(group => window.SocialBehavioralExamples.globeGroup(group, base));
+        return { ...original, datasets: [...original.datasets, ...groups] };
       })
       .then(data => {
         if (disposed) return;

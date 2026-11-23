@@ -94,6 +94,7 @@
   }
 
   function profileName(profile, index) {
+    if (profile.regionId) return window.SocialRespondentLabels.name(profile);
     const fields = profile.labelFields || {};
     const parts = [fields.age, fields.country].filter(Boolean);
     return `${t('demo.profileChoice', { index: index + 1 })}${parts.length ? ` · ${parts.join(' · ')}` : ''}`;

@@ -465,7 +465,7 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
 
   function showTooltip(event, hit) {
     if (!hit) {tooltip.hidden = true; return;}
-    tooltip.textContent = hit.person ? `${hit.person.datasetId} · ${hit.person.displayId}` : store.regionName(hit.region);
+    tooltip.textContent = hit.person ? `${hit.person.datasetId} · ${window.SocialRespondentLabels.name(hit.person)}` : store.regionName(hit.region);
     const rect = host.getBoundingClientRect();
     tooltip.style.left = `${Math.max(8, Math.min(rect.width - 170, event.clientX - rect.left + 12))}px`;
     tooltip.style.top = `${Math.max(8, event.clientY - rect.top - 30)}px`;
@@ -513,6 +513,7 @@ export async function createGlobeRenderer({canvas, host, store, onRegionSelect, 
   });
   on(canvas, 'pointercancel', () => {manualDrag = null;});
   on(canvas, 'pointerleave', () => {tooltip.hidden = true;});
+  on(window, 'site:languagechange', () => {tooltip.hidden = true;});
   on(document, 'visibilitychange', () => {
     lastTime = 0;
     characters.setSuspended(document.hidden || !visible);
