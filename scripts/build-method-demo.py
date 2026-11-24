@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build a small, verifiable method demo from stored post-training examples.
 
-The three model slots are an illustrative assignment of distinct saved CoTs.
+ATP142 keeps its illustrative model slots. Reviewed cases carry one saved CoT each.
 The merged source does not retain per-example expert provenance. This script
 does not generate model outputs, change labels, or modify the source files.
 """
@@ -18,17 +18,9 @@ from pathlib import Path
 
 SOURCE_BASENAME = "multisurvey_target_positive_semantic_denoiser_cot_merged_rewritten_v4.jsonl"
 EXPERTS = ("ebm", "lgbm", "mlp")
-QUESTIONS = {
-    "ATP142-perceived": ("Q00007", "Q00026", "Q00039", "Q00048"),
-    "ATP152-perceived": ("Q00006", "Q00008", "Q00033", "Q00035"),
-    "EVS2017-perceived": ("Q00001", "Q00003", "Q00005", "Q00008"),
-    "ISSP2009-perceived": ("Q00001", "Q00003", "Q00006", "Q00007"),
-    "ISSP2015-perceived": ("Q00001", "Q00002", "Q00006", "Q00008"),
-    "ISSP2016-perceived": ("Q00001", "Q00002", "Q00005", "Q00006"),
-    "ISSP2019-perceived": ("Q00001", "Q00003", "Q00005", "Q00006"),
-    "ISSP2021-perceived": ("Q00001", "Q00002", "Q00006", "Q00007"),
-}
-DEFAULT_DATASET = "ATP142-perceived"
+LEGACY_DATASET = "ATP142-perceived"
+LEGACY_QUESTIONS = ("Q00007", "Q00026", "Q00039", "Q00048")
+REVIEWED_SURVEYS = ("ATP152", "EVS2017", "ISSP2009", "ISSP2015", "ISSP2016", "ISSP2019", "ISSP2021")
 PROFILE_COUNT = 4
 MAX_VARIANTS_PER_PAIR = 12
 FAMILIAR_COUNTRIES = {
@@ -315,38 +307,38 @@ def main():
     parser.add_argument("--source-root", type=Path,
                         default=Path("/Users/jaylen/Desktop/AAAI2027/thinking_data_posttrain"))
     parser.add_argument("--output", type=Path, default=repo / "assets" / "method-demo.json")
+    parser.add_argument("--reviewed-data", type=Path,
+                        default=repo.parent / "review" / "method-cases-20261124" / "confirmed.json",
+                        help="Seven editorially reviewed public cases in survey menu order.")
+    parser.add_argument("--legacy-input", type=Path,
+                        help="Reuse the saved ATP142 dataset exactly from a prior Method asset.")
     parser.add_argument("--audit-output", type=Path,
-                        default=repo.parent / "review" / "method-demo-20261105" / "source-mapping.json")
+                        default=repo.parent / "review" / "method-cases-20261124" / "atp142-source-mapping.json")
     args = parser.parse_args()
 
-    datasets = []
-    audit_datasets = []
-    dataset_order = (DEFAULT_DATASET,) + tuple(name for name in QUESTIONS if name != DEFAULT_DATASET)
-    for dataset in dataset_order:
-        questions = QUESTIONS[dataset]
-        path = args.source_root / dataset / "target_positive" / SOURCE_BASENAME
-        if not path.is_file():
-            raise FileNotFoundError(path)
-        public, audit = build_dataset(path, dataset, questions)
-        datasets.append(public)
-        audit_datasets.append(audit)
-        print(json.dumps(audit["summary"], ensure_ascii=False), flush=True)
+    reviewed = json.loads(args.reviewed_data.read_text(encoding="utf-8"))
+    expected = [name + "-perceived" for name in REVIEWED_SURVEYS]
+    if [d["id"] for d in reviewed] != expected or any(d.get("mode") != "single" for d in reviewed):
+        parser.error("The reviewed data must contain one confirmed case for each of the seven surveys.")
+    if args.legacy_input:
+        prior = json.loads(args.legacy_input.read_text(encoding="utf-8"))
+        legacy = next(d for d in prior["datasets"] if d["id"] == LEGACY_DATASET)
+    else:
+        path = args.source_root / LEGACY_DATASET / "target_positive" / SOURCE_BASENAME
+        legacy, audit = build_dataset(path, LEGACY_DATASET, LEGACY_QUESTIONS)
+        args.audit_output.parent.mkdir(parents=True, exist_ok=True)
+        args.audit_output.write_text(json.dumps(audit, ensure_ascii=False, indent=2) + "\n")
 
     public_data = {
-        "version": 1,
-        "modelAssignment": "illustrative",
+        "version": 2,
+        "modelAssignments": {LEGACY_DATASET: "illustrative"},
         "source": "thinking_data_posttrain",
         "sourceGenerator": "answer-conditioned GLM rewrite",
-        "datasets": datasets,
+        "datasets": [legacy, *reviewed],
     }
-    audit_data = {"modelAssignment": "illustrative", "datasets": audit_datasets}
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.audit_output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(public_data, ensure_ascii=False, separators=(",", ":")) + "\n")
-    args.audit_output.write_text(json.dumps(audit_data, ensure_ascii=False, indent=2) + "\n")
-    print("Wrote %d datasets, %d public cases, %d exact CoTs" %
-          (len(datasets), sum(len(p["records"]) for d in datasets for p in d["profiles"]),
-           sum(len(r["experts"]) for d in datasets for p in d["profiles"] for r in p["records"])))
+    print(f"Wrote {len(reviewed)} reviewed cases and the ATP142 examples.")
 
 
 if __name__ == "__main__":

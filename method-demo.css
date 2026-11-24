@@ -22,6 +22,10 @@
 #approach .method-demo[data-expert="mlp"]{--expert-color:var(--method-purple);--expert-rgb:179,154,255}
 #method-demo [hidden]{display:none!important}
 #approach .demo-controls{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1fr) minmax(0,1.12fr) minmax(250px,1.16fr);align-items:end;gap:18px;padding:25px 28px;border-bottom:1px solid var(--method-line);background:radial-gradient(ellipse at 100% 0,#27375e20,transparent 60%),linear-gradient(110deg,#0d1c2f,#0a1729)}
+#approach .method-demo[data-mode="single"] .demo-controls{grid-template-columns:minmax(0,420px)}
+#approach .method-demo[data-mode="single"] .demo-index,#approach .method-demo[data-mode="single"] .demo-stage-index,#approach .method-demo[data-mode="single"] .demo-training-badge,#approach .method-demo[data-mode="single"] .demo-flow-pulse{display:none}
+#approach .method-demo[data-mode="single"] .demo-result{margin-left:0;padding-left:0}
+#approach .method-demo[data-mode="single"] .demo-result::before{display:none}
 #approach .demo-select-wrap,#approach .demo-model-wrap{min-width:0}
 #approach .demo-select-wrap label,#approach .demo-model-wrap legend{display:flex;align-items:center;gap:8px;margin-bottom:10px;color:#b3c7d9;font-size:11px;font-weight:500;line-height:1.4}
 #approach .demo-index{flex:none;color:#6c9bbb;font:400 10px/1.4 'DM Mono',monospace;letter-spacing:.04em}
@@ -150,6 +154,7 @@
   #approach .method-heading>p{margin-top:21px;color:#91a8bf;font-size:13px;line-height:1.8}
   #approach .method-demo{border-radius:12px}
   #approach .demo-controls{grid-template-columns:1fr;gap:17px;padding:21px 19px}
+  #approach .method-demo[data-mode="single"] .demo-controls{grid-template-columns:minmax(0,1fr)}
   #approach .demo-select-wrap label,#approach .demo-model-wrap legend{margin-bottom:8px;font-size:11px}
   #approach .demo-select-wrap select{min-height:44px;font-size:12px}
   #approach .demo-model-wrap{display:block;grid-column:auto}

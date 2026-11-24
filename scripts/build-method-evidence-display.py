@@ -237,6 +237,8 @@ def build_lookup(data: dict) -> tuple[dict, dict]:
     appearances: list[tuple[str, tuple[tuple[str, str], ...], bool]] = []
 
     for dataset in data["datasets"]:
+        if dataset.get("mode") == "single":
+            continue  # These cases carry their original question/answer pairs directly.
         for profile in dataset["profiles"]:
             for record in profile["records"]:
                 by_fact: dict[str, list[tuple[str, str]]] = defaultdict(list)

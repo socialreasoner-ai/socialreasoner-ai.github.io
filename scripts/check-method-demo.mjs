@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
+import { createHash } from 'node:crypto';
 
 const raw = readFileSync(new URL('../assets/method-demo.json', import.meta.url), 'utf8');
 const data = JSON.parse(raw);
@@ -9,6 +10,41 @@ const localeWindow = { location: { search: '' } };
 vm.runInNewContext(readFileSync(new URL('../i18n.js', import.meta.url), 'utf8'), { window: localeWindow, URLSearchParams, Intl });
 assert.equal(data.datasets.length, 8, 'Cover the eight post-training surveys.');
 assert.ok(data.datasets.every(dataset => !dataset.id.startsWith('GSS')), 'GSS is excluded from the Method demo.');
+const confirmed = {
+  ATP152: [3, '1248b77e4dce8a05626fab76277623e710898b61b608b4a24d2b9f5d223b850c'],
+  EVS2017: [3, '40a9d53db374e5ac04199800daa2f417a49bb3ed77f1a800febbde6e3a868c3a'],
+  ISSP2009: [3, '2937e218a531d9d9ef7c5a3f15eb945b67c6c8c589ab3b96b8f94daf0b93b898'],
+  ISSP2015: [4, '8d5e3f25b4c8077ec27d4b08ca1ccbf1a6730d9224f0f38129e1eb86687868b7'],
+  ISSP2016: [3, '44ff3902fedcc3e08dc1563ccd8ac005c17d57eeec95b370c81f8e671b3a2208'],
+  ISSP2019: [4, '84d4b5615d3e87cd15ea54e5aff4736820d9f06fb66cf8fd1a722a7d33335fe2'],
+  ISSP2021: [4, '5361fa8f6cdf2e60d8bbd4b0f07be7a25b3e8d806b8d26c96b4358d18a6ea8bd']
+};
+assert.deepEqual(data.datasets.map(d => d.label), ['ATP142', ...Object.keys(confirmed)]);
+function checkReviewed(dataset) {
+  const entry = dataset.case;
+  const [count, originalCot] = confirmed[dataset.label];
+  assert.equal(dataset.mode, 'single');
+  assert.equal(dataset.id, dataset.label + '-perceived');
+  assert.ok(!dataset.profiles && !entry.experts);
+  assert.equal(entry.options[entry.answerId], entry.answer);
+  assert.equal(entry.optionsZh[entry.answerId], entry.answerZh);
+  assert.deepEqual(Object.keys(entry.options), Object.keys(entry.optionsZh));
+  assert.equal(createHash('sha256').update(entry.cot).digest('hex'), originalCot);
+  assert.ok(entry.cotZh.trim() && entry.question.trim() && entry.questionZh.trim());
+  assert.ok(entry.perceptions.length && Object.values(entry.demographics).some(Boolean));
+  assert.equal(entry.cues.length, count);
+  for (const [index, cue] of entry.cues.entries()) {
+    for (const key of ['question', 'questionZh', 'answer', 'answerZh']) assert.ok(cue[key]?.trim());
+    assert.equal(cue.kind, dataset.label === 'ATP152' && index === 2 ? 'summary' : 'response');
+    assert.ok(cue.fields.length);
+    const seen = new Set();
+    for (const field of cue.fields) {
+      assert.ok(field.question.trim() && field.answer.trim() && field.field && !seen.has(field.field));
+      assert.notEqual(field.question, entry.question);
+      seen.add(field.field);
+    }
+  }
+}
 const datasetIds = new Set();
 let profiles = 0;
 let combinations = 0;
@@ -20,6 +56,10 @@ const uniqueCots = new Set();
 for (const dataset of data.datasets) {
   assert.ok(dataset.id && dataset.label && !datasetIds.has(dataset.id));
   datasetIds.add(dataset.id);
+  if (dataset.label !== 'ATP142') {
+    checkReviewed(dataset);
+    continue;
+  }
   assert.ok(dataset.profiles.length >= 2, `${dataset.id}: offer contrasting profiles.`);
   const profileIds = new Set();
   let sharedQuestions;
@@ -80,6 +120,7 @@ for (const dataset of data.datasets) {
     }
   }
 }
-assert.ok(!/"(?:person_id|prompt|original_cot)"\s*:/.test(raw), 'Do not publish original participant IDs or full prompts.');
+assert.ok(!/"(?:person_id|pid|prompt|original_cot)"\s*:/.test(raw), 'Do not publish original participant IDs or full prompts.');
+console.log('Verified seven reviewed survey cases and 24 cues.');
 console.log(`Method demo: ${datasetIds.size} surveys, ${profiles} profiles, ${combinations} profile/question combinations, ${variants} model choices, ${uniqueCots.size} unique CoTs; complete choices and source labels verified.`);
 console.log(`Reasoning evidence: ${cueCount} source cues, ${retainedCount} retained, ${supplementalCount} separate supplemental facts.`);

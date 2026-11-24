@@ -7,6 +7,9 @@
   const datasetSelect = root.querySelector('#demo-dataset');
   const profileSelect = root.querySelector('#demo-profile');
   const questionSelect = root.querySelector('#demo-question');
+  const profileControl = root.querySelector('#demo-profile-control');
+  const questionControl = root.querySelector('#demo-question-control');
+  const modelControl = root.querySelector('#demo-model-controls');
   const modelButtons = [...root.querySelectorAll('[data-demo-model]')];
   const status = root.querySelector('#demo-status');
   const content = root.querySelector('#demo-content');
@@ -16,18 +19,24 @@
   const questionText = root.querySelector('#demo-question-text');
   const options = root.querySelector('#demo-options');
   const perceptionCount = root.querySelector('#demo-perception-count');
+  const perceptionHeading = root.querySelector('#demo-perception-heading');
+  const perceptionLabel = root.querySelector('#demo-perception-label');
   const perceptions = root.querySelector('#demo-perceptions');
   const more = root.querySelector('#demo-more');
   const morePerceptions = root.querySelector('#demo-more-perceptions');
   const cueSection = root.querySelector('#demo-cue-section');
+  const outputHeading = root.querySelector('#demo-output-heading');
   const cues = root.querySelector('#demo-cues');
+  const cueHeading = root.querySelector('#demo-cue-heading');
   const filteredCues = root.querySelector('#demo-filtered-cues');
   const filteredCuesSummary = root.querySelector('#demo-filtered-cues-summary');
   const filteredCueList = root.querySelector('#demo-filtered-cue-list');
   const supplemental = root.querySelector('#demo-supplemental');
   const supplementalEvidence = root.querySelector('#demo-supplemental-evidence');
   const cot = root.querySelector('#demo-cot');
+  const traceHeading = root.querySelector('#demo-trace-heading');
   const answer = root.querySelector('#demo-answer');
+  const answerHeading = root.querySelector('#demo-answer-heading');
   const t = (key, params) => window.SiteI18n?.t(key, params) || key;
   const state = { dataset: '', profile: '', question: '', model: '' };
   const modelNames = { ebm: 'EBM', lgbm: 'LightGBM', mlp: 'MLP' };
@@ -75,9 +84,13 @@
 
   function current() {
     const dataset = datasets.find(item => item.id === state.dataset);
+    if (dataset?.mode === 'single') {
+      const record = dataset.case;
+      return { dataset, profile: { labelFields: record.demographics || {} }, record, expert: null, single: true };
+    }
     const profile = dataset?.profiles?.find(item => item.id === state.profile);
     const record = profile?.records?.find(item => item.id === state.question);
-    return { dataset, profile, record, expert: record?.experts?.[state.model] };
+    return { dataset, profile, record, expert: record?.experts?.[state.model], single: false };
   }
 
   function addOption(select, value, label) {
@@ -95,12 +108,16 @@
 
   function populateControls() {
     const dataset = datasets.find(item => item.id === state.dataset);
-    const profile = dataset?.profiles.find(item => item.id === state.profile);
+    const single = dataset?.mode === 'single';
+    const profile = single ? null : dataset?.profiles.find(item => item.id === state.profile);
     datasetSelect.replaceChildren();
     datasets.forEach(item => addOption(datasetSelect, item.id, item.label));
     datasetSelect.value = state.dataset;
+    profileControl.hidden = single;
+    questionControl.hidden = single;
+    modelControl.hidden = single;
     profileSelect.replaceChildren();
-    dataset?.profiles.forEach((item, index) => addOption(profileSelect, item.id, profileName(item, index)));
+    if (!single) dataset?.profiles.forEach((item, index) => addOption(profileSelect, item.id, profileName(item, index)));
     profileSelect.value = state.profile;
     questionSelect.replaceChildren();
     profile?.records.forEach((item, index) => {
@@ -110,11 +127,11 @@
     });
     questionSelect.value = state.question;
     datasetSelect.disabled = !datasets.length;
-    profileSelect.disabled = !dataset?.profiles.length;
-    questionSelect.disabled = !profile?.records.length;
+    profileSelect.disabled = single || !dataset?.profiles.length;
+    questionSelect.disabled = single || !profile?.records.length;
     modelButtons.forEach(button => {
-      button.disabled = !availableExpert(current().record, button.dataset.demoModel);
-      button.setAttribute('aria-pressed', String(button.dataset.demoModel === state.model));
+      button.disabled = single || !availableExpert(current().record, button.dataset.demoModel);
+      button.setAttribute('aria-pressed', String(!single && button.dataset.demoModel === state.model));
     });
   }
 
@@ -130,16 +147,29 @@
     facts.append(row);
   }
 
-  function renderPerception(list, items) {
+  function displayed(original, translated) {
+    return window.SiteI18n?.language === 'zh' && translated ? translated : original;
+  }
+
+  function displayLanguage(translated) {
+    return window.SiteI18n?.language === 'zh' && translated ? 'zh-CN' : 'en';
+  }
+
+  function setHeading(element, key) {
+    element.dataset.i18n = key;
+    element.textContent = t(key);
+  }
+
+  function renderPerception(list, items, single = false) {
     list.replaceChildren();
     items.forEach(item => {
       const row = document.createElement('li');
       const question = document.createElement('span');
       const response = document.createElement('strong');
-      question.textContent = item.question || item.field;
-      response.textContent = item.response;
-      question.lang = 'en';
-      response.lang = 'en';
+      question.textContent = single ? displayed(item.question || item.field, item.questionZh) : item.question || item.field;
+      response.textContent = single ? displayed(item.response, item.responseZh) : item.response;
+      question.lang = single ? displayLanguage(item.questionZh) : 'en';
+      response.lang = single ? displayLanguage(item.responseZh) : 'en';
       row.append(question, response);
       list.append(row);
     });
@@ -223,6 +253,49 @@
     cueSection.hidden = !expert;
   }
 
+  function renderSingleCues(record, openDetails) {
+    cues.replaceChildren();
+    record.cues.forEach((item, index) => {
+      const row = document.createElement('li');
+      row.className = 'demo-evidence-card';
+      row.dataset.cueId = `response-${index + 1}`;
+      const topic = document.createElement('p');
+      topic.className = 'demo-evidence-topic';
+      topic.textContent = displayed(item.question, item.questionZh);
+      topic.lang = displayLanguage(item.questionZh);
+      const value = document.createElement('p');
+      value.className = 'demo-evidence-value';
+      value.textContent = displayed(item.answer, item.answerZh);
+      value.lang = displayLanguage(item.answerZh);
+      row.append(topic, value);
+      if (item.kind === 'summary') {
+        const source = document.createElement('span');
+        source.className = 'demo-evidence-source';
+        source.textContent = t('demo.summarySource');
+        row.append(source);
+      }
+      const details = document.createElement('details');
+      details.className = 'demo-evidence-original';
+      details.open = openDetails.has(row.dataset.cueId);
+      const summary = document.createElement('summary');
+      summary.textContent = t('demo.singleSourceAnswers');
+      details.append(summary);
+      item.fields.forEach(field => {
+        const original = document.createElement('p');
+        original.textContent = `${field.question}: ${field.answer}`;
+        original.lang = 'en';
+        details.append(original);
+      });
+      row.append(details);
+      cues.append(row);
+    });
+    filteredCueList.replaceChildren();
+    filteredCues.hidden = true;
+    supplementalEvidence.replaceChildren();
+    supplemental.hidden = true;
+    cueSection.hidden = false;
+  }
+
   function resetDisclosure() {
     more.open = false;
     if (filteredCues) filteredCues.open = false;
@@ -231,9 +304,10 @@
   function render({ animate = false, preserveDetails = false } = {}) {
     cancelTransition();
     const openDetails = new Set(preserveDetails ? [...root.querySelectorAll('.demo-evidence-original[open]')].map(element => element.parentElement.dataset.cueId) : []);
-    selectAvailableExpert(current().record);
-    const { profile, record, expert } = current();
-    root.dataset.expert = state.model;
+    if (!current().single) selectAvailableExpert(current().record);
+    const { profile, record, expert, single } = current();
+    root.dataset.mode = single ? 'single' : 'legacy';
+    root.dataset.expert = single ? 'respondent' : state.model;
     populateControls();
     if (!profile || !record) {
       content.hidden = true;
@@ -246,46 +320,55 @@
     status.hidden = false;
     status.classList.add('sr-only');
     const modelName = modelNames[state.model];
-    status.textContent = modelName ? t('demo.modelSelected', { model: modelName }) : t('demo.noExperts');
+    status.textContent = single ? t('demo.singleReady') : modelName ? t('demo.modelSelected', { model: modelName }) : t('demo.noExperts');
+    setHeading(perceptionLabel, single ? 'demo.singlePerceptions' : 'demo.perceptions');
+    setHeading(outputHeading, single ? 'demo.singleOutputHeading' : 'demo.outputHeading');
+    setHeading(cueHeading, single ? 'demo.singleCues' : 'demo.cues');
+    setHeading(traceHeading, single ? 'demo.singleReasoning' : 'demo.reasoning');
+    setHeading(answerHeading, single ? 'demo.singleAnswer' : 'demo.answer');
     facts.replaceChildren();
     addFact('demo.age', profile.labelFields?.age);
     addFact('demo.gender', profile.labelFields?.gender);
     addFact('demo.education', profile.labelFields?.education);
     addFact('demo.country', profile.labelFields?.country);
-    questionText.textContent = record.question;
-    questionText.lang = 'en';
+    questionText.textContent = single ? displayed(record.question, record.questionZh) : record.question;
+    questionText.lang = single ? displayLanguage(record.questionZh) : 'en';
     options.replaceChildren();
     Object.entries(record.options || {}).forEach(([number, label]) => {
       const item = document.createElement('li');
       const marker = document.createElement('span');
       marker.className = 'demo-option-number';
       marker.textContent = `${number} · `;
-      item.append(marker, document.createTextNode(label));
-      item.lang = 'en';
+      const translated = single && record.optionsZh?.[number];
+      item.append(marker, document.createTextNode(displayed(label, translated)));
+      item.lang = single ? displayLanguage(translated) : 'en';
       options.append(item);
     });
     const visible = record.perceptions.slice(0, 4);
     const additional = record.perceptions.slice(4);
-    renderPerception(perceptions, visible);
-    renderPerception(morePerceptions, additional);
+    renderPerception(perceptions, visible, single);
+    renderPerception(morePerceptions, additional, single);
+    perceptionHeading.hidden = single && !record.perceptions.length;
+    perceptions.hidden = single && !record.perceptions.length;
     more.hidden = !additional.length;
     perceptionCount.textContent = t('demo.perceptionCount', { count: record.perceptions.length });
-    renderCues(expert, record, openDetails);
-    cot.textContent = expert?.cot || '';
-    cot.lang = 'en';
+    if (single) renderSingleCues(record, openDetails);
+    else renderCues(expert, record, openDetails);
+    cot.textContent = single ? displayed(record.cot, record.cotZh) : expert?.cot || '';
+    cot.lang = single ? displayLanguage(record.cotZh) : 'en';
     answer.replaceChildren();
-    if (expert) {
+    if (single || expert) {
       const number = document.createElement('span');
       number.className = 'demo-answer-number';
-      number.textContent = expert.answerId;
+      number.textContent = single ? record.answerId : expert.answerId;
       const label = document.createElement('span');
       label.className = 'demo-answer-text';
-      label.textContent = expert.answerLabel;
+      label.textContent = single ? displayed(record.answer, record.answerZh) : expert.answerLabel;
       answer.append(number, document.createTextNode(' '), label);
     }
-    answer.lang = 'en';
-    result.hidden = !expert;
-    outputIntro.hidden = !!expert;
+    answer.lang = single ? displayLanguage(record.answerZh) : 'en';
+    result.hidden = !single && !expert;
+    outputIntro.hidden = single || !!expert;
     outputIntro.textContent = t('demo.noExperts');
     if (animate) animateSelection();
   }
@@ -293,6 +376,22 @@
   function verify(source) {
     if (!Array.isArray(source?.datasets) || !source.datasets.length) throw new Error('No datasets');
     for (const dataset of source.datasets) {
+      if (dataset.mode === 'single') {
+        const record = dataset.case;
+        if (!dataset.id || !dataset.label || !record?.question || !record.options ||
+            record.options[String(record.answerId)] !== record.answer || !record.cot ||
+            !record.demographics || !Array.isArray(record.perceptions) ||
+            !Array.isArray(record.cues) || !record.cues.length) throw new Error('Invalid single Method example');
+        for (const item of record.perceptions) {
+          if (!item?.question || typeof item.response !== 'string') throw new Error('Invalid perception');
+        }
+        for (const item of record.cues) {
+          if (!['response', 'summary'].includes(item?.kind) || !item.question || !item.answer ||
+              !Array.isArray(item.fields) || !item.fields.length ||
+              item.fields.some(field => !field?.field || !field.question || !field.answer)) throw new Error('Invalid respondent evidence');
+        }
+        continue;
+      }
       if (!dataset.id || !dataset.label || !Array.isArray(dataset.profiles) || !dataset.profiles.length) throw new Error('Invalid dataset');
       for (const profile of dataset.profiles) {
         if (!profile.id || !Array.isArray(profile.records) || !profile.records.length) throw new Error('Invalid profile');
@@ -318,12 +417,14 @@
 
   datasetSelect.addEventListener('change', () => {
     state.dataset = datasetSelect.value;
-    state.profile = datasets.find(item => item.id === state.dataset)?.profiles[0]?.id || '';
-    state.question = current().profile?.records[0]?.id || '';
+    const dataset = datasets.find(item => item.id === state.dataset);
+    state.profile = dataset?.mode === 'single' ? '' : dataset?.profiles[0]?.id || '';
+    state.question = dataset?.mode === 'single' ? '' : current().profile?.records[0]?.id || '';
     resetDisclosure();
     render({ animate: true });
   });
   profileSelect.addEventListener('change', () => {
+    if (current().single) return;
     const previousQuestion = current().record?.questionId;
     state.profile = profileSelect.value;
     const records = current().profile?.records || [];
@@ -332,6 +433,7 @@
     render({ animate: true });
   });
   questionSelect.addEventListener('change', () => {
+    if (current().single) return;
     state.question = questionSelect.value;
     resetDisclosure();
     render({ animate: true });
@@ -348,9 +450,9 @@
   });
 
   Promise.all([
-    fetch('assets/method-demo.json?v=20261105-cues-r1', { cache: 'no-store' })
+    fetch('assets/method-demo.json?v=20261124-method7-r1', { cache: 'no-store' })
       .then(response => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); }),
-    fetch('assets/method-evidence-display.json?v=20261106-method-redesign-r1')
+    fetch('assets/method-evidence-display.json?v=20261124-method7-r1')
       .then(response => response.ok ? response.json() : null).catch(() => null)
   ])
     .then(([source, display]) => {
