@@ -16,9 +16,9 @@ from zipfile import ZipFile
 ROOT = Path(__file__).resolve().parents[1]
 GEOGRAPHY = ROOT / "assets/geography.json"
 SOURCES = {
-    "CPS": ("ClimateChange", "ClimateChange", "climate-change.zip"),
-    "SDI": ("SocialDistance", "SocialDistancing", "social-distance.zip"),
-    "VAPP": ("COVID-19", "CUNY2023-COVID19-perceived", "covid-19.zip"),
+    "CPS": ("ClimateChange", "climate-change.zip"),
+    "SDI": ("SocialDistancing", "social-distance.zip"),
+    "VAPP": ("CUNY2023-COVID19-perceived", "covid-19.zip"),
 }
 # Original main and held-out survey task inventories (manuscript Table 33 for GSS).
 SURVEY_QUESTIONS = {
@@ -27,7 +27,7 @@ SURVEY_QUESTIONS = {
 }
 
 
-def count_release(dataset, name, source_dataset, filename, aliases):
+def count_release(dataset, source_dataset, filename, aliases):
     respondents = {}
     responses = Counter()
     train_test = {}
@@ -51,7 +51,7 @@ def count_release(dataset, name, source_dataset, filename, aliases):
             train_test[split] = count
     population = Counter(region for region, _ in respondents.values())
     return {
-        "id": dataset, "label": f"{dataset} · {name}", "respondents": len(respondents),
+        "id": dataset, "label": dataset, "respondents": len(respondents),
         "responses": sum(responses.values()), "regions": [
             {"id": region, "count": count, "responses": responses[region]}
             for region, count in sorted(population.items(), key=lambda item: (-item[1], item[0]))

@@ -106,7 +106,7 @@ export function createCoverageState({ fetcher = globalThis.fetch, eventTarget = 
   function subscribe(fn) { subscribers.add(fn); return () => subscribers.delete(fn); }
 
   function getGeographyPromise() {
-    if (!geographyPromise) geographyPromise = Promise.resolve().then(() => fetcher('assets/geography.json?v=20261124-ood-v1', { credentials: 'same-origin', signal: aborter.signal }))
+    if (!geographyPromise) geographyPromise = Promise.resolve().then(() => fetcher('assets/geography.json?v=20261124-abbr', { credentials: 'same-origin', signal: aborter.signal }))
       .then(response => { if (!response.ok) throw new Error('Coverage data unavailable'); return response.json(); })
       .then(value => {
         if (disposed) throw new DOMException('Coverage state disposed', 'AbortError');

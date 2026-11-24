@@ -237,7 +237,7 @@
 
   async function initialize() {
     const [{ createCoverageState }, { createGlobeRenderer2d }] = await Promise.all([
-      import('./coverage-state.js?v=20261124-ood-v1'), import('./globe-renderer-2d.js?v=20261123-behavioral')
+      import('./coverage-state.js?v=20261124-abbr'), import('./globe-renderer-2d.js?v=20261123-behavioral')
     ]);
     if (disposed) return;
     store = createCoverageState();

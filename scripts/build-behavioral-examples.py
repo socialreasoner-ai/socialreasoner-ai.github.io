@@ -13,11 +13,11 @@ OUT = SITE / "assets/behavioral-examples.json"
 
 # Keep the regions, artwork demographics, and shared opening question in each pair.
 DATASETS = [
-    ("CPS", "ClimateChange", "ClimateChange", "climate-change.zip", "Policy1",
+    ("CPS", "ClimateChange", "climate-change.zip", "Policy1",
      [("Brazil", "BRA", "Female", 56), ("Sweden", "SWE", "Female", 28)]),
-    ("SDI", "SocialDistance", "SocialDistancing", "social-distance.zip", "intention_1w",
+    ("SDI", "SocialDistancing", "social-distance.zip", "intention_1w",
      [("MYS", "MYS", "Female", 27), ("PAK", "PAK", "Male", 25)]),
-    ("VAPP", "COVID-19", "CUNY2023-COVID19-perceived", "covid-19.zip", "Q5",
+    ("VAPP", "CUNY2023-COVID19-perceived", "covid-19.zip", "Q5",
      [("Russia", "RUS", "Male", 45), ("Germany", "DEU", "Male", 66)]),
 ]
 FIELDS = [
@@ -65,7 +65,7 @@ def demographics(profile):
     ]
 
 
-def build_dataset(code, name, source_name, archive_name, first_question, cases):
+def build_dataset(code, source_name, archive_name, first_question, cases):
     wanted_countries = {country for country, _, _, _ in cases}
     questions = set()
     candidate_questions = defaultdict(set)
@@ -142,7 +142,7 @@ def build_dataset(code, name, source_name, archive_name, first_question, cases):
             "displayId": f"{code}-{slot}", "regionId": region, "respondentId": person,
             "demographics": fields, "perceptions": perceptions, "records": records,
         })
-    return {"datasetId": code, "name": name, "archive": archive_name, "participants": participants}
+    return {"datasetId": code, "name": code, "archive": archive_name, "participants": participants}
 
 
 if __name__ == "__main__":

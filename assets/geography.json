@@ -977,7 +977,7 @@
     },
     {
       "id": "CPS",
-      "label": "CPS · ClimateChange",
+      "label": "CPS",
       "respondents": 3349,
       "responses": 30141,
       "regions": [
@@ -1294,7 +1294,7 @@
     },
     {
       "id": "SDI",
-      "label": "SDI · SocialDistance",
+      "label": "SDI",
       "respondents": 1528,
       "responses": 6112,
       "regions": [
@@ -1616,7 +1616,7 @@
     },
     {
       "id": "VAPP",
-      "label": "VAPP · COVID-19",
+      "label": "VAPP",
       "respondents": 23084,
       "responses": 135841,
       "regions": [

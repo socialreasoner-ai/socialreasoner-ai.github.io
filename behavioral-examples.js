@@ -3,7 +3,7 @@
   let request;
   function load() {
     if (!request) {
-      request = fetch('assets/behavioral-examples.json?v=20261124-ood-v1')
+      request = fetch('assets/behavioral-examples.json?v=20261124-abbr')
         .then(response => {
           if (!response.ok) throw new Error('Behavioral test examples unavailable');
           return response.json();
@@ -34,7 +34,7 @@
     const artwork = new Map(showcase.datasets.flatMap(dataset =>
       dataset.participants.map(person => [person.sourceRef.recordKey, person.avatar])));
     return {
-      datasetId: group.datasetId, label: group.name, availability: 'ready',
+      datasetId: group.datasetId, availability: 'ready',
       participants: group.participants.map(person => {
         const record = person.records[0];
         return {
@@ -51,7 +51,7 @@
 
   function methodGroup(group) {
     return {
-      id: group.datasetId, label: `${group.name} · ${group.datasetId}`, sourceType: 'testResponse',
+      id: group.datasetId, label: group.datasetId, sourceType: 'testResponse',
       profiles: group.participants.map(person => {
         const fields = Object.fromEntries(person.demographics.map(field => [field.key, field.value]));
         const perceptions = person.perceptions.map(item => ({ question: item.question, response: item.value }));
