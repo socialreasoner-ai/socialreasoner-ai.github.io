@@ -3,7 +3,7 @@
   let request;
   function load() {
     if (!request) {
-      request = fetch('assets/behavioral-examples.json?v=20261123')
+      request = fetch('assets/behavioral-examples.json?v=20261124-ood-v1')
         .then(response => {
           if (!response.ok) throw new Error('Behavioral test examples unavailable');
           return response.json();
@@ -20,14 +20,14 @@
     return request;
   }
 
-  // Link each released test respondent to an illustration, independently of list order.
-  const artworkByRespondent = {
-    r4d8ed77f74863f7f: 'ATP152_P0004934',
-    r5d0745a3fdbe49e8: 'ATP142_P0007673',
-    r84263a7ac70caf9c: 'EVS2017_P0015007',
-    r78d36a55e601e6d6: 'ATP152_P0004761',
-    r52ffdbb12461a48e: 'ISSP2015_P0010896',
-    rd93c3389cde4bd77: 'ATP142_P0004968'
+  // The display slots keep their illustrative artwork as the test sample changes.
+  const artworkByDisplayId = {
+    'CPS-A': 'ATP152_P0004934',
+    'CPS-B': 'ATP142_P0007673',
+    'SDI-A': 'EVS2017_P0015007',
+    'SDI-B': 'ATP152_P0004761',
+    'VAPP-A': 'ISSP2015_P0010896',
+    'VAPP-B': 'ATP142_P0004968'
   };
 
   function globeGroup(group, showcase) {
@@ -40,7 +40,7 @@
         return {
           datasetId: group.datasetId, displayId: person.displayId, regionId: person.regionId,
           demographics: person.demographics, perceptions: person.perceptions,
-          avatar: artwork.get(artworkByRespondent[person.respondentId]), avatarIllustrative: true,
+          avatar: artwork.get(artworkByDisplayId[person.displayId]), avatarIllustrative: true,
           target: { questionId: record.questionId, question: record.question,
             options: Object.entries(record.options).map(([id, text]) => ({ id, text })) },
           observedOptionId: record.answerId, inputPrompt: record.prompt

@@ -17,7 +17,7 @@ assert.equal(classifications.get('CHN'), 'emerging_developing');
 assert.equal(classifications.get('TWN'), 'advanced');
 assert.equal(classifications.get('BGR'), 'advanced');
 assert.equal(classifications.get('UK'), 'advanced');
-assert.equal(classifications.get('XKX'), 'emerging_developing');
+assert.equal(classifications.has('XKX'), false);
 assert.deepEqual([...classifications].filter(([, group]) => group === 'unknown').map(([id]) => id), ['VGB']);
 assert.equal(regions.get('VGB').count, 1);
 assert.equal(ages.schemaVersion, 1);
@@ -57,13 +57,13 @@ assert.equal(known + unknown, geo.totalRespondents);
 assert.equal(ages.audit.sourceRespondents, source);
 assert.equal(ages.audit.coverageRespondents, known + unknown);
 assert.equal(ages.audit.manuscriptRespondents, 281995);
-assert.equal(ages.audit.releaseRespondents, 67430);
+assert.equal(ages.audit.releaseRespondents, 27961);
 assert.equal(ages.audit.known, known);
 assert.equal(ages.audit.unknown, unknown);
 for (const [id, count, usable, rows] of [
-  ['CPS', 39931, 39931, 359379],
+  ['CPS', 3349, 3349, 30141],
   ['VAPP', 23084, 23084, 135841],
-  ['SDI', 4415, 4388, 17660]
+  ['SDI', 1528, 1518, 6112]
 ]) {
   const d = ages.datasets.find(dataset => dataset.id === id);
   assert.equal(d.sourceRows, rows);

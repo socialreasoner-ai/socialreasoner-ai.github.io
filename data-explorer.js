@@ -683,8 +683,8 @@
       };
       waitForSharedGeography();
     }),
-    fetchJson('assets/economy-groups.json?v=20261123-behavioral-r1'),
-    fetchJson('assets/demographics.json?v=20261123-behavioral-r1')
+    fetchJson('assets/economy-groups.json?v=20261124-ood-v1'),
+    fetchJson('assets/demographics.json?v=20261124-ood-v1')
   ]).then(([geographyData, economyData, demographicsData]) => {
     data = validate(geographyData, economyData, demographicsData);
     render();

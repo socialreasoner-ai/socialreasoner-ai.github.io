@@ -461,11 +461,6 @@
       "regionId": "VNM",
       "group": "emerging_developing",
       "matchType": "economy"
-    },
-    {
-      "regionId": "XKX",
-      "group": "emerging_developing",
-      "matchType": "economy"
     }
   ]
 }

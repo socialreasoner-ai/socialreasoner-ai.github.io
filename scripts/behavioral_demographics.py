@@ -1,7 +1,6 @@
 """Aggregate release-specific age histograms directly from the three published ZIPs."""
 from collections import Counter, defaultdict
 import json
-import re
 from zipfile import ZipFile
 
 
@@ -15,22 +14,18 @@ BINS = [
     }
     for lo, hi in AGE_RANGES
 ]
-PROFILE = re.compile(r"^### Personal Information:\s*\n(.+?)(?=\n\s*\n)", re.M | re.S)
-COUNTRY = re.compile(r"\bYour country is (.+?)\.(?:\s|$)")
-AGE_GROUP = re.compile(r"\bYour age group is (.+?)\.(?:\s|$)")
-AGE = re.compile(r"\bYour age is (\d+(?:\.\d+)?)\.(?:\s|$)")
 
 
 def release_age(dataset, profile):
     if dataset == "VAPP":
-        group = AGE_GROUP.search(profile)
-        if group:
-            return [item["label"] for item in BINS].index(group[1]), None
+        group = profile.get("age_group")
+        if group is None or group == "":
+            return None, "sourceMissingAge"
+        return [item["label"] for item in BINS].index(group), None
+    value = profile.get("age")
+    if value is None or value == "":
         return None, "sourceMissingAge"
-    match = AGE.search(profile)
-    if not match:
-        return None, "sourceMissingAge"
-    years = float(match[1])
+    years = float(value)
     # Legate et al., PNAS 2022, page 8: the analyzed sample was aged 18–89.
     if dataset == "SDI" and not 18 <= years <= 89:
         return None, "sourceAgeOutsideStudyRange"
@@ -49,15 +44,13 @@ def release_histogram(dataset, path, country_ids, geo_dataset):
                 for line in data:
                     row = json.loads(line)
                     rows += 1
-                    profile = PROFILE.search(row["prompt"])
-                    if not profile:
-                        raise ValueError(f"{dataset}: missing Personal Information section")
-                    country = COUNTRY.search(profile[1])
-                    if not country or country[1] not in country_ids:
-                        raise ValueError(f"{dataset}: unmapped country in Personal Information")
-                    age, missing = release_age(dataset, profile[1])
-                    person = (country_ids[country[1]], age, missing, split)
-                    if people.setdefault(row["respondent_id"], person) != person:
+                    profile = row["profile"]
+                    country = profile["country"]
+                    if country not in country_ids:
+                        raise ValueError(f"{dataset}: unmapped country in profile")
+                    age, missing = release_age(dataset, profile)
+                    person = (country_ids[country], age, missing, split)
+                    if people.setdefault(row["person_id"], person) != person:
                         raise ValueError(f"{dataset}: respondent has inconsistent region, age, or split")
     if (rows, len(people)) != (geo_dataset["responses"], geo_dataset["respondents"]):
         raise ValueError(f"{dataset}: download and geography do not match")
@@ -109,8 +102,8 @@ def append_behavioral_portraits(result, geography_path, release_dir, region_mapp
     result["source"]["scope"] = ("The nine original surveys retain their reported age groups. "
                                  "Age sources for the three behavioral downloads are documented below.")
     result["source"]["behavioralRelease"] = {
-        "respondentKey": "respondent_id within each release across train.jsonl and test.jsonl",
-        "ageField": "Personal Information in the release prompt",
+        "respondentKey": "person_id within each dataset across train.jsonl and test.jsonl",
+        "ageField": "profile.age for CPS and SDI; profile.age_group for VAPP",
         "CPS": "Age in years, displayed in six age bands.",
         "SDI": "Age in years, displayed in six age bands. Ages outside the published sample range of 18–89 are unavailable in the histogram.",
         "SDIStudy": "https://doi.org/10.1073/pnas.2111091119",

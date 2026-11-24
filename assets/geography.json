@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "totalRespondents": 349425,
-  "totalRegions": 88,
-  "totalResponses": 9238546,
+  "totalRespondents": 309956,
+  "totalRegions": 87,
+  "totalResponses": 8897760,
   "paperRespondents": 281995,
   "paperResponses": 8725666,
   "unmappedRespondents": 0,
-  "updated": "2026-11-23",
-  "sourceVersion": "Manuscript survey cohort and the November 18, 2026 behavioral data release (Prompt v3).",
+  "updated": "2026-11-24",
+  "sourceVersion": "Manuscript survey cohort and the November 24, 2026 behavioral dataset update.",
   "methodology": "Respondents are counted once per dataset across the training and test splits. The totals combine the nine manuscript surveys with the three released behavioral datasets. Responses count individual respondent–question records. Counts are unweighted.",
   "geographyNote": "Counts retain each study’s geographic scope. Great Britain and the United Kingdom have separate survey-region entries. China (mainland) and Taiwan, China share map highlights and retain separate counts. Small regions can appear as points. Markers designate survey regions rather than individual locations.",
   "versionNote": "The nine manuscript surveys retain their original cohort of 281,995 dataset-level respondents and 8,725,666 records. The September 24, 2026 cleaned cohort excluded 18 respondents and their 18 records (ISSP2015: 3; ISSP2016: 4; ISSP2019: 9; ISSP2021: 2).",
@@ -978,308 +978,308 @@
     {
       "id": "CPS",
       "label": "CPS · ClimateChange",
-      "respondents": 39931,
-      "responses": 359379,
+      "respondents": 3349,
+      "responses": 30141,
       "regions": [
         {
           "id": "USA",
-          "count": 6666,
-          "responses": 59994
+          "count": 538,
+          "responses": 4842
         },
         {
           "id": "SWE",
-          "count": 1849,
-          "responses": 16641
-        },
-        {
-          "id": "UK",
-          "count": 1585,
-          "responses": 14265
+          "count": 153,
+          "responses": 1377
         },
         {
           "id": "POL",
-          "count": 1536,
-          "responses": 13824
+          "count": 121,
+          "responses": 1089
         },
         {
-          "id": "NLD",
-          "count": 1239,
-          "responses": 11151
+          "id": "UK",
+          "count": 117,
+          "responses": 1053
         },
         {
           "id": "ITA",
-          "count": 1169,
-          "responses": 10521
+          "count": 103,
+          "responses": 927
         },
         {
-          "id": "FRA",
-          "count": 1141,
-          "responses": 10269
+          "id": "NLD",
+          "count": 102,
+          "responses": 918
         },
         {
           "id": "JPN",
-          "count": 1119,
-          "responses": 10071
-        },
-        {
-          "id": "DEU",
-          "count": 1069,
-          "responses": 9621
-        },
-        {
-          "id": "NGA",
-          "count": 1062,
-          "responses": 9558
-        },
-        {
-          "id": "AUS",
-          "count": 842,
-          "responses": 7578
-        },
-        {
-          "id": "ISR",
-          "count": 829,
-          "responses": 7461
-        },
-        {
-          "id": "NZL",
-          "count": 826,
-          "responses": 7434
-        },
-        {
-          "id": "BRA",
-          "count": 802,
-          "responses": 7218
-        },
-        {
-          "id": "CAN",
-          "count": 792,
-          "responses": 7128
-        },
-        {
-          "id": "RUS",
-          "count": 785,
-          "responses": 7065
-        },
-        {
-          "id": "CHN",
-          "count": 768,
-          "responses": 6912
-        },
-        {
-          "id": "SVK",
-          "count": 739,
-          "responses": 6651
-        },
-        {
-          "id": "NOR",
-          "count": 736,
-          "responses": 6624
-        },
-        {
-          "id": "CHE",
-          "count": 694,
-          "responses": 6246
-        },
-        {
-          "id": "BGR",
-          "count": 590,
-          "responses": 5310
-        },
-        {
-          "id": "IND",
-          "count": 579,
-          "responses": 5211
-        },
-        {
-          "id": "IRL",
-          "count": 561,
-          "responses": 5049
-        },
-        {
-          "id": "KOR",
-          "count": 558,
-          "responses": 5022
-        },
-        {
-          "id": "SDN",
-          "count": 483,
-          "responses": 4347
-        },
-        {
-          "id": "GRC",
-          "count": 467,
-          "responses": 4203
-        },
-        {
-          "id": "ECU",
-          "count": 453,
-          "responses": 4077
-        },
-        {
-          "id": "TUR",
-          "count": 453,
-          "responses": 4077
+          "count": 94,
+          "responses": 846
         },
         {
           "id": "FIN",
-          "count": 450,
-          "responses": 4050
+          "count": 93,
+          "responses": 837
+        },
+        {
+          "id": "NGA",
+          "count": 93,
+          "responses": 837
+        },
+        {
+          "id": "DEU",
+          "count": 90,
+          "responses": 810
+        },
+        {
+          "id": "FRA",
+          "count": 89,
+          "responses": 801
+        },
+        {
+          "id": "ISR",
+          "count": 76,
+          "responses": 684
+        },
+        {
+          "id": "AUS",
+          "count": 72,
+          "responses": 648
+        },
+        {
+          "id": "CHN",
+          "count": 70,
+          "responses": 630
+        },
+        {
+          "id": "CAN",
+          "count": 68,
+          "responses": 612
+        },
+        {
+          "id": "CHE",
+          "count": 62,
+          "responses": 558
+        },
+        {
+          "id": "BRA",
+          "count": 61,
+          "responses": 549
+        },
+        {
+          "id": "NZL",
+          "count": 61,
+          "responses": 549
+        },
+        {
+          "id": "NOR",
+          "count": 60,
+          "responses": 540
+        },
+        {
+          "id": "SVK",
+          "count": 57,
+          "responses": 513
+        },
+        {
+          "id": "RUS",
+          "count": 55,
+          "responses": 495
+        },
+        {
+          "id": "GRC",
+          "count": 49,
+          "responses": 441
+        },
+        {
+          "id": "IND",
+          "count": 49,
+          "responses": 441
+        },
+        {
+          "id": "IRL",
+          "count": 47,
+          "responses": 423
+        },
+        {
+          "id": "KOR",
+          "count": 47,
+          "responses": 423
+        },
+        {
+          "id": "BGR",
+          "count": 45,
+          "responses": 405
+        },
+        {
+          "id": "TUR",
+          "count": 44,
+          "responses": 396
+        },
+        {
+          "id": "SDN",
+          "count": 42,
+          "responses": 378
         },
         {
           "id": "ARE",
-          "count": 424,
-          "responses": 3816
+          "count": 36,
+          "responses": 324
         },
         {
           "id": "SGP",
-          "count": 417,
-          "responses": 3753
-        },
-        {
-          "id": "ZAF",
-          "count": 414,
-          "responses": 3726
+          "count": 36,
+          "responses": 324
         },
         {
           "id": "PRT",
-          "count": 410,
-          "responses": 3690
-        },
-        {
-          "id": "DNK",
-          "count": 394,
-          "responses": 3546
-        },
-        {
-          "id": "MEX",
-          "count": 366,
-          "responses": 3294
+          "count": 35,
+          "responses": 315
         },
         {
           "id": "CZE",
-          "count": 355,
-          "responses": 3195
+          "count": 34,
+          "responses": 306
+        },
+        {
+          "id": "DNK",
+          "count": 34,
+          "responses": 306
         },
         {
           "id": "THA",
-          "count": 353,
-          "responses": 3177
+          "count": 32,
+          "responses": 288
         },
         {
-          "id": "DZA",
-          "count": 348,
-          "responses": 3132
-        },
-        {
-          "id": "SAU",
-          "count": 339,
-          "responses": 3051
-        },
-        {
-          "id": "ROU",
-          "count": 332,
-          "responses": 2988
+          "id": "ZAF",
+          "count": 32,
+          "responses": 288
         },
         {
           "id": "MAR",
-          "count": 323,
-          "responses": 2907
+          "count": 31,
+          "responses": 279
         },
         {
-          "id": "SVN",
-          "count": 320,
-          "responses": 2880
-        },
-        {
-          "id": "BEL",
-          "count": 318,
-          "responses": 2862
-        },
-        {
-          "id": "ESP",
-          "count": 314,
-          "responses": 2826
+          "id": "MEX",
+          "count": 31,
+          "responses": 279
         },
         {
           "id": "GHA",
-          "count": 313,
-          "responses": 2817
+          "count": 30,
+          "responses": 270
         },
         {
-          "id": "CHL",
-          "count": 310,
-          "responses": 2790
-        },
-        {
-          "id": "URY",
-          "count": 300,
-          "responses": 2700
-        },
-        {
-          "id": "UKR",
-          "count": 296,
-          "responses": 2664
+          "id": "SAU",
+          "count": 30,
+          "responses": 270
         },
         {
           "id": "AUT",
-          "count": 292,
-          "responses": 2628
+          "count": 28,
+          "responses": 252
         },
         {
-          "id": "MKD",
-          "count": 270,
-          "responses": 2430
+          "id": "ROU",
+          "count": 28,
+          "responses": 252
         },
         {
-          "id": "LKA",
-          "count": 261,
-          "responses": 2349
+          "id": "BEL",
+          "count": 27,
+          "responses": 243
         },
         {
-          "id": "GMB",
-          "count": 249,
-          "responses": 2241
+          "id": "DZA",
+          "count": 27,
+          "responses": 243
+        },
+        {
+          "id": "ECU",
+          "count": 27,
+          "responses": 243
+        },
+        {
+          "id": "ESP",
+          "count": 26,
+          "responses": 234
+        },
+        {
+          "id": "SVN",
+          "count": 25,
+          "responses": 225
+        },
+        {
+          "id": "UKR",
+          "count": 24,
+          "responses": 216
         },
         {
           "id": "LVA",
-          "count": 233,
-          "responses": 2097
-        },
-        {
-          "id": "ARM",
-          "count": 213,
-          "responses": 1917
-        },
-        {
-          "id": "VNM",
-          "count": 209,
-          "responses": 1881
-        },
-        {
-          "id": "TWN",
-          "count": 198,
-          "responses": 1782
-        },
-        {
-          "id": "SRB",
-          "count": 177,
-          "responses": 1593
+          "count": 23,
+          "responses": 207
         },
         {
           "id": "PER",
-          "count": 173,
-          "responses": 1557
+          "count": 23,
+          "responses": 207
+        },
+        {
+          "id": "CHL",
+          "count": 22,
+          "responses": 198
+        },
+        {
+          "id": "VNM",
+          "count": 21,
+          "responses": 189
+        },
+        {
+          "id": "TWN",
+          "count": 19,
+          "responses": 171
+        },
+        {
+          "id": "ARM",
+          "count": 18,
+          "responses": 162
+        },
+        {
+          "id": "GMB",
+          "count": 18,
+          "responses": 162
+        },
+        {
+          "id": "URY",
+          "count": 17,
+          "responses": 153
+        },
+        {
+          "id": "MKD",
+          "count": 16,
+          "responses": 144
+        },
+        {
+          "id": "SRB",
+          "count": 16,
+          "responses": 144
+        },
+        {
+          "id": "LKA",
+          "count": 12,
+          "responses": 108
         },
         {
           "id": "PHL",
-          "count": 106,
-          "responses": 954
+          "count": 11,
+          "responses": 99
         },
         {
           "id": "VEN",
-          "count": 62,
-          "responses": 558
+          "count": 2,
+          "responses": 18
         }
       ],
       "usCensusRegions": {},
@@ -1287,309 +1287,299 @@
       "collection": "behavioral",
       "questionCount": 9,
       "recordsBySplit": {
-        "train": 287496,
-        "test": 71883
+        "train": 24111,
+        "test": 6030
       },
       "unmappedRespondents": 0
     },
     {
       "id": "SDI",
       "label": "SDI · SocialDistance",
-      "respondents": 4415,
-      "responses": 17660,
+      "respondents": 1528,
+      "responses": 6112,
       "regions": [
         {
           "id": "USA",
-          "count": 687,
-          "responses": 2748
+          "count": 235,
+          "responses": 940
         },
         {
           "id": "POL",
-          "count": 405,
-          "responses": 1620
-        },
-        {
-          "id": "HRV",
-          "count": 249,
-          "responses": 996
-        },
-        {
-          "id": "JPN",
-          "count": 240,
-          "responses": 960
-        },
-        {
-          "id": "UK",
-          "count": 164,
-          "responses": 656
-        },
-        {
-          "id": "KEN",
-          "count": 159,
-          "responses": 636
-        },
-        {
-          "id": "EGY",
           "count": 157,
           "responses": 628
         },
         {
-          "id": "NGA",
-          "count": 151,
-          "responses": 604
+          "id": "HRV",
+          "count": 89,
+          "responses": 356
         },
         {
-          "id": "FRA",
-          "count": 147,
-          "responses": 588
-        },
-        {
-          "id": "AUS",
-          "count": 123,
-          "responses": 492
-        },
-        {
-          "id": "AUT",
-          "count": 111,
-          "responses": 444
-        },
-        {
-          "id": "MEX",
-          "count": 95,
-          "responses": 380
-        },
-        {
-          "id": "ZAF",
-          "count": 95,
-          "responses": 380
-        },
-        {
-          "id": "CHN",
-          "count": 93,
-          "responses": 372
-        },
-        {
-          "id": "ROU",
-          "count": 86,
-          "responses": 344
-        },
-        {
-          "id": "RUS",
-          "count": 85,
-          "responses": 340
-        },
-        {
-          "id": "CHE",
-          "count": 81,
-          "responses": 324
-        },
-        {
-          "id": "SWE",
-          "count": 79,
-          "responses": 316
-        },
-        {
-          "id": "PHL",
-          "count": 77,
-          "responses": 308
-        },
-        {
-          "id": "DEU",
+          "id": "EGY",
           "count": 69,
           "responses": 276
         },
         {
-          "id": "PAK",
+          "id": "JPN",
           "count": 65,
           "responses": 260
         },
         {
-          "id": "CAN",
-          "count": 64,
-          "responses": 256
-        },
-        {
-          "id": "CZE",
-          "count": 63,
-          "responses": 252
-        },
-        {
-          "id": "CHL",
-          "count": 61,
-          "responses": 244
-        },
-        {
-          "id": "NOR",
-          "count": 60,
-          "responses": 240
-        },
-        {
-          "id": "KOR",
+          "id": "KEN",
           "count": 55,
           "responses": 220
         },
         {
-          "id": "TUR",
+          "id": "UK",
+          "count": 54,
+          "responses": 216
+        },
+        {
+          "id": "NGA",
+          "count": 50,
+          "responses": 200
+        },
+        {
+          "id": "FRA",
           "count": 49,
           "responses": 196
         },
         {
-          "id": "PRT",
-          "count": 46,
-          "responses": 184
+          "id": "AUT",
+          "count": 45,
+          "responses": 180
         },
         {
-          "id": "FIN",
+          "id": "CHN",
           "count": 42,
           "responses": 168
         },
         {
-          "id": "CRI",
-          "count": 40,
-          "responses": 160
-        },
-        {
-          "id": "SVK",
-          "count": 40,
-          "responses": 160
-        },
-        {
-          "id": "NZL",
+          "id": "AUS",
           "count": 36,
           "responses": 144
         },
         {
-          "id": "NLD",
+          "id": "MEX",
           "count": 34,
           "responses": 136
         },
         {
-          "id": "BEL",
+          "id": "ZAF",
+          "count": 32,
+          "responses": 128
+        },
+        {
+          "id": "CHE",
           "count": 30,
           "responses": 120
         },
         {
-          "id": "ITA",
-          "count": 29,
-          "responses": 116
-        },
-        {
-          "id": "ISR",
+          "id": "CHL",
           "count": 28,
           "responses": 112
         },
         {
-          "id": "MKD",
+          "id": "SWE",
           "count": 28,
           "responses": 112
         },
         {
-          "id": "HUN",
+          "id": "PHL",
+          "count": 27,
+          "responses": 108
+        },
+        {
+          "id": "RUS",
           "count": 25,
           "responses": 100
         },
         {
-          "id": "BRA",
+          "id": "CZE",
           "count": 24,
           "responses": 96
         },
         {
-          "id": "ARG",
-          "count": 23,
-          "responses": 92
-        },
-        {
-          "id": "COL",
+          "id": "NOR",
           "count": 22,
           "responses": 88
         },
         {
-          "id": "BGR",
-          "count": 19,
-          "responses": 76
+          "id": "DEU",
+          "count": 20,
+          "responses": 80
         },
         {
-          "id": "GRC",
-          "count": 19,
-          "responses": 76
+          "id": "PAK",
+          "count": 20,
+          "responses": 80
         },
         {
-          "id": "SGP",
+          "id": "ROU",
+          "count": 20,
+          "responses": 80
+        },
+        {
+          "id": "NLD",
           "count": 18,
           "responses": 72
         },
         {
-          "id": "MAR",
-          "count": 17,
-          "responses": 68
-        },
-        {
-          "id": "IRN",
+          "id": "CAN",
           "count": 16,
           "responses": 64
         },
         {
-          "id": "MYS",
+          "id": "FIN",
+          "count": 16,
+          "responses": 64
+        },
+        {
+          "id": "KOR",
           "count": 15,
           "responses": 60
         },
         {
-          "id": "TWN",
+          "id": "NZL",
           "count": 14,
           "responses": 56
         },
         {
-          "id": "SRB",
+          "id": "SVK",
+          "count": 14,
+          "responses": 56
+        },
+        {
+          "id": "TUR",
+          "count": 14,
+          "responses": 56
+        },
+        {
+          "id": "PRT",
           "count": 13,
           "responses": 52
         },
         {
-          "id": "IND",
+          "id": "COL",
+          "count": 12,
+          "responses": 48
+        },
+        {
+          "id": "CRI",
           "count": 11,
           "responses": 44
         },
         {
-          "id": "ECU",
+          "id": "MKD",
+          "count": 11,
+          "responses": 44
+        },
+        {
+          "id": "ISR",
+          "count": 10,
+          "responses": 40
+        },
+        {
+          "id": "ARG",
           "count": 9,
           "responses": 36
         },
         {
-          "id": "IRL",
+          "id": "BRA",
           "count": 9,
           "responses": 36
         },
         {
-          "id": "HKG",
+          "id": "HUN",
+          "count": 9,
+          "responses": 36
+        },
+        {
+          "id": "BGR",
+          "count": 8,
+          "responses": 32
+        },
+        {
+          "id": "BEL",
           "count": 7,
           "responses": 28
         },
         {
-          "id": "BGD",
+          "id": "SGP",
+          "count": 7,
+          "responses": 28
+        },
+        {
+          "id": "MYS",
           "count": 6,
           "responses": 24
         },
         {
-          "id": "BIH",
+          "id": "GRC",
+          "count": 5,
+          "responses": 20
+        },
+        {
+          "id": "ITA",
+          "count": 5,
+          "responses": 20
+        },
+        {
+          "id": "MAR",
+          "count": 5,
+          "responses": 20
+        },
+        {
+          "id": "SRB",
           "count": 5,
           "responses": 20
         },
         {
           "id": "SVN",
-          "count": 5,
-          "responses": 20
+          "count": 4,
+          "responses": 16
         },
         {
-          "id": "ARM",
+          "id": "BGD",
           "count": 3,
           "responses": 12
         },
         {
-          "id": "ESP",
+          "id": "ECU",
+          "count": 3,
+          "responses": 12
+        },
+        {
+          "id": "HKG",
+          "count": 3,
+          "responses": 12
+        },
+        {
+          "id": "IRL",
+          "count": 3,
+          "responses": 12
+        },
+        {
+          "id": "IRN",
+          "count": 3,
+          "responses": 12
+        },
+        {
+          "id": "TWN",
           "count": 3,
           "responses": 12
         },
         {
           "id": "ARE",
+          "count": 2,
+          "responses": 8
+        },
+        {
+          "id": "BIH",
+          "count": 2,
+          "responses": 8
+        },
+        {
+          "id": "IND",
           "count": 2,
           "responses": 8
         },
@@ -1599,27 +1589,17 @@
           "responses": 8
         },
         {
+          "id": "ARM",
+          "count": 1,
+          "responses": 4
+        },
+        {
           "id": "BHR",
           "count": 1,
           "responses": 4
         },
         {
-          "id": "CYP",
-          "count": 1,
-          "responses": 4
-        },
-        {
-          "id": "THA",
-          "count": 1,
-          "responses": 4
-        },
-        {
           "id": "VGB",
-          "count": 1,
-          "responses": 4
-        },
-        {
-          "id": "XKX",
           "count": 1,
           "responses": 4
         }
@@ -1629,8 +1609,8 @@
       "collection": "behavioral",
       "questionCount": 4,
       "recordsBySplit": {
-        "train": 14128,
-        "test": 3532
+        "train": 4888,
+        "test": 1224
       },
       "unmappedRespondents": 0
     },
@@ -1761,8 +1741,8 @@
       "collection": "behavioral",
       "questionCount": 6,
       "recordsBySplit": {
-        "train": 108684,
-        "test": 27157
+        "train": 108675,
+        "test": 27166
       },
       "unmappedRespondents": 0
     }
@@ -1774,7 +1754,7 @@
       "numericId": "840",
       "lon": -103.5725,
       "lat": 44.7557,
-      "count": 30979,
+      "count": 24399,
       "byDataset": {
         "ATP142": 9851,
         "ATP152": 5227,
@@ -1784,8 +1764,8 @@
         "ISSP2019": 1796,
         "ISSP2021": 951,
         "GSS2022": 500,
-        "CPS": 6666,
-        "SDI": 687,
+        "CPS": 538,
+        "SDI": 235,
         "VAPP": 1000
       }
     },
@@ -1795,15 +1775,15 @@
       "numericId": "710",
       "lon": 25.1581,
       "lat": -28.9233,
-      "count": 13654,
+      "count": 13209,
       "byDataset": {
         "ISSP2009": 3190,
         "ISSP2015": 2651,
         "ISSP2016": 2693,
         "ISSP2019": 1425,
         "ISSP2021": 2186,
-        "CPS": 414,
-        "SDI": 95,
+        "CPS": 32,
+        "SDI": 32,
         "VAPP": 1000
       }
     },
@@ -1813,7 +1793,7 @@
       "numericId": "756",
       "lon": 8.1158,
       "lat": 46.7928,
-      "count": 12805,
+      "count": 12122,
       "byDataset": {
         "EVS2017": 3025,
         "ISSP2009": 1052,
@@ -1821,8 +1801,8 @@
         "ISSP2016": 1007,
         "ISSP2019": 2866,
         "ISSP2021": 2936,
-        "CPS": 694,
-        "SDI": 81
+        "CPS": 62,
+        "SDI": 30
       }
     },
     {
@@ -1831,7 +1811,7 @@
       "numericId": "250",
       "lon": 2.3491,
       "lat": 46.5589,
-      "count": 11997,
+      "count": 10847,
       "byDataset": {
         "EVS2017": 1683,
         "ISSP2009": 2503,
@@ -1839,8 +1819,8 @@
         "ISSP2016": 1351,
         "ISSP2019": 1574,
         "ISSP2021": 1541,
-        "CPS": 1141,
-        "SDI": 147,
+        "CPS": 89,
+        "SDI": 49,
         "VAPP": 1000
       }
     },
@@ -1850,7 +1830,7 @@
       "numericId": "276",
       "lon": 10.2704,
       "lat": 51.0774,
-      "count": 11619,
+      "count": 10591,
       "byDataset": {
         "EVS2017": 1966,
         "ISSP2009": 1366,
@@ -1858,8 +1838,8 @@
         "ISSP2016": 1640,
         "ISSP2019": 1272,
         "ISSP2021": 1604,
-        "CPS": 1069,
-        "SDI": 69,
+        "CPS": 90,
+        "SDI": 20,
         "VAPP": 1000
       }
     },
@@ -1869,7 +1849,7 @@
       "numericId": "643",
       "lon": 95.7853,
       "lat": 66.0678,
-      "count": 10793,
+      "count": 10003,
       "byDataset": {
         "EVS2017": 1411,
         "ISSP2009": 1410,
@@ -1877,8 +1857,8 @@
         "ISSP2016": 1467,
         "ISSP2019": 1571,
         "ISSP2021": 1562,
-        "CPS": 785,
-        "SDI": 85,
+        "CPS": 55,
+        "SDI": 25,
         "VAPP": 1084
       }
     },
@@ -1888,15 +1868,15 @@
       "numericId": "608",
       "lon": 121.5505,
       "lat": 15.7417,
-      "count": 9472,
+      "count": 9327,
       "byDataset": {
         "ISSP2009": 1191,
         "ISSP2015": 1169,
         "ISSP2016": 1169,
         "ISSP2019": 4085,
         "ISSP2021": 1675,
-        "CPS": 106,
-        "SDI": 77
+        "CPS": 11,
+        "SDI": 27
       }
     },
     {
@@ -1905,7 +1885,7 @@
       "numericId": "208",
       "lon": 9.8855,
       "lat": 56.0591,
-      "count": 9355,
+      "count": 8995,
       "byDataset": {
         "EVS2017": 3047,
         "ISSP2009": 1413,
@@ -1913,25 +1893,7 @@
         "ISSP2016": 1010,
         "ISSP2019": 1005,
         "ISSP2021": 1455,
-        "CPS": 394
-      }
-    },
-    {
-      "id": "SWE",
-      "label": "Sweden",
-      "numericId": "752",
-      "lon": 16.1091,
-      "lat": 62.4185,
-      "count": 8943,
-      "byDataset": {
-        "EVS2017": 1132,
-        "ISSP2009": 1108,
-        "ISSP2015": 1098,
-        "ISSP2016": 1086,
-        "ISSP2019": 1591,
-        "CPS": 1849,
-        "SDI": 79,
-        "VAPP": 1000
+        "CPS": 34
       }
     },
     {
@@ -1940,17 +1902,35 @@
       "numericId": "158",
       "lon": 120.9716,
       "lat": 23.739,
-      "count": 8470,
+      "count": 8280,
       "byDataset": {
         "ISSP2009": 1462,
         "ISSP2015": 1797,
         "ISSP2016": 1878,
         "ISSP2019": 1564,
         "ISSP2021": 1557,
-        "CPS": 198,
-        "SDI": 14
+        "CPS": 19,
+        "SDI": 3
       },
       "highlightGroup": "CHN"
+    },
+    {
+      "id": "CZE",
+      "label": "Czechia",
+      "numericId": "203",
+      "lon": 15.3429,
+      "lat": 49.7798,
+      "count": 7745,
+      "byDataset": {
+        "EVS2017": 1302,
+        "ISSP2009": 881,
+        "ISSP2015": 1316,
+        "ISSP2016": 1235,
+        "ISSP2019": 1848,
+        "ISSP2021": 1105,
+        "CPS": 34,
+        "SDI": 24
+      }
     },
     {
       "id": "NOR",
@@ -1958,7 +1938,7 @@
       "numericId": "578",
       "lon": 12.368,
       "lat": 64.0861,
-      "count": 8371,
+      "count": 7657,
       "byDataset": {
         "EVS2017": 1085,
         "ISSP2009": 1154,
@@ -1966,8 +1946,26 @@
         "ISSP2016": 1166,
         "ISSP2019": 1280,
         "ISSP2021": 1416,
-        "CPS": 736,
-        "SDI": 60
+        "CPS": 60,
+        "SDI": 22
+      }
+    },
+    {
+      "id": "SWE",
+      "label": "Sweden",
+      "numericId": "752",
+      "lon": 16.1091,
+      "lat": 62.4185,
+      "count": 7196,
+      "byDataset": {
+        "EVS2017": 1132,
+        "ISSP2009": 1108,
+        "ISSP2015": 1098,
+        "ISSP2016": 1086,
+        "ISSP2019": 1591,
+        "CPS": 153,
+        "SDI": 28,
+        "VAPP": 1000
       }
     },
     {
@@ -1976,50 +1974,15 @@
       "numericId": "392",
       "lon": 136.7132,
       "lat": 36.0082,
-      "count": 8141,
+      "count": 6941,
       "byDataset": {
         "ISSP2009": 1170,
         "ISSP2015": 1475,
         "ISSP2016": 1475,
         "ISSP2019": 1373,
         "ISSP2021": 1289,
-        "CPS": 1119,
-        "SDI": 240
-      }
-    },
-    {
-      "id": "POL",
-      "label": "Poland",
-      "numericId": "616",
-      "lon": 19.3438,
-      "lat": 52.1341,
-      "count": 8132,
-      "byDataset": {
-        "EVS2017": 1239,
-        "ISSP2009": 1006,
-        "ISSP2015": 1922,
-        "ISSP2021": 1024,
-        "CPS": 1536,
-        "SDI": 405,
-        "VAPP": 1000
-      }
-    },
-    {
-      "id": "CZE",
-      "label": "Czechia",
-      "numericId": "203",
-      "lon": 15.3429,
-      "lat": 49.7798,
-      "count": 8105,
-      "byDataset": {
-        "EVS2017": 1302,
-        "ISSP2009": 881,
-        "ISSP2015": 1316,
-        "ISSP2016": 1235,
-        "ISSP2019": 1848,
-        "ISSP2021": 1105,
-        "CPS": 355,
-        "SDI": 63
+        "CPS": 94,
+        "SDI": 65
       }
     },
     {
@@ -2028,33 +1991,16 @@
       "numericId": "156",
       "lon": 103.4525,
       "lat": 36.6834,
-      "count": 7288,
+      "count": 6539,
       "byDataset": {
         "ISSP2009": 2978,
         "ISSP2015": 1475,
         "ISSP2021": 974,
-        "CPS": 768,
-        "SDI": 93,
+        "CPS": 70,
+        "SDI": 42,
         "VAPP": 1000
       },
       "highlightGroup": "CHN"
-    },
-    {
-      "id": "ITA",
-      "label": "Italy",
-      "numericId": "380",
-      "lon": 12.269,
-      "lat": 42.6708,
-      "count": 6990,
-      "byDataset": {
-        "EVS2017": 1963,
-        "ISSP2009": 830,
-        "ISSP2019": 1088,
-        "ISSP2021": 911,
-        "CPS": 1169,
-        "SDI": 29,
-        "VAPP": 1000
-      }
     },
     {
       "id": "ESP",
@@ -2062,33 +2008,31 @@
       "numericId": "724",
       "lon": -3.6242,
       "lat": 40.3207,
-      "count": 6796,
+      "count": 6505,
       "byDataset": {
         "EVS2017": 1071,
         "ISSP2009": 913,
         "ISSP2015": 1748,
         "ISSP2016": 1747,
-        "CPS": 314,
-        "SDI": 3,
+        "CPS": 26,
         "VAPP": 1000
       }
     },
     {
-      "id": "FIN",
-      "label": "Finland",
-      "numericId": "246",
-      "lon": 26.1416,
-      "lat": 64.261,
-      "count": 6597,
+      "id": "POL",
+      "label": "Poland",
+      "numericId": "616",
+      "lon": 19.3438,
+      "lat": 52.1341,
+      "count": 6469,
       "byDataset": {
-        "EVS2017": 1134,
-        "ISSP2009": 829,
-        "ISSP2015": 1143,
-        "ISSP2016": 1125,
-        "ISSP2019": 927,
-        "ISSP2021": 947,
-        "CPS": 450,
-        "SDI": 42
+        "EVS2017": 1239,
+        "ISSP2009": 1006,
+        "ISSP2015": 1922,
+        "ISSP2021": 1024,
+        "CPS": 121,
+        "SDI": 157,
+        "VAPP": 1000
       }
     },
     {
@@ -2108,12 +2052,30 @@
       }
     },
     {
+      "id": "FIN",
+      "label": "Finland",
+      "numericId": "246",
+      "lon": 26.1416,
+      "lat": 64.261,
+      "count": 6214,
+      "byDataset": {
+        "EVS2017": 1134,
+        "ISSP2009": 829,
+        "ISSP2015": 1143,
+        "ISSP2016": 1125,
+        "ISSP2019": 927,
+        "ISSP2021": 947,
+        "CPS": 93,
+        "SDI": 16
+      }
+    },
+    {
       "id": "HRV",
       "label": "Croatia",
       "numericId": "191",
       "lon": 16.31,
       "lat": 45.17,
-      "count": 6265,
+      "count": 6105,
       "byDataset": {
         "EVS2017": 1355,
         "ISSP2009": 754,
@@ -2121,24 +2083,7 @@
         "ISSP2016": 984,
         "ISSP2019": 924,
         "ISSP2021": 1043,
-        "SDI": 249
-      }
-    },
-    {
-      "id": "AUS",
-      "label": "Australia",
-      "numericId": "036",
-      "lon": 134.3141,
-      "lat": -25.7631,
-      "count": 6232,
-      "byDataset": {
-        "ISSP2009": 1348,
-        "ISSP2015": 987,
-        "ISSP2016": 1117,
-        "ISSP2019": 969,
-        "ISSP2021": 846,
-        "CPS": 842,
-        "SDI": 123
+        "SDI": 89
       }
     },
     {
@@ -2147,7 +2092,7 @@
       "numericId": "705",
       "lon": 14.9342,
       "lat": 46.1259,
-      "count": 6222,
+      "count": 5926,
       "byDataset": {
         "EVS2017": 956,
         "ISSP2009": 967,
@@ -2155,8 +2100,25 @@
         "ISSP2016": 964,
         "ISSP2019": 1127,
         "ISSP2021": 931,
-        "CPS": 320,
-        "SDI": 5
+        "CPS": 25,
+        "SDI": 4
+      }
+    },
+    {
+      "id": "ITA",
+      "label": "Italy",
+      "numericId": "380",
+      "lon": 12.269,
+      "lat": 42.6708,
+      "count": 5900,
+      "byDataset": {
+        "EVS2017": 1963,
+        "ISSP2009": 830,
+        "ISSP2019": 1088,
+        "ISSP2021": 911,
+        "CPS": 103,
+        "SDI": 5,
+        "VAPP": 1000
       }
     },
     {
@@ -2165,49 +2127,15 @@
       "numericId": "040",
       "lon": 14.0602,
       "lat": 47.621,
-      "count": 6163,
+      "count": 5833,
       "byDataset": {
         "EVS2017": 1524,
         "ISSP2009": 951,
         "ISSP2015": 943,
         "ISSP2019": 1228,
         "ISSP2021": 1114,
-        "CPS": 292,
-        "SDI": 111
-      }
-    },
-    {
-      "id": "SVK",
-      "label": "Slovakia",
-      "numericId": "703",
-      "lon": 19.4975,
-      "lat": 48.7333,
-      "count": 6111,
-      "byDataset": {
-        "EVS2017": 1212,
-        "ISSP2009": 1059,
-        "ISSP2015": 1071,
-        "ISSP2016": 1087,
-        "ISSP2021": 903,
-        "CPS": 739,
-        "SDI": 40
-      }
-    },
-    {
-      "id": "ISR",
-      "label": "Israel",
-      "numericId": "376",
-      "lon": 34.82,
-      "lat": 31.48,
-      "count": 5987,
-      "byDataset": {
-        "ISSP2009": 511,
-        "ISSP2015": 1171,
-        "ISSP2016": 1182,
-        "ISSP2019": 1144,
-        "ISSP2021": 1122,
-        "CPS": 829,
-        "SDI": 28
+        "CPS": 28,
+        "SDI": 45
       }
     },
     {
@@ -2216,31 +2144,65 @@
       "numericId": "356",
       "lon": 79.5399,
       "lat": 22.8192,
-      "count": 5973,
+      "count": 5434,
       "byDataset": {
         "ISSP2015": 1305,
         "ISSP2016": 1448,
         "ISSP2021": 1630,
-        "CPS": 579,
-        "SDI": 11,
+        "CPS": 49,
+        "SDI": 2,
         "VAPP": 1000
       }
     },
     {
-      "id": "NZL",
-      "label": "New Zealand",
-      "numericId": "554",
-      "lon": 172.9514,
-      "lat": -41.5511,
-      "count": 5268,
+      "id": "SVK",
+      "label": "Slovakia",
+      "numericId": "703",
+      "lon": 19.4975,
+      "lat": 48.7333,
+      "count": 5403,
       "byDataset": {
-        "ISSP2009": 898,
-        "ISSP2015": 304,
-        "ISSP2016": 1055,
-        "ISSP2019": 1100,
-        "ISSP2021": 1049,
-        "CPS": 826,
+        "EVS2017": 1212,
+        "ISSP2009": 1059,
+        "ISSP2015": 1071,
+        "ISSP2016": 1087,
+        "ISSP2021": 903,
+        "CPS": 57,
+        "SDI": 14
+      }
+    },
+    {
+      "id": "AUS",
+      "label": "Australia",
+      "numericId": "036",
+      "lon": 134.3141,
+      "lat": -25.7631,
+      "count": 5375,
+      "byDataset": {
+        "ISSP2009": 1348,
+        "ISSP2015": 987,
+        "ISSP2016": 1117,
+        "ISSP2019": 969,
+        "ISSP2021": 846,
+        "CPS": 72,
         "SDI": 36
+      }
+    },
+    {
+      "id": "ISR",
+      "label": "Israel",
+      "numericId": "376",
+      "lon": 34.82,
+      "lat": 31.48,
+      "count": 5216,
+      "byDataset": {
+        "ISSP2009": 511,
+        "ISSP2015": 1171,
+        "ISSP2016": 1182,
+        "ISSP2019": 1144,
+        "ISSP2021": 1122,
+        "CPS": 76,
+        "SDI": 10
       }
     },
     {
@@ -2259,34 +2221,19 @@
       }
     },
     {
-      "id": "BEL",
-      "label": "Belgium",
-      "numericId": "056",
-      "lon": 4.5877,
-      "lat": 50.6526,
-      "count": 5132,
-      "byDataset": {
-        "ISSP2009": 1108,
-        "ISSP2015": 1935,
-        "ISSP2016": 1741,
-        "CPS": 318,
-        "SDI": 30
-      }
-    },
-    {
       "id": "HUN",
       "label": "Hungary",
       "numericId": "348",
       "lon": 19.343,
       "lat": 47.2035,
-      "count": 5109,
+      "count": 5093,
       "byDataset": {
         "EVS2017": 1260,
         "ISSP2009": 939,
         "ISSP2015": 940,
         "ISSP2016": 971,
         "ISSP2021": 974,
-        "SDI": 25
+        "SDI": 9
       }
     },
     {
@@ -2303,19 +2250,51 @@
       }
     },
     {
+      "id": "BEL",
+      "label": "Belgium",
+      "numericId": "056",
+      "lon": 4.5877,
+      "lat": 50.6526,
+      "count": 4818,
+      "byDataset": {
+        "ISSP2009": 1108,
+        "ISSP2015": 1935,
+        "ISSP2016": 1741,
+        "CPS": 27,
+        "SDI": 7
+      }
+    },
+    {
       "id": "CHL",
       "label": "Chile",
       "numericId": "152",
       "lon": -71.1779,
       "lat": -37.3109,
-      "count": 4866,
+      "count": 4545,
       "byDataset": {
         "ISSP2009": 831,
         "ISSP2015": 1215,
         "ISSP2016": 1175,
         "ISSP2019": 1274,
-        "CPS": 310,
-        "SDI": 61
+        "CPS": 22,
+        "SDI": 28
+      }
+    },
+    {
+      "id": "NZL",
+      "label": "New Zealand",
+      "numericId": "554",
+      "lon": 172.9514,
+      "lat": -41.5511,
+      "count": 4481,
+      "byDataset": {
+        "ISSP2009": 898,
+        "ISSP2015": 304,
+        "ISSP2016": 1055,
+        "ISSP2019": 1100,
+        "ISSP2021": 1049,
+        "CPS": 61,
+        "SDI": 14
       }
     },
     {
@@ -2324,28 +2303,13 @@
       "numericId": "792",
       "lon": 35.1172,
       "lat": 39.1451,
-      "count": 4529,
+      "count": 4085,
       "byDataset": {
         "ISSP2009": 1544,
         "ISSP2016": 1483,
-        "CPS": 453,
-        "SDI": 49,
+        "CPS": 44,
+        "SDI": 14,
         "VAPP": 1000
-      }
-    },
-    {
-      "id": "THA",
-      "label": "Thailand",
-      "numericId": "764",
-      "lon": 101.0025,
-      "lat": 14.9807,
-      "count": 4251,
-      "byDataset": {
-        "ISSP2016": 1302,
-        "ISSP2019": 1434,
-        "ISSP2021": 1161,
-        "CPS": 353,
-        "SDI": 1
       }
     },
     {
@@ -2354,13 +2318,42 @@
       "numericId": "428",
       "lon": 24.8394,
       "lat": 56.8173,
-      "count": 4201,
+      "count": 3991,
       "byDataset": {
         "EVS2017": 1083,
         "ISSP2009": 968,
         "ISSP2015": 955,
         "ISSP2016": 962,
-        "CPS": 233
+        "CPS": 23
+      }
+    },
+    {
+      "id": "THA",
+      "label": "Thailand",
+      "numericId": "764",
+      "lon": 101.0025,
+      "lat": 14.9807,
+      "count": 3929,
+      "byDataset": {
+        "ISSP2016": 1302,
+        "ISSP2019": 1434,
+        "ISSP2021": 1161,
+        "CPS": 32
+      }
+    },
+    {
+      "id": "VEN",
+      "label": "Venezuela",
+      "numericId": "862",
+      "lon": -66.1532,
+      "lat": 7.1608,
+      "count": 3719,
+      "byDataset": {
+        "ISSP2009": 705,
+        "ISSP2015": 990,
+        "ISSP2016": 988,
+        "ISSP2019": 1034,
+        "CPS": 2
       }
     },
     {
@@ -2369,12 +2362,12 @@
       "numericId": "410",
       "lon": 127.8199,
       "lat": 36.4187,
-      "count": 4129,
+      "count": 3578,
       "byDataset": {
         "ISSP2009": 1543,
         "ISSP2016": 973,
-        "CPS": 558,
-        "SDI": 55,
+        "CPS": 47,
+        "SDI": 15,
         "VAPP": 1000
       }
     },
@@ -2384,55 +2377,13 @@
       "numericId": "100",
       "lon": 25.1875,
       "lat": 42.7559,
-      "count": 3972,
+      "count": 3416,
       "byDataset": {
         "EVS2017": 1357,
         "ISSP2009": 950,
         "ISSP2019": 1056,
-        "CPS": 590,
-        "SDI": 19
-      }
-    },
-    {
-      "id": "VEN",
-      "label": "Venezuela",
-      "numericId": "862",
-      "lon": -66.1532,
-      "lat": 7.1608,
-      "count": 3779,
-      "byDataset": {
-        "ISSP2009": 705,
-        "ISSP2015": 990,
-        "ISSP2016": 988,
-        "ISSP2019": 1034,
-        "CPS": 62
-      }
-    },
-    {
-      "id": "NLD",
-      "label": "Netherlands",
-      "numericId": "528",
-      "lon": 5.4999,
-      "lat": 52.2929,
-      "count": 3760,
-      "byDataset": {
-        "EVS2017": 1259,
-        "ISSP2021": 1228,
-        "CPS": 1239,
-        "SDI": 34
-      }
-    },
-    {
-      "id": "UKR",
-      "label": "Ukraine",
-      "numericId": "804",
-      "lon": 31.2924,
-      "lat": 49.1866,
-      "count": 3585,
-      "byDataset": {
-        "EVS2017": 1319,
-        "ISSP2009": 1970,
-        "CPS": 296
+        "CPS": 45,
+        "SDI": 8
       }
     },
     {
@@ -2450,18 +2401,16 @@
       }
     },
     {
-      "id": "MEX",
-      "label": "Mexico",
-      "numericId": "484",
-      "lon": -102.2231,
-      "lat": 23.9134,
-      "count": 3374,
+      "id": "UKR",
+      "label": "Ukraine",
+      "numericId": "804",
+      "lon": 31.2924,
+      "lat": 49.1866,
+      "count": 3313,
       "byDataset": {
-        "ISSP2015": 1028,
-        "ISSP2021": 885,
-        "CPS": 366,
-        "SDI": 95,
-        "VAPP": 1000
+        "EVS2017": 1319,
+        "ISSP2009": 1970,
+        "CPS": 24
       }
     },
     {
@@ -2475,6 +2424,21 @@
         "EVS2017": 1023,
         "ISSP2009": 990,
         "ISSP2015": 1131
+      }
+    },
+    {
+      "id": "MEX",
+      "label": "Mexico",
+      "numericId": "484",
+      "lon": -102.2231,
+      "lat": 23.9134,
+      "count": 2978,
+      "byDataset": {
+        "ISSP2015": 1028,
+        "ISSP2021": 885,
+        "CPS": 31,
+        "SDI": 34,
+        "VAPP": 1000
       }
     },
     {
@@ -2493,99 +2457,17 @@
       "markerOnly": true
     },
     {
-      "id": "UK",
-      "iso2": "GB",
-      "label": "United Kingdom",
-      "numericId": "826",
-      "lon": -0.1253,
-      "lat": 51.5083,
-      "count": 2749,
+      "id": "NLD",
+      "label": "Netherlands",
+      "numericId": "528",
+      "lon": 5.4999,
+      "lat": 52.2929,
+      "count": 2607,
       "byDataset": {
-        "CPS": 1585,
-        "SDI": 164,
-        "VAPP": 1000
-      }
-    },
-    {
-      "id": "NGA",
-      "iso2": "NG",
-      "label": "Nigeria",
-      "numericId": "566",
-      "lon": 7.9858,
-      "lat": 9.5446,
-      "count": 2213,
-      "byDataset": {
-        "CPS": 1062,
-        "SDI": 151,
-        "VAPP": 1000
-      }
-    },
-    {
-      "id": "CAN",
-      "iso2": "CA",
-      "label": "Canada",
-      "numericId": "124",
-      "lon": -97.8593,
-      "lat": 58.45,
-      "count": 1856,
-      "byDataset": {
-        "CPS": 792,
-        "SDI": 64,
-        "VAPP": 1000
-      }
-    },
-    {
-      "id": "PRT",
-      "label": "Portugal",
-      "numericId": "620",
-      "lon": -8.0611,
-      "lat": 39.6072,
-      "count": 1853,
-      "byDataset": {
-        "EVS2017": 924,
-        "ISSP2009": 473,
-        "CPS": 410,
-        "SDI": 46
-      }
-    },
-    {
-      "id": "BRA",
-      "iso2": "BR",
-      "label": "Brazil",
-      "numericId": "076",
-      "lon": -53.1725,
-      "lat": -10.6555,
-      "count": 1826,
-      "byDataset": {
-        "CPS": 802,
-        "SDI": 24,
-        "VAPP": 1000
-      }
-    },
-    {
-      "id": "ROU",
-      "label": "Romania",
-      "numericId": "642",
-      "lon": 24.9541,
-      "lat": 45.8534,
-      "count": 1809,
-      "byDataset": {
-        "EVS2017": 1391,
-        "CPS": 332,
-        "SDI": 86
-      }
-    },
-    {
-      "id": "ARM",
-      "label": "Armenia",
-      "numericId": "051",
-      "lon": 45.0096,
-      "lat": 40.2144,
-      "count": 1691,
-      "byDataset": {
-        "EVS2017": 1475,
-        "CPS": 213,
-        "SDI": 3
+        "EVS2017": 1259,
+        "ISSP2021": 1228,
+        "CPS": 102,
+        "SDI": 18
       }
     },
     {
@@ -2605,40 +2487,51 @@
       "numericId": "070",
       "lon": 17.8229,
       "lat": 44.1788,
-      "count": 1634,
+      "count": 1631,
       "byDataset": {
         "EVS2017": 1629,
-        "SDI": 5
+        "SDI": 2
       }
     },
     {
-      "id": "ECU",
-      "iso2": "EC",
-      "label": "Ecuador",
-      "numericId": "218",
-      "lon": -78.3837,
-      "lat": -1.4544,
-      "count": 1462,
+      "id": "ARM",
+      "label": "Armenia",
+      "numericId": "051",
+      "lon": 45.0096,
+      "lat": 40.2144,
+      "count": 1494,
       "byDataset": {
-        "CPS": 453,
-        "SDI": 9,
-        "VAPP": 1000
+        "EVS2017": 1475,
+        "CPS": 18,
+        "SDI": 1
       }
     },
     {
-      "id": "SGP",
-      "iso2": "SG",
-      "label": "Singapore",
-      "numericId": null,
-      "lon": 103.85,
-      "lat": 1.2833,
-      "count": 1435,
+      "id": "PRT",
+      "label": "Portugal",
+      "numericId": "620",
+      "lon": -8.0611,
+      "lat": 39.6072,
+      "count": 1445,
       "byDataset": {
-        "CPS": 417,
-        "SDI": 18,
-        "VAPP": 1000
-      },
-      "markerOnly": true
+        "EVS2017": 924,
+        "ISSP2009": 473,
+        "CPS": 35,
+        "SDI": 13
+      }
+    },
+    {
+      "id": "ROU",
+      "label": "Romania",
+      "numericId": "642",
+      "lon": 24.9541,
+      "lat": 45.8534,
+      "count": 1439,
+      "byDataset": {
+        "EVS2017": 1391,
+        "CPS": 28,
+        "SDI": 20
+      }
     },
     {
       "id": "ALB",
@@ -2649,32 +2542,6 @@
       "count": 1392,
       "byDataset": {
         "EVS2017": 1392
-      }
-    },
-    {
-      "id": "SRB",
-      "label": "Serbia",
-      "numericId": "688",
-      "lon": 20.8369,
-      "lat": 44.2232,
-      "count": 1388,
-      "byDataset": {
-        "EVS2017": 1198,
-        "CPS": 177,
-        "SDI": 13
-      }
-    },
-    {
-      "id": "GHA",
-      "iso2": "GH",
-      "label": "Ghana",
-      "numericId": "288",
-      "lon": -1.2371,
-      "lat": 7.9235,
-      "count": 1313,
-      "byDataset": {
-        "CPS": 313,
-        "VAPP": 1000
       }
     },
     {
@@ -2689,28 +2556,83 @@
       }
     },
     {
-      "id": "MKD",
-      "label": "North Macedonia",
-      "numericId": "807",
-      "lon": 21.6961,
-      "lat": 41.6058,
-      "count": 1199,
+      "id": "SRB",
+      "label": "Serbia",
+      "numericId": "688",
+      "lon": 20.8369,
+      "lat": 44.2232,
+      "count": 1219,
       "byDataset": {
-        "EVS2017": 901,
-        "CPS": 270,
-        "SDI": 28
+        "EVS2017": 1198,
+        "CPS": 16,
+        "SDI": 5
       }
     },
     {
-      "id": "PER",
-      "iso2": "PE",
-      "label": "Peru",
-      "numericId": "604",
-      "lon": -74.4306,
-      "lat": -9.1471,
-      "count": 1173,
+      "id": "UK",
+      "iso2": "GB",
+      "label": "United Kingdom",
+      "numericId": "826",
+      "lon": -0.1253,
+      "lat": 51.5083,
+      "count": 1171,
       "byDataset": {
-        "CPS": 173,
+        "CPS": 117,
+        "SDI": 54,
+        "VAPP": 1000
+      }
+    },
+    {
+      "id": "NGA",
+      "iso2": "NG",
+      "label": "Nigeria",
+      "numericId": "566",
+      "lon": 7.9858,
+      "lat": 9.5446,
+      "count": 1143,
+      "byDataset": {
+        "CPS": 93,
+        "SDI": 50,
+        "VAPP": 1000
+      }
+    },
+    {
+      "id": "ARG",
+      "label": "Argentina",
+      "numericId": "032",
+      "lon": -64.7543,
+      "lat": -34.7366,
+      "count": 1125,
+      "byDataset": {
+        "ISSP2009": 1116,
+        "SDI": 9
+      }
+    },
+    {
+      "id": "CAN",
+      "iso2": "CA",
+      "label": "Canada",
+      "numericId": "124",
+      "lon": -97.8593,
+      "lat": 58.45,
+      "count": 1084,
+      "byDataset": {
+        "CPS": 68,
+        "SDI": 16,
+        "VAPP": 1000
+      }
+    },
+    {
+      "id": "BRA",
+      "iso2": "BR",
+      "label": "Brazil",
+      "numericId": "076",
+      "lon": -53.1725,
+      "lat": -10.6555,
+      "count": 1070,
+      "byDataset": {
+        "CPS": 61,
+        "SDI": 9,
         "VAPP": 1000
       }
     },
@@ -2721,22 +2643,78 @@
       "numericId": "404",
       "lon": 37.7914,
       "lat": 0.5955,
-      "count": 1159,
+      "count": 1055,
       "byDataset": {
-        "SDI": 159,
+        "SDI": 55,
         "VAPP": 1000
       }
     },
     {
-      "id": "ARG",
-      "label": "Argentina",
-      "numericId": "032",
-      "lon": -64.7543,
-      "lat": -34.7366,
-      "count": 1139,
+      "id": "SGP",
+      "iso2": "SG",
+      "label": "Singapore",
+      "numericId": null,
+      "lon": 103.85,
+      "lat": 1.2833,
+      "count": 1043,
       "byDataset": {
-        "ISSP2009": 1116,
-        "SDI": 23
+        "CPS": 36,
+        "SDI": 7,
+        "VAPP": 1000
+      },
+      "markerOnly": true
+    },
+    {
+      "id": "ECU",
+      "iso2": "EC",
+      "label": "Ecuador",
+      "numericId": "218",
+      "lon": -78.3837,
+      "lat": -1.4544,
+      "count": 1030,
+      "byDataset": {
+        "CPS": 27,
+        "SDI": 3,
+        "VAPP": 1000
+      }
+    },
+    {
+      "id": "GHA",
+      "iso2": "GH",
+      "label": "Ghana",
+      "numericId": "288",
+      "lon": -1.2371,
+      "lat": 7.9235,
+      "count": 1030,
+      "byDataset": {
+        "CPS": 30,
+        "VAPP": 1000
+      }
+    },
+    {
+      "id": "PER",
+      "iso2": "PE",
+      "label": "Peru",
+      "numericId": "604",
+      "lon": -74.4306,
+      "lat": -9.1471,
+      "count": 1023,
+      "byDataset": {
+        "CPS": 23,
+        "VAPP": 1000
+      }
+    },
+    {
+      "id": "MKD",
+      "label": "North Macedonia",
+      "numericId": "807",
+      "lon": 21.6961,
+      "lat": 41.6058,
+      "count": 928,
+      "byDataset": {
+        "EVS2017": 901,
+        "CPS": 16,
+        "SDI": 11
       }
     },
     {
@@ -2745,10 +2723,9 @@
       "numericId": "196",
       "lon": 33.0391,
       "lat": 34.9075,
-      "count": 829,
+      "count": 828,
       "byDataset": {
-        "ISSP2009": 828,
-        "SDI": 1
+        "ISSP2009": 828
       }
     },
     {
@@ -2763,16 +2740,15 @@
       }
     },
     {
-      "id": "IRL",
-      "iso2": "IE",
-      "label": "Ireland",
-      "numericId": "372",
-      "lon": -8.017,
-      "lat": 53.1718,
-      "count": 570,
+      "id": "EGY",
+      "iso2": "EG",
+      "label": "Egypt",
+      "numericId": "818",
+      "lon": 29.861,
+      "lat": 26.4749,
+      "count": 69,
       "byDataset": {
-        "CPS": 561,
-        "SDI": 9
+        "SDI": 69
       }
     },
     {
@@ -2782,10 +2758,23 @@
       "numericId": "300",
       "lon": 22.5461,
       "lat": 39.3228,
-      "count": 486,
+      "count": 54,
       "byDataset": {
-        "CPS": 467,
-        "SDI": 19
+        "CPS": 49,
+        "SDI": 5
+      }
+    },
+    {
+      "id": "IRL",
+      "iso2": "IE",
+      "label": "Ireland",
+      "numericId": "372",
+      "lon": -8.017,
+      "lat": 53.1718,
+      "count": 50,
+      "byDataset": {
+        "CPS": 47,
+        "SDI": 3
       }
     },
     {
@@ -2795,9 +2784,9 @@
       "numericId": "729",
       "lon": 29.8306,
       "lat": 15.9716,
-      "count": 483,
+      "count": 42,
       "byDataset": {
-        "CPS": 483
+        "CPS": 42
       }
     },
     {
@@ -2807,22 +2796,10 @@
       "numericId": "784",
       "lon": 54.2004,
       "lat": 23.871,
-      "count": 426,
+      "count": 38,
       "byDataset": {
-        "CPS": 424,
+        "CPS": 36,
         "SDI": 2
-      }
-    },
-    {
-      "id": "DZA",
-      "iso2": "DZ",
-      "label": "Algeria",
-      "numericId": "012",
-      "lon": 2.612,
-      "lat": 28.0855,
-      "count": 348,
-      "byDataset": {
-        "CPS": 348
       }
     },
     {
@@ -2832,10 +2809,10 @@
       "numericId": "504",
       "lon": -8.6937,
       "lat": 29.8154,
-      "count": 340,
+      "count": 36,
       "byDataset": {
-        "CPS": 323,
-        "SDI": 17
+        "CPS": 31,
+        "SDI": 5
       }
     },
     {
@@ -2845,45 +2822,21 @@
       "numericId": "682",
       "lon": 44.6413,
       "lat": 24.0893,
-      "count": 339,
+      "count": 30,
       "byDataset": {
-        "CPS": 339
+        "CPS": 30
       }
     },
     {
-      "id": "URY",
-      "iso2": "UY",
-      "label": "Uruguay",
-      "numericId": "858",
-      "lon": -56.0099,
-      "lat": -32.7738,
-      "count": 300,
+      "id": "DZA",
+      "iso2": "DZ",
+      "label": "Algeria",
+      "numericId": "012",
+      "lon": 2.612,
+      "lat": 28.0855,
+      "count": 27,
       "byDataset": {
-        "CPS": 300
-      }
-    },
-    {
-      "id": "LKA",
-      "iso2": "LK",
-      "label": "Sri Lanka",
-      "numericId": "144",
-      "lon": 80.6679,
-      "lat": 7.6995,
-      "count": 261,
-      "byDataset": {
-        "CPS": 261
-      }
-    },
-    {
-      "id": "GMB",
-      "iso2": "GM",
-      "label": "Gambia",
-      "numericId": "270",
-      "lon": -15.4327,
-      "lat": 13.4767,
-      "count": 249,
-      "byDataset": {
-        "CPS": 249
+        "CPS": 27
       }
     },
     {
@@ -2893,21 +2846,9 @@
       "numericId": "704",
       "lon": 105.3947,
       "lat": 21.5088,
-      "count": 209,
+      "count": 21,
       "byDataset": {
-        "CPS": 209
-      }
-    },
-    {
-      "id": "EGY",
-      "iso2": "EG",
-      "label": "Egypt",
-      "numericId": "818",
-      "lon": 29.861,
-      "lat": 26.4749,
-      "count": 157,
-      "byDataset": {
-        "SDI": 157
+        "CPS": 21
       }
     },
     {
@@ -2917,21 +2858,33 @@
       "numericId": "586",
       "lon": 69.235,
       "lat": 29.9082,
-      "count": 65,
+      "count": 20,
       "byDataset": {
-        "SDI": 65
+        "SDI": 20
       }
     },
     {
-      "id": "CRI",
-      "iso2": "CR",
-      "label": "Costa Rica",
-      "numericId": "188",
-      "lon": -84.1735,
-      "lat": 9.9658,
-      "count": 40,
+      "id": "GMB",
+      "iso2": "GM",
+      "label": "Gambia",
+      "numericId": "270",
+      "lon": -15.4327,
+      "lat": 13.4767,
+      "count": 18,
       "byDataset": {
-        "SDI": 40
+        "CPS": 18
+      }
+    },
+    {
+      "id": "URY",
+      "iso2": "UY",
+      "label": "Uruguay",
+      "numericId": "858",
+      "lon": -56.0099,
+      "lat": -32.7738,
+      "count": 17,
+      "byDataset": {
+        "CPS": 17
       }
     },
     {
@@ -2941,21 +2894,33 @@
       "numericId": "170",
       "lon": -73.0735,
       "lat": 3.9163,
-      "count": 22,
+      "count": 12,
       "byDataset": {
-        "SDI": 22
+        "SDI": 12
       }
     },
     {
-      "id": "IRN",
-      "iso2": "IR",
-      "label": "Iran",
-      "numericId": "364",
-      "lon": 54.453,
-      "lat": 32.4741,
-      "count": 16,
+      "id": "LKA",
+      "iso2": "LK",
+      "label": "Sri Lanka",
+      "numericId": "144",
+      "lon": 80.6679,
+      "lat": 7.6995,
+      "count": 12,
       "byDataset": {
-        "SDI": 16
+        "CPS": 12
+      }
+    },
+    {
+      "id": "CRI",
+      "iso2": "CR",
+      "label": "Costa Rica",
+      "numericId": "188",
+      "lon": -84.1735,
+      "lat": 9.9658,
+      "count": 11,
+      "byDataset": {
+        "SDI": 11
       }
     },
     {
@@ -2965,9 +2930,21 @@
       "numericId": "458",
       "lon": 114.6684,
       "lat": 3.5481,
-      "count": 15,
+      "count": 6,
       "byDataset": {
-        "SDI": 15
+        "SDI": 6
+      }
+    },
+    {
+      "id": "BGD",
+      "iso2": "BD",
+      "label": "Bangladesh",
+      "numericId": "050",
+      "lon": 90.2763,
+      "lat": 23.8339,
+      "count": 3,
+      "byDataset": {
+        "SDI": 3
       }
     },
     {
@@ -2977,22 +2954,22 @@
       "numericId": null,
       "lon": 114.15,
       "lat": 22.2833,
-      "count": 7,
+      "count": 3,
       "byDataset": {
-        "SDI": 7
+        "SDI": 3
       },
       "markerOnly": true
     },
     {
-      "id": "BGD",
-      "iso2": "BD",
-      "label": "Bangladesh",
-      "numericId": "050",
-      "lon": 90.2763,
-      "lat": 23.8339,
-      "count": 6,
+      "id": "IRN",
+      "iso2": "IR",
+      "label": "Iran",
+      "numericId": "364",
+      "lon": 54.453,
+      "lat": 32.4741,
+      "count": 3,
       "byDataset": {
-        "SDI": 6
+        "SDI": 3
       }
     },
     {
@@ -3032,19 +3009,6 @@
         "SDI": 1
       },
       "markerOnly": true
-    },
-    {
-      "id": "XKX",
-      "iso2": "XK",
-      "label": "Kosovo",
-      "numericId": null,
-      "lon": 20.896,
-      "lat": 42.579,
-      "count": 1,
-      "byDataset": {
-        "SDI": 1
-      },
-      "atlasName": "Kosovo"
     }
   ],
   "versionNoteKey": "manuscriptVersionNote",

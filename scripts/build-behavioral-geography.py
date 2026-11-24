@@ -4,32 +4,30 @@ Usage: python3 scripts/build-behavioral-geography.py [--check]
 Only aggregate participant and question-response counts are written. The existing
 map anchors and the nine historical survey contributions are independent inputs.
 The source's SDI country codes can differ from ISO. Legate et al., supplement
-Table S1, identifies the British Virgin Islands (VIR in PSAcombineddata), Kosovo
-(XKS), and separate Slovak and Slovenian PSA samples (SLO and SVN, respectively).
+Table S1, identifies the British Virgin Islands (VIR in PSAcombineddata) and
+separate Slovak and Slovenian PSA samples (SLO and SVN, respectively).
 """
 import argparse
 from collections import Counter
 import json
 from pathlib import Path
-import re
 from zipfile import ZipFile
 
 ROOT = Path(__file__).resolve().parents[1]
 GEOGRAPHY = ROOT / "assets/geography.json"
 SOURCES = {
-    "CPS": ("ClimateChange", "climate-change.zip"),
-    "SDI": ("SocialDistance", "social-distance.zip"),
-    "VAPP": ("COVID-19", "covid-19.zip"),
+    "CPS": ("ClimateChange", "ClimateChange", "climate-change.zip"),
+    "SDI": ("SocialDistance", "SocialDistancing", "social-distance.zip"),
+    "VAPP": ("COVID-19", "CUNY2023-COVID19-perceived", "covid-19.zip"),
 }
 # Original main and held-out survey task inventories (manuscript Table 33 for GSS).
 SURVEY_QUESTIONS = {
     "ATP142": 49, "ATP152": 57, "EVS2017": 53, "ISSP2009": 31, "ISSP2015": 25,
     "ISSP2016": 35, "ISSP2019": 27, "ISSP2021": 24, "GSS2022": 64,
 }
-COUNTRY = re.compile(r"\bYour country is ([^.\n]+)\.")
 
 
-def count_release(dataset, name, filename, aliases):
+def count_release(dataset, name, source_dataset, filename, aliases):
     respondents = {}
     responses = Counter()
     train_test = {}
@@ -40,14 +38,11 @@ def count_release(dataset, name, filename, aliases):
             with archive.open(f"{split}.jsonl") as lines:
                 for raw in lines:
                     record = json.loads(raw)
-                    if record["split"] != split or record["dataset"] != dataset:
-                        raise ValueError(f"Unexpected dataset or split in {filename}/{split}.jsonl")
-                    personal = record["prompt"].split("### Personal Information:\n", 1)[1].split("\n### ", 1)[0]
-                    labels = COUNTRY.findall(personal)
-                    if len(labels) != 1:
-                        raise ValueError(f"Expected one survey country in {filename}/{split}.jsonl")
-                    region = aliases[labels[0]]
-                    person = record["respondent_id"]
+                    if record["dataset"] != source_dataset:
+                        raise ValueError(f"Unexpected dataset in {filename}/{split}.jsonl")
+                    country = record["profile"]["country"]
+                    region = aliases[country]
+                    person = record["person_id"]
                     if not person or respondents.setdefault(person, (region, split)) != (region, split):
                         raise ValueError(f"Conflicting respondent location or split in {filename}")
                     questions.add(record["question_id"])
@@ -82,13 +77,16 @@ def build(index):
     for region in regions.values():
         region["count"] = sum(region["byDataset"].values())
     index["datasets"] = surveys + release
-    index["regions"] = sorted(regions.values(), key=lambda r: (-r["count"], r["id"]))
+    index["regions"] = sorted(
+        (region for region in regions.values() if region["count"] > 0),
+        key=lambda region: (-region["count"], region["id"]),
+    )
     index["totalQuestions"] = sum(dataset["questionCount"] for dataset in index["datasets"])
     index["totalRegions"] = len(index["regions"])
     index["totalRespondents"] = sum(dataset["respondents"] for dataset in index["datasets"])
     index["totalResponses"] = sum(dataset["responses"] for dataset in index["datasets"])
-    index["updated"] = "2026-11-23"
-    index["sourceVersion"] = "Manuscript survey cohort and the November 18, 2026 behavioral data release (Prompt v3)."
+    index["updated"] = "2026-11-24"
+    index["sourceVersion"] = "Manuscript survey cohort and the November 24, 2026 behavioral dataset update."
     index["methodology"] = (
         "Respondents are counted once per dataset across the training and test splits. "
         "The totals combine the nine manuscript surveys with the three released behavioral datasets. "

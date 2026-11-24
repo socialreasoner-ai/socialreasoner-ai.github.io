@@ -28,17 +28,17 @@ for (const [, attribute, visible, key] of cards) {
 assert.equal(sum(data.regions.map(r => r.count)), data.totalRespondents);
 assert.equal(sum(data.datasets.map(d => d.respondents)), data.totalRespondents);
 assert.equal(sum(data.datasets.map(d => d.responses)), data.totalResponses);
-assert.equal(data.totalRespondents, 349425);
+assert.equal(data.totalRespondents, 309956);
 assert.equal(data.paperRespondents, 281995);
-assert.equal(data.totalResponses, 9238546);
+assert.equal(data.totalResponses, 8897760);
 assert.equal(data.paperResponses, 8725666);
-assert.equal(data.totalRegions, 88);
+assert.equal(data.totalRegions, 87);
 assert.equal(data.regions.length, data.totalRegions);
 assert.equal(data.versionNoteKey, 'manuscriptVersionNote');
 assert.ok(data.versionNote?.trim(), 'Aggregate index retains manuscript provenance');
 const behavioralDatasets = {
-  CPS:  { respondents: 39931, responses: 359379, regions: 60 },
-  SDI:  { respondents:  4415, responses:  17660, regions: 65 },
+  CPS:  { respondents:  3349, responses:  30141, regions: 60 },
+  SDI:  { respondents:  1528, responses:   6112, regions: 61 },
   VAPP: { respondents: 23084, responses: 135841, regions: 23 }
 };
 for (const [id, expected] of Object.entries(behavioralDatasets)) {
@@ -234,7 +234,7 @@ for (const [id, expected] of Object.entries(behavioralDatasets)) {
   api.clearSelection();
 }
 assert.equal(store.getRegionForFeature({id:826,properties:{name:'United Kingdom'}})?.id, 'UK');
-assert.equal(store.getRegionForFeature({properties:{name:'Kosovo'}})?.id, 'XKX');
+assert.equal(store.getRegionForFeature({properties:{name:'Kosovo'}}), null);
 assert.equal(store.getRegionForFeature({properties:{name:'Somaliland'}}), null);
 for (const lang of ['zh','fr','de','ko','en']) {
   language=lang; events['site:languagechange']({ detail: { language: lang } });

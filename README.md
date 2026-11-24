@@ -4,7 +4,7 @@ Website: https://socialreasoner-ai.github.io/
 
 Research title: **Learning a Foundation Model of Human Social Reasoning from Heterogeneous Experts**.
 
-This repository contains the project website and the CPS, SDI and VAPP survey downloads in `downloads/behavioral/`. Each ZIP contains one training file, one test file and a README.
+This repository contains the project website and the CPS, SDI and VAPP survey downloads in `downloads/behavioral/`. Each ZIP contains `train.jsonl`, `test.jsonl` and a README with split counts. The November 24, 2026 website update preserves the supplied split assignments, row order, structured profiles, prompts and observed responses. `person_id` is a dataset-specific public pseudonym.
 
 ## Local preview
 
@@ -46,7 +46,7 @@ The model-release presentation adds `launch.css` / `launch.js` for current-secti
 Accuracy dataset groups persist across model changes so their column heights transition from the current state to the new values on a fixed 0–70% axis. Eight datasets run from left to right; the chart has its own horizontal scrolling area on narrow screens. The entry reveal and subtle highlight animation pause offscreen and respect reduced-motion preferences. Accuracy values remain in `research-data.js`; the additional distribution values and figure provenance are in `population-data.js`. Globe rotation stops drawing while offscreen, hidden or paused, and the background stars draw only on demand.
 
 
-The Data section covers all twelve datasets through age profiles, IMF economic groups, sample sizes, and geographic coverage. VAPP and the original nine surveys retain their recorded age categories, including Denmark’s separate ISSP2015 scheme. CPS and SDI report ages in years, grouped for display into 18–29, 30–39, 40–49, 50–59, 60–69 and 70+. Twenty-seven SDI participants have ages outside the source paper’s reported range of 18–89. They remain in the sample totals and are excluded from age percentages. The original nine surveys retain the 18 manuscript-only participants with unavailable ages.
+The Data section covers all twelve datasets through age profiles, IMF economic groups, sample sizes, and geographic coverage. VAPP and the original nine surveys retain their recorded age categories, including Denmark’s separate ISSP2015 scheme. CPS and SDI report ages in years, grouped for display into 18–29, 30–39, 40–49, 50–59, 60–69 and 70+. Ten SDI participants have ages outside the source paper’s reported range of 18–89. They remain in the sample totals and are excluded from age percentages. The original nine surveys retain the 18 manuscript-only participants with unavailable ages.
 
 `assets/demographics.json` contains dataset-by-region age histograms. Rebuild the three release profiles with `python3 scripts/build-demographics.py`, or add `--check` to compare them against the downloads without writing. The builder counts each respondent once within each dataset across training and test. Supply `--source-root` and `--mapping` to rebuild the original nine profiles from their local survey sources as well. The IMF October 2026 WEO appendix is linked in `assets/economy-groups.json`. Great Britain and the United Kingdom retain their distinct survey scopes and use the same IMF classification. The British Virgin Islands appear in a separate unclassified group.
 
@@ -68,7 +68,7 @@ The introduction uses an interactive SVG overview of 15 axes and fixed-scale, fi
 
 ## Geographic coverage
 
-`assets/geography.json` combines the original nine-survey cohort with the CPS, SDI and VAPP releases. Across 12 datasets, it counts 349,425 respondents, 9,238,546 responses, 384 target questions and 88 survey regions. Each person is counted once within their dataset across train and test. Each question is counted once per dataset. Use `python3 scripts/build-behavioral-geography.py --check` to reconcile behavioral aggregates with the downloadable records.
+`assets/geography.json` combines the original nine-survey cohort with the CPS, SDI and VAPP releases. Across 12 datasets, it counts 309,956 respondents, 8,897,760 responses, 384 target questions and 87 survey regions. Each person is counted once within their dataset across train and test. Each question is counted once per dataset. Use `python3 scripts/build-behavioral-geography.py --check` to reconcile behavioral aggregates with the downloadable records.
 
 Czech Republic/Czechia and Slovak Republic/Slovakia are consolidated. The historical Great Britain samples and the newer United Kingdom samples retain their respective geographic scopes. Small territories can be selected by their markers and in the region list.
 
